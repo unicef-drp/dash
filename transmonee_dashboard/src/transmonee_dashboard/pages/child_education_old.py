@@ -1,30 +1,8 @@
 from collections import defaultdict
 import plotly.express as px
 
-# from . import data, years
+from . import data, years
 from .base_page import get_base_layout
-
-page_cfg = {
-    "main_title": "Education, Leisure, and Culture",
-    "default_timeperiod": [2010, "now"],
-    "themes": {
-        "PARTICIPATION": {
-            "NAME": "Education access and participation 2",
-        }
-    },
-    "ref_areas_cl": {"agency": "UNICEF", "id": "CL_COUNTRY"},
-    "THEMES": {
-        "PARTICIPATION": {
-            "SUBTITLE": "Participation subtitle"
-        },
-        "QUALITY": {
-
-        },
-        "SYSTEM": {
-            "SUBTITLE": "System subtitle"
-        }
-    }
-}
 
 indicators_dict = {
     "PARTICIPATION": {
@@ -662,11 +640,10 @@ indicators_dict = {
 }
 
 
-# main_title = "Education, Leisure, and Culture"
+main_title = "Education, Leisure, and Culture"
 
 
 def get_layout(**kwargs):
     kwargs["indicators"] = indicators_dict
-    # kwargs["main_title"] = main_title
-    kwargs["page_cfg"] = page_cfg
+    kwargs["main_title"] = main_title
     return get_base_layout(**kwargs)

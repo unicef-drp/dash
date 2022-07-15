@@ -12,29 +12,34 @@ import plotly.io as pio
 from dash.dependencies import MATCH, ClientsideFunction, Input, Output, State
 from scipy.stats import zscore
 
+import datetime
+
 from ..app import app
 from ..components import fa
 from . import (
-    countries,
-    countries_iso3_dict,
-    df_sources,
-    dimension_names,
-    geo_json_countries,
-    get_filtered_dataset,
-    indicator_names,
-    indicators_config,
-    programme_country_indexes,
-    selection_index,
-    selection_tree,
-    unicef_country_prog,
-    years,
-    get_search_countries,
+    # countries,
+    # countries_iso3_dict,
+    # df_sources,
+    # dimension_names,
+    # geo_json_countries,
+    # get_filtered_dataset,
+    # indicator_names,
+    # indicators_config,
+    # programme_country_indexes,
+    # selection_index,
+    # selection_tree,
+    # unicef_country_prog,
+    # get_search_countries,
+    get_codelist_as_tree,
+    get_ml
 )
 
 # set defaults
 pio.templates.default = "plotly_white"
 px.defaults.color_continuous_scale = px.colors.sequential.BuGn
 px.defaults.color_discrete_sequence = px.colors.qualitative.Dark24
+
+lang = "en"
 
 colours = [
     "primary",
@@ -167,16 +172,29 @@ def make_area(area_name):
     return area
 
 
+def _get_years_range(time_period: list):
+    if type(time_period[1]) == str and time_period[1] == "now":
+        time_period[1] = datetime.datetime.now().year
+    return list(range(time_period[0], time_period[1]))
+
+
 def get_base_layout(**kwargs):
-    indicators_dict = kwargs.get("indicators")
-    main_title = kwargs.get("main_title")
+    page_config = kwargs.get("page_cfg")
+    # indicators_dict = kwargs.get("indicators")
+    main_title = page_config["main_title"]
+    years = _get_years_range(page_config["default_timeperiod"])
+    ref_area_cl = page_config["ref_areas_cl"]
+    ref_area_tree = get_codelist_as_tree(ref_area_cl["agency"], ref_area_cl["id"])
+
     is_country_profile = kwargs.get("is_country_profile")
+
+    # Default styles
     country_dropdown_style = {"display": "none"}
     themes_row_style = {"verticalAlign": "center", "display": "flex"}
     countries_filter_style = {"display": "block"}
     programme_toggle_style = {"display": "block"}
     main_area_style = {"display": "block"}
-
+    # If country profile the default styles are set
     if is_country_profile:
         country_dropdown_style = {
             "minWidth": 400,
@@ -192,7 +210,7 @@ def get_base_layout(**kwargs):
 
     return html.Div(
         [
-            dcc.Store(id="indicators", data=indicators_dict),
+            dcc.Store(id="page_config", data=page_config),
             dcc.Location(id="theme"),
             html.Div(
                 className="heading",
@@ -211,6 +229,7 @@ def get_base_layout(**kwargs):
                                         className="heading-title",
                                     ),
                                     html.P(
+
                                         id="subtitle",
                                         className="heading-subtitle",
                                     ),
@@ -269,17 +288,19 @@ def get_base_layout(**kwargs):
                                             ),
                                         ],
                                     ),
-                                    dcc.Dropdown(
-                                        id="country_profile_selector",
-                                        options=get_search_countries(False),
-                                        value="ALB",
-                                        multi=False,
-                                        placeholder="Select a country...",
-                                        className="m-2",
-                                        style=country_dropdown_style,
-                                    ),
+                                    #TODO: how to handle the country profiles in the Generic version?
+                                    # dcc.Dropdown(
+                                    #     id="country_profile_selector",
+                                    #     options=get_search_countries(False),
+                                    #     value="ALB",
+                                    #     multi=False,
+                                    #     placeholder="Select a country...",
+                                    #     className="m-2",
+                                    #     style=country_dropdown_style,
+                                    # ),
                                     dbc.DropdownMenu(
-                                        label=f"Countries: {len(countries)}",
+                                        # label=f"Countries: {len(countries)}",
+                                        label=f"{get_ml(lang, 'REF_AREA')}: {str(len(ref_area_tree['checked']))}",
                                         id="collapse-countries-button",
                                         className="m-2",
                                         color="info",
@@ -290,10 +311,11 @@ def get_base_layout(**kwargs):
                                                     id="country_selector",
                                                     multiple=True,
                                                     checkable=True,
-                                                    checked=["0"],
+                                                    checked=ref_area_tree["checked"],
                                                     # selected=[],
                                                     expanded=["0"],
-                                                    data=selection_tree,
+                                                    data=ref_area_tree["tree"],
+
                                                 ),
                                                 style={
                                                     "maxHeight": "250px",
@@ -365,13 +387,13 @@ def get_base_layout(**kwargs):
 
 
 def make_card(
-    card_id,
-    name,
-    suffix,
-    indicator_sources,
-    source_link,
-    indicator_header,
-    numerator_pairs,
+        card_id,
+        name,
+        suffix,
+        indicator_sources,
+        source_link,
+        indicator_header,
+        numerator_pairs,
 ):
     card = dbc.Card(
         [
@@ -450,6 +472,82 @@ def get_card_popover_body(sources):
         return "NA"
 
 
+'''
+@app.callback(
+    Output({"type": "area_parent", "index": MATCH}, "hidden"),
+    Input("theme", "hash"),
+    [
+        State("page_config", "data"),
+        State({"type": "area_parent", "index": MATCH}, "id"),
+    ],
+)
+def display_areas(theme, page_config, id):
+    print("Theme")
+    print(theme)
+    print("id")
+    print(id)
+    print("page c")
+    print(page_config)
+    area = id["index"]
+    themes = page_config["THEMES"]
+    theme = theme[1:].upper() if theme else next(iter(themes.keys()))
+    return area not in themes[theme]
+'''
+
+@app.callback(
+    Output("subtitle", "children"),
+    [Input('url','pathname')]
+)
+def url_params(pathname):
+    print("pathname")
+    print(pathname)
+
+'''
+@app.callback(
+    Output("subtitle", "children"),
+    Output("themes", "children"),
+    [
+        Input("store", "data"),
+        Input("country_profile_selector", "value"),
+    ],
+    State("indicators", "data"),
+)
+def show_themes(selections, selected_country, indicators_dict):
+    # check if it is the country profile page
+    is_country_profile = selections["theme"] == "COUNTRYPROFILE"
+    ctx = dash.callback_context
+    ctrl_id = ctx.triggered[0]["prop_id"].split(".")[0]
+    # check if the countries dropdown is causing this callback in order to set the sub-title to the country's name
+    if is_country_profile or ctrl_id == "countries":
+        key_list = list(countries_iso3_dict.keys())
+        val_list = list(countries_iso3_dict.values())
+        subtitle = (
+            key_list[val_list.index(selected_country)]
+            if selected_country
+            else "Country Name"
+        )
+        return subtitle, []
+
+    subtitle = indicators_dict[selections["theme"]].get("NAME")
+    url_hash = "#{}".format((next(iter(selections.items())))[1].lower())
+    # hide the buttons when only one option is available
+    if len(indicators_dict.items()) == 1:
+        return subtitle, []
+    buttons = [
+        dbc.Button(
+            value["NAME"],
+            id=key,
+            color=colours[num],
+            className="theme mx-1",
+            href=f"#{key.lower()}",
+            active=url_hash == f"#{key.lower()}",
+        )
+        for num, (key, value) in enumerate(indicators_dict.items())
+    ]
+    return subtitle, buttons
+'''
+
+'''
 # TODO: Move to client side call back
 @app.callback(
     Output("collapse-years", "is_open"),
@@ -483,18 +581,7 @@ def toggle_collapse(n1, n2, n3, is_open1, is_open2, is_open3):
     return False, False, False
 
 
-@app.callback(
-    Output({"type": "area_parent", "index": MATCH}, "hidden"),
-    Input("theme", "hash"),
-    [
-        State("indicators", "data"),
-        State({"type": "area_parent", "index": MATCH}, "id"),
-    ],
-)
-def display_areas(theme, indicators_dict, id):
-    area = id["index"]
-    theme = theme[1:].upper() if theme else next(iter(indicators_dict.keys()))
-    return area not in indicators_dict[theme]
+
 
 
 @app.callback(
@@ -1109,3 +1196,7 @@ def area_figure(
         fig.update_traces(**traces)
 
     return fig, html.A(html.P(source), href=source_link, target="_blank")
+    
+    
+    
+'''
