@@ -1,3 +1,8 @@
+
+.js-plotly-plot .plotly .modebar{
+    transform: translateY(-25px);
+}
+
 .js-plotly-plot .plotly .modebar.vertical{
     top: 60px;
 }
