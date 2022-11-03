@@ -23,14 +23,14 @@ class ProjectView(ModelView):
 
 class PageView(ModelView):
     column_display_all_relations = True
-    column_formatters = {
-        "content": json_formatter,
-    }
+    # column_formatters = {
+    #     "content": json_formatter,
+    # }
     column_list = (
         "project",
         "title",
         "slug",
-        "content",
+        #"content",
         "geography",
         "created_at",
         "updated_at",
