@@ -111,6 +111,10 @@ if (browserOk) {
             el.classList.remove("container");
             el.classList.add("container-fluid");
         }
+        el = document.getElementsByClassName("custom-embed");
+        if (el){
+            el.classList.remove("embed-small");
+        }
     }
 
     //load the json and adds to the page in the callback function
