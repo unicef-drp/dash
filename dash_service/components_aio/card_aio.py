@@ -69,7 +69,7 @@ class CardAIO(html.Div):
                             dbc.PopoverHeader(info_head),
                             dbc.PopoverBody(info_body),
                         ],
-                        style={"opacity":1}
+                        style={"opacity": 1},
                     ),
                 ],
             )

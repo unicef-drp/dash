@@ -150,6 +150,7 @@ class ChartAIO(html.Div):
                             id="hover",
                             target="chart_aio_inf_icon_" + aio_id,
                             trigger="hover",
+                            style={"opacity": 1},
                         )
                     ],
                 ),

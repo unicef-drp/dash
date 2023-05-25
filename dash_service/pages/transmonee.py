@@ -910,6 +910,7 @@ def get_base_layout(**kwargs):
                                                             "height": "200px",
                                                             "overflowY": "auto",
                                                             "whiteSpace": "pre-wrap",
+                                                            "opacity": 1,
                                                             # "padding": "8px",
                                                         },
                                                         delay={"hide": 0, "show": 0},
@@ -1255,6 +1256,7 @@ def get_base_layout(**kwargs):
                                                                 target=f"{page_prefix}-aio_area_data_info_rep",
                                                                 placement="top-start",
                                                                 trigger="hover",
+                                                                style={"opacity": 1},
                                                             ),
                                                             html.Div(
                                                                 dbc.Alert(
@@ -1283,6 +1285,7 @@ def get_base_layout(**kwargs):
                                                                 target=f"{page_prefix}-aio_area_data_info_nonrep",
                                                                 placement="top-start",
                                                                 trigger="hover",
+                                                                style={"opacity": 1},
                                                             ),
                                                             html.Div(
                                                                 dbc.Alert(
