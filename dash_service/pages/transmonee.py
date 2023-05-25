@@ -1078,28 +1078,6 @@ def get_base_layout(**kwargs):
                                         ),
                                         width="auto",
                                     ),
-                                    dbc.Col(
-                                        [
-                                            html.Button(
-                                                [
-                                                    # html.I(
-                                                    #   className="fas fa-download mr-2",
-                                                    #  style={"marginRight": "3px"},
-                                                    # ),  # Download icon
-                                                    "Download data",  # Button text
-                                                ],
-                                                id=f"{page_prefix}-download_btn",
-                                            ),
-                                            dcc.Download(
-                                                id=f"{page_prefix}-download-csv-info"
-                                            ),
-                                            dbc.Tooltip(
-                                                "Click to download the data displayed in graph as a CSV file.",
-                                                target=f"{page_prefix}-download_btn",
-                                            ),
-                                        ],
-                                        width="auto",
-                                    ),
                                 ],
                                 id=f"{page_prefix}-filter-row",
                                 justify="center",
@@ -1187,13 +1165,27 @@ def get_base_layout(**kwargs):
                                                                                     inputStyle={
                                                                                         "color": domain_colour
                                                                                     },
-                                                                                    # labelStyle={
-                                                                                    #     "paddingLeft": 0,
-                                                                                    #     "marginLeft": "-20px",
-                                                                                    # },
                                                                                     class_name="force-inline-control",
                                                                                     inline=True,
                                                                                 ),
+                                                                                width="auto",
+                                                                            ),
+                                                                            dbc.Col(
+                                                                                [
+                                                                                    html.Button(
+                                                                                        "Download data",  # Button text
+                                                                                        id=f"{page_prefix}-download_btn",
+                                                                                    ),
+                                                                                    dcc.Download(
+                                                                                        id=f"{page_prefix}-download-csv-info"
+                                                                                    ),
+                                                                                    dbc.Tooltip(
+                                                                                        "Click to download the data displayed in graph as a CSV file.",
+                                                                                        target=f"{page_prefix}-download_btn",
+                                                                                        placement="bottom",
+                                                                                    ),
+                                                                                ],
+                                                                                class_name="force-inline-control",
                                                                                 width="auto",
                                                                             ),
                                                                         ],
