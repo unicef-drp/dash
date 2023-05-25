@@ -1175,6 +1175,7 @@ def get_base_layout(**kwargs):
                                                                                     html.Button(
                                                                                         "Download data",  # Button text
                                                                                         id=f"{page_prefix}-download_btn",
+                                                                                        className="download_btn",
                                                                                     ),
                                                                                     dcc.Download(
                                                                                         id=f"{page_prefix}-download-csv-info"
