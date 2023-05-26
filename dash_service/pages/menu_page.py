@@ -11,6 +11,9 @@ import dash_bootstrap_components as dbc
 from dash_service.components_aio.pages_navigation_aio import PagesNavigationAIO
 from dash_service.components_aio.heading_aio import HeadingAIO
 
+'''
+Creates a splash page
+'''
 
 def layout(lang="en", **query_params):
 
@@ -29,7 +32,7 @@ def layout(lang="en", **query_params):
     config = menupage.content
     t = menupage.title
 
-    return render_page_template(config, lang)
+    return render_page_template(config, lang, query_params)
 
 
 def render_no_menupage_cfg_found(prj, page):
@@ -61,7 +64,10 @@ _color_maps = {
 
 
 def _create_button(link, color=None):
-    icon_class = link["icon"] + " fa-2xl"
+    if "icon" in link:
+        icon_class = link["icon"] + " fa-2xl"
+    else:
+        icon_class = ""
 
     href = ""
     if "link" in link:
@@ -85,7 +91,39 @@ def _create_button(link, color=None):
     return ret
 
 
-def create_links_row(row):
+def _get_params_from_link(lnk):
+    if lnk.strip() == "":
+        return {}
+
+    split_params = lnk.replace("?", "")
+    ret = {}
+    if "#" in split_params:
+        ret["hash"] = split_params.split("#")[1]
+        split_params = split_params.split("#")[0]
+
+    split_params = split_params.split("&")
+
+    for p in split_params:
+        split = p.split("=")
+        ret[split[0]] = split[1]
+    return ret
+
+
+def _get_params_string(link_params, additional_params):
+    params = []
+    for k, v in link_params.items():
+        if k != "hash":
+            params.append(f"{k}={v}")
+    for k, v in additional_params.items():
+        params.append(f"{k}={v}")
+    ret = "?" + "&".join(params)
+    if "hash" in link_params:
+        ret = ret + "#" + link_params["hash"]
+    return ret
+
+
+def create_links_row(row, query_params_to_pass_through):
+    #The colors
     ch = []
     color = "blue"
     secondary = "white"
@@ -93,8 +131,8 @@ def create_links_row(row):
         color = _color_maps[row["color"]]["c"]
         secondary = _color_maps[row["color"]]["s"]
 
+    #The header of he section
     cardHeader = None
-
     if "title" in row:
         cardHeader = html.Div(
             className="card-header fs-4 fw-bold",
@@ -102,15 +140,23 @@ def create_links_row(row):
             children=row["title"],
         )
 
+    #Create the buttons, creating the links is quite complex because the page can be embedded.
+    #Links stored in the configuration must be parsed and merged with the params og the hosting page that must be carried on
     if "links" in row:
         links_div = []
         for l in row["links"]:
+            link_to_use = ""
+            if "link" in l:
+                link_to_use = l["link"]
+            params_from_link = _get_params_from_link(link_to_use)
+            params_string = _get_params_string(
+                params_from_link, query_params_to_pass_through
+            )
+
+            l["link"] = params_string
             lnk = _create_button(l, color)
             links_div.append(lnk)
-        ch.append(
-            # html.Div(className="row col-sm-12 col-md-8 d-inline", children=links_div)
-            html.Div(className="text-center", children=links_div)
-        )
+        ch.append(html.Div(className="text-center", children=links_div))
 
     row_card = html.Div(
         className="card mb-3",
@@ -124,6 +170,7 @@ def create_links_row(row):
 def render_page_template(
     page_config: dict,
     lang,
+    query_params,
     **kwargs,
 ) -> html.Div:
     """Renders the page template based on the page config and other parameters
@@ -135,13 +182,21 @@ def render_page_template(
         html.Div: The dash Div representing the redenderd page against the config
     """
 
+    #remove some params that will be replaced
+    query_params_to_remove = ["prj", "page", "hash"]
+    for qp in query_params_to_remove:
+        if qp in query_params:
+            del query_params[qp]
+
+    #The page's main title
     if "main_title" in page_config:
         elem_main_title = HeadingAIO(page_config["main_title"], aio_id="menu_page_head")
 
     row_elems = []
 
+    #For all the rows defined in the cfg
     for row in page_config["ROWS"]:
-        row_div = create_links_row(row)
+        row_div = create_links_row(row, query_params)
         row_elems.append(row_div)
 
     # template = html.Div(className="row col-sm-12",children=[elem_main_title] + row_elems)
