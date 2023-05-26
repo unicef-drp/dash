@@ -73,20 +73,11 @@ class DataExplorerFilterAIO(html.Div):
                 className="overflow-auto m-0 p-0 div_de_filter",
                 children=tree,
             )
-            # accitem = dbc.AccordionItem(
-            #     title=f["name"],
-            #     children=tree_div,
-            #     class_name="accordion-no-padding",
-            #     item_id=f"de_acc_{f['id']}",
-            # )
 
-            #head_btn_id = f"de_acc_btn_{f['id']}"
-            head_btn_id = f['id']
-            #body_id = f"de_acc_body_{f['id']}"
+            head_btn_id = f["id"]
             is_show = "d-none"
             if idx == 0:
                 is_show = "d-block"
-            print(idx, is_show)
 
             accitem = html.Div(
                 className="accordion-item",
@@ -100,31 +91,22 @@ class DataExplorerFilterAIO(html.Div):
                                 className="accordion-button",
                                 type="button",
                                 children=f["name"],
-                                # **{"aria-expanded":"false",
-                                #    "data-bs-toggle":"collapse"}
                             )
                         ],
                     ),
                     html.Div(
-                        #className="accordion-collapse collapse" + is_show,
                         className=is_show,
-                        # **{
-                        #     "aria-labelledby": "_de_acc_head_" + f["id"],
-                        #     "data-bs-parent": "#_de_acc",
-                        # },
                         id={"type": "de_filter_acc_body", "index": head_btn_id},
                         children=[
-                            html.Div(className="accordion-body p-0", children=[tree_div])
-                            # html.Div(className="accordion-body", children=[f["id"]])
+                            html.Div(
+                                className="accordion-body p-0", children=[tree_div]
+                            )
                         ],
                     ),
                 ],
             )
             accordionItems.append(accitem)
 
-        # accordion = dbc.Accordion(
-        #     accordionItems, id="_de_acc", persistence_type="session", persistence=True
-        # )
         accordion = html.Div(
             className="accordion accordion-flush", id="_de_acc", children=accordionItems
         )
@@ -136,19 +118,18 @@ class DataExplorerFilterAIO(html.Div):
         Input({"type": "de_filter_acc_btn", "index": ALL}, "n_clicks"),
         State({"type": "de_filter_acc_body", "index": ALL}, "className"),
         State({"type": "de_filter_acc_body", "index": ALL}, "id"),
-
         prevent_initial_call=True,
     )
-    def de_acc_toggle(n_clicks, classNames,ids):
+    def de_acc_toggle(n_clicks, classNames, ids):
         ret = []
         button_id = ctx.triggered_id
         # cl_name="accordion-collapse collapse"
         # cl_name_show = "accordion-collapse collapse show"
 
         for idx in range(len(ids)):
-            #this button has been clicked
-            if button_id["index"]==ids[idx]["index"]:
-                #toggle
+            # this button has been clicked
+            if button_id["index"] == ids[idx]["index"]:
+                # toggle
                 if "show" in classNames[idx]:
                     ret.append("d-none")
                 else:
@@ -157,4 +138,3 @@ class DataExplorerFilterAIO(html.Div):
                 ret.append("d-none")
 
         return ret
-
