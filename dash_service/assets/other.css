@@ -106,4 +106,22 @@ div.dt-table-container__row.dt-table-container__row-1 {
     grid-gap: unset;
 }
 
-.fade{transition:opacity .15s linear}@media (prefers-reduced-motion:reduce){.fade{transition:none}}.fade:not(.show){opacity:0}
+.fade {
+    transition: opacity .15s linear
+}
+
+@media (prefers-reduced-motion:reduce) {
+    .fade {
+        transition: none
+    }
+}
+
+.fade:not(.show) {
+    opacity: 0
+}
+
+
+.download_btn {
+    padding: 5px;
+    min-width: 120px;
+}
