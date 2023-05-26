@@ -82,6 +82,7 @@ class YearsRangeSelectorAIO(html.Div):
                 ),
                 id=self.ids.years_range_open_collapse_elem(aio_id),
                 is_open=False,
+                style={"opacuty":1}
             ),
         ]
 
