@@ -11,9 +11,10 @@ import dash_bootstrap_components as dbc
 from dash_service.components_aio.pages_navigation_aio import PagesNavigationAIO
 from dash_service.components_aio.heading_aio import HeadingAIO
 
-'''
+"""
 Creates a splash page
-'''
+"""
+
 
 def layout(lang="en", **query_params):
 
@@ -76,14 +77,25 @@ def _create_button(link, color=None):
     btn = html.A(
         className="btn p-2 m-3 text-white",
         style={
-            "width": "170px",
-            "height": "130px",
+            "width": "160px",
+            "height": "120px",
             "backgroundColor": color,
         },
         children=[
-            html.Div(className="mt-2 mb-3", children=html.I(className=icon_class)),
-            # html.Div(className="text-truncate", children=link["title"]),
-            html.Div(children=link["title"]),
+            html.Div(
+                className="h-100 w-100 d-flex flex-grow-1 justify-content-center align-items-center",
+                children=[
+                    html.Div(
+                        children=[
+                            html.Div(
+                                className="mb-3 align-items-center",
+                                children=html.I(className=icon_class),
+                            ),
+                            html.Div(children=link["title"]),
+                        ],
+                    )
+                ],
+            )
         ],
         href=href,
     )
@@ -123,7 +135,7 @@ def _get_params_string(link_params, additional_params):
 
 
 def create_links_row(row, query_params_to_pass_through):
-    #The colors
+    # The colors
     ch = []
     color = "blue"
     secondary = "white"
@@ -131,17 +143,17 @@ def create_links_row(row, query_params_to_pass_through):
         color = _color_maps[row["color"]]["c"]
         secondary = _color_maps[row["color"]]["s"]
 
-    #The header of he section
+    # The header of he section
     cardHeader = None
     if "title" in row:
         cardHeader = html.Div(
-            className="card-header fs-4 fw-bold",
+            className="card-header fs-4 fw-bold text-center",
             style={"backgroundColor": secondary, "color": color},
             children=row["title"],
         )
 
-    #Create the buttons, creating the links is quite complex because the page can be embedded.
-    #Links stored in the configuration must be parsed and merged with the params og the hosting page that must be carried on
+    # Create the buttons, creating the links is quite complex because the page can be embedded.
+    # Links stored in the configuration must be parsed and merged with the params og the hosting page that must be carried on
     if "links" in row:
         links_div = []
         for l in row["links"]:
@@ -182,19 +194,19 @@ def render_page_template(
         html.Div: The dash Div representing the redenderd page against the config
     """
 
-    #remove some params that will be replaced
+    # remove some params that will be replaced
     query_params_to_remove = ["prj", "page", "hash"]
     for qp in query_params_to_remove:
         if qp in query_params:
             del query_params[qp]
 
-    #The page's main title
+    # The page's main title
     if "main_title" in page_config:
         elem_main_title = HeadingAIO(page_config["main_title"], aio_id="menu_page_head")
 
     row_elems = []
 
-    #For all the rows defined in the cfg
+    # For all the rows defined in the cfg
     for row in page_config["ROWS"]:
         row_div = create_links_row(row, query_params)
         row_elems.append(row_div)
