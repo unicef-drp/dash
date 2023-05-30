@@ -119,6 +119,11 @@ if (browserOk) {
         if (el){
             el.style.maxWidth="100%";
         }
+        //remove the padding at the top of the dashboard when embedded in drupal
+        el = document.querySelector('[role="contentinfo"]');
+        if (el){
+            el.classList.remove("section");
+        }
     }
 
     //load the json and adds to the page in the callback function
