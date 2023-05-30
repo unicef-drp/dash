@@ -35,6 +35,7 @@ from dash_service.components_aio.pages_navigation_aio import PagesNavigationAIO
 from dash_service.components_aio.years_range_selector_aio import YearsRangeSelectorAIO
 
 import copy
+import requests
 
 # pd.set_option("display.max_columns", None)
 # pd.set_option("display.max_rows", None)
@@ -386,7 +387,12 @@ def _create_card(data_struct, page_config, elem_info, lang):
 
     if data_node is not None:
         # we only need the most recent datapoint, no labels, just the value
-        df = get_data(data_node, lastnobservations=1, labels="id")
+        try:
+            df = get_data(data_node, lastnobservations=1, labels="id")
+        #except ConnectionError as conn_err:
+        except requests.exceptions.HTTPError as e:
+            print_exception("Exception while downloading data for card", e)
+            df = pd.DataFrame()
 
         if len(df) > 0:
             value = df.iloc[0][ID_OBS_VALUE]
@@ -638,7 +644,11 @@ def update_charts(
     if "multi_indicator" in data_cfg:
         tmp_inidic_label = []
         for multi_indic_cfg in data_cfg["multi_indicator"]:
-            data_chunk = get_data(multi_indic_cfg, years=time_period)
+            try:
+                data_chunk = get_data(multi_indic_cfg, years=time_period)
+            except requests.exceptions.HTTPError as e:
+                print_exception("Exception while downloading data for charts in multi indicator", e)
+                data_chunk = pd.DataFrame()
             struct_id = get_structure_id(multi_indic_cfg)
             data_chunk = merge_with_codelist(
                 data_chunk, data_structures, struct_id, ID_REF_AREA
@@ -655,11 +665,18 @@ def update_charts(
         tmp_inidic_label = list(set(tmp_inidic_label))  # remove duplicates
         indicator_name = " - ".join(tmp_inidic_label)
     else:
-
+        lastnobservations=None
         if chart_type == "line":
-            df = get_data(data_cfg, years=time_period)
+            lastnobservations=None
         else:
-            df = get_data(data_cfg, years=time_period, lastnobservations=1)
+            lastnobservations=1
+
+        try:
+            df = get_data(data_cfg, years=time_period, lastnobservations=lastnobservations)
+        except requests.exceptions.HTTPError as e:
+            print_exception("Exception while downloading data for charts", e)
+            df = pd.DataFrame()
+
         struct_id = get_structure_id(data_cfg)
         # Assign labels to codes
         df = merge_with_codelist(df, data_structures, struct_id, ID_REF_AREA)
@@ -791,7 +808,12 @@ def update_maps(
     if not show_historical_data:
         lastnobs = 1
 
-    df = get_data(elem_data_node, years=time_period, lastnobservations=lastnobs)
+    try:
+        df = get_data(elem_data_node, years=time_period, lastnobservations=lastnobs)
+    except requests.exceptions.HTTPError as e:
+        print_exception("Exception while downloading data for maps", e)
+        df = pd.DataFrame()
+    
     if df.empty:
         return EMPTY_CHART, "", "", ""
 
@@ -851,3 +873,10 @@ def update_maps(
         time_periods_in_df = f"{get_multilang_value(translations['TIME_PERIOD'], lang)}: {', '.join(time_periods_in_df)}"
 
     return main_figure, source, display_source, time_periods_in_df
+
+def print_exception(message,exc):
+    print(message)
+    print("Exception type:")
+    print(type(exc))
+    print("Exception args:")
+    print(exc.args)
