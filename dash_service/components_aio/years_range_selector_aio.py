@@ -86,6 +86,7 @@ class YearsRangeSelectorAIO(html.Div):
             # ),
             html.Div(
                 id=self.ids.years_range_open_collapse_elem(aio_id),
+                className="d-none",
                 children=[
                     dcc.RangeSlider(
                         className="w-100",
@@ -98,7 +99,7 @@ class YearsRangeSelectorAIO(html.Div):
                             sel_year_min,
                             sel_year_max,
                         ],
-                        tooltip={"placement": "bottom", "always_visible": True},
+                        tooltip={"placement": "bottom", "always_visible": True},                        
                     )
                 ],
             ),
@@ -112,11 +113,17 @@ class YearsRangeSelectorAIO(html.Div):
         super().__init__(children=ret, className=className)
 
     @callback(
-        Output(ids.years_range_open_collapse_elem(MATCH), "is_open"),
+        Output(ids.years_range_open_collapse_elem(MATCH), "className"),
         [Input(ids.years_range_open_collapse_btn(MATCH), "n_clicks")],
-        [State(ids.years_range_open_collapse_elem(MATCH), "is_open")],
+        [State(ids.years_range_open_collapse_elem(MATCH), "className")],
+        prevent_initial_call=True,
     )
-    def toggle_collapse(n, is_open):
-        if n:
-            return not is_open
-        return is_open
+    def toggle_collapse(n, className):
+        print(className)
+        if className=="d-none":
+            return "d-block"
+        else:
+            return "d-none"
+        # if n:
+        #     return not is_open
+        # return is_open
