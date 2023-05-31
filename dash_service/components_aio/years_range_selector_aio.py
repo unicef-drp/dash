@@ -62,6 +62,7 @@ class YearsRangeSelectorAIO(html.Div):
                     children=f"{years_label}: {sel_year_min} - {sel_year_max}",
                 ),
             ),
+            
             dbc.Collapse(
                 dbc.Card(
                     dbc.CardBody(
@@ -82,8 +83,10 @@ class YearsRangeSelectorAIO(html.Div):
                 ),
                 id=self.ids.years_range_open_collapse_elem(aio_id),
                 is_open=False,
-                style={"opacuty":1}
+                style={"opacity":1}
             ),
+            
+            #html.Div(className="dropdown", id=self.ids.years_range_open_collapse_elem(aio_id))
         ]
 
         if additional_classes is None:
@@ -101,6 +104,7 @@ class YearsRangeSelectorAIO(html.Div):
         [State(ids.years_range_open_collapse_elem(MATCH), "is_open")],
     )
     def toggle_collapse(n, is_open):
+        print("in Callback ")
         if n:
             return not is_open
         return is_open
