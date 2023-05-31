@@ -41,7 +41,7 @@ class YearsRangeSelectorAIO(html.Div):
         sel_year_max=None,
         years_label="Years",
         aio_id=None,
-        additional_classes = None
+        additional_classes=None,
     ):
         # Allow developers to pass in their own `aio_id` if they're binding their own callback to a particular component.
         if aio_id is None:
@@ -62,41 +62,54 @@ class YearsRangeSelectorAIO(html.Div):
                     children=f"{years_label}: {sel_year_min} - {sel_year_max}",
                 ),
             ),
-            
-            dbc.Collapse(
-                dbc.Card(
-                    dbc.CardBody(
-                        dcc.RangeSlider(
-                            className="w-100",
-                            id=self.ids.years_range(aio_id),
-                            min=year_min,
-                            max=year_max,
-                            step=1,
-                            marks={year_min: str(year_min), year_max: str(year_min)},
-                            value=[
-                                sel_year_min,
-                                sel_year_max,
-                            ],
-                            tooltip={"placement": "bottom", "always_visible": True},
-                        )
-                    )
-                ),
+            # dbc.Collapse(
+            #     dbc.Card(
+            #         dbc.CardBody(
+            #             dcc.RangeSlider(
+            #                 className="w-100",
+            #                 id=self.ids.years_range(aio_id),
+            #                 min=year_min,
+            #                 max=year_max,
+            #                 step=1,
+            #                 marks={year_min: str(year_min), year_max: str(year_min)},
+            #                 value=[
+            #                     sel_year_min,
+            #                     sel_year_max,
+            #                 ],
+            #                 tooltip={"placement": "bottom", "always_visible": True},
+            #             )
+            #         )
+            #     ),
+            #     id=self.ids.years_range_open_collapse_elem(aio_id),
+            #     is_open=False,
+            #     style={"opacity":1}
+            # ),
+            html.Div(
                 id=self.ids.years_range_open_collapse_elem(aio_id),
-                is_open=False,
-                style={"opacity":1}
+                children=[
+                    dcc.RangeSlider(
+                        className="w-100",
+                        id=self.ids.years_range(aio_id),
+                        min=year_min,
+                        max=year_max,
+                        step=1,
+                        marks={year_min: str(year_min), year_max: str(year_min)},
+                        value=[
+                            sel_year_min,
+                            sel_year_max,
+                        ],
+                        tooltip={"placement": "bottom", "always_visible": True},
+                    )
+                ],
             ),
-            
-            #html.Div(className="dropdown", id=self.ids.years_range_open_collapse_elem(aio_id))
         ]
 
         if additional_classes is None:
-            className=""
+            className = ""
         else:
-            className=additional_classes
+            className = additional_classes
         # Define the component's layout
-        super().__init__(
-            children=ret,className=className
-        )
+        super().__init__(children=ret, className=className)
 
     @callback(
         Output(ids.years_range_open_collapse_elem(MATCH), "is_open"),
@@ -104,7 +117,6 @@ class YearsRangeSelectorAIO(html.Div):
         [State(ids.years_range_open_collapse_elem(MATCH), "is_open")],
     )
     def toggle_collapse(n, is_open):
-        print("in Callback ")
         if n:
             return not is_open
         return is_open
