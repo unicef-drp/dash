@@ -24,7 +24,9 @@ class CardAIO(html.Div):
         info_head="",
         info_body="",
         time_period="",
+        area="",
         lbl_time_period="Time period",
+        lbl_area="Geographic area",
     ):
 
         card_children = []
@@ -33,7 +35,7 @@ class CardAIO(html.Div):
             className="card-body",
             children=[
                 html.Span(
-                    className="fs-1 text-primary justify-content-center d-sm-flex p-2",
+                    className="fs-2 fw-bold text-primary justify-content-center d-sm-flex p-2",
                     children=value,
                 ),
                 html.Span(
@@ -50,7 +52,8 @@ class CardAIO(html.Div):
         if time_period.strip() != "":
             time_p = html.Div(
                 className="text-primary fw-bold float-start",
-                children=[f"{lbl_time_period}: {time_period}"],
+                #children=[f"{lbl_area}: {area}  ●  {lbl_time_period}: {time_period}"],
+                children=[html.Div(f"{lbl_area}: {area}"), html.Div(f"{lbl_time_period}: {time_period}")],
             )
             card_footer.append(time_p)
 

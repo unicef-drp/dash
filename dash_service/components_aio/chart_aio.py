@@ -48,6 +48,11 @@ class ChartAIO(html.Div):
             "subcomponent": "info_text",
             "aio_id": aio_id,
         }
+        missing_areas = lambda aio_id: {
+            "component": "ChartAIO",
+            "subcomponent": "missing_areas",
+            "aio_id": aio_id,
+        }
 
     # Make the ids class a public class
     ids = ids
@@ -105,14 +110,13 @@ class ChartAIO(html.Div):
                     ],
                 ),
                 dcc.Loading(
-                    
                     children=[
                         dcc.Graph(
                             id=self.ids.chart(aio_id),
                             config=plot_cfg,
-                            #style={"min-height": "100px"},
-                            #style={"width": "200px"},
-                            #style={"width": "inherit"},
+                            # style={"min-height": "100px"},
+                            # style={"width": "200px"},
+                            # style={"width": "inherit"},
                         )
                     ],
                 ),
@@ -120,7 +124,7 @@ class ChartAIO(html.Div):
                     className="row",
                     children=[
                         html.Div(
-                            className="col-9",
+                            className="col-5",
                             children=[
                                 DownloadsAIO(
                                     aio_id, lbl_excel=lbl_excel, lbl_csv=lbl_csv
@@ -128,8 +132,13 @@ class ChartAIO(html.Div):
                             ],
                         ),
                         html.Div(
+                            id=self.ids.missing_areas(aio_id),
+                            className="col-5 text-secondary",
+                            children=[],
+                        ),
+                        html.Div(
                             id=self.ids.info_icon(aio_id),
-                            className="col-3",
+                            className="col-2",
                             children=[
                                 html.I(
                                     id="chart_aio_inf_icon_" + aio_id,
@@ -162,6 +171,6 @@ class ChartAIO(html.Div):
         # Define the component's layout
         super().__init__(
             id=self.ids.card(aio_id),
-            #className="col",
+            # className="col",
             children=[card],
         )

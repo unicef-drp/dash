@@ -119,7 +119,7 @@ class YearsRangeSelectorAIO(html.Div):
         prevent_initial_call=True,
     )
     def toggle_collapse(n, className):
-        print(className)
+
         if className=="d-none":
             return "d-block"
         else:

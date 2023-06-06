@@ -49,9 +49,9 @@ class DownloadsAIO(dbc.ButtonGroup):
         # Create the card body
         ret = [
             dbc.Button(
-                lbl_excel, id=self.ids.btn_down_excel(aio_id), className="btn-sm"
+                lbl_excel, id=self.ids.btn_down_excel(aio_id), className="btn-sm", color="success"
             ),
-            dbc.Button(lbl_csv, id=self.ids.btn_down_csv(aio_id), className="btn-sm"),
+            dbc.Button(lbl_csv, id=self.ids.btn_down_csv(aio_id), className="btn-sm", color="info"),
             dcc.Download(id=self.ids.dcc_down_excel(aio_id)),
             dcc.Download(id=self.ids.dcc_down_csv(aio_id)),
         ]

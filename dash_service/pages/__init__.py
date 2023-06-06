@@ -110,6 +110,15 @@ def _get_dim_or_attrib_from_struct(structs, struct_id, dim_or_attrib_id):
 
     return cl
 
+# def get_codelist_from_struct(structs, struct_id, dim_or_attrib_id):
+#     dim_attr = _get_dim_or_attrib_from_struct(structs, struct_id, dim_or_attrib_id)
+    
+#     if "codes" in dim_attr:
+#         return dim_attr["codes"]
+#     else:
+#         return None
+
+
 
 def _get_struct_id(structid_or_data_cfg):
     if isinstance(structid_or_data_cfg, dict):
@@ -158,6 +167,17 @@ def get_code_from_structure_and_dq(data_structures, data_cfg, column_id):
     else:
         return None
     return next(c for c in codelist if c["id"] == code_id)
+
+def get_label_from_structure_and_code(data_structures, data_cfg, column_id, code_id):
+    struct_id = _get_struct_id(data_cfg)
+
+    dim_attr = _get_dim_or_attrib_from_struct(data_structures, struct_id, column_id)
+    if "codes" in dim_attr:
+        codelist = dim_attr["codes"]
+    else:
+        return None
+    code = next(c for c in codelist if c["id"] == code_id)
+    return code["name"]
 
 
 # merge a codes-only dataflow with the codelist

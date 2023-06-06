@@ -3,6 +3,7 @@ import textwrap
 import dash_bootstrap_components as dbc
 from dash.exceptions import PreventUpdate
 import pandas as pd
+import pandas.api.types
 import numbers
 import plotly.express as px
 import plotly.graph_objects as go
@@ -20,6 +21,7 @@ from dash_service.pages import (
     merge_with_codelist,
     get_multilang_value,
     is_string_empty,
+    get_label_from_structure_and_code,
 )
 
 
@@ -107,7 +109,7 @@ translations = {
     "download_csv": {"en": "Download CSV", "pt": "Download CSV"},
     "OBS_VALUE": {"en": "Value", "pt": "Valores"},
     "TIME_PERIOD": {"en": "Time period", "pt": "Ano"},
-    "REF_AREA": {"pt": "Estado"},
+    "REF_AREA": {"en": "Geographic area", "pt": "Estado"},
 }
 
 # the configuration of the "Download plot" button in the charts
@@ -354,16 +356,27 @@ def download_structures(selections, page_config, lang):
                         elif isinstance(elem["data"], list):
                             for data_elem in elem["data"]:
 
-
                                 if "multi_indicator" in data_elem:
-                                    for multi_indic_node in data_elem["multi_indicator"]:
-                                        add_structure(data_structures, multi_indic_node, lang)
+                                    for multi_indic_node in data_elem[
+                                        "multi_indicator"
+                                    ]:
+                                        add_structure(
+                                            data_structures, multi_indic_node, lang
+                                        )
                                 else:
-
 
                                     add_structure(data_structures, data_elem, lang)
 
     return data_structures
+
+
+def _round_pandas_col(df, col_name, round_to):
+    if len(df) == 0:
+        return df
+    df[col_name] = pd.to_numeric(df[col_name], errors="ignore")
+    if pandas.api.types.is_numeric_dtype(df[col_name]):
+        df = df.round({col_name: round_to})
+    return df
 
 
 def _create_card(data_struct, page_config, elem_info, lang):
@@ -375,8 +388,15 @@ def _create_card(data_struct, page_config, elem_info, lang):
     label = ""
     data_source = ""
     time_period = ""
+    ref_area = ""
     lbl_sources = get_multilang_value(translations["sources"], lang)
     lbl_time_period = get_multilang_value(translations["TIME_PERIOD"], lang)
+
+    lbl_area = ""
+    if lang in translations[ID_REF_AREA]:
+        lbl_area = get_multilang_value(translations["REF_AREA"], lang)
+    else:
+        lbl_area = get_col_name(data_struct, data_node, ID_REF_AREA, lang)
 
     if is_string_empty(elem, "label"):
         label = get_code_from_structure_and_dq(data_struct, data_node, ID_INDICATOR)[
@@ -389,7 +409,7 @@ def _create_card(data_struct, page_config, elem_info, lang):
         # we only need the most recent datapoint, no labels, just the value
         try:
             df = get_data(data_node, lastnobservations=1, labels="id")
-        #except ConnectionError as conn_err:
+        # except ConnectionError as conn_err:
         except requests.exceptions.HTTPError as e:
             print_exception("Exception while downloading data for card", e)
             df = pd.DataFrame()
@@ -400,6 +420,10 @@ def _create_card(data_struct, page_config, elem_info, lang):
                 value = round(float(value), elem["round"])
 
             time_period = df.iloc[0][ID_TIME_PERIOD]
+            ref_area = df.iloc[0][ID_REF_AREA]
+            ref_area = get_code_from_structure_and_dq(
+                data_struct, data_node, ID_REF_AREA
+            )["name"]
             if ID_DATA_SOURCE in df.columns:
                 data_source = df.iloc[0][ID_DATA_SOURCE]
 
@@ -412,7 +436,9 @@ def _create_card(data_struct, page_config, elem_info, lang):
             info_head=lbl_sources,
             info_body=data_source,
             time_period=time_period,
+            area=ref_area,
             lbl_time_period=lbl_time_period,
+            lbl_area=lbl_area,
         ),
     )
 
@@ -602,6 +628,7 @@ def get_labels(data_structs, struct_id, df_cols, lang, lbl_override):
     Output(ChartAIO.ids.chart(MATCH), "figure"),
     Output(ChartAIO.ids.info_text(MATCH), "children"),
     Output(ChartAIO.ids.info_icon(MATCH), "style"),
+    Output(ChartAIO.ids.missing_areas(MATCH), "children"),
     [
         Input(ChartAIO.ids.ddl(MATCH), "value"),
         Input(ChartAIO.ids.chart_types(MATCH), "value"),
@@ -647,7 +674,9 @@ def update_charts(
             try:
                 data_chunk = get_data(multi_indic_cfg, years=time_period)
             except requests.exceptions.HTTPError as e:
-                print_exception("Exception while downloading data for charts in multi indicator", e)
+                print_exception(
+                    "Exception while downloading data for charts in multi indicator", e
+                )
                 data_chunk = pd.DataFrame()
             struct_id = get_structure_id(multi_indic_cfg)
             data_chunk = merge_with_codelist(
@@ -665,25 +694,31 @@ def update_charts(
         tmp_inidic_label = list(set(tmp_inidic_label))  # remove duplicates
         indicator_name = " - ".join(tmp_inidic_label)
     else:
-        lastnobservations=None
+        lastnobservations = None
         if chart_type == "line":
-            lastnobservations=None
+            lastnobservations = None
         else:
-            lastnobservations=1
+            lastnobservations = 1
 
         try:
-            df = get_data(data_cfg, years=time_period, lastnobservations=lastnobservations)
+            df = get_data(
+                data_cfg, years=time_period, lastnobservations=lastnobservations
+            )
         except requests.exceptions.HTTPError as e:
             print_exception("Exception while downloading data for charts", e)
             df = pd.DataFrame()
 
-        struct_id = get_structure_id(data_cfg)
-        # Assign labels to codes
-        df = merge_with_codelist(df, data_structures, struct_id, ID_REF_AREA)
-        df = merge_with_codelist(df, data_structures, struct_id, ID_DATA_SOURCE)
-        indicator_name = get_code_from_structure_and_dq(
-            data_structures, data_cfg, ID_INDICATOR
-        )["name"]
+    if len(df) > 0 and "round" in data_cfg:
+        df = _round_pandas_col(df, ID_OBS_VALUE, data_cfg["round"])
+
+    struct_id = get_structure_id(data_cfg)
+
+    # Assign labels to codes
+    df = merge_with_codelist(df, data_structures, struct_id, ID_REF_AREA)
+    df = merge_with_codelist(df, data_structures, struct_id, ID_DATA_SOURCE)
+    indicator_name = get_code_from_structure_and_dq(
+        data_structures, data_cfg, ID_INDICATOR
+    )["name"]
 
     if df.empty:
         return EMPTY_CHART, ""
@@ -698,6 +733,24 @@ def update_charts(
         source = ", ".join(list(df[LABEL_COL_PREFIX + ID_DATA_SOURCE].unique()))
     if source != "":
         display_source = {"display": "visible"}
+
+    # The missing areas:
+    missing_areas = ""
+    if "force_ref_areas" in data_cfg:
+        areas_to_force = data_cfg["force_ref_areas"]
+        #areas_to_force = "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+        areas_to_force = areas_to_force.split("+")
+        existing_ref_areas = list(df[ID_REF_AREA].unique())
+
+        miss = [a for a in areas_to_force if a not in existing_ref_areas]
+        miss = [
+            get_label_from_structure_and_code(
+                data_structures, struct_id, ID_REF_AREA, a
+            )
+            for a in miss
+        ]
+        if len(miss)>0:
+            missing_areas = "No data for: " + ", ".join(miss)
 
     # Change the labels to the option codes (in options we have REF_AREA, TIME_PERIOD replace with the concept's label)
     options_to_check_for_label = ["x", "y", "text", "color", "hover_name"]
@@ -754,7 +807,7 @@ def update_charts(
     if traces:
         fig.update_traces(**traces)
 
-    return fig, source, display_source
+    return fig, source, display_source, missing_areas
 
 
 # Triggered when the Map area changes: show historical data is changed or indicator selected
@@ -813,9 +866,12 @@ def update_maps(
     except requests.exceptions.HTTPError as e:
         print_exception("Exception while downloading data for maps", e)
         df = pd.DataFrame()
-    
+
     if df.empty:
         return EMPTY_CHART, "", "", ""
+
+    if len(df) > 0 and "round" in elem_data_node:
+        df = _round_pandas_col(df, ID_OBS_VALUE, elem_data_node["round"])
 
     # we need the ref_area and data source codelists (DATA_SOURCE can be coded)
     # get and merge the ref area labels
@@ -874,7 +930,8 @@ def update_maps(
 
     return main_figure, source, display_source, time_periods_in_df
 
-def print_exception(message,exc):
+
+def print_exception(message, exc):
     print(message)
     print("Exception type:")
     print(type(exc))
