@@ -11,8 +11,9 @@ import plotly.io as pio
 from dash import callback, dcc, html
 from dash.dependencies import MATCH, Input, Output, State, ALL
 from dash_service.models import Page, Project, Dashboard
+from decimal import Decimal
 
-from dash_service.pages import get_data, is_float, years, get_geojson
+from dash_service.pages import get_data, is_float, is_int, years, get_geojson
 from dash_service.pages import (
     add_structure,
     get_structure_id,
@@ -379,6 +380,16 @@ def _round_pandas_col(df, col_name, round_to):
     return df
 
 
+def format_num(n):
+    if is_int(n):
+        ret = "{0:{grp}d}".format(int(n), grp="_")
+    elif is_float(n):
+        ret = "{0:{grp}g}".format(float(n), grp="_")
+    else:
+        return n
+    return ret.replace("_", " ")
+
+
 def _create_card(data_struct, page_config, elem_info, lang):
     elem = elem_info["elem"]
     data_node = None
@@ -415,9 +426,11 @@ def _create_card(data_struct, page_config, elem_info, lang):
             df = pd.DataFrame()
 
         if len(df) > 0:
+
             value = df.iloc[0][ID_OBS_VALUE]
             if "round" in elem and is_float(value):
                 value = round(float(value), elem["round"])
+            value = format_num(value)
 
             time_period = df.iloc[0][ID_TIME_PERIOD]
             ref_area = df.iloc[0][ID_REF_AREA]
@@ -738,7 +751,7 @@ def update_charts(
     missing_areas = ""
     if "force_ref_areas" in data_cfg:
         areas_to_force = data_cfg["force_ref_areas"]
-        #areas_to_force = "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+        # areas_to_force = "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
         areas_to_force = areas_to_force.split("+")
         existing_ref_areas = list(df[ID_REF_AREA].unique())
 
@@ -749,7 +762,7 @@ def update_charts(
             )
             for a in miss
         ]
-        if len(miss)>0:
+        if len(miss) > 0:
             missing_areas = "No data for: " + ", ".join(miss)
 
     # Change the labels to the option codes (in options we have REF_AREA, TIME_PERIOD replace with the concept's label)

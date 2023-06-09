@@ -238,3 +238,12 @@ def is_float(to_test)->bool:
         return True
     except ValueError:
         return False
+
+def is_int(to_test)->bool:
+    if to_test is None:
+        return False
+    try:
+        int(to_test)
+        return True
+    except ValueError:
+        return False
