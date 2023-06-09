@@ -27,7 +27,6 @@ def get_structure(cfg_data, lang):
 
     return ret
 
-
 def get_data(cfg_data, years=None, lastnobservations=None, labels="id"):
     api_access = data_access_sdmx.DataAccess_SDMX(data_endpoint_id, data_endpoint_url)
 

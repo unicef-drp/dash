@@ -4,35 +4,34 @@ import dash_bootstrap_components as dbc
 
 
 class DownloadsAIO(dbc.ButtonGroup):
-    # _value_style = {"textAlign": "center", "color": "#1cabe2"}
     # A set of functions that create pattern-matching callbacks of the subcomponents
     class ids:
 
         btn_down_group = lambda aio_id: {
-            "component": "CardAIO",
+            "component": "DownloadsAIO",
             "subcomponent": "btn_down_group",
             "aio_id": aio_id,
         }
         btn_down_excel = lambda aio_id: {
-            "component": "CardAIO",
+            "component": "DownloadsAIO",
             "subcomponent": "btn_down_excel",
             "aio_id": aio_id,
         }
 
         btn_down_csv = lambda aio_id: {
-            "component": "CardAIO",
+            "component": "DownloadsAIO",
             "subcomponent": "btn_down_csv",
             "aio_id": aio_id,
         }
 
         dcc_down_excel = lambda aio_id: {
-            "component": "CardAIO",
+            "component": "DownloadsAIO",
             "subcomponent": "dcc_down_excel",
             "aio_id": aio_id,
         }
 
         dcc_down_csv = lambda aio_id: {
-            "component": "CardAIO",
+            "component": "DownloadsAIO",
             "subcomponent": "dcc_down_csv",
             "aio_id": aio_id,
         }
@@ -49,9 +48,17 @@ class DownloadsAIO(dbc.ButtonGroup):
         # Create the card body
         ret = [
             dbc.Button(
-                lbl_excel, id=self.ids.btn_down_excel(aio_id), className="btn-sm", color="success"
+                lbl_excel,
+                id=self.ids.btn_down_excel(aio_id),
+                className="btn-sm",
+                color="success",
             ),
-            dbc.Button(lbl_csv, id=self.ids.btn_down_csv(aio_id), className="btn-sm", color="info"),
+            dbc.Button(
+                lbl_csv,
+                id=self.ids.btn_down_csv(aio_id),
+                className="btn-sm",
+                color="info",
+            ),
             dcc.Download(id=self.ids.dcc_down_excel(aio_id)),
             dcc.Download(id=self.ids.dcc_down_csv(aio_id)),
         ]
