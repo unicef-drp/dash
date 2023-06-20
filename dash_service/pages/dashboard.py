@@ -4,15 +4,15 @@ import dash_bootstrap_components as dbc
 from dash.exceptions import PreventUpdate
 import pandas as pd
 import pandas.api.types
-import numbers
 import plotly.express as px
 import plotly.graph_objects as go
 import plotly.io as pio
-from dash import callback, dcc, html
+from dash import callback, dcc, html, ctx
 from dash.dependencies import MATCH, Input, Output, State, ALL
 from dash_service.models import Page, Project, Dashboard
+import json
 
-from dash_service.pages import get_data, is_float, years, get_geojson
+from dash_service.pages import get_data, is_float, is_int, years, get_geojson
 from dash_service.pages import (
     add_structure,
     get_structure_id,
@@ -379,6 +379,16 @@ def _round_pandas_col(df, col_name, round_to):
     return df
 
 
+def format_num(n):
+    if is_int(n):
+        ret = "{0:{grp}d}".format(int(n), grp="_")
+    elif is_float(n):
+        ret = "{0:{grp}g}".format(float(n), grp="_")
+    else:
+        return n
+    return ret.replace("_", " ")
+
+
 def _create_card(data_struct, page_config, elem_info, lang):
     elem = elem_info["elem"]
     data_node = None
@@ -415,9 +425,11 @@ def _create_card(data_struct, page_config, elem_info, lang):
             df = pd.DataFrame()
 
         if len(df) > 0:
+
             value = df.iloc[0][ID_OBS_VALUE]
             if "round" in elem and is_float(value):
                 value = round(float(value), elem["round"])
+            value = format_num(value)
 
             time_period = df.iloc[0][ID_TIME_PERIOD]
             ref_area = df.iloc[0][ID_REF_AREA]
@@ -629,6 +641,7 @@ def get_labels(data_structs, struct_id, df_cols, lang, lbl_override):
     Output(ChartAIO.ids.info_text(MATCH), "children"),
     Output(ChartAIO.ids.info_icon(MATCH), "style"),
     Output(ChartAIO.ids.missing_areas(MATCH), "children"),
+    Output(ChartAIO.ids.download_api_call(MATCH), "value"),
     [
         Input(ChartAIO.ids.ddl(MATCH), "value"),
         Input(ChartAIO.ids.chart_types(MATCH), "value"),
@@ -668,11 +681,19 @@ def update_charts(
     indicator_name = ""
     indic_labels = {}
 
+    api_call = {"component_id": component_id, "calls": []}
+
     if "multi_indicator" in data_cfg:
         tmp_inidic_label = []
         for multi_indic_cfg in data_cfg["multi_indicator"]:
             try:
                 data_chunk = get_data(multi_indic_cfg, years=time_period)
+                api_call["calls"].append(
+                    {
+                        "cfg": multi_indic_cfg,
+                        "years": time_period,
+                    }
+                )
             except requests.exceptions.HTTPError as e:
                 print_exception(
                     "Exception while downloading data for charts in multi indicator", e
@@ -703,6 +724,13 @@ def update_charts(
         try:
             df = get_data(
                 data_cfg, years=time_period, lastnobservations=lastnobservations
+            )
+            api_call["calls"].append(
+                {
+                    "cfg": data_cfg,
+                    "years": time_period,
+                    "lastnobservations": lastnobservations,
+                }
             )
         except requests.exceptions.HTTPError as e:
             print_exception("Exception while downloading data for charts", e)
@@ -738,7 +766,7 @@ def update_charts(
     missing_areas = ""
     if "force_ref_areas" in data_cfg:
         areas_to_force = data_cfg["force_ref_areas"]
-        #areas_to_force = "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+        # areas_to_force = "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
         areas_to_force = areas_to_force.split("+")
         existing_ref_areas = list(df[ID_REF_AREA].unique())
 
@@ -749,7 +777,7 @@ def update_charts(
             )
             for a in miss
         ]
-        if len(miss)>0:
+        if len(miss) > 0:
             missing_areas = "No data for: " + ", ".join(miss)
 
     # Change the labels to the option codes (in options we have REF_AREA, TIME_PERIOD replace with the concept's label)
@@ -807,7 +835,7 @@ def update_charts(
     if traces:
         fig.update_traces(**traces)
 
-    return fig, source, display_source, missing_areas
+    return fig, source, display_source, missing_areas, json.dumps(api_call)
 
 
 # Triggered when the Map area changes: show historical data is changed or indicator selected
@@ -816,6 +844,7 @@ def update_charts(
     Output(MapAIO.ids.info_text(MATCH), "children"),
     Output(MapAIO.ids.info_icon(MATCH), "style"),
     Output(MapAIO.ids.map_timpe_period(MATCH), "children"),
+    Output(MapAIO.ids.download_api_call(MATCH), "value"),
     [
         Input(MapAIO.ids.ddl(MATCH), "value"),
         Input(MapAIO.ids.toggle_historical(MATCH), "value"),
@@ -860,9 +889,16 @@ def update_maps(
     lastnobs = None
     if not show_historical_data:
         lastnobs = 1
-
+    api_call = {"component_id": component_id, "calls": []}
     try:
         df = get_data(elem_data_node, years=time_period, lastnobservations=lastnobs)
+        api_call["calls"].append(
+            {
+                "cfg": elem_data_node,
+                "years": time_period,
+                "lastnobservations": lastnobs,
+            }
+        )
     except requests.exceptions.HTTPError as e:
         print_exception("Exception while downloading data for maps", e)
         df = pd.DataFrame()
@@ -928,7 +964,74 @@ def update_maps(
         time_periods_in_df.sort()
         time_periods_in_df = f"{get_multilang_value(translations['TIME_PERIOD'], lang)}: {', '.join(time_periods_in_df)}"
 
-    return main_figure, source, display_source, time_periods_in_df
+    return main_figure, source, display_source, time_periods_in_df, json.dumps(api_call)
+
+
+def _find_triggerer(context, charts, maps):
+    trig_id = context["aio_id"]
+    if charts is not None:
+        for c in charts:
+            parsed = json.loads(c)
+            if trig_id == parsed["component_id"]["aio_id"]:
+                return parsed["calls"]
+    if maps is not None:
+        for c in maps:
+            parsed = json.loads(c)
+            if trig_id == parsed["component_id"]["aio_id"]:
+                return parsed["calls"]
+    return None
+
+
+def _get_data_for_download(api_calls):
+    df = pd.DataFrame()
+    for a in api_calls:
+        to_concat = get_data(
+            a["cfg"],
+            a.get("years", None),
+            a.get("lastnobservations", None),
+            labels="both",
+        )
+        df = pd.concat([df, to_concat])
+    return df
+
+
+# Data downloads
+@callback(
+    Output(DownloadsAIO.ids.dcc_down_excel(MATCH), "data"),
+    [
+        Input(DownloadsAIO.ids.btn_down_excel(ALL), "n_clicks"),
+    ],
+    [
+        State(ChartAIO.ids.download_api_call(ALL), "value"),
+        State(MapAIO.ids.download_api_call(ALL), "value"),
+    ],
+    prevent_initial_call=True,
+)
+# Downloads the DSD for the data.
+def download_excel(n_clicks, chart_api_call, map_api_call):
+
+    triggered_cfg = _find_triggerer(ctx.triggered_id, chart_api_call, map_api_call)
+    df = _get_data_for_download(triggered_cfg)
+    return dcc.send_data_frame(df.to_excel, "data.xlsx", index=False)
+
+
+# Data downloads
+@callback(
+    Output(DownloadsAIO.ids.dcc_down_csv(MATCH), "data"),
+    [
+        Input(DownloadsAIO.ids.btn_down_csv(ALL), "n_clicks"),
+    ],
+    [
+        State(ChartAIO.ids.download_api_call(ALL), "value"),
+        State(MapAIO.ids.download_api_call(ALL), "value"),
+    ],
+    prevent_initial_call=True,
+)
+# Downloads the DSD for the data.
+def download_csv(n_clicks, chart_api_call, map_api_call):
+    triggered_cfg = _find_triggerer(ctx.triggered_id, chart_api_call, map_api_call)
+    df = _get_data_for_download(triggered_cfg)
+    return dcc.send_data_frame(df.to_csv, "data.csv", index=False, encoding="utf8")
 
 
 def print_exception(message, exc):

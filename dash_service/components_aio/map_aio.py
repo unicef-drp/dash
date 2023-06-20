@@ -54,9 +54,9 @@ class MapAIO(dbc.Card):
             "subcomponent": "info_text",
             "aio_id": aio_id,
         }
-        download_buttons = lambda aio_id: {
+        download_api_call = lambda aio_id: {
             "component": "MapAIO",
-            "subcomponent": "download_buttons",
+            "subcomponent": "download_api_call",
             "aio_id": aio_id,
         }
         map_timpe_period = lambda aio_id: {
@@ -133,7 +133,10 @@ class MapAIO(dbc.Card):
                             children=[
                                 DownloadsAIO(
                                     aio_id, lbl_excel=lbl_excel, lbl_csv=lbl_csv
-                                )
+                                ),
+                                dcc.Input(
+                                    type="hidden", id=self.ids.download_api_call(aio_id)
+                                ),
                             ],
                         ),
                         html.Div(

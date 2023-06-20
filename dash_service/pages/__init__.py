@@ -27,7 +27,6 @@ def get_structure(cfg_data, lang):
 
     return ret
 
-
 def get_data(cfg_data, years=None, lastnobservations=None, labels="id"):
     api_access = data_access_sdmx.DataAccess_SDMX(data_endpoint_id, data_endpoint_url)
 
@@ -235,6 +234,15 @@ def is_float(to_test)->bool:
         return False
     try:
         float(to_test)
+        return True
+    except ValueError:
+        return False
+
+def is_int(to_test)->bool:
+    if to_test is None:
+        return False
+    try:
+        int(to_test)
         return True
     except ValueError:
         return False

@@ -3,6 +3,7 @@ import uuid
 import dash_bootstrap_components as dbc
 from .downloads_aio import DownloadsAIO
 
+from dash import html, dcc
 
 class ChartAIO(html.Div):
     _header_style = {"fontWeight": "bold"}
@@ -51,6 +52,11 @@ class ChartAIO(html.Div):
         missing_areas = lambda aio_id: {
             "component": "ChartAIO",
             "subcomponent": "missing_areas",
+            "aio_id": aio_id,
+        }
+        download_api_call = lambda aio_id: {
+            "component": "ChartAIO",
+            "subcomponent": "download_api_call",
             "aio_id": aio_id,
         }
 
@@ -128,7 +134,10 @@ class ChartAIO(html.Div):
                             children=[
                                 DownloadsAIO(
                                     aio_id, lbl_excel=lbl_excel, lbl_csv=lbl_csv
-                                )
+                                ),
+                                dcc.Input(
+                                    type="hidden", id=self.ids.download_api_call(aio_id)
+                                ),
                             ],
                         ),
                         html.Div(
