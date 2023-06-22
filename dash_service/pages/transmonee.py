@@ -819,7 +819,7 @@ def get_base_layout(**kwargs):
 
     home_icon_file_path = f"{request.root_url}assets/SOCR_Diagram_RES_120x120.png"
 
-    pass_trhough_params = ["prj=tme&page=home"]
+    pass_trhough_params = ["prj=tm"]
     for k, v in qparams.items():
         if k not in ["prj", "page", "hash"]:
             pass_trhough_params.append(f"{k}={v}")
