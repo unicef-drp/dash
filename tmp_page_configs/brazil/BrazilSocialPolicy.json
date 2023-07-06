@@ -1,0 +1,446 @@
+{
+    "main_title": "Política Social",
+    "page_nav": {
+        "type": "all"
+    },
+    "THEMES": {
+        "MULTIPOBREZA": {
+            "NAME": "Pobreza multidimensional",
+            "ROWS": [
+                {
+                    "elements": [
+                        {
+                            "type": "card",
+                            "data": {
+                                "agency": "BRAZIL_CO",
+                                "id": "BRAZIL_CO",
+                                "version": "1.0",
+                                "dq": "BR.PIM_TOTAL_NUM._T._T",
+                                "lastnobservations": 1
+                            },
+                            "label": ""
+                        },
+                        {
+                            "type": "card",
+                            "data": {
+                                "agency": "BRAZIL_CO",
+                                "id": "BRAZIL_CO",
+                                "version": "1.0",
+                                "dq": "BR.PIM_TOTAL_PCNT._T._T",
+                                "lastnobservations": 1
+                            },
+                            "label": ""
+                        }
+                    ]
+                },
+                {
+                    "elements": [
+                        {
+                            "type": "map",
+                            "label": "Total de crianças e adolescentes com alguma privação em 2019, por Estado, em milhares",
+                            "options": {
+                                "locations": "REF_AREA",
+                                "featureidkey": "id",
+                                "color": "OBS_VALUE",
+                                "mapbox_style": "carto-positron",
+                                "zoom": 3,
+                                "center": {
+                                    "lat": -11.7462,
+                                    "lon": -53.222
+                                },
+                                "opacity": 0.5,
+                                "hover_data": {
+                                    "OBS_VALUE": true,
+                                    "REF_AREA": false,
+                                    "TIME_PERIOD": true
+                                },
+                                "animation_frame": "TIME_PERIOD",
+                                "height": 750
+                            },
+                            "data": [
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_TOTAL_NUM._T._T",
+                                    "label": ""
+                                },
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_EDUC_NUM._T._T",
+                                    "label": ""
+                                },
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_INFO_NUM._T._T",
+                                    "label": ""
+                                },
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_MORADIA_NUM._T._T",
+                                    "label": ""
+                                },
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_RENDA_NUM._T._T",
+                                    "label": ""
+                                },
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_SANE_NUM._T._T",
+                                    "label": ""
+                                },
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_TRAB_NUM._T._T",
+                                    "label": ""
+                                },
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_AGUA_NUM._T._T",
+                                    "label": ""
+                                }
+                            ],
+                            "default": "PIM_TOTAL_NUM"
+                        }
+                    ]
+                },
+                {
+                    "elements": [
+                        {
+                            "type": "chart",
+                            "label": "Percentual de crianças e adolescentes de até 17 anos com privação Extrema em 2019, por UFs e dimensão",
+                            "graphs": {
+                                "bar": {
+                                    "options": {
+                                        "x": "REF_AREA",
+                                        "y": "OBS_VALUE",
+                                        "barmode": "group",
+                                        "text": "OBS_VALUE",
+                                        "hover_name": "TIME_PERIOD"
+                                    }
+                                },
+                                "line": {
+                                    "options": {
+                                        "x": "TIME_PERIOD",
+                                        "y": "OBS_VALUE",
+                                        "color": "REF_AREA",
+                                        "hover_name": "TIME_PERIOD",
+                                        "line_shape": "spline",
+                                        "render_mode": "svg"
+                                    },
+                                    "trace_options": {
+                                        "mode": "lines+markers"
+                                    }
+                                }
+                            },
+                            "default_graph": "bar",
+                            "data": [
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_EDUC_E_PCNT._T._T"
+                                },
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_INFO_E_PCNT._T._T"
+                                },
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_MORADIA_E_PCNT._T._T"
+                                },
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_RENDA_E_PCNT._T._T"
+                                },
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_AGUA_E_PCNT._T._T"
+                                },
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_SANE_E_PCNT._T._T"
+                                },
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_TRAB_E_PCNT._T._T"
+                                }
+                            ],
+                            "default": "PIM_EDUC_E_PCNT"
+                        },
+                        {
+                            "type": "chart",
+                            "label": "Percentual de crianças e adolescentes de até 17 anos com privação Intermediária em 2019, por UFs e dimensão",
+                            "graphs": {
+                                "bar": {
+                                    "options": {
+                                        "x": "REF_AREA",
+                                        "y": "OBS_VALUE",
+                                        "barmode": "group",
+                                        "text": "OBS_VALUE",
+                                        "hover_name": "TIME_PERIOD"
+                                    }
+                                },
+                                "line": {
+                                    "options": {
+                                        "x": "TIME_PERIOD",
+                                        "y": "OBS_VALUE",
+                                        "color": "REF_AREA",
+                                        "hover_name": "TIME_PERIOD",
+                                        "line_shape": "spline",
+                                        "render_mode": "svg"
+                                    },
+                                    "trace_options": {
+                                        "mode": "lines+markers"
+                                    }
+                                }
+                            },
+                            "default_graph": "bar",
+                            "data": [
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_EDUC_I_PCNT._T._T"
+                                },
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_INFO_I_PCNT._T._T"
+                                },
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_MORADIA_I_PCNT._T._T"
+                                },
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_RENDA_I_PCNT._T._T"
+                                },
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_SANE_I_PCNT._T._T"
+                                },
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_TRAB_I_PCNT._T._T"
+                                },
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".PIM_AGUA_I_PCNT._T._T"
+                                }
+                            ],
+                            "default": "PIM_EDUC_I_PCNT"
+                        }
+                    ]
+                }
+            ]
+        },
+        "POBREZA": {
+            "NAME": "Pobreza infantil - proteção social",
+            "ROWS": [
+                {
+                    "elements": [
+                        {
+                            "type": "card",
+                            "data": {
+                                "agency": "BRAZIL_CO",
+                                "id": "BRAZIL_CO",
+                                "version": "1.0",
+                                "dq": "BR.POBREZAINFANTILEXTREMA._T._T",
+                                "lastnobservations": 1
+                            },
+                            "label": ""
+                        },
+                        {
+                            "type": "card",
+                            "data": {
+                                "agency": "BRAZIL_CO",
+                                "id": "BRAZIL_CO",
+                                "version": "1.0",
+                                "dq": "BR.POBREZAINFANTIL._T._T",
+                                "lastnobservations": 1
+                            },
+                            "label": ""
+                        },
+                        {
+                            "type": "card",
+                            "data": {
+                                "agency": "BRAZIL_CO",
+                                "id": "BRAZIL_CO",
+                                "version": "1.0",
+                                "dq": "BR.COBERTURAPAIF._T._T",
+                                "lastnobservations": 1
+                            },
+                            "label": ""
+                        }
+                    ]
+                },
+                {
+                    "elements": [
+                        {
+                            "type": "map",
+                            "label": "Pobreza infantil",
+                            "options": {
+                                "locations": "REF_AREA",
+                                "featureidkey": "id",
+                                "color": "OBS_VALUE",
+                                "mapbox_style": "carto-positron",
+                                "zoom": 3,
+                                "center": {
+                                    "lat": -11.7462,
+                                    "lon": -53.222
+                                },
+                                "opacity": 0.5,
+                                "hover_data": {
+                                    "OBS_VALUE": true,
+                                    "REF_AREA": false,
+                                    "TIME_PERIOD": true
+                                },
+                                "animation_frame": "TIME_PERIOD",
+                                "height": 750
+                            },
+                            "data": [
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".POBREZAINFANTIL._T._T"
+                                },
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".POBREZAINFANTILEXTREMA._T._T"
+                                },
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".COBERTURAPAIF._T._T"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "elements": [
+                        {
+                            "type": "chart",
+                            "label": "Pobreza infantil",
+                            "graphs": {
+                                "bar": {
+                                    "options": {
+                                        "x": "REF_AREA",
+                                        "y": "OBS_VALUE",
+                                        "barmode": "group",
+                                        "text": "OBS_VALUE",
+                                        "hover_name": "TIME_PERIOD"
+                                    }
+                                },
+                                "line": {
+                                    "options": {
+                                        "x": "TIME_PERIOD",
+                                        "y": "OBS_VALUE",
+                                        "color": "REF_AREA",
+                                        "hover_name": "TIME_PERIOD",
+                                        "line_shape": "spline",
+                                        "render_mode": "svg"
+                                    },
+                                    "trace_options": {
+                                        "mode": "lines+markers"
+                                    }
+                                }
+                            },
+                            "default_graph": "bar",
+                            "data": [
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".POBREZAINFANTIL._T._T"
+                                }
+                            ],
+                            "default": "ELEITORES16E17"
+                        },
+                        {
+                            "type": "chart",
+                            "label": "Pobreza infantil extrema",
+                            "graphs": {
+                                "bar": {
+                                    "options": {
+                                        "x": "REF_AREA",
+                                        "y": "OBS_VALUE",
+                                        "barmode": "group",
+                                        "text": "OBS_VALUE",
+                                        "hover_name": "TIME_PERIOD"
+                                    }
+                                },
+                                "line": {
+                                    "options": {
+                                        "x": "TIME_PERIOD",
+                                        "y": "OBS_VALUE",
+                                        "color": "REF_AREA",
+                                        "hover_name": "TIME_PERIOD",
+                                        "line_shape": "spline",
+                                        "render_mode": "svg"
+                                    },
+                                    "trace_options": {
+                                        "mode": "lines+markers"
+                                    }
+                                }
+                            },
+                            "default_graph": "bar",
+                            "data": [
+                                {
+                                    "agency": "BRAZIL_CO",
+                                    "id": "BRAZIL_CO",
+                                    "version": "1.0",
+                                    "dq": ".POBREZAINFANTILEXTREMA._T._T"
+                                }
+                            ],
+                            "default": "POBREZAINFANTILEXTREMA"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

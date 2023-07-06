@@ -1,0 +1,228 @@
+{
+	"main_title": "Demography and Economic",
+	"page_nav": {
+		"type": "all"
+	},
+	"THEMES": {
+		"DEMOGRAPHY": {
+			"NAME": "Demography",
+			"ROWS": [{
+					"elements": [{
+						"type": "card",
+						"data": {
+							"agency": "ROSA",
+							"id": "ROSA",
+							"version": "1.0",
+							"dq": "UNICEF_SA.DM_FRATE_TOT._T",
+							"lastnobservations": 1
+						},
+						"label": "Total fertility rate",
+						"round": 1
+					}]
+				},
+				{
+					"elements": [{
+							"type": "chart",
+							"label": " Total fertility rate",
+							"graphs": {
+								"bar": {
+									"options": {
+										"x": "REF_AREA",
+										"y": "OBS_VALUE",
+										"barmode": "group",
+										"text": "OBS_VALUE",
+										"hover_name": "TIME_PERIOD"
+									}
+								},
+								"line": {
+									"options": {
+										"x": "TIME_PERIOD",
+										"y": "OBS_VALUE",
+										"color": "REF_AREA",
+										"hover_name": "TIME_PERIOD",
+										"line_shape": "spline",
+										"render_mode": "svg"
+									},
+									"trace_options": {
+										"mode": "lines+markers"
+									}
+								}
+							},
+
+							"default_graph": "bar",
+							"data": [{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ".DM_FRATE_TOT._T",
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								},
+								{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ".DM_LIFE_EXP._T",
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								}
+							],
+							"default": "DM_LIFE_EXP._T"
+						},
+						{
+							"type": "chart",
+							"label": " Adolescent population (10-19)",
+							"graphs": {
+								"bar": {
+									"options": {
+										"x": "REF_AREA",
+										"y": "OBS_VALUE",
+										"barmode": "group",
+										"text": "OBS_VALUE",
+										"hover_name": "TIME_PERIOD"
+									}
+								},
+
+
+								"line": {
+									"options": {
+										"x": "TIME_PERIOD",
+										"y": "OBS_VALUE",
+										"color": "REF_AREA",
+										"hover_name": "TIME_PERIOD",
+										"line_shape": "spline",
+										"render_mode": "svg"
+									},
+									"trace_options": {
+										"mode": "lines+markers"
+									}
+								}
+							},
+
+
+							"default_graph": "bar",
+							"data": [{
+								"agency": "ROSA",
+								"id": "ROSA",
+								"version": "1.0",
+								"dq": ".DM_POP_ADLCNT._T",
+"round": 1,
+								"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+							}],
+							"default": "DM_DPR_CHD._T"
+						}
+					]
+				}
+			]
+		},
+
+
+		"ECONOMIC": {
+			"NAME": "Economic",
+			"ROWS": [{
+					"elements": [{
+						"type": "card",
+						"data": {
+							"agency": "ROSA",
+							"id": "ROSA",
+							"version": "1.0",
+							"dq": " UNICEF_SA.ECON_GVT_REV_PTGDP._T",
+							"lastnobservations": 1
+						},
+						"label": " Government revenue (%GDP)",
+						"round": 1
+					}]
+				},
+				{
+					"elements": [{
+							"type": "chart",
+							"label": " Government expenditure (% GDP)",
+							"graphs": {
+								"bar": {
+									"options": {
+										"x": "REF_AREA",
+										"y": "OBS_VALUE",
+										"barmode": "group",
+										"text": "OBS_VALUE",
+										"hover_name": "TIME_PERIOD"
+									}
+								},
+								"line": {
+									"options": {
+										"x": "TIME_PERIOD",
+										"y": "OBS_VALUE",
+										"color": "REF_AREA",
+										"hover_name": "TIME_PERIOD",
+										"line_shape": "spline",
+										"render_mode": "svg"
+									},
+									"trace_options": {
+										"mode": "lines+markers"
+									}
+								}
+							},
+
+							"default_graph": "bar",
+							"data": [{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ".ECON_GVT_EXP_PTGDP._T",
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								},
+								{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ".ECON_GVT_REV_PTGDP._T",
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								}
+							],
+							"default": ".ECON_GVT_EXP_PTGDP._T"
+						},
+						{
+							"type": "chart",
+							"label": " Government expenditure on health (% GDP)",
+							"graphs": {
+								"bar": {
+									"options": {
+										"x": "REF_AREA",
+										"y": "OBS_VALUE",
+										"barmode": "group",
+										"text": "OBS_VALUE",
+										"hover_name": "TIME_PERIOD"
+									}
+								},
+
+
+								"line": {
+									"options": {
+										"x": "TIME_PERIOD",
+										"y": "OBS_VALUE",
+										"color": "REF_AREA",
+										"hover_name": "TIME_PERIOD",
+										"line_shape": "spline",
+										"render_mode": "svg"
+									},
+									"trace_options": {
+										"mode": "lines+markers"
+									}
+								}
+							},
+
+
+							"default_graph": "bar",
+							"data": [{
+								"agency": "ROSA",
+								"id": "ROSA",
+								"version": "1.0",
+								"dq": ".ECON_GVT_HLTH_EXP_PTGDP._T",
+								"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+							}],
+							"default": " ECON_SOC_PRO_EXP_PTGDP._T"
+
+						}
+					]
+				}
+			]
+		}
+	}
+}

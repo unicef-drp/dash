@@ -1,0 +1,559 @@
+{
+	"main_title": "Water, Sanitation and Hygiene",
+	"page_nav": {
+		"type": "all"
+	},
+	"THEMES": {
+		"WATER": {
+			"NAME": "Water",
+			"ROWS": [{
+					"elements": [{
+							"type": "card",
+							"data": {
+								"agency": "ROSA",
+								"id": "ROSA",
+								"version": "1.0",
+								"dq": "UNICEF_SA.._T",
+								"lastnobservations": 1
+							},
+							"label": "Percentage of households with access to safely managed water services",
+							"round": 1
+						},
+
+
+						{
+							"type": "card",
+							"data": {
+								"agency": "ROSA",
+								"id": "ROSA",
+								"version": "1.0",
+								"dq": "UNICEF_SA.._T",
+								"lastnobservations": 1
+							},
+							"label": "Percentage of households with access to safely managed water services",
+							"round": 1
+						}
+					]
+				},
+
+
+
+				{
+					"elements": [{
+							"type": "chart",
+							"label": "Percentage of households with access to safely managed water services",
+							"graphs": {
+								"bar": {
+									"options": {
+										"x": "REF_AREA",
+										"y": "OBS_VALUE",
+										"barmode": "group",
+										"text": "OBS_VALUE",
+										"hover_name": "TIME_PERIOD"
+									}
+								},
+								"line": {
+									"options": {
+										"x": "TIME_PERIOD",
+										"y": "OBS_VALUE",
+										"color": "REF_AREA",
+										"hover_name": "TIME_PERIOD",
+										"line_shape": "spline",
+										"render_mode": "svg"
+									},
+									"trace_options": {
+										"mode": "lines+markers"
+									}
+								}
+							},
+
+							"default_graph": "bar",
+							"data": [{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ".ROSA,ROSA,1.0/.._T",
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								},
+								{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ".ROS0/.A,ROSA,1.._T",
+"round": 1,
+
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								}
+							],
+							"default": "ROSA,ROSA,1.0/.._T"
+						},
+
+
+
+
+						{
+							"type": "chart",
+							"label": " Water access ladder",
+							"graphs": {
+								"bar": {
+									"options": {
+										"x": "REF_AREA",
+										"y": "OBS_VALUE",
+										"barmode": "group",
+										"text": "OBS_VALUE",
+										"hover_name": "TIME_PERIOD"
+									}
+								},
+								"line": {
+									"options": {
+										"x": "TIME_PERIOD",
+										"y": "OBS_VALUE",
+										"color": "REF_AREA",
+										"hover_name": "TIME_PERIOD",
+										"line_shape": "spline",
+										"render_mode": "svg"
+									},
+									"trace_options": {
+										"mode": "lines+markers"
+									}
+								}
+							},
+
+							"default_graph": "bar",
+							"data": [{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ".ROSA,ROSA,1.0/.._T",
+"round": 1,
+
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								},
+								{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ". ROSA,ROSA,1.0/.WS_HCF_W-B._T",
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								}
+							],
+							"default": " ROSA,ROSA,1.0/.._T"
+						}
+					]
+				}
+			]
+		},
+
+
+		"SANITATION": {
+			"NAME": "Sanitation",
+			"ROWS": [{
+					"elements": [{
+							"type": "card",
+							"data": {
+								"agency": "ROSA",
+								"id": "ROSA",
+								"version": "1.0",
+								"dq": "UNICEF_SA.._T",
+								"lastnobservations": 1
+							},
+							"label": " Percentage of households with access to safely managed sanitation services",
+							"round": 1
+						},
+
+
+						{
+							"type": "card",
+							"data": {
+								"agency": "ROSA",
+								"id": "ROSA",
+								"version": "1.0",
+								"dq": "UNICEF_SA.CME_MRY0T4._T",
+								"lastnobservations": 1
+							},
+							"label": "Percentage of households with access to safely managed sanitation services",
+							"round": 1
+						}
+					]
+				},
+
+
+
+				{
+					"elements": [{
+							"type": "chart",
+							"label": " Percentage of households with access to safely managed sanitation services ",
+							"graphs": {
+								"bar": {
+									"options": {
+										"x": "REF_AREA",
+										"y": "OBS_VALUE",
+										"barmode": "group",
+										"text": "OBS_VALUE",
+										"hover_name": "TIME_PERIOD"
+									}
+								},
+								"line": {
+									"options": {
+										"x": "TIME_PERIOD",
+										"y": "OBS_VALUE",
+										"color": "REF_AREA",
+										"hover_name": "TIME_PERIOD",
+										"line_shape": "spline",
+										"render_mode": "svg"
+									},
+									"trace_options": {
+										"mode": "lines+markers"
+									}
+								}
+							},
+
+							"default_graph": "bar",
+							"data": [{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ". ROSA,ROSA,1.0/.._T",
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								},
+								{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ".ROSA,ROSA,1.0/.._T",
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								}
+							],
+							"default": "ROSA,ROSA,1.0/.._T"
+						},
+
+
+
+
+						{
+							"type": "chart",
+							"label": " Sanitation access ladder",
+							"graphs": {
+								"bar": {
+									"options": {
+										"x": "REF_AREA",
+										"y": "OBS_VALUE",
+										"barmode": "group",
+										"text": "OBS_VALUE",
+										"hover_name": "TIME_PERIOD"
+									}
+								},
+								"line": {
+									"options": {
+										"x": "TIME_PERIOD",
+										"y": "OBS_VALUE",
+										"color": "REF_AREA",
+										"hover_name": "TIME_PERIOD",
+										"line_shape": "spline",
+										"render_mode": "svg"
+									},
+									"trace_options": {
+										"mode": "lines+markers"
+									}
+								}
+							},
+
+							"default_graph": "bar",
+							"data": [{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ".ROSA,ROSA,1.0/.._T",
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								},
+								{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ".ROSA,ROSA,1.0/.._T",
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								}
+							],
+							"default": "ROSA,ROSA,1.0/.._T"
+						}
+					]
+				}
+			]
+		},
+
+
+
+		"WASHINSCHOOLS": {
+			"NAME": "Wash in schools",
+			"ROWS": [{
+					"elements": [{
+							"type": "card",
+							"data": {
+								"agency": "ROSA",
+								"id": "ROSA",
+								"version": "1.0",
+								"dq": "UNICEF_SA.WS_SCH_W-B.",
+								"lastnobservations": 1
+							},
+							"label": " Proportion of schools with basic drinking water services",
+							"round": 1
+						},
+
+
+						{
+							"type": "card",
+							"data": {
+								"agency": "ROSA",
+								"id": "ROSA",
+								"version": "1.0",
+								"dq": "UNICEF_SA.WS_SCH_W-L.",
+								"lastnobservations": 1
+							},
+							"label": " Proportion of schools with limited drinking water services",
+							"round": 1
+						}
+					]
+				},
+
+
+
+				{
+					"elements": [{
+							"type": "chart",
+							"label": " Proportion of schools with no drinking water service ",
+							"graphs": {
+								"bar": {
+									"options": {
+										"x": "REF_AREA",
+										"y": "OBS_VALUE",
+										"barmode": "group",
+										"text": "OBS_VALUE",
+										"hover_name": "TIME_PERIOD"
+									}
+								},
+								"line": {
+									"options": {
+										"x": "TIME_PERIOD",
+										"y": "OBS_VALUE",
+										"color": "REF_AREA",
+										"hover_name": "TIME_PERIOD",
+										"line_shape": "spline",
+										"render_mode": "svg"
+									},
+									"trace_options": {
+										"mode": "lines+markers"
+									}
+								}
+							},
+
+							"default_graph": "bar",
+							"data": [{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ". ROSA,ROSA,1.0/.WS_SCH_W-N._T",
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								},
+								{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ". ROSA,ROSA,1.0/.WS_SCH_H-L._T",
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								}
+							],
+							"default": "ROSA,ROSA,1.0/.WS_SCH_W-N._T"
+						},
+
+
+
+
+						{
+							"type": "chart",
+							"label": " Proportion of schools with no sanitation service",
+							"graphs": {
+								"bar": {
+									"options": {
+										"x": "REF_AREA",
+										"y": "OBS_VALUE",
+										"barmode": "group",
+										"text": "OBS_VALUE",
+										"hover_name": "TIME_PERIOD"
+									}
+								},
+								"line": {
+									"options": {
+										"x": "TIME_PERIOD",
+										"y": "OBS_VALUE",
+										"color": "REF_AREA",
+										"hover_name": "TIME_PERIOD",
+										"line_shape": "spline",
+										"render_mode": "svg"
+									},
+									"trace_options": {
+										"mode": "lines+markers"
+									}
+								}
+							},
+
+							"default_graph": "bar",
+							"data": [{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ". ROSA,ROSA,1.0/.WS_SCH_S-N._T",
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								},
+								{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ".ROSA,ROSA,1.0/.WS_SCH_H-N._T",
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								}
+							],
+							"default": "ROSA,ROSA,1.0/.WS_SCH_S-N._T"
+						}
+					]
+				}
+			]
+		},
+
+		"WASHINHCFS": {
+			"NAME": "WASH at Health Care Facilities",
+			"ROWS": [{
+					"elements": [{
+							"type": "card",
+							"data": {
+								"agency": "ROSA",
+								"id": "ROSA",
+								"version": "1.0",
+								"dq": "ROSA,ROSA,1.0/.WS_HCF_C-B.",
+								"lastnobservations": 1
+							},
+							"label": "Proportion of health care facilities with basic cleaning services",
+							"round": 1
+						},
+
+
+						{
+							"type": "card",
+							"data": {
+								"agency": "ROSA",
+								"id": "ROSA",
+								"version": "1.0",
+								"dq": " ROSA,ROSA,1.0/.WS_HC_W-B.",
+								"lastnobservations": 1
+							},
+							"label": " Proportion of health care facilities with basic water services",
+							"round": 1
+						}
+					]
+				},
+
+
+
+				{
+					"elements": [{
+							"type": "chart",
+							"label": " Proportion of health care facilities with basic hygiene services",
+							"graphs": {
+								"bar": {
+									"options": {
+										"x": "REF_AREA",
+										"y": "OBS_VALUE",
+										"barmode": "group",
+										"text": "OBS_VALUE",
+										"hover_name": "TIME_PERIOD"
+									}
+								},
+								"line": {
+									"options": {
+										"x": "TIME_PERIOD",
+										"y": "OBS_VALUE",
+										"color": "REF_AREA",
+										"hover_name": "TIME_PERIOD",
+										"line_shape": "spline",
+										"render_mode": "svg"
+									},
+									"trace_options": {
+										"mode": "lines+markers"
+									}
+								}
+							},
+
+							"default_graph": "bar",
+							"data": [{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ".ROSA,ROSA,1.0/.WS_HCF_H-B._T",
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								},
+								{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ".ROSA,ROSA,1.0/.WS_HCF_S-B._T",
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								}
+							],
+							"default": " ROSA,ROSA,1.0/.WS_HCF_H-B._T"
+						},
+
+
+
+
+						{
+							"type": "chart",
+							"label": " Proportion of health care facilities with basic water services",
+							"graphs": {
+								"bar": {
+									"options": {
+										"x": "REF_AREA",
+										"y": "OBS_VALUE",
+										"barmode": "group",
+										"text": "OBS_VALUE",
+										"hover_name": "TIME_PERIOD"
+									}
+								},
+								"line": {
+									"options": {
+										"x": "TIME_PERIOD",
+										"y": "OBS_VALUE",
+										"color": "REF_AREA",
+										"hover_name": "TIME_PERIOD",
+										"line_shape": "spline",
+										"render_mode": "svg"
+									},
+									"trace_options": {
+										"mode": "lines+markers"
+									}
+								}
+							},
+
+							"default_graph": "bar",
+							"data": [{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ".ROSA,ROSA,1.0/.WS_HCF_W-B._T",
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								},
+								{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ". ROSA,ROSA,1.0/.WS_HCF_C-B._T",
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								}
+							],
+							"default": "ROSA,ROSA,1.0/.WS_HCF_W-B._T"
+
+						}
+					]
+				}
+			]
+		}
+	}
+}

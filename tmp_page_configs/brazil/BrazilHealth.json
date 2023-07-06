@@ -1,0 +1,805 @@
+{
+   "main_title": "Saúde",
+   "page_nav": {
+      "type": "all"
+   },
+   "THEMES": {
+      "IMMUNIZATION": {
+         "NAME": "Imunização",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "BRAZIL_CO",
+                        "id": "BRAZIL_CO",
+                        "version": "1.0",
+                        "dq": "BR.IMUNOPOLIO._T._T",
+                        "lastnobservations": 1
+                     },
+                     "label": ""
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "BRAZIL_CO",
+                        "id": "BRAZIL_CO",
+                        "version": "1.0",
+                        "dq": "BR.IMUNOTRIPLICED1._T._T",
+                        "lastnobservations": 1
+                     },
+                     "label": ""
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "BRAZIL_CO",
+                        "id": "BRAZIL_CO",
+                        "version": "1.0",
+                        "dq": "BR.IMUNOTRIPLICEDTP._T._T",
+                        "lastnobservations": 1
+                     },
+                     "label": ""
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "map",
+                     "label": "Imunização",
+                     "options": {
+                        "locations": "REF_AREA",
+                        "featureidkey": "id",
+                        "color": "OBS_VALUE",
+                        "mapbox_style": "carto-positron",
+                        "zoom": 3,
+                        "center": {
+                           "lat": -11.7462,
+                           "lon": -53.222
+                        },
+                        "opacity": 0.5,
+                        "hover_data": {
+                           "OBS_VALUE": true,
+                           "REF_AREA": false,
+                           "TIME_PERIOD": true
+                        },
+                        "animation_frame": "TIME_PERIOD",
+                        "height": 750
+                     },
+                     "data": [
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".IMUNOPOLIO._T._T",
+                           "label": ""
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".IMUNOTRIPLICED1._T._T",
+                           "label": ""
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".IMUNOTRIPLICEDTP._T._T",
+                           "label": ""
+                        }
+                     ]
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": "Cobertura",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".IMUNOPOLIO._T._T"
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".IMUNOTRIPLICED1._T._T"
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".IMUNOTRIPLICEDTP._T._T"
+                        }
+                     ],
+                     "default": "IMUNOPOLIO"
+                  },
+                  {
+                     "type": "chart",
+                     "label": "Cobertura",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".IMUNOPOLIO._T._T"
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".IMUNOTRIPLICED1._T._T"
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".IMUNOTRIPLICEDTP._T._T"
+                        }
+                     ],
+                     "default": "IMUNOTRIPLICED1"
+                  }
+               ]
+            }
+         ]
+      },
+      "MNCH": {
+         "NAME": "Saúde Materna, Neonatal e Infantil",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "BRAZIL_CO",
+                        "id": "BRAZIL_CO",
+                        "version": "1.0",
+                        "dq": "BR.PREMATUROPORCENTAGEM._T._T",
+                        "lastnobservations": 1
+                     },
+                     "name": "",
+                     "label": ""
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "BRAZIL_CO",
+                        "id": "BRAZIL_CO",
+                        "version": "1.0",
+                        "dq": "BR.MORTALIDADEINFANTIL._T._T",
+                        "lastnobservations": 1
+                     },
+                     "name": "",
+                     "label": ""
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "BRAZIL_CO",
+                        "id": "BRAZIL_CO",
+                        "version": "1.0",
+                        "dq": "BR.RAZAOMORTALIDADEMAT._T._T",
+                        "lastnobservations": 1
+                     },
+                     "name": "",
+                     "label": ""
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "map",
+                     "label": "Saúde",
+                     "options": {
+                        "locations": "REF_AREA",
+                        "featureidkey": "id",
+                        "color": "OBS_VALUE",
+                        "mapbox_style": "carto-positron",
+                        "zoom": 3,
+                        "center": {
+                           "lat": -11.7462,
+                           "lon": -53.222
+                        },
+                        "opacity": 0.5,
+                        "hover_data": {
+                           "OBS_VALUE": true,
+                           "REF_AREA": false,
+                           "TIME_PERIOD": true
+                        },
+                        "animation_frame": "TIME_PERIOD",
+                        "height": 750
+                     },
+                     "data": [
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".NASCIMENTOS10A14PERCENTAGEM.Y10T14._T",
+                           "label": "% nascidos vivos mães de 10 a 14 anos"
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".NASCIMENTOS10A14PERCENTAGEM.Y15T19._T",
+                           "label": "% nascidos vivos mães de 15 a 19 anos"
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".PREMATUROPORCENTAGEM._T._T",
+                           "label": ""
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".MORTALIDADEINFANTIL._T._T",
+                           "label": ""
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".MORTALIDADEINFANCIAMENOR5._T._T",
+                           "label": ""
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".MORTALIDADENEONATAL._T._T",
+                           "label": ""
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".RAZAOMORTALIDADEMAT._T._T",
+                           "label": ""
+                        }
+                     ]
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": "Mortalidade",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".MORTALIDADEINFANTIL._T._T",
+                           "label": ""
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".MORTALIDADEINFANCIAMENOR5._T._T",
+                           "label": ""
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".MORTALIDADENEONATAL._T._T",
+                           "label": ""
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".RAZAOMORTALIDADEMAT._T._T",
+                           "label": ""
+                        }
+                     ],
+                     "default": "MORTALIDADEINFANTIL"
+                  },
+                  {
+                     "type": "chart",
+                     "label": "Nascimentos",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".NASCIMENTOS10A14.Y10T14._T",
+                           "label": ""
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".NASCIMENTOS10A14PERCENTAGEM.Y10T14._T",
+                           "label": ""
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".NASCIMENTOS10A14.Y15T19._T",
+                           "label": "% nascidos vivos mães de 15 a 19 anos"
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".NASCIMENTOS10A14PERCENTAGEM.Y15T19._T",
+                           "label": "% nascidos vivos mães de 15 a 19 anos"
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".PREMATUROPORCENTAGEM._T._T",
+                           "label": "% de partos prematuros"
+                        }
+                     ],
+                     "default": "NASCIMENTOS10A14"
+                  }
+               ]
+            }
+         ]
+      },
+      "VECTOR_BORNE_DISEASES": {
+         "NAME": "Doenças transmitidas por vetores",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "BRAZIL_CO",
+                        "id": "BRAZIL_CO",
+                        "version": "1.0",
+                        "dq": "BR.DENGUEINCIDENCIA._T._T",
+                        "lastnobservations": 1
+                     },
+                     "label": ""
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "map",
+                     "label": "Doenças transmitidas por vetores",
+                     "options": {
+                        "locations": "REF_AREA",
+                        "featureidkey": "id",
+                        "color": "OBS_VALUE",
+                        "mapbox_style": "carto-positron",
+                        "zoom": 3,
+                        "center": {
+                           "lat": -11.7462,
+                           "lon": -53.222
+                        },
+                        "opacity": 0.5,
+                        "hover_data": {
+                           "OBS_VALUE": true,
+                           "REF_AREA": false,
+                           "TIME_PERIOD": true
+                        },
+                        "animation_frame": "TIME_PERIOD",
+                        "height": 750
+                     },
+                     "data": [
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".DENGUETOTAL._T._T",
+                           "label": ""
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".DENGUEINCIDENCIA._T_T",
+                           "label": ""
+                        }
+                     ]
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": "Doenças transmitidas por vetores",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".DENGUETOTAL._T._T",
+                           "label": ""
+                        }
+                     ],
+                     "default": "DENGUETOTAL"
+                  },
+                  {
+                     "type": "chart",
+                     "label": "Doenças transmitidas por vetores",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".DENGUEINCIDENCIA._T._T",
+                           "label": ""
+                        }
+                     ],
+                     "default": "DENGUEINCIDENCIA"
+                  }
+               ]
+            }
+         ]
+      },
+      "NUTRITION": {
+         "NAME": "Nutrição",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "BRAZIL_CO",
+                        "id": "BRAZIL_CO",
+                        "version": "1.0",
+                        "dq": "BR.PESO0A5._T._T",
+                        "lastnobservations": 1
+                     },
+                     "label": ""
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "BRAZIL_CO",
+                        "id": "BRAZIL_CO",
+                        "version": "1.0",
+                        "dq": "BR.PESO5A9._T._T",
+                        "lastnobservations": 1
+                     },
+                     "label": ""
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "BRAZIL_CO",
+                        "id": "BRAZIL_CO",
+                        "version": "1.0",
+                        "dq": "BR.PESOADOLESCENTES._T._T",
+                        "lastnobservations": 1
+                     },
+                     "label": ""
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "map",
+                     "label": "Saúde",
+                     "options": {
+                        "locations": "REF_AREA",
+                        "featureidkey": "id",
+                        "color": "OBS_VALUE",
+                        "mapbox_style": "carto-positron",
+                        "zoom": 3,
+                        "center": {
+                           "lat": -11.7462,
+                           "lon": -53.222
+                        },
+                        "opacity": 0.5,
+                        "hover_data": {
+                           "OBS_VALUE": true,
+                           "REF_AREA": false,
+                           "TIME_PERIOD": true
+                        },
+                        "animation_frame": "TIME_PERIOD",
+                        "height": 750
+                     },
+                     "data": [
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".PESO0A5._T._T",
+                           "label": ""
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".PESO5A9._T._T",
+                           "label": ""
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".PESOADOLESCENTES._T._T",
+                           "label": ""
+                        }
+                     ]
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": "Saúde",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".PESO0A5._T._T",
+                           "label": ""
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".PESO5A9._T._T",
+                           "label": ""
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".PESOADOLESCENTES._T._T",
+                           "label": ""
+                        }
+                     ],
+                     "default": "PESO0A5"
+                  },
+                  {
+                     "type": "chart",
+                     "label": "Saúde",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".PESO0A5._T._T",
+                           "label": ""
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".PESO5A9._T._T",
+                           "label": ""
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".PESOADOLESCENTES._T._T",
+                           "label": ""
+                        }
+                     ],
+                     "default": "PESO5A9"
+                  }
+               ]
+            }
+         ]
+      }
+   }
+}

@@ -160,12 +160,12 @@ def create_links_row(row, query_params_to_pass_through):
             link_to_use = ""
             if "link" in l:
                 link_to_use = l["link"]
-            params_from_link = _get_params_from_link(link_to_use)
-            params_string = _get_params_string(
-                params_from_link, query_params_to_pass_through
-            )
-
-            l["link"] = params_string
+            if not (link_to_use.lower().startswith("http://") or link_to_use.lower().startswith("https://")):
+                params_from_link = _get_params_from_link(link_to_use)
+                params_string = _get_params_string(
+                    params_from_link, query_params_to_pass_through
+                )
+                l["link"] = params_string
             lnk = _create_button(l, color)
             links_div.append(lnk)
         ch.append(html.Div(className="text-center", children=links_div))
