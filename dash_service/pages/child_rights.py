@@ -114,7 +114,7 @@ page_config = {
             },
             {
                 "name": "",
-                "indicator": "EC_SI_POV_GINI",
+                "indicator": "PV_GINI_COEF",
                 "suffix": min_max_card_suffix,
                 "min_max": True,
             },
@@ -138,7 +138,7 @@ page_config = {
                 "EC_TEC_GRL_GOV_EXP",
                 "EC_NY_GDP_PCAP_PP_CD",
                 "EC_NY_GNP_PCAP_CD",
-                "EC_SI_POV_GINI",
+                "PV_GINI_COEF",
                 "EC_SL_UEM_TOTL_ZS",
                 "EC_EAP_RT",
             ],

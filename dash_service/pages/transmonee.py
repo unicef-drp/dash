@@ -817,7 +817,7 @@ def get_base_layout(**kwargs):
     domain_colour = kwargs.get("domain_colour")
     qparams = kwargs.get("query_params")
 
-    home_icon_file_path = f"{request.root_url}assets/SOCR_Diagram_RES_120x120.png"
+    home_icon_file_path = f"{request.root_url}assets/home-icon-1.svg"
 
     pass_through_params = ["prj=tm"]
     for k, v in qparams.items():
@@ -933,13 +933,10 @@ def get_base_layout(**kwargs):
                             html.A(
                                 html.Img(
                                     id="wheel-icon",
-                                    # src=get_asset_url("SOCR_Diagram_RES_120x120.png"),
                                     src=home_icon_file_path,
-                                    style={"backgroundColor": "white"},
-                                    width=120,
-                                    height=120,
+                                    width=70,
+                                    height=70,
                                 ),
-                                # href="/transmonee",
                                 href=home_icon_href,
                             ),
                             dbc.Tooltip(
