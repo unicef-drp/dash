@@ -380,6 +380,25 @@
             ]
         }
     },
+    "DM_CHLD_YOUNG_COMP_POP": {
+        "SEX": {
+            "AGE": [
+                "Y0T17"
+            ],
+            "SEX": [
+                "F",
+                "M"
+            ]
+        },
+        "TOTAL": {
+            "AGE": [
+                "Y0T17"
+            ],
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
     "DM_CHLD_POP_PT": {
         "SEX": {
             "SEX": [
