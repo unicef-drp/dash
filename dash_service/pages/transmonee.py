@@ -107,7 +107,7 @@ custom_names = {
     "DM_ADOL_YOUTH_POP": "Adolescent, young and youth population aged 10-24 years",
     "DM_ADULT_YOUTH_POP": "Adult youth population aged 20-29 years",
     "DM_REPD_AGE_POP": "Population of reproductive age 15-49 years",
-    "MG_INTNL_MG_CNTRY_DEST_PS": "International migrant stock",
+    "DM_CHLD_YOUNG_COMP_POP": "Child population aged 0-17 years",
     # custom plots
     "packed_CRG": "National Human Rights Institutions in compliance with the Paris Principles",
     "packed_EXP": "Expenditure on education levels as a percentage of government expenditure on education",
@@ -817,18 +817,19 @@ def get_base_layout(**kwargs):
     domain_colour = kwargs.get("domain_colour")
     qparams = kwargs.get("query_params")
 
-    home_icon_file_path = f"{request.root_url}assets/SOCR_Diagram_RES_120x120.png"
+    home_icon_file_path = f"{request.root_url}assets/home-icon-1.svg"
 
-    pass_trhough_params = ["prj=tm"]
+
+    pass_through_params = ["prj=tm"]
     for k, v in qparams.items():
         if k not in ["prj", "page", "hash"]:
-            pass_trhough_params.append(f"{k}={v}")
+            pass_through_params.append(f"{k}={v}")
 
-    home_icon_href = "?" + "&".join(pass_trhough_params)
+    home_icon_href = "?" + "&".join(pass_through_params) + "e&page=home"
 
     domain_pages_links = []
     for k, v in domain_pages.items():
-        domain_pages_params = pass_trhough_params + ["page=" + v]
+        domain_pages_params = pass_through_params + ["page=" + v]
         domain_pages_params = "?" + "&".join(domain_pages_params)
         domain_pages_links.append({"label": k, "value": domain_pages_params})
         if "page" in qparams and v == qparams["page"]:
@@ -933,13 +934,10 @@ def get_base_layout(**kwargs):
                             html.A(
                                 html.Img(
                                     id="wheel-icon",
-                                    # src=get_asset_url("SOCR_Diagram_RES_120x120.png"),
                                     src=home_icon_file_path,
-                                    style={"backgroundColor": "white"},
-                                    width=120,
-                                    height=120,
+                                    width=70,
+                                    height=70,
                                 ),
-                                # href="/transmonee",
                                 href=home_icon_href,
                             ),
                             dbc.Tooltip(
@@ -2055,11 +2053,11 @@ def aio_area_figure(
     source = (
         "; ".join(list(unique_indicator_sources))
         if len(unique_indicator_sources) > 0
-        else ""
+        else "Multiple sources"
     )
     source_link = (
         df_indicator_sources["Source_Link"].unique()[0]
-        if len(unique_indicator_sources) > 0
+        if len(unique_indicator_sources) > 0 and source != "Multiple sources"
         else ""
     )
 

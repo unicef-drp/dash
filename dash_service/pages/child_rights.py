@@ -46,7 +46,6 @@ page_config = {
                 "indicator": "DM_CHLD_POP",
                 "suffix": "children",
                 "min_max": False,
-                "graph_info": "Test text",
             },
             {
                 "name": "",
@@ -115,7 +114,7 @@ page_config = {
             },
             {
                 "name": "",
-                "indicator": "EC_SI_POV_GINI",
+                "indicator": "PV_GINI_COEF",
                 "suffix": min_max_card_suffix,
                 "min_max": True,
             },
@@ -139,7 +138,7 @@ page_config = {
                 "EC_TEC_GRL_GOV_EXP",
                 "EC_NY_GDP_PCAP_PP_CD",
                 "EC_NY_GNP_PCAP_CD",
-                "EC_SI_POV_GINI",
+                "PV_GINI_COEF",
                 "EC_SL_UEM_TOTL_ZS",
                 "EC_EAP_RT",
             ],
@@ -384,7 +383,7 @@ def layout(page_slug=None, **query_parmas):
                     page_prefix=page_prefix,
                     page_path=page_path,
                     domain_colour=domain_colour,
-                    query_params=query_parmas
+                    query_params=query_parmas,
                 ),
             ),
             html.Br(),
