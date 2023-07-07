@@ -819,6 +819,7 @@ def get_base_layout(**kwargs):
 
     home_icon_file_path = f"{request.root_url}assets/home-icon-1.svg"
 
+
     pass_through_params = ["prj=tm"]
     for k, v in qparams.items():
         if k not in ["prj", "page", "hash"]:

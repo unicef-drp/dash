@@ -1,0 +1,586 @@
+{
+   "main_title": "Health",
+   "page_nav": {
+      "type": "all"
+   },
+   "THEMES": {
+      "FERTILITY": {
+         "NAME": " Fertility and Mortality ",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.CME_MRM0._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Neonatal Mortality Rate",
+                     "round": 1
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.CME_MRY0T4._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Under-five Mortality Rate",
+                     "round": 1
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.._T",
+
+                        "lastnobservations": 1
+                     },
+                     "label": "Adolescent birth rate (number of live births to adolescent women per 1,000 adolescent women)",
+                     "round": 1
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": " Neonatal Mortality Rate",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".CME_MRM0._T",
+                           "round": 1,
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": "CME_MRM0._T"
+                  },
+                  {
+                     "type": "chart",
+                     "label": " Stillbirth Rate ",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".CME_SBR._T",
+                           "round": 1,
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": "CME_SBR._T"
+                  }
+               ]
+            }
+         ]
+      },
+      "MATERNAL": {
+         "NAME": " Maternal and Child Health ",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.MNCH_INSTDEL._T",
+                        "lastnobservations": 1
+                     },
+                     "label": " Institutional deliveries - percentage of deliveries in a health facility",
+                     "round": 1
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.MNCH_SAB.F",
+                        "lastnobservations": 1
+                     },
+                     "label": "Skilled birth attendant - percentage of deliveries attended by skilled health personnel",
+                     "round": 1
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": " Institutional deliveries - percentage of deliveries in a health facility ",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".MNCH_INSTDEL._T",
+                           "round": 1,
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": "MNCH_INSTDEL._T"
+                  },
+                  {
+                     "type": "chart",
+                     "label": " Skilled birth attendant - percentage of deliveries attended by skilled health personnel",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".MNCH_SAB.F",
+                           "round": 1,
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": "MNCH_SAB.F"
+                  }
+               ]
+            }
+         ]
+      },
+      "IMMUNIZATION": {
+         "NAME": " Immunization",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.IM_MCV1._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Percentage of surviving infants who received the first dose of measles-containing vaccine",
+                     "round": 1
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.IM_DTP3._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Percentage of surviving infants who received the third dose of DTP-containing vaccine",
+                     "round": 1
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.IM_ROTAC._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Percentage of surviving infants who received the last dose of rotavirus-containing vaccine",
+                     "round": 1
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": "Percentage of surviving infants who received the last dose of rotavirus-containing vaccine",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".IM_ROTAC._T",
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": "IM_ROTAC._T "
+                  },
+                  {
+                     "type": "chart",
+                     "label": "Percentage of surviving infants who received the first dose of measles - containing vaccine ",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".IM_MCV1._T",
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": "IM_MCV1._T"
+                  }
+               ]
+            }
+         ]
+      },
+      "NUTRITION": {
+         "NAME": " Nutrition",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.NT_ANT_WHZ_NE2._T",
+                        "lastnobservations": 1
+                     },
+                     "label": " Weight-for-height <-2 SD (wasting)",
+                     "round": 1
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": " Weight-for-height >+2 SD (overweight) ",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".NT_ANT_WHZ_PO2._T",
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": "NT_ANT_WHZ_PO2._T"
+                  },
+                  {
+                     "type": "chart",
+                     "label": "Weight-for -height < -2 SD(wasting)",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".NT_ANT_WHZ_NE2._T",
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": "NT_ANT_WHZ_NE2._T"
+                  }
+               ]
+            }
+         ]
+      },
+      "ENVIRONMENT": {
+         "NAME": " Environment",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "No Indicator",
+                     "round": 1
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": "No Indicator",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".._T"
+                        }
+                     ],
+                     "default": ".._T"
+                  },
+                  {
+                     "type": "chart",
+                     "label": "No Indicator",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".._T"
+                        }
+                     ],
+                     "default": ".._T"
+                  }
+               ]
+            }
+         ]
+      }
+   }
+}

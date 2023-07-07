@@ -1,0 +1,500 @@
+{
+   "main_title": "Education",
+   "page_nav": {
+      "type": "all"
+   },
+   "THEMES": {
+      "NETATTENDANCE": {
+         "NAME": "Net Attendance",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.ED_ANAR_L1._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Adjusted net attendance rate for children of primary school age",
+                     "round": 1
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.ED_ANAR_L2._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Adjusted net attendance rate for adolescents of lower secondary school age",
+                     "round": 1
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.ED_ANAR_L3._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Adjusted net attendance rate for youth of upper secondary school age",
+                     "round": 1
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": " Net Attendance Females",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".ED_ANAR_L1.F",
+                           "round": 1,
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": "ED_ANAR_L1"
+                  },
+                  {
+                     "type": "chart",
+                     "label": " Net Attendance Male",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".ED_ANAR_L1.M",
+                           "round": 1,
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": " ED_ANAR_L1"
+                  }
+               ]
+            }
+         ]
+      },
+      "OUTOFSCHOOL": {
+         "NAME": "Out of School",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.ED_ROFST_L1_ADM._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Out-of-school rate for children of primary school age",
+                     "round": 1
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.ED_ROFST_L2_ADM._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Out-of-school rate for adolescents of lower secondary school age",
+                     "round": 1
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.ED_ROFST_L3_ADM._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Out-of-school rate for youth of upper secondary school age",
+                     "round": 1
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": "Student Out of School Females",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".ED_ROFST_L1_ADM.F",
+                           "round": 1,
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": "ED_ROFST_L1_ADM"
+                  },
+                  {
+                     "type": "chart",
+                     "label": "Student Out of School Males",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".ED_ROFST_L1_ADM.M",
+                           "round": 1,
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": "ED_ROFST_L1_ADM"
+                  }
+               ]
+            }
+         ]
+      },
+      "COMPLETION": {
+         "NAME": "School Completion",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.ED_CR_L1._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Completion rate for children of primary school age",
+                     "round": 1
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.ED_CR_L2._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Completion rate for adolescents of lower secondary school age",
+                     "round": 1
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.ED_CR_L3._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Completion rate for youth of upper secondary education school age",
+                     "round": 1
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": " Completion of School Females",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".ED_CR_L1.F",
+                           "round": 1,
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": "ED_CR_L1"
+                  },
+                  {
+                     "type": "chart",
+                     "label": " Completion of School Males ",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".ED_CR_L1.M",
+                           "round": 1,
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": "ED_CR_L1"
+                  }
+               ]
+            }
+         ]
+      },
+      "ECD": {
+         "NAME": "Early Childhood Development",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.ECD_CHLD_36-59M_EDU-PGM._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Percentage of children aged 36-59 months attending an early childhood education programme",
+                     "round": 1
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": "Female children aged 36 - 59 months attending an early childhood education programme",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".ECD_CHLD_36-59M_EDU-PGM.F",
+                           "round": 1,
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": "ECD_CHLD_36-59M_EDU-PGM"
+                  },
+                  {
+                     "type": "chart",
+                     "label": " Male children aged 36-59 months attending an early childhood education programme ",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".ECD_CHLD_36-59M_EDU-PGM.M",
+                           "round": 1,
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": "ECD_CHLD_36-59M_EDU-PGM"
+                  }
+               ]
+            }
+         ]
+      }
+   }
+}

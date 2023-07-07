@@ -1,0 +1,103 @@
+{
+   "main_title": "Água, saneamento e higiene (WASH)",
+   "page_nav": {
+      "type": "all"
+   },
+   "THEMES": {
+      "WASH_EDUCATION": {
+         "NAME": "WASH na Educação",
+         "ROWS": [
+            {
+               "elements": []
+            },
+            {
+               "elements": [
+                  {
+                     "type": "map",
+                     "label": "WASH na Educação",
+                     "options": {
+                        "locations": "REF_AREA",
+                        "featureidkey": "id",
+                        "color": "OBS_VALUE",
+                        "mapbox_style": "carto-positron",
+                        "zoom": 3,
+                        "center": {
+                           "lat": -11.7462,
+                           "lon": -53.222
+                        },
+                        "opacity": 0.5,
+                        "hover_data": {
+                           "OBS_VALUE": true,
+                           "REF_AREA": false,
+                           "TIME_PERIOD": true
+                        },
+                        "animation_frame": "TIME_PERIOD",
+                        "height": 750
+                     },
+                     "data": [
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".ACESSOAGUA_PUB._T._T",
+                           "label": ""
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".ACESSOESGOTO_PUB._T._T",
+                           "label": ""
+                        }
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      "WASH_HOUSEHOLDS": {
+         "NAME": "WASH em Domicílios",
+         "ROWS": [
+            {
+               "elements": []
+            },
+            {
+               "elements": [
+                  {
+                     "type": "map",
+                     "label": "WASH em Domicílios",
+                     "options": {
+                        "locations": "REF_AREA",
+                        "featureidkey": "id",
+                        "color": "OBS_VALUE",
+                        "mapbox_style": "carto-positron",
+                        "zoom": 3,
+                        "center": {
+                           "lat": -11.7462,
+                           "lon": -53.222
+                        },
+                        "opacity": 0.5,
+                        "hover_data": {
+                           "OBS_VALUE": true,
+                           "REF_AREA": false,
+                           "TIME_PERIOD": true
+                        },
+                        "animation_frame": "TIME_PERIOD",
+                        "height": 750
+                     },
+                     "data": [
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".ESGOTOPRECARIO._T._T",
+                           "label": ""
+                        }
+                     ]
+                  }
+               ]
+            }
+         ]
+      }
+   }
+}

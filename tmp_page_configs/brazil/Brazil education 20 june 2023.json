@@ -1,0 +1,718 @@
+{
+  "main_title": "Educação, Lazer e Cultura",
+  "page_nav": {
+    "type": "all"
+  },
+  "dsd_labels_override": {
+    "REF_AREA": {
+      "en": "Geographic area",
+      "pt": "Estados"
+    }
+  },
+  "THEMES": {
+    "PARTICIPATION": {
+      "NAME": "Acesso e participação na educação",
+      "ROWS": [
+        {
+          "elements": [
+            {
+              "type": "card",
+              "data": {
+                "agency": "BRAZIL_CO",
+                "id": "BRAZIL_CO",
+                "version": "1.0",
+                "dq": "BR.ABANDONOEFINICIAIS._T.ISCED11_2",
+                "lastnobservations": 1
+              },
+              "label": {
+                "en": "% of school dropout - early years of elementary school",
+                "pt": "% de abandono escolar - anos iniciais do Ensino Fundamental"
+              }
+            },
+            {
+              "type": "card",
+              "data": {
+                "agency": "BRAZIL_CO",
+                "id": "BRAZIL_CO",
+                "version": "1.0",
+                "dq": "BR.ABANDONOEFINICIAIS._T.ISCED11_1",
+                "lastnobservations": 1
+              },
+              "label": {
+                "en": "% of school dropout - late years of elementary school",
+                "pt": " % de abandono escolar - anos finais do Ensino Fundamental"
+              }
+            },
+            {
+              "type": "card",
+              "data": {
+                "agency": "BRAZIL_CO",
+                "id": "BRAZIL_CO",
+                "version": "1.0",
+                "dq": "BR.ABANDONOEFINICIAIS._T.ISCED11_3",
+                "lastnobservations": 1
+              },
+              "label": {
+                "en": "% of school dropout - high school",
+                "pt": " % de abandono escolar - Ensino Médio"
+              }
+            }
+          ]
+        },
+        {
+          "elements": [
+            {
+              "type": "map",
+              "label": "Crianças fora da escola",
+              "options": {
+                "locations": "REF_AREA",
+                "featureidkey": "id",
+                "color": "OBS_VALUE",
+                "mapbox_style": "carto-positron",
+                "zoom": 3,
+                "center": {
+                  "lat": -11.7462,
+                  "lon": -53.222
+                },
+                "opacity": 0.5,
+                "hover_data": {
+                  "OBS_VALUE": true,
+                  "REF_AREA": false,
+                  "TIME_PERIOD": true
+                },
+                "animation_frame": "TIME_PERIOD",
+                "height": 750
+              },
+              "data": [
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".ABANDONOEFINICIAIS._T.ISCED11_2",
+                  "label": {
+                    "en": "% of school dropout - early years of elementary school",
+                    "pt": "% de abandono escolar - anos iniciais do Ensino Fundamental"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".ABANDONOEFINICIAIS._T.ISCED11_1",
+                  "label": {
+                    "en": "% of school dropout - late years of elementary school",
+                    "pt": " % de abandono escolar - anos finais do Ensino Fundamental"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".ABANDONOEFINICIAIS._T.ISCED11_3",
+                  "label": {
+                    "en": "% of school dropout - high school",
+                    "pt": " % de abandono escolar - Ensino Médio"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".ABANDONOEFFINAISABSOLUTO._T.ISCED11_1",
+                  "label": {
+                    "en": "Total school dropout - early years of elementary school",
+                    "pt": "Total de abandono escolar - anos iniciais do Ensino Fundamental"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".ABANDONOEFFINAISABSOLUTO._T.ISCED11_2",
+                  "label": {
+                    "en": "Total school dropout - final years of Elementary School",
+                    "pt": "Total de abandono escolar - anos finais do Ensino Fundamental"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".ABANDONOEFFINAISABSOLUTO._T.ISCED11_3",
+                  "label": {
+                    "en": "Total school dropout - High School",
+                    "pt": "Total de abandono escolar - Ensino Médio"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".BPCNAESCOLA._T._T",
+                  "label": ""
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".FORADAESCOLA0A3._T._T",
+                  "label": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "elements": [
+            {
+              "type": "chart",
+              "label": "Ingresso e transição na escola",
+              "graphs": {
+                "bar": {
+                  "options": {
+                    "x": "REF_AREA",
+                    "y": "OBS_VALUE",
+                    "barmode": "group",
+                    "text": "OBS_VALUE",
+                    "hover_name": "TIME_PERIOD"
+                  }
+                },
+                "line": {
+                  "options": {
+                    "x": "TIME_PERIOD",
+                    "y": "OBS_VALUE",
+                    "color": "REF_AREA",
+                    "hover_name": "TIME_PERIOD",
+                    "line_shape": "spline",
+                    "render_mode": "svg"
+                  },
+                  "trace_options": {
+                    "mode": "lines+markers"
+                  }
+                }
+              },
+              "default_graph": "line",
+              "data": [
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".ABANDONOEFINICIAIS._T.ISCED11_2",
+                  "label": {
+                    "en": "% of school dropout - early years of elementary school",
+                    "pt": "% de abandono escolar - anos iniciais do Ensino Fundamental"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".ABANDONOEFINICIAIS._T.ISCED11_1",
+                  "label": {
+                    "en": "% of school dropout - late years of elementary school",
+                    "pt": " % de abandono escolar - anos finais do Ensino Fundamental"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".ABANDONOEFINICIAIS._T.ISCED11_3",
+                  "label": {
+                    "en": "% of school dropout - high school",
+                    "pt": " % de abandono escolar - Ensino Médio"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".ABANDONOEFFINAISABSOLUTO._T.ISCED11_1",
+                  "label": {
+                    "en": "Total school dropout - early years of elementary school",
+                    "pt": "Total de abandono escolar - anos iniciais do Ensino Fundamental"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".ABANDONOEFFINAISABSOLUTO._T.ISCED11_2",
+                  "label": {
+                    "en": "Total school dropout - final years of Elementary School",
+                    "pt": "Total de abandono escolar - anos finais do Ensino Fundamental"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".ABANDONOEFFINAISABSOLUTO._T.ISCED11_3",
+                  "label": {
+                    "en": "Total school dropout - High School",
+                    "pt": "Total de abandono escolar - Ensino Médio"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".BPCNAESCOLA._T._T",
+                  "label": ""
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".FORADAESCOLA0A3._T._T",
+                  "label": ""
+                }
+              ],
+              "default": "EDUNF_ROFST_L1"
+            },
+            {
+              "type": "chart",
+              "label": "Ingresso e transição na escola",
+              "graphs": {
+                "bar": {
+                  "options": {
+                    "x": "REF_AREA",
+                    "y": "OBS_VALUE",
+                    "barmode": "group",
+                    "text": "OBS_VALUE",
+                    "hover_name": "TIME_PERIOD"
+                  }
+                },
+                "line": {
+                  "options": {
+                    "x": "TIME_PERIOD",
+                    "y": "OBS_VALUE",
+                    "color": "REF_AREA",
+                    "hover_name": "TIME_PERIOD",
+                    "line_shape": "spline",
+                    "render_mode": "svg"
+                  },
+                  "trace_options": {
+                    "mode": "lines+markers"
+                  }
+                }
+              },
+              "default_graph": "line",
+              "data": [
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".ABANDONOEFINICIAIS._T.ISCED11_2",
+                  "label": {
+                    "en": "% of school dropout - early years of elementary school",
+                    "pt": "% de abandono escolar - anos iniciais do Ensino Fundamental"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".ABANDONOEFINICIAIS._T.ISCED11_1",
+                  "label": {
+                    "en": "% of school dropout - late years of elementary school",
+                    "pt": " % de abandono escolar - anos finais do Ensino Fundamental"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".ABANDONOEFINICIAIS._T.ISCED11_3",
+                  "label": {
+                    "en": "% of school dropout - high school",
+                    "pt": " % de abandono escolar - Ensino Médio"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".ABANDONOEFFINAISABSOLUTO._T.ISCED11_1",
+                  "label": {
+                    "en": "Total school dropout - early years of elementary school",
+                    "pt": "Total de abandono escolar - anos iniciais do Ensino Fundamental"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".ABANDONOEFFINAISABSOLUTO._T.ISCED11_2",
+                  "label": {
+                    "en": "Total school dropout - final years of Elementary School",
+                    "pt": "Total de abandono escolar - anos finais do Ensino Fundamental"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".ABANDONOEFFINAISABSOLUTO._T.ISCED11_3",
+                  "label": {
+                    "en": "Total school dropout - High School",
+                    "pt": "Total de abandono escolar - Ensino Médio"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".BPCNAESCOLA._T._T",
+                  "label": ""
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".FORADAESCOLA0A3._T._T",
+                  "label": ""
+                }
+              ],
+              "default": "ABANDONOEFINICIAIS._T.ISCED11_2"
+            }
+          ]
+        }
+      ]
+    },
+    "QUALITY": {
+      "NAME": "Qualidade da aprendizagem",
+      "ROWS": [
+        {
+          "elements": [
+            {
+              "type": "card",
+              "data": {
+                "agency": "BRAZIL_CO",
+                "id": "BRAZIL_CO",
+                "version": "1.0",
+                "dq": "BR.TDIANOSFINAISPUB._T.ISCED11_1",
+                "lastnobservations": 1
+              },
+              "label": {
+                "en": "Age-grade distortion rate: final years of Elementary School - Public Network",
+                "pt": "Taxa de distorção idade-série: anos finais do Ensino Fundamental - Rede Pública"
+              }
+            },
+            {
+              "type": "card",
+              "data": {
+                "agency": "BRAZIL_CO",
+                "id": "BRAZIL_CO",
+                "version": "1.0",
+                "dq": "BR.TDI_EFFINAL_ESTADUAL._T.ISCED11_2",
+                "lastnobservations": 1
+              },
+              "label": {
+                "en": "Age-grade distortion rate: final years of Elementary School - State Public Network",
+                "pt": "Taxa de distorção idade-série: anos finais do Ensino Fundamental - Rede Pública estadual"
+              }
+            }
+          ]
+        },
+        {
+          "elements": [
+            {
+              "type": "map",
+              "label": "Crianças fora da escola",
+              "options": {
+                "locations": "REF_AREA",
+                "featureidkey": "id",
+                "color": "OBS_VALUE",
+                "mapbox_style": "carto-positron",
+                "zoom": 3,
+                "center": {
+                  "lat": -11.7462,
+                  "lon": -53.222
+                },
+                "opacity": 0.5,
+                "hover_data": {
+                  "OBS_VALUE": true,
+                  "REF_AREA": false,
+                  "TIME_PERIOD": true
+                },
+                "animation_frame": "TIME_PERIOD",
+                "height": 750
+              },
+              "data": [
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".IDEBFINAIS._T.ISCED11_1",
+                  "label": {
+                    "en": "% of municipalities that reached the IDEB target - early years of Elementary School",
+                    "pt": " % de municípios que atingiram a meta do IDEB - anos iniciais do Ensino Fundamental"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".ABANDONOEFINICIAIS._T.ISCED11_2",
+                  "label": {
+                    "en": "% of municipalities that reached the IDEB target - final years of Elementary School",
+                    "pt": "% de municípios que atingiram a meta do IDEB - anos finais do Ensino Fundamental"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "elements": [
+            {
+              "type": "chart",
+              "label": "Taxa de reprovação escolar",
+              "graphs": {
+                "bar": {
+                  "options": {
+                    "x": "REF_AREA",
+                    "y": "OBS_VALUE",
+                    "barmode": "group",
+                    "text": "OBS_VALUE",
+                    "hover_name": "TIME_PERIOD"
+                  }
+                },
+                "line": {
+                  "options": {
+                    "x": "TIME_PERIOD",
+                    "y": "OBS_VALUE",
+                    "color": "REF_AREA",
+                    "hover_name": "TIME_PERIOD",
+                    "line_shape": "spline",
+                    "render_mode": "svg"
+                  },
+                  "trace_options": {
+                    "mode": "lines+markers"
+                  }
+                }
+              },
+              "default_graph": "line",
+              "data": [
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".REPROV_EFFINAL_MUNICIPAL._T.ISCED11_1",
+                  "label": {
+                    "en": "Failure rate: early years of Elementary School - Municipal network",
+                    "pt": "Taxa de reprovação: anos iniciais do Ensino Fundamental - Rede municipal"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".REPROV_EFFINAL_MUNICIPAL._T.ISCED11_2",
+                  "label": {
+                    "en": "Failure rate: final years of Elementary School - Municipal network",
+                    "pt": "Taxa de reprovação: anos finais do Ensino Fundamental - Rede municipal"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".REPROV_EFFINAL_MUNICIPAL._T.ISCED11_3",
+                  "label": {
+                    "en": "Failure rate: High School - Municipal network",
+                    "pt": "Taxa de reprovação: Ensino Médio - Rede municipal "
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".REPROV_EFFINAL_PUB._T.ISCED11_1",
+                  "label": {
+                    "en": "Failure rate: early years of Elementary School - Public Network",
+                    "pt": "Taxa de reprovação: anos iniciais do Ensino Fundamental - Rede Pública"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".REPROV_EFFINAL_PUB._T.ISCED11_2",
+                  "label": {
+                    "en": "Failure rate: final years of Elementary School - Public Network",
+                    "pt": "Taxa de reprovação: anos finais do Ensino Fundamental - Rede Pública  "
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".REPROV_EFFINAL_PUB._T.ISCED11_3",
+                  "label": {
+                    "en": "Failure rate: high School - Public Network",
+                    "pt": "Taxa de reprovação: Ensino Médio - Rede Pública"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".REPROV_EFFINAL_ESTADUAL._T.ISCED11_1",
+                  "label": {
+                    "en": "Failure rate: early years of Elementary School - State network",
+                    "pt": "Taxa de reprovação: anos iniciais do Ensino Fundamental - Rede estadual"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".REPROV_EFFINAL_ESTADUAL._T.ISCED11_2",
+                  "label": {
+                    "en": "Failure rate: final years of Elementary School - State network",
+                    "pt": "Taxa de reprovação: anos finais do Ensino Fundamental - Rede estadual"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".REPROV_EFFINAL_ESTADUAL._T.ISCED11_3",
+                  "label": {
+                    "en": "Failure rate: high years of Elementary School - State network",
+                    "pt": "Taxa de reprovação: Ensino Médio - Rede estadual"
+                  }
+                }
+              ],
+              "default": "REPROV_EFFINAL_MUNICIPAL"
+            },
+            {
+              "type": "chart",
+              "label": "Ingresso e transição na escola",
+              "graphs": {
+                "bar": {
+                  "options": {
+                    "x": "REF_AREA",
+                    "y": "OBS_VALUE",
+                    "barmode": "group",
+                    "text": "OBS_VALUE",
+                    "hover_name": "TIME_PERIOD"
+                  }
+                },
+                "line": {
+                  "options": {
+                    "x": "TIME_PERIOD",
+                    "y": "OBS_VALUE",
+                    "color": "REF_AREA",
+                    "hover_name": "TIME_PERIOD",
+                    "line_shape": "spline",
+                    "render_mode": "svg"
+                  },
+                  "trace_options": {
+                    "mode": "lines+markers"
+                  }
+                }
+              },
+              "default_graph": "line",
+              "data": [
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".TDI_EFFINAL_MUNICIPAL._T.ISCED11_1",
+                  "label": {
+                    "en": "Age-grade distortion rate: early years of Elementary School - Municipal Public Network",
+                    "pt": "Taxa de distorção idade-série: anos iniciais do Ensino Fundamental - Rede Pública municipal"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".TDI_EFFINAL_MUNICIPAL._T.ISCED11_2",
+                  "label": {
+                    "en": "Age-grade distortion rate: final years of Elementary School - Municipal Public Network",
+                    "pt": "Taxa de distorção idade-série: anos finais do Ensino Fundamental - Rede Pública municipal"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".TDI_EFFINAL_MUNICIPAL._T.ISCED11_3",
+                  "label": {
+                    "en": "Age-grade distortion rate: High School - Municipal public network",
+                    "pt": "Taxa de distorção idade-série: Ensino Médio - Rede pública municipal"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".TDI_EFFINAL_ESTADUAL._T.ISCED11_1",
+                  "label": {
+                    "en": "Age-grade distortion rate: early years of Elementary School - State Public Network",
+                    "pt": "Taxa de distorção idade-série: anos iniciais do Ensino Fundamental - Rede Pública estadual"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".TDI_EFFINAL_ESTADUAL._T.ISCED11_2",
+                  "label": {
+                    "en": "Age-grade distortion rate: final years of Elementary School - State Public Network",
+                    "pt": "Taxa de distorção idade-série: anos finais do Ensino Fundamental - Rede Pública estadual"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".TDI_EFFINAL_ESTADUAL._T.ISCED11_3",
+                  "label": {
+                    "en": "Age-grade distortion rate: High School - State public network",
+                    "pt": "Taxa de distorção idade-série: Ensino Médio - Rede pública estadual"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".TDIANOSFINAISPUB._T.ISCED11_1",
+                  "label": {
+                    "en": "Age-grade distortion rate: early years of Elementary School - Total Public Network",
+                    "pt": "Taxa de distorção idade-série: anos iniciais do Ensino Fundamental - Rede Pública total"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".TDIANOSFINAISPUB._T.ISCED11_2",
+                  "label": {
+                    "en": "Age-grade distortion rate: final years of Elementary School - Public Network",
+                    "pt": "Taxa de distorção idade-série: anos finais do Ensino Fundamental - Rede Pública total"
+                  }
+                },
+                {
+                  "agency": "BRAZIL_CO",
+                  "id": "BRAZIL_CO",
+                  "version": "1.0",
+                  "dq": ".TDIANOSFINAISPUB._T.ISCED11_3",
+                  "label": {
+                    "en": "Age-grade distortion rate: High School - Public Network",
+                    "pt": "Taxa de distorção idade-série: Ensino Médio - Rede Pública total"
+                  }
+                }
+              ],
+              "default": "TDI_EFFINAL_MUNICIPAL"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
