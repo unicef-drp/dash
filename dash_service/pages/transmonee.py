@@ -1702,7 +1702,7 @@ graphs_dict = {
             height=500,
             width=None,
         ),
-        "layout_options": dict(margin={"r": 0, "t": 30, "l": 2, "b": 5}),
+        "layout_options": dict(margin={"r": 0, "t": 80, "l": 2, "b": 5}),
     },
 }
 
