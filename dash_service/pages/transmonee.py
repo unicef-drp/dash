@@ -547,6 +547,11 @@ def update_country_dropdown(country_group):
         options = [{"label": country, "value": country} for country in eu_countries]
     elif country_group == "efta":
         options = [{"label": country, "value": country} for country in efta_countries]
+    elif country_group == "eu + efta":
+        options = [
+            {"label": country, "value": country}
+            for country in eu_countries + efta_countries
+        ]
     else:
         options = [{"label": country, "value": country} for country in all_countries]
 
@@ -819,7 +824,6 @@ def get_base_layout(**kwargs):
 
     home_icon_file_path = f"{request.root_url}assets/home-icon-1.svg"
 
-
     pass_through_params = ["prj=tm"]
     for k, v in qparams.items():
         if k not in ["prj", "page", "hash"]:
@@ -1025,6 +1029,10 @@ def get_base_layout(**kwargs):
                                                     {
                                                         "label": "EFTA countries",
                                                         "value": "efta",
+                                                    },
+                                                    {
+                                                        "label": "EU + EFTA countries",
+                                                        "value": "eu + efta",
                                                     },
                                                 ],
                                                 value="all",
@@ -1718,6 +1726,8 @@ def get_filters(years_slider, countries, country_group):
             countries = eu_countries
         elif country_group == "efta":
             countries = efta_countries
+        elif country_group == "eu + efta":
+            countries = eu_countries + efta_countries
         else:
             countries = all_countries
 
