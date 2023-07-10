@@ -822,7 +822,7 @@ def get_base_layout(**kwargs):
     domain_colour = kwargs.get("domain_colour")
     qparams = kwargs.get("query_params")
 
-    home_icon_file_path = f"{request.root_url}assets/home-icon-1.svg"
+    home_icon_file_path = f"{request.root_url}assets/home-icon-2.svg"
 
     pass_through_params = ["prj=tm"]
     for k, v in qparams.items():
@@ -865,7 +865,7 @@ def get_base_layout(**kwargs):
                                                 options=domain_pages_links,
                                                 # value=page_path,
                                                 value=current_page_ddl_value,
-                                                className="heading-subtitle",
+                                                className="dropdown-subtitle",
                                                 style={
                                                     "marginBottom": "0px",
                                                     "textAlign": "center",
@@ -939,8 +939,8 @@ def get_base_layout(**kwargs):
                                 html.Img(
                                     id="wheel-icon",
                                     src=home_icon_file_path,
-                                    width=70,
-                                    height=70,
+                                    width=30,
+                                    height=30,
                                 ),
                                 href=home_icon_href,
                             ),
