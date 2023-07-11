@@ -200,22 +200,24 @@ def render_page_template(
         if qp in query_params:
             del query_params[qp]
 
+    row_elems = []
+
     # The page's main title
     if "main_title" in page_config:
         elem_main_title = HeadingAIO(page_config["main_title"], aio_id="menu_page_head")
+        row_elems.append(elem_main_title)
 
-    row_elems = []
+    
 
     # For all the rows defined in the cfg
     for row in page_config["ROWS"]:
         row_div = create_links_row(row, query_params)
         row_elems.append(row_div)
 
-    # template = html.Div(className="row col-sm-12",children=[elem_main_title] + row_elems)
     template = html.Div(
         className="row justify-content-center",
         children=html.Div(
-            className="col-sm-12 col-xxl-10", children=[elem_main_title] + row_elems
+            className="col-sm-12 col-xxl-10", children=row_elems
         ),
     )
 
