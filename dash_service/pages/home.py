@@ -11,8 +11,6 @@ def layout(base_url, req):
                 [
                     html.Div(
                         [
-                            html.Div(base_url),
-                            html.Div(f"Req secure {req.is_secure}"),
                             html.ObjectEl(
                                 html.Img(
                                     src=f"{base_url}/assets/SOCR_Diagram_Oct_2022_href.svg"
@@ -22,7 +20,7 @@ def layout(base_url, req):
                                 className="px-2",
                                 style={
                                     "width": "80%",
-                                    "height": "200vh",
+                                    # "height": "200vh",
                                     # "height": "80rem",
                                     "display": "flex",
                                     "margin-left": "auto",
@@ -34,10 +32,8 @@ def layout(base_url, req):
                         ]
                     ),
                 ],
-                justify="center",
-                align="center",
             ),
-            html.Script()
+            html.Script(),
         ],
         fluid=True,
     )
