@@ -108,6 +108,9 @@ custom_names = {
     "DM_ADULT_YOUTH_POP": "Adult youth population aged 20-29 years",
     "DM_REPD_AGE_POP": "Population of reproductive age 15-49 years",
     "DM_CHLD_YOUNG_COMP_POP": "Child population aged 0-17 years",
+    "ICT_SECURITY_CONCERN": "Percentage of 16-24 year olds who limited their personal internet activities in the last 12 months due to security concerns",
+    "ICT_PERSONAL_DATA": "Percentage of 16-24 year olds who used the internet in the last 3 months and managed access to their personal data",
+    "MT_SDG_SUICIDE": "3.4.2 Suicide mortality rate for 15-19 year olds (deaths per 100,000 population)",
     # custom plots
     "packed_CRG": "National Human Rights Institutions in compliance with the Paris Principles",
     "packed_EXP": "Expenditure on education levels as a percentage of government expenditure on education",
@@ -547,6 +550,11 @@ def update_country_dropdown(country_group):
         options = [{"label": country, "value": country} for country in eu_countries]
     elif country_group == "efta":
         options = [{"label": country, "value": country} for country in efta_countries]
+    elif country_group == "eu + efta":
+        options = [
+            {"label": country, "value": country}
+            for country in eu_countries + efta_countries
+        ]
     else:
         options = [{"label": country, "value": country} for country in all_countries]
 
@@ -817,8 +825,7 @@ def get_base_layout(**kwargs):
     domain_colour = kwargs.get("domain_colour")
     qparams = kwargs.get("query_params")
 
-    home_icon_file_path = f"{request.root_url}assets/home-icon-1.svg"
-
+    home_icon_file_path = f"{request.root_url}assets/home-icon-2.svg"
 
     pass_through_params = ["prj=tm"]
     for k, v in qparams.items():
@@ -861,7 +868,7 @@ def get_base_layout(**kwargs):
                                                 options=domain_pages_links,
                                                 # value=page_path,
                                                 value=current_page_ddl_value,
-                                                className="heading-subtitle",
+                                                className="dropdown-subtitle",
                                                 style={
                                                     "marginBottom": "0px",
                                                     "textAlign": "center",
@@ -935,8 +942,8 @@ def get_base_layout(**kwargs):
                                 html.Img(
                                     id="wheel-icon",
                                     src=home_icon_file_path,
-                                    width=70,
-                                    height=70,
+                                    width=30,
+                                    height=30,
                                 ),
                                 href=home_icon_href,
                             ),
@@ -1025,6 +1032,10 @@ def get_base_layout(**kwargs):
                                                     {
                                                         "label": "EFTA countries",
                                                         "value": "efta",
+                                                    },
+                                                    {
+                                                        "label": "EU + EFTA countries",
+                                                        "value": "eu + efta",
                                                     },
                                                 ],
                                                 value="all",
@@ -1694,7 +1705,7 @@ graphs_dict = {
             height=500,
             width=None,
         ),
-        "layout_options": dict(margin={"r": 0, "t": 30, "l": 2, "b": 5}),
+        "layout_options": dict(margin={"r": 0, "t": 80, "l": 2, "b": 5}),
     },
 }
 
@@ -1718,6 +1729,8 @@ def get_filters(years_slider, countries, country_group):
             countries = eu_countries
         elif country_group == "efta":
             countries = efta_countries
+        elif country_group == "eu + efta":
+            countries = eu_countries + efta_countries
         else:
             countries = all_countries
 
@@ -2164,8 +2177,8 @@ def aio_area_figure(
     fig.update_layout(xaxis_title="")
     if fig_type == "bar" and not dimension and "YES_NO" not in data.UNIT_MEASURE.values:
         fig.update_traces(marker_color=domain_colour)
-        # if (data.OBS_VALUE == 0).any():
-        # fig.update_traces(textposition="outside")
+        if (data.OBS_VALUE == 0).any():
+            fig.update_traces(textposition="outside")
     if fig_type == "line":
         fig.update_traces(**traces)
 

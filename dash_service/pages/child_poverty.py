@@ -142,6 +142,12 @@ page_config = {
             },
             {
                 "name": "",
+                "indicator": "PV_LOW_WORK",
+                "suffix": min_max_card_suffix,
+                "min_max": True,
+            },
+            {
+                "name": "",
                 "indicator": "PV_INABLE_PROTEIN",
                 "suffix": min_max_card_suffix,
                 "min_max": True,
@@ -155,6 +161,7 @@ page_config = {
                 "PV_AROPE",
                 "PV_SEV_MAT_SOC_DPRT",
                 "PV_AROPRT",
+                "PV_LOW_WORK",
                 "PV_INABLE_PROTEIN",
             ],
             "default_graph": "bar",
@@ -228,7 +235,7 @@ def layout(page_slug=None, **query_parmas):
                     page_prefix=page_prefix,
                     page_path=page_path,
                     domain_colour=domain_colour,
-                    query_params=query_parmas
+                    query_params=query_parmas,
                 ),
             ),
             html.Br(),
