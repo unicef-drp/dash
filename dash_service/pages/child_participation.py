@@ -100,6 +100,18 @@ page_config = {
                 "suffix": min_max_card_suffix,
                 "min_max": True,
             },
+            {
+                "name": "",
+                "indicator": "ICT_PERSONAL_DATA",
+                "suffix": min_max_card_suffix,
+                "min_max": True,
+            },
+            {
+                "name": "",
+                "indicator": "ICT_SECURITY_CONCERN",
+                "suffix": min_max_card_suffix,
+                "min_max": True,
+            },
         ],
         "AIO_AREA": {
             "graphs": graphs_dict,
@@ -108,6 +120,8 @@ page_config = {
                 "PP_SE_ADT_ACTS_PRGM",
                 "PP_SE_ADT_ACTS_ATCH",
                 "PP_SE_ADT_ACTS_SFWR",
+                "ICT_PERSONAL_DATA",
+                "ICT_SECURITY_CONCERN",
             ],
             "default_graph": "bar",
             "default": "PP_IT_USE_ii99",

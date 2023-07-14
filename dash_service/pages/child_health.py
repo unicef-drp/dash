@@ -45,7 +45,7 @@ page_config = {
         "CARDS": [
             {
                 "name": "",
-                "indicator": "HT_SH_ACS_UNHC",
+                "indicator": "HT_UHC_IDX",
                 "suffix": min_max_card_suffix,
                 "min_max": True,
             },
@@ -89,7 +89,7 @@ page_config = {
         "AIO_AREA": {
             "graphs": graphs_dict,
             "indicators": [
-                "HT_SH_ACS_UNHC",
+                "HT_UHC_IDX",
                 "HT_SH_XPD_CHEX_GD_ZS",
                 "HT_SH_XPD_GHED_GD_ZS",
                 "HT_SH_XPD_GHED_GE_ZS",
@@ -98,7 +98,7 @@ page_config = {
                 "HT_INS_COV",
             ],
             "default_graph": "bar",
-            "default": "HT_SH_ACS_UNHC",
+            "default": "HT_UHC_IDX",
         },
     },
     "MNH": {
@@ -207,13 +207,13 @@ page_config = {
         "CARDS": [
             {
                 "name": "",
-                "indicator": "NT_BF_EIBF",
+                "indicator": "NT_BF_EXBF",
                 "suffix": min_max_card_suffix,
                 "min_max": True,
             },
             {
                 "name": "",
-                "indicator": "NT_BF_EXBF",
+                "indicator": "NT_BF_EIBF",
                 "suffix": min_max_card_suffix,
                 "min_max": True,
             },
@@ -232,6 +232,12 @@ page_config = {
             {
                 "name": "",
                 "indicator": "NT_ANT_WHZ_PO2",
+                "suffix": min_max_card_suffix,
+                "min_max": True,
+            },
+            {
+                "name": "",
+                "indicator": "NT_CHLD_OBESITY",
                 "suffix": min_max_card_suffix,
                 "min_max": True,
             },
@@ -263,18 +269,19 @@ page_config = {
         "AIO_AREA": {
             "graphs": graphs_dict,
             "indicators": [
-                "NT_BF_EIBF",
                 "NT_BF_EXBF",
+                "NT_BF_EIBF",
                 "NT_CF_ISSSF_FL",
                 "NT_CF_MAD",
                 "NT_ANT_WHZ_PO2",
+                "NT_CHLD_OBESITY",
                 "NT_ANT_WHZ_NE2",
                 "NT_ANT_HAZ_NE2",
                 "HT_SH_STA_ANEM",
                 "HT_ANEM_U5",
             ],
             "default_graph": "bar",
-            "default": "NT_BF_EIBF",
+            "default": "NT_BF_EXBF",
         },
     },
     "ADO": {
@@ -294,13 +301,13 @@ page_config = {
             },
             {
                 "name": "",
-                "indicator": "HT_ADOL_NO_EXCS",
+                "indicator": "MT_SDG_SUICIDE",
                 "suffix": min_max_card_suffix,
                 "min_max": True,
             },
             {
                 "name": "",
-                "indicator": "HT_ADOL_VGRS_EXCS",
+                "indicator": "HT_CHLD_DAILY_EXER",
                 "suffix": min_max_card_suffix,
                 "min_max": True,
             },
@@ -310,8 +317,8 @@ page_config = {
             "indicators": [
                 "FT_SP_DYN_ADKL",
                 "HT_ADOL_MT",
-                "HT_ADOL_NO_EXCS",
-                "HT_ADOL_VGRS_EXCS",
+                "MT_SDG_SUICIDE",
+                "HT_CHLD_DAILY_EXER",
             ],
             "default_graph": "bar",
             "default": "FT_SP_DYN_ADKL",
