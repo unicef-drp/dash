@@ -9103,5 +9103,18 @@
                 "_T"
             ]
         }
+    },
+    "CR_EG_EGY_CLEAN": {
+        "RESIDENCE": {
+            "RESIDENCE": [
+                "R",
+                "U"
+            ]
+        },
+        "TOTAL": {
+            "RESIDENCE": [
+                "_T"
+            ]
+        }
     }
 }
