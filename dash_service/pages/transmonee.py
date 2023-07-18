@@ -2182,9 +2182,9 @@ def aio_area_figure(
     if fig_type == "line":
         fig.update_traces(**traces)
 
-    if fig_type == "choropleth_mapbox":
-        # Remove the colorbar title
-        fig.update_layout(coloraxis_colorbar_title="")
+    # if fig_type == "choropleth_mapbox":
+    # Remove the colorbar title
+    # fig.update_layout(coloraxis_colorbar_title="")
 
     fig.update_traces(hovertemplate=hovertext)
 
