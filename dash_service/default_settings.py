@@ -1,3 +1,5 @@
+import os
+
 # Variables defined in this file will be passed to the 'config' attribute of the
 # Flask instance used by the Dash app. Any values corresponding to Dash
 # keword arguments will be passed They must be in UPPER CASE in order to take effect. For more information see
@@ -64,7 +66,10 @@ EXTERNAL_SCRIPTS = ["https://code.jquery.com/jquery-3.6.0.min.js"]
 
 FLASK_ADMIN_SWATCH = "cerulean"
 
-SQLALCHEMY_DATABASE_URI = "sqlite:///pages.db"
+if "SQLALCHEMY_DATABASE_URI" in os.environ:
+    SQLALCHEMY_DATABASE_URI = os.environ["SQLALCHEMY_DATABASE_URI"]
+else:
+    SQLALCHEMY_DATABASE_URI = "sqlite:///pages.db"
 
 SECRET_KEY = "secretthatneedstobechangedinproduction"
 
