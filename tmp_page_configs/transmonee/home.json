@@ -1,0 +1,213 @@
+{
+    "page_nav": {
+        "type": "none"
+    },
+    "ROWS": [
+        {
+            "title": "Child Rights Landscape and Governance",
+            "color": "purple",
+            "links": [
+                {
+                    "title": "Demographics",
+                    "link": "?prj=tm&page=child-rights#dem",
+                    "icon": "far fa-id-card"
+                },
+                {
+                    "title": "Political economy",
+                    "link": "?prj=tm&page=child-rights#ple",
+                    "icon": "fas fa-landmark"
+                },
+                {
+                    "title": "Child rights governance",
+                    "link": "?prj=tm&page=child-rights#crg",
+                    "icon": "fas fa-user-shield"
+                },
+                {
+                    "title": "Public spending on children",
+                    "link": "?prj=tm&page=child-rights#spe",
+                    "icon": "fas fa-hand-holding-usd"
+                },
+                {
+                    "title": "Data on children",
+                    "link": "?prj=tm&page=child-rights#dta",
+                    "icon": "fas fa-binoculars"
+                },
+                {
+                    "title": "Right to remedy",
+                    "link": "?prj=tm&page=child-rights#rem",
+                    "icon": "fas fa-gavel"
+                },
+                {
+                    "title": "Business and Child Rights",
+                    "icon": "fas fa-balance-scale-right"
+                }
+            ]
+        },
+        {
+            "title": "Health and Nutrition",
+            "color": "green",
+            "links": [
+                {
+                    "title": "Health system",
+                    "link": "?prj=tm&page=child-health#hsm",
+                    "icon": "fas fa-stethoscope"
+                },
+                {
+                    "title": "Maternal, newborn and child health",
+                    "link": "?prj=tm&page=child-health#mnh",
+                    "icon": "fas fa-baby-carriage"
+                },
+                {
+                    "title": "Immunization",
+                    "link": "?prj=tm&page=child-health#imm",
+                    "icon": "fas fa-syringe"
+                },
+                {
+                    "title": "Nutrition",
+                    "link": "?prj=tm&page=child-health#nut",
+                    "icon": "fas fa-bowl-rice"
+                },
+                {
+                    "title": "Adolescent health",
+                    "link": "?prj=tm&page=child-health#ado",
+                    "icon": "fas fa-child"
+                },
+                {
+                    "title": "HIV/AIDS",
+                    "link": "?prj=tm&page=child-health#hiv",
+                    "icon": "fas fa-ribbon"
+                }
+            ]
+        },
+        {
+            "title": "Education, Leisure and Culture",
+            "color": "blue",
+            "links": [
+                {
+                    "title": "Education system",
+                    "link": "?prj=tm&page=child-education#esy",
+                    "icon": "fas fa-building-columns"
+                },
+                {
+                    "title": "Education access and participation",
+                    "link": "?prj=tm&page=child-education#epa",
+                    "icon": "fas fa-school-circle-check"
+                },
+                {
+                    "title": "Learning quality and skills",
+                    "link": "?prj=tm&page=child-education#equ",
+                    "icon": "fas fa-book"
+                },
+                {
+                    "title": "Leisure and culture",
+                    "link": "?prj=tm&page=child-education#ele",
+                    "icon": "fas fa-gamepad"
+                }
+            ]
+        },
+        {
+            "title": "Family Environment and Protection from Violence and Harmful Practices",
+            "color": "yellow",
+            "links": [
+                {
+                    "title": "Violence against children and women",
+                    "link": "?prj=tm&page=child-protection#vio",
+                    "icon": "fas fa-hand-fist"
+                },
+                {
+                    "title": "Children in alternative care",
+                    "link": "?prj=tm&page=child-protection#cpc",
+                    "icon": "fas fa-hands-holding-child"
+                },
+                {
+                    "title": "Justice for children",
+                    "link": "?prj=tm&page=child-protection#jus",
+                    "icon": "fas fa-scale-balanced"
+                },
+                {
+                    "title": "Child marriage and other harmful practices",
+                    "link": "?prj=tm&page=child-protection#mar",
+                    "icon": "fas fa-ring"
+                },
+                {
+                    "title": "Child exploitation",
+                    "link": "?prj=tm&page=child-protection#lab",
+                    "icon": "fas fa-person-digging"
+                }
+            ]
+        },
+        {
+            "title": "Participation and Civil Rights",
+            "color": "red",
+            "links": [
+                {
+                    "title": "Birth registration and identity",
+                    "link": "?prj=tm&page=child-participation#reg",
+                    "icon": "fas fa-baby"
+                },
+                {
+                    "title": "Information, internet and data privacy",
+                    "link": "?prj=tm&page=child-participation#ict",
+                    "icon": "fas fa-laptop"
+                }
+            ]
+        },
+        {
+            "title": "Poverty and Adequate Standard of Living",
+            "color": "light_blue",
+            "links": [
+                {
+                    "title": "Social protection system",
+                    "link": "?prj=tm&page=child-poverty#sps",
+                    "icon": "fas fa-hands-holding-circle"
+                },
+                {
+                    "title": "Child poverty and material deprivation",
+                    "link": "?prj=tm&page=child-poverty#mat",
+                    "icon": "fas fa-plate-wheat"
+                },
+                {
+                    "title": "Water and sanitation",
+                    "link": "?prj=tm&page=child-poverty#wsh",
+                    "icon": "fas fa-hands-bubbles"
+                }
+            ]
+        },
+        {
+            "title": "Cross-Cutting",
+            "color": "orange",
+            "links": [
+                {
+                    "title": "Gender",
+                    "link": "?prj=tm&page=child-cross-cutting#gnd",
+                    "icon": "fas fa-venus-mars"
+                },
+                {
+                    "title": "Disability",
+                    "link": "?prj=tm&page=child-cross-cutting#dis",
+                    "icon": "fas fa-wheelchair"
+                },
+                {
+                    "title": "Early childhood development",
+                    "link": "?prj=tm&page=child-cross-cutting#ecd",
+                    "icon": "fas fa-puzzle-piece"
+                },
+                {
+                    "title": "Adolescents",
+                    "link": "?prj=tm&page=child-cross-cutting#oda",
+                    "icon": "fas fa-people-group"
+                },
+                {
+                    "title": "Environment and climate change",
+                    "link": "?prj=tm&page=child-cross-cutting#env",
+                    "icon": "fas fa-tree-city"
+                },
+                {
+                    "title": "Disaster, conflict and displacement",
+                    "link": "?prj=tm&page=child-cross-cutting#dcd",
+                    "icon": "fas fa-tents"
+                }
+            ]
+        }
+    ]
+}

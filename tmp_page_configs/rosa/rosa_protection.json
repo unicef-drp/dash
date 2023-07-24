@@ -1,0 +1,424 @@
+{
+   "main_title": "Child Protection",
+   "page_nav": {
+      "type": "all"
+   },
+   "THEMES": {
+      "CHILD_MARRIAGE": {
+         "NAME": "Child Marriage",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Percentage of women aged 20 to 24 years who were first married or in union before age 18",
+                     "round": 1
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": "Child Marriage Females",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+				"line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".PT_F_20-24_MRD_U18._T",
+"round": 1,
+
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        },
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".PT_F_20-24_MRD_U15._T",
+"round": 1,
+
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": "PT_F_20-24_MRD_U18"
+                  },
+                  {
+                     "type": "chart",
+                     "label": "Child Marriage Males",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+
+
+			"line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+
+
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".PT_M_20-24_MRD_U18._T",
+"round": 1,
+
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": "PT_M_20-24_MRD_U18"
+                  }
+               ]
+            }
+         ]
+      },
+      "BIRTH_REG": {
+         "NAME": "Birth registration",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.PT_CHLD_Y0T4_REG._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "",
+                     "round": 1
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": "Birth Registration",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }                        
+                     },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".PT_CHLD_Y0T4_REG._T",
+"round": 1,
+
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": "PT_CHLD_Y0T4_REG"
+                  }
+               ]
+            }
+         ]
+      },
+      "CH_LABOUR": {
+         "NAME": "Child Labour",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Percentage of children (aged 5-17 years) engaged in child labour",
+                     "round": 1
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": "Child Labour",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                     },
+
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+
+
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".PT_CHLD_5-17_LBR_ECON-HC._T",
+"round": 1,
+
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": "PT_CHLD_5-17_LBR_ECON-HC._T"
+                  }
+               ]
+            }
+         ]
+      },
+      "VIOLENCE": {
+         "NAME": "Violence Against Children",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.PT_F_GE15_PS-SX-EM_V_PTNR_12MNTH._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "",
+                     "round": 1
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": "Violence Against Children",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+"line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+
+                    
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".PT_F_GE15_PS-SX-EM_V_PTNR_12MNTH._T",
+"round": 1,
+
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": "PT_F_GE15_PS-SX-EM_V_PTNR_12MNTH"
+                  },
+                  {
+                     "type": "chart",
+                     "label": "Violence Against Children",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                     "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".PT_ST_13-15_BUL_30-DYS._T",
+"round": 1,
+
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default": "PT_ST_13-15_BUL_30-DYS"
+                  },
+                  {
+                     "type": "chart",
+                     "label": "Violence Against Children",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        
+                     },
+"line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".PT_M_15-49_W-BTNG._T",
+"round": 1,
+
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        },
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".PT_F_15-49_W-BTNG._T"
+                        }
+                     ],
+                     "default": "PT_M_15-49_W-BTNG"
+                  }
+               ]
+            }
+         ]
+      }
+   }
+}

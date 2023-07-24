@@ -204,7 +204,7 @@
 /* colour theme for CHP domain*/
 
 .theme_buttons .btn-chp {
-    color: white;
+    color: #5A5A5A;
     background-color: #eeca8b;
     border-color: #eeca8b;
 }
@@ -212,7 +212,7 @@
 .theme_buttons .btn-chp.focus,
 .theme_buttons .btn-chp:focus,
 .theme_buttons .btn-chp:hover {
-    color: white;
+    color: #5A5A5A;
     background-color: #e5ae4c;
     border-color: #e5ae4c
 }
@@ -220,7 +220,7 @@
 .theme_buttons .btn-chp:not(:disabled):not(.disabled).active,
 .theme_buttons .btn-chp:not(:disabled):not(.disabled):active,
 .theme_buttons .show>.btn-chp.dropdown-toggle {
-    color: white;
+    color: #5A5A5A;
     background-color: #e5ae4c;
     border-color: #e5ae4c
 }
@@ -238,7 +238,7 @@
 .theme_buttons .btn-chp-sub.focus,
 .theme_buttons .btn-chp-sub:focus,
 .theme_buttons .btn-chp-sub:hover {
-    color: white;
+    color: #5A5A5A;
     background-color: #e5ae4c;
     border-color: #e5ae4c
 }
@@ -246,7 +246,7 @@
 .theme_buttons .btn-chp-sub:not(:disabled):not(.disabled).active,
 .theme_buttons .btn-chp-sub:not(:disabled):not(.disabled):active,
 .theme_buttons .show>.btn-chp-sub.dropdown-toggle {
-    color: white;
+    color: #5A5A5A;
     background-color: #e5ae4c;
     border-color: #e5ae4c
 }

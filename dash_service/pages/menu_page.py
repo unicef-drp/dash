@@ -160,12 +160,12 @@ def create_links_row(row, query_params_to_pass_through):
             link_to_use = ""
             if "link" in l:
                 link_to_use = l["link"]
-            params_from_link = _get_params_from_link(link_to_use)
-            params_string = _get_params_string(
-                params_from_link, query_params_to_pass_through
-            )
-
-            l["link"] = params_string
+            if not (link_to_use.lower().startswith("http://") or link_to_use.lower().startswith("https://")):
+                params_from_link = _get_params_from_link(link_to_use)
+                params_string = _get_params_string(
+                    params_from_link, query_params_to_pass_through
+                )
+                l["link"] = params_string
             lnk = _create_button(l, color)
             links_div.append(lnk)
         ch.append(html.Div(className="text-center", children=links_div))
@@ -200,22 +200,24 @@ def render_page_template(
         if qp in query_params:
             del query_params[qp]
 
+    row_elems = []
+
     # The page's main title
     if "main_title" in page_config:
         elem_main_title = HeadingAIO(page_config["main_title"], aio_id="menu_page_head")
+        row_elems.append(elem_main_title)
 
-    row_elems = []
+    
 
     # For all the rows defined in the cfg
     for row in page_config["ROWS"]:
         row_div = create_links_row(row, query_params)
         row_elems.append(row_div)
 
-    # template = html.Div(className="row col-sm-12",children=[elem_main_title] + row_elems)
     template = html.Div(
         className="row justify-content-center",
         children=html.Div(
-            className="col-sm-12 col-xxl-10", children=[elem_main_title] + row_elems
+            className="col-sm-12 col-xxl-10", children=row_elems
         ),
     )
 

@@ -1,5 +1,4 @@
 import os
-
 # Variables defined in this file will be passed to the 'config' attribute of the
 # Flask instance used by the Dash app. Any values corresponding to Dash
 # keword arguments will be passed They must be in UPPER CASE in order to take effect. For more information see

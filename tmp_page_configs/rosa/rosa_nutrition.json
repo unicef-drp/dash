@@ -1,0 +1,480 @@
+{
+   "main_title": "Nutrition11",
+   "page_nav": {
+      "type": "all"
+   },
+   "THEMES": {
+      "CHILDMALNUTRITION": {
+         "NAME": "Child Malnutrition",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id":"ROSA",
+                        "version": "1.0",
+                        "dq":"UNICEF_SA.NT_ANT_WHZ_NE2._T",
+                        "lastnobservations": 1
+                     },
+                     "label":"Weight-for-height <-2 SD (wasting)",
+                     "round": 1
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq":"UNICEF_SA.NT_ANT_WHZ_PO2._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Weight-for-height >+2 SD (overweight)",
+                     "round": 1
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq":"UNICEF_SA.NT_ANT_WHZ_NE3._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Weight-for-height <-3 SD (severe wasting)",
+                     "round": 1
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": "Weight-for-height <-3 SD (severe wasting)",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode":"lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency":"ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq":".NT_ANT_WHZ_NE3._T",
+"round": 1,
+
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default":".NT_ANT_WHZ_PO2._T"
+                  },
+                  {
+                     "type": "chart",
+                     "label": "Weight-for-age <-2 SD (Underweight)",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name":"TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color":"REF_AREA",
+                              "hover_name":"TIME_PERIOD",
+                              "line_shape":"spline",
+                              "render_mode":"svg"
+                           },
+                           "trace_options": {
+                              "mode":"lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency":"ROSA",
+                           "id": "ROSA",
+                           "version":"1.0",
+                           "dq":".NT_ANT_WAZ_NE2._T",
+"round": 1,
+
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default":".NT_ANT_WHZ_NE2._T"
+                  }
+               ]
+            }
+         ]
+      },
+      "INFANT": {
+         "NAME": "Infant and Young Child Feeding",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type":"card",
+                     "data": {
+                        "agency":"ROSA",
+                        "id":"ROSA",
+                        "version": "1.0",
+                        "dq":"UNICEF_SA.NT_BF_CBF_12_23._T",
+                        "lastnobservations": 1
+                     },
+                     "label":"Continued breastfeeding (12-23 months)",
+                     "round": 1
+                  },
+                  {
+                     "type":"card",
+                     "data": {
+                        "agency":"ROSA",
+                        "id":"ROSA",
+                        "version":"1.0",
+                        "dq":"UNICEF_SA.NT_CF_MAD._T",
+                        "lastnobservations": 1
+                     },
+                     "label":"Minimum acceptable diet (children aged 6-23 months)",
+                     "round": 1
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency":"ROSA",
+                        "id":"ROSA",
+                        "version":"1.0",
+                        "dq":"UNICEF_SA.NT_BF_EIBF._T",
+                        "lastnobservations": 1
+                     },
+                     "label":"Early initiation of breastfeeding",
+                     "round": 1
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": "Minimum meal frequency (children aged 6 to 23 months)",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode":"group",
+                              "text": "OBS_VALUE",
+                              "hover_name":"TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name":"TIME_PERIOD",
+                              "line_shape":"spline",
+                              "render_mode":"svg"
+                           },
+                           "trace_options": {
+                              "mode":"lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".NT_CF_MMF._T",
+"round": 1,
+
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default":".NT_CF_MAD._T"
+                  },
+                  {
+                     "type": "chart",
+                     "label": "Early initiation of breastfeeding",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name":"TIME_PERIOD",
+                              "line_shape":"spline",
+                              "render_mode":"svg"
+                           },
+                           "trace_options": {
+                              "mode":"lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq":".NT_BF_EIBF._T",
+"round": 1,
+
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default":".NT_BF_CBF_12_23._T"
+                  }
+               ]
+            }
+         ]
+      },
+      "MICRONUTRIENT": {
+         "NAME": "Micronutrient Deficiencies",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq":"UNICEF_SA.NT_IOD_ANY_TS._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Iodized salt consumption (>0 ppm) among all tested households with salt",
+                     "round": 1
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": " Iodized salt consumption (>0 ppm) among all tested households",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name":"TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name":"TIME_PERIOD",
+                              "line_shape":"spline",
+                              "render_mode":"svg"
+                           },
+                           "trace_options": {
+                              "mode":"lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq":".NT_IOD_ANY_TH._T",
+"round": 1,
+
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default":".NT_VAS_TWODOSE._T"
+                  },
+                  {
+                     "type": "chart",
+                     "label": "Iodized salt consumption (>0 ppm) among all tested households with salt",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name":"TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode":"svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph":"bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".NT_IOD_ANY_TS._T",
+"round": 1,
+
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default":".NT_VAS_TWODOSE._T"
+                  }
+               ]
+            }
+         ]
+      },
+      "LOWBIRTHWEIGHT": {
+         "NAME": "Low Birthweight",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq":"UNICEF_SA.NT_BW_LBW_MOD_NUMTH._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Number (in thousands) of live births that weighed less than 2500 g (Modeled Estimates)",
+                     "round": 1
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": "Prevalence of low birth weight among new-borns",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".NT_BW_LBW._T",
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default":"NT_BW_LBW._T"
+                  },
+                  {
+                     "type": "chart",
+                     "label": " Percentage of births without a birth weight in the data source ",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode":"lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "ROSA",
+                           "id": "ROSA",
+                           "version": "1.0",
+                           "dq": ".NT_BW_UNW._T",
+                           "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+                        }
+                     ],
+                     "default":"NT_BW_UNW._T"
+                  }
+               ]
+            }
+         ]
+      }
+   }
+}

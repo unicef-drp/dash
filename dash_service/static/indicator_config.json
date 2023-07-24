@@ -380,6 +380,25 @@
             ]
         }
     },
+    "DM_CHLD_YOUNG_COMP_POP": {
+        "SEX": {
+            "AGE": [
+                "Y0T17"
+            ],
+            "SEX": [
+                "F",
+                "M"
+            ]
+        },
+        "TOTAL": {
+            "AGE": [
+                "Y0T17"
+            ],
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
     "DM_CHLD_POP_PT": {
         "SEX": {
             "SEX": [
@@ -1754,6 +1773,58 @@
             ]
         },
         "TOTAL": {
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
+    "ECD_EARLY_EDU": {
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ]
+        },
+        "TOTAL": {
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
+    "ECD_EARLY_EDU": {
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ]
+        },
+        "TOTAL": {
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
+    "ECD_IN_CHILDCARE": {
+        "TOTAL": {
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
+    "EDAT_LFSE_14": {
+        "SEX": {
+            "AGE": [
+                "Y18T24"
+            ],
+            "SEX": [
+                "F",
+                "M"
+            ]
+        },
+        "TOTAL": {
+            "AGE": [
+                "Y18T24"
+            ],
             "SEX": [
                 "_T"
             ]
@@ -3736,6 +3807,37 @@
             ]
         }
     },
+    "HT_CHLD_DAILY_EXER": {
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ],
+            "WEALTH_QUINTILE": [
+                "_T"
+            ]
+        },
+        "WEALTH_QUINTILE": {
+            "SEX": [
+                "_T"
+            ],
+            "WEALTH_QUINTILE": [
+                "Q1",
+                "Q2",
+                "Q3",
+                "Q4",
+                "Q5"
+            ]
+        },
+        "TOTAL": {
+            "SEX": [
+                "_T"
+            ],
+            "WEALTH_QUINTILE": [
+                "_T"
+            ]
+        }
+    },
     "HT_ADOL_UNMETMED_FEAR": {
         "AGE": {
             "AGE": [
@@ -4684,6 +4786,17 @@
     "HVA_PMTCT_ARV_CVG": {
         "DTYPE": "str",
         "NOMINAL": false
+    },
+    "HVA_PREV_KNOW": {
+        "SEX": {
+            "AGE": [
+                "Y15T19"
+            ],
+            "SEX": [
+                "F",
+                "M"
+            ]
+        }
     },
     "IM_MCV2": {
         "AGE": {
@@ -5802,19 +5915,9 @@
         }
     },
     "MT_SDG_SUICIDE": {
-        "AGE": {
-            "AGE": [
-                "Y15T19",
-                "Y15T29",
-                "Y30T49"
-            ],
-            "SEX": [
-                "_T"
-            ]
-        },
         "SEX": {
             "AGE": [
-                "_T"
+                "Y15T19"
             ],
             "SEX": [
                 "F",
@@ -5823,7 +5926,7 @@
         },
         "TOTAL": {
             "AGE": [
-                "_T"
+                "Y15T19"
             ],
             "SEX": [
                 "_T"
@@ -6067,6 +6170,34 @@
                 "Q3",
                 "Q4",
                 "Q5"
+            ]
+        }
+    },
+    "NT_CHLD_OBESITY": {
+        "SEX": {
+            "AGE": [
+                "Y5T19"
+            ],
+            "SEX": [
+                "F",
+                "M"
+            ]
+        },
+        "AGE": {
+            "AGE": [
+                "Y5T9",
+                "Y10T19"
+            ],
+            "SEX": [
+                "_T"
+            ]
+        },
+        "TOTAL": {
+            "AGE": [
+                "Y5T19"
+            ],
+            "SEX": [
+                "_T"
             ]
         }
     },
@@ -6555,6 +6686,20 @@
             ],
             "SEX": [
                 "_T"
+            ]
+        }
+    },
+    "ICT_PERSONAL_DATA": {
+        "TOTAL": {
+            "AGE": [
+                "Y16T24"
+            ]
+        }
+    },
+    "ICT_SECURITY_CONCERN": {
+        "TOTAL": {
+            "AGE": [
+                "Y16T24"
             ]
         }
     },
@@ -8077,7 +8222,7 @@
         },
         "RESIDENCE": {
             "AGE": [
-                "Y15T49"
+                "_T"
             ],
             "RESIDENCE": [
                 "R",
@@ -8100,7 +8245,7 @@
         },
         "WEALTH_QUINTILE": {
             "AGE": [
-                "Y15T49"
+                "_T"
             ],
             "RESIDENCE": [
                 "_T"
@@ -8557,15 +8702,58 @@
         }
     },
     "PV_SEV_MAT_SOC_DPRT": {
+        "AGE": {
+            "SEX": [
+                "_T"
+            ],
+            "AGE": [
+                "Y0T17",
+                "_T"
+            ]
+        },
         "SEX": {
             "SEX": [
                 "F",
                 "M"
+            ],
+            "AGE": [
+                "_T"
             ]
         },
         "TOTAL": {
             "SEX": [
                 "_T"
+            ],
+            "AGE": [
+                "_T"
+            ]
+        }
+    },
+    "PV_LOW_WORK": {
+        "AGE": {
+            "SEX": [
+                "_T"
+            ],
+            "AGE": [
+                "Y0T17",
+                "Y0T64"
+            ]
+        },
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ],
+            "AGE": [
+                "Y0T64"
+            ]
+        },
+        "TOTAL": {
+            "SEX": [
+                "_T"
+            ],
+            "AGE": [
+                "Y0T64"
             ]
         }
     },
@@ -8904,6 +9092,19 @@
         }
     },
     "WS_SCH_W-B": {
+        "RESIDENCE": {
+            "RESIDENCE": [
+                "R",
+                "U"
+            ]
+        },
+        "TOTAL": {
+            "RESIDENCE": [
+                "_T"
+            ]
+        }
+    },
+    "CR_EG_EGY_CLEAN": {
         "RESIDENCE": {
             "RESIDENCE": [
                 "R",

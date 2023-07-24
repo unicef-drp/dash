@@ -1,0 +1,160 @@
+{
+   "main_title": "Participação da juventude",
+   "page_nav": {
+      "type": "all"
+   },
+   "THEMES": {
+      "PARTICIPATION": {
+         "NAME": "Participação eleitoral de adolescentes",
+         "ROWS": [
+            {
+               "elements": [
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "BRAZIL_CO",
+                        "id": "BRAZIL_CO",
+                        "version": "1.0",
+                        "dq": "BR.ELEITORES16E17._T._T",
+                        "lastnobservations": 1
+                     },
+                     "label": ""
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "BRAZIL_CO",
+                        "id": "BRAZIL_CO",
+                        "version": "1.0",
+                        "dq": "BR.ELEITORES16E17PORCENTO._T._T",
+                        "lastnobservations": 1
+                     },
+                     "label": ""
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "map",
+                     "label": "Participação eleitoral de adolescentes",
+                     "options": {
+                        "locations": "REF_AREA",
+                        "featureidkey": "id",
+                        "color": "OBS_VALUE",
+                        "mapbox_style": "carto-positron",
+                        "zoom": 3,
+                        "center": {
+                           "lat": -11.7462,
+                           "lon": -53.222
+                        },
+                        "opacity": 0.5,
+                        "hover_data": {
+                           "OBS_VALUE": true,
+                           "REF_AREA": false,
+                           "TIME_PERIOD": true
+                        },
+                        "animation_frame": "TIME_PERIOD",
+                        "height": 750
+                     },
+                     "data": [
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".ELEITORES16E17._T._T"
+                        },
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".ELEITORES16E17PORCENTO._T._T"
+                        }
+                     ]
+                  }
+               ]
+            },
+            {
+               "elements": [
+                  {
+                     "type": "chart",
+                     "label": "Participação eleitoral",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".ELEITORES16E17._T._T"
+                        }
+                     ],
+                     "default": "ELEITORES16E17"
+                  },
+                  {
+                     "type": "chart",
+                     "label": "Participação eleitoral",
+                     "graphs": {
+                        "bar": {
+                           "options": {
+                              "x": "REF_AREA",
+                              "y": "OBS_VALUE",
+                              "barmode": "group",
+                              "text": "OBS_VALUE",
+                              "hover_name": "TIME_PERIOD"
+                           }
+                        },
+                        "line": {
+                           "options": {
+                              "x": "TIME_PERIOD",
+                              "y": "OBS_VALUE",
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
+                           },
+                           "trace_options": {
+                              "mode": "lines+markers"
+                           }
+                        }
+                     },
+                     "default_graph": "bar",
+                     "data": [
+                        {
+                           "agency": "BRAZIL_CO",
+                           "id": "BRAZIL_CO",
+                           "version": "1.0",
+                           "dq": ".ELEITORES16E17PORCENTO._T._T"
+                        }
+                     ],
+                     "default": "ELEITORES16E17PORCENTO"
+                  }
+               ]
+            }
+         ]
+      }
+   }
+}
