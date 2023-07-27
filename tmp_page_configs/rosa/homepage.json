@@ -3,154 +3,194 @@
 	"page_nav": {
 		"type": "none"
 	},
-	"ROWS": [{
+	"menu_size":"xl",
+	"ROWS": [
+		{
 			"title": "Education",
 			"color": "blue",
-			"links": [{
-				"title": "Net Attendance",
-				"link": "?prj=rosa&page=rosa_education#netattendance",
-				"icon": "fa-solid fa-honey-pot"
-			}, {
-				"title": "Out of School",
-				"link":"?prj=rosa&page=rosa_education#outofschool",
-				"icon": "fas fa-school-circle-check"
-			}, {
-				"title": "School Completion",
-				"link": "?prj=rosa&page=rosa_education#completion",
-				"icon": "fas fa-book"
-			}, {
-				"title": "Early Childhood Development",
-				"link": "?prj=rosa&page=rosa_education#ecd",
-				"icon": "fas fa-puzzle-piece"
-			}]
-		}, {
+			"links": [
+				{
+					"title": "Net Attendance",
+					"link": "?prj=rosa&page=rosa_education#netattendance",
+					"icon": "fa-solid fa-honey-pot"
+				},
+				{
+					"title": "Out of School",
+					"link": "?prj=rosa&page=rosa_education#outofschool",
+					"icon": "fas fa-school-circle-check"
+				},
+				{
+					"title": "School Completion",
+					"link": "?prj=rosa&page=rosa_education#completion",
+					"icon": "fas fa-book"
+				},
+				{
+					"title": "Early Childhood Development",
+					"link": "?prj=rosa&page=rosa_education#ecd",
+					"icon": "fas fa-puzzle-piece"
+				}
+			]
+		},
+		{
 			"title": "Health",
 			"color": "blue",
-			"links": [{
-				"title": "Fertility and Mortality",
-				"link": "?prj=rosa&page=rosa_health#fertility",
-				"icon": "fas fa-baby-carriage"
-			}, {
-				"title": "Maternal and Child Health",
-				"link": "?prj=rosa&page=rosa_health#maternal",
-				"icon": "fas fa-stethoscope"
-			}, {
-				"title": "Immunization",
-				"link": "?prj=rosa&page=rosa_health#immunization",
-				"icon": "fas fa-syringe"
-			}, {
-				"title": "Nutrition",
-				"link": "?prj=rosa&page=rosa_health#nutrition",
-				"icon": "fa-solid fa-bowl-rice"
-			}, {
-				"title": "Environment",
-				"link": "?prj=rosa&page=rosa_health#environment",
-				"icon": "fa-solid fa-tree-city"
-			}]
-		}, {
+			"links": [
+				{
+					"title": "Fertility and Mortality",
+					"link": "?prj=rosa&page=rosa_health#fertility",
+					"icon": "fas fa-baby-carriage"
+				},
+				{
+					"title": "Maternal and Child Health",
+					"link": "?prj=rosa&page=rosa_health#maternal",
+					"icon": "fas fa-stethoscope"
+				},
+				{
+					"title": "Immunization",
+					"link": "?prj=rosa&page=rosa_health#immunization",
+					"icon": "fas fa-syringe"
+				},
+				{
+					"title": "Nutrition",
+					"link": "?prj=rosa&page=rosa_health#nutrition",
+					"icon": "fa-solid fa-bowl-rice"
+				},
+				{
+					"title": "Environment",
+					"link": "?prj=rosa&page=rosa_health#environment",
+					"icon": "fa-solid fa-tree-city"
+				}
+			]
+		},
+		{
 			"title": "Social and Behaviour Change (SBC)",
 			"color": "blue",
-			"links": [{
-				"title": "Violence Against Children",
-				"link": "?prj=rosa&page=rosa_protection#violence",
-				"icon": "fas fa-hand-fist"
-			}, {
-				"title": "School Attendance",
-				"link": "?prj=rosa&page=rosa_education#netattendance",
-				"icon": "fas fa-building-columns"
-			}, {
-				"title": "Immunization",
-				"link": "?prj=rosa&page=rosa_health#immunization",
-				"icon": "fas fa-syringe"
-			}, {
-				"title": "Nutrition",
-				"link": "?prj=rosa&page=rosa_health#nutrition",
-				"icon": "fa-solid fa-bowl-rice"
-			}, {
-				"title": "Environment",
-				"link": "?prj=rosa&page=rosa_health#environment",
-				"icon": "fas fa-tree-city"
-			}]
-		}, {
+			"links": [
+				{
+					"title": "Violence Against Children",
+					"link": "?prj=rosa&page=rosa_protection#violence",
+					"icon": "fas fa-hand-fist"
+				},
+				{
+					"title": "School Attendance",
+					"link": "?prj=rosa&page=rosa_education#netattendance",
+					"icon": "fas fa-building-columns"
+				},
+				{
+					"title": "Immunization",
+					"link": "?prj=rosa&page=rosa_health#immunization",
+					"icon": "fas fa-syringe"
+				},
+				{
+					"title": "Nutrition",
+					"link": "?prj=rosa&page=rosa_health#nutrition",
+					"icon": "fa-solid fa-bowl-rice"
+				},
+				{
+					"title": "Environment",
+					"link": "?prj=rosa&page=rosa_health#environment",
+					"icon": "fas fa-tree-city"
+				}
+			]
+		},
+		{
 			"title": "Nutrition",
 			"color": "blue",
-			"links": [{
-				"title": "Child Malnutrition",
-				"link": "?prj=rosa&page=rosa_nutrition#childmalnutrition",
-				"icon": "fa-solid fa-bowl-rice"
-			}, {
-				"title": "Infant and Young Child Feeding",
-				"link": "?prj=rosa&page=rosa_nutrition#infant",
-				"icon": "fas fa-baby-carriage"
-			}, {
-				"title": "Micronutrient Deficiencies",
-				"link": "?prj=rosa&page=rosa_nutrition#micronutrient",
-				"icon": "fas fa-user-shield"
-			}, {
-				"title": "Low Birthweight",
-				"link": "?prj=rosa&page=rosa_nutrition#lowbirthweight",
-				"icon": "fas fa-scale-balanced"
-			}]
-		}, {
+			"links": [
+				{
+					"title": "Child Malnutrition",
+					"link": "?prj=rosa&page=rosa_nutrition#childmalnutrition",
+					"icon": "fa-solid fa-bowl-rice"
+				},
+				{
+					"title": "Infant and Young Child Feeding",
+					"link": "?prj=rosa&page=rosa_nutrition#infant",
+					"icon": "fas fa-baby-carriage"
+				},
+				{
+					"title": "Micronutrient Deficiencies",
+					"link": "?prj=rosa&page=rosa_nutrition#micronutrient",
+					"icon": "fas fa-user-shield"
+				},
+				{
+					"title": "Low Birthweight",
+					"link": "?prj=rosa&page=rosa_nutrition#lowbirthweight",
+					"icon": "fas fa-scale-balanced"
+				}
+			]
+		},
+		{
 			"title": "Child Protection",
 			"color": "blue",
-			"links": [{
-				"title": "Child Marriage",
-				"link": "?prj=rosa&page=rosa_protection#child_marriage",
-				"icon": "fas fa-ring"
-			}, {
-				"title": "Birth Registration",
-				"link": "?prj=rosa&page=rosa_protection#birth_reg",
-				"icon": "fas fa-baby"
-			}, {
-				"title": "Child Labour",
-				"link": "?prj=rosa&page=rosa_protection#ch_labour",
-				"icon": "fas fa-person-digging"
-			}, {
-				"title": "Violence Against Children",
-				"link": "?prj=rosa&page=rosa_protection#violence",
-				"icon": "fas fa-hand-fist"
-			}]
+			"links": [
+				{
+					"title": "Child Marriage",
+					"link": "?prj=rosa&page=rosa_protection#child_marriage",
+					"icon": "fas fa-ring"
+				},
+				{
+					"title": "Birth Registration",
+					"link": "?prj=rosa&page=rosa_protection#birth_reg",
+					"icon": "fas fa-baby"
+				},
+				{
+					"title": "Child Labour",
+					"link": "?prj=rosa&page=rosa_protection#ch_labour",
+					"icon": "fas fa-person-digging"
+				},
+				{
+					"title": "Violence Against Children",
+					"link": "?prj=rosa&page=rosa_protection#violence",
+					"icon": "fas fa-hand-fist"
+				}
+			]
 		},
-
 		{
 			"title": "Demography and Economic",
 			"color": "blue",
-			"links": [{
-				"title": "Demography",
-				"link": "?prj=rosa&page=rosa_demo_econ#demography",
-				"icon": "fas fa-ring"
-			}, {
-				"title": "Economic",
-				"link": "?prj=rosa&page=rosa_demo_econ#economic",
-				"icon": "fas fa-baby"
-			}]
+			"links": [
+				{
+					"title": "Demography",
+					"link": "?prj=rosa&page=rosa_demo_econ#demography",
+					"icon": "fas fa-ring"
+				},
+				{
+					"title": "Economic",
+					"link": "?prj=rosa&page=rosa_demo_econ#economic",
+					"icon": "fas fa-baby"
+				}
+			]
 		},
-
 		{
 			"title": "Water, Sanitation & Hygiene",
 			"color": "blue",
-			"links": [{
-				"title": "Water",
-				"link": "?prj=rosa&page=rosa_wash#water",
-				"icon": "fa-thin fa-thought-bubble"
-			}, {
-				"title": "Sanitation",
-				"link": "?prj=rosa&page=rosa_wash#sanitation",
-				"icon": "fa-solid fa-honey-pot"
-			}, {
-				"title": "WASH in School",
-				"link": "?prj=rosa&page=rosa_wash#washinschools",
-				"icon": "fa-solid fa-glass-water-droplet"
-			}, {
-				"title": "WASH in HCFs",
-				"link": "?prj=rosa&page=rosa_wash#washinhcfs",
-				"icon": "fa-thin fa-thought-bubble"
-			}, {
-				"title": "washdata.org",
-				"link": "https://washdata.org/data/healthcare#!/",
-				"icon": "fa-solid fa-droplet"
-			}]
+			"links": [
+				{
+					"title": "Water",
+					"link": "?prj=rosa&page=rosa_wash#water",
+					"icon": "fa-thin fa-thought-bubble"
+				},
+				{
+					"title": "Sanitation",
+					"link": "?prj=rosa&page=rosa_wash#sanitation",
+					"icon": "fa-solid fa-honey-pot"
+				},
+				{
+					"title": "WASH in School",
+					"link": "?prj=rosa&page=rosa_wash#washinschools",
+					"icon": "fa-solid fa-glass-water-droplet"
+				},
+				{
+					"title": "WASH in HCFs",
+					"link": "?prj=rosa&page=rosa_wash#washinhcfs",
+					"icon": "fa-thin fa-thought-bubble"
+				},
+				{
+					"title": "washdata.org",
+					"link": "https://washdata.org/data/healthcare#!/",
+					"icon": "fa-solid fa-droplet"
+				}
+			]
 		}
 	]
 }

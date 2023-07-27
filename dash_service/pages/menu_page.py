@@ -63,10 +63,35 @@ _color_maps = {
     "orange": {"c": "#ec5e23", "s": "#f2edeb"},
 }
 
+_menu_items_size = {
+    "2xl": {
+        "title_font_size": "fs-4",
+        "icon_size": "fa-2xl",
+        "button_padding": "p-2",
+        "button_margin": "m-3",
+        "button_w": "160px",
+        "button_h": "120px",
+    },
+    "xl": {
+        "title_font_size": "fs-5",
+        "icon_size": "fa-xl",
+        "button_padding": "p-2",
+        "button_margin": "m-2",
+        "button_w": "130px",
+        "button_h": "100px",
+    },
+}
 
-def _create_button(link, color=None):
+
+def _create_button(link, menu_size, color=None):
+    icon_size = _menu_items_size[menu_size]["icon_size"]
+    button_padding = _menu_items_size[menu_size]["button_padding"]
+    button_margin = _menu_items_size[menu_size]["button_margin"]
+    button_w = _menu_items_size[menu_size]["button_w"]
+    button_h = _menu_items_size[menu_size]["button_h"]
+
     if "icon" in link:
-        icon_class = link["icon"] + " fa-2xl"
+        icon_class = link["icon"] + " " + icon_size
     else:
         icon_class = ""
 
@@ -75,10 +100,10 @@ def _create_button(link, color=None):
         href = link["link"]
 
     btn = html.A(
-        className="btn p-2 m-3 text-white",
+        className=f"btn {button_padding} {button_margin} text-white",
         style={
-            "width": "160px",
-            "height": "120px",
+            "width": button_w,
+            "height": button_h,
             "backgroundColor": color,
         },
         children=[
@@ -134,7 +159,7 @@ def _get_params_string(link_params, additional_params):
     return ret
 
 
-def create_links_row(row, query_params_to_pass_through):
+def create_links_row(row, query_params_to_pass_through, menu_size):
     # The colors
     ch = []
     color = "blue"
@@ -146,8 +171,9 @@ def create_links_row(row, query_params_to_pass_through):
     # The header of he section
     cardHeader = None
     if "title" in row:
+        font_size = _menu_items_size[menu_size]["title_font_size"]
         cardHeader = html.Div(
-            className="card-header fs-4 fw-bold text-center",
+            className=f"card-header {font_size} fw-bold text-center",
             style={"backgroundColor": secondary, "color": color},
             children=row["title"],
         )
@@ -160,13 +186,16 @@ def create_links_row(row, query_params_to_pass_through):
             link_to_use = ""
             if "link" in l:
                 link_to_use = l["link"]
-            if not (link_to_use.lower().startswith("http://") or link_to_use.lower().startswith("https://")):
+            if not (
+                link_to_use.lower().startswith("http://")
+                or link_to_use.lower().startswith("https://")
+            ):
                 params_from_link = _get_params_from_link(link_to_use)
                 params_string = _get_params_string(
                     params_from_link, query_params_to_pass_through
                 )
                 l["link"] = params_string
-            lnk = _create_button(l, color)
+            lnk = _create_button(l, menu_size, color)
             links_div.append(lnk)
         ch.append(html.Div(className="text-center", children=links_div))
 
@@ -207,18 +236,19 @@ def render_page_template(
         elem_main_title = HeadingAIO(page_config["main_title"], aio_id="menu_page_head")
         row_elems.append(elem_main_title)
 
-    
+    # The buttons size
+    menu_size = "2xl"
+    if "menu_size" in page_config:
+        menu_size = page_config["menu_size"]
 
     # For all the rows defined in the cfg
     for row in page_config["ROWS"]:
-        row_div = create_links_row(row, query_params)
+        row_div = create_links_row(row, query_params, menu_size)
         row_elems.append(row_div)
 
     template = html.Div(
         className="row justify-content-center",
-        children=html.Div(
-            className="col-sm-12 col-xxl-10", children=row_elems
-        ),
+        children=html.Div(className="col-sm-12 col-xxl-10", children=row_elems),
     )
 
     return template
