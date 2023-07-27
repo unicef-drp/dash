@@ -71,14 +71,16 @@ _menu_items_size = {
         "button_margin": "m-3",
         "button_w": "160px",
         "button_h": "120px",
+        "icon_margin_bottom": "mb-3",
     },
     "xl": {
-        "title_font_size": "fs-5",
+        "title_font_size": "fs-6",
         "icon_size": "fa-xl",
         "button_padding": "p-2",
-        "button_margin": "m-2",
+        "button_margin": "m-1",
         "button_w": "130px",
-        "button_h": "100px",
+        "button_h": "90px",
+        "icon_margin_bottom": "mb-2",
     },
 }
 
@@ -89,6 +91,7 @@ def _create_button(link, menu_size, color=None):
     button_margin = _menu_items_size[menu_size]["button_margin"]
     button_w = _menu_items_size[menu_size]["button_w"]
     button_h = _menu_items_size[menu_size]["button_h"]
+    icon_margin_bottom = _menu_items_size[menu_size]["icon_margin_bottom"]
 
     if "icon" in link:
         icon_class = link["icon"] + " " + icon_size
@@ -113,7 +116,7 @@ def _create_button(link, menu_size, color=None):
                     html.Div(
                         children=[
                             html.Div(
-                                className="mb-3 align-items-center",
+                                className=f"{icon_margin_bottom} align-items-center",
                                 children=html.I(className=icon_class),
                             ),
                             html.Div(children=link["title"]),
@@ -205,7 +208,10 @@ def create_links_row(row, query_params_to_pass_through, menu_size):
         children=[cardHeader, html.Div(className="card-body", children=ch)],
     )
 
-    return row_card
+    row_card_container_class = ""
+    if menu_size == "xl":
+        row_card_container_class = "d-inline-flex me-4"
+    return html.Div(className=row_card_container_class, children=row_card)
 
 
 def render_page_template(
