@@ -253,7 +253,7 @@ def render_page_template(
         row_elems.append(row_div)
 
     template = html.Div(
-        className="row justify-content-center",
+        className="row justify-content-center text-center",
         children=html.Div(className="col-sm-12 col-xxl-10", children=row_elems),
     )
 
