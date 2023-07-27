@@ -1,7 +1,13 @@
 {
    "main_title": "Child Protection",
    "page_nav": {
-      "type": "all"
+      "type": "none"
+   },
+   "themes_nav": {
+      "type": "none"
+   },
+   "home_button": {
+      "params": "prj=rosa&page=home_page"
    },
    "THEMES": {
       "CHILD_MARRIAGE": {
@@ -38,7 +44,7 @@
                               "hover_name": "TIME_PERIOD"
                            }
                         },
-				"line": {
+                        "line": {
                            "options": {
                               "x": "TIME_PERIOD",
                               "y": "OBS_VALUE",
@@ -52,7 +58,6 @@
                            }
                         }
                      },
-
                      "default_graph": "bar",
                      "data": [
                         {
@@ -60,8 +65,7 @@
                            "id": "ROSA",
                            "version": "1.0",
                            "dq": ".PT_F_20-24_MRD_U18._T",
-"round": 1,
-
+                           "round": 1,
                            "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
                         },
                         {
@@ -69,8 +73,7 @@
                            "id": "ROSA",
                            "version": "1.0",
                            "dq": ".PT_F_20-24_MRD_U15._T",
-"round": 1,
-
+                           "round": 1,
                            "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
                         }
                      ],
@@ -89,9 +92,7 @@
                               "hover_name": "TIME_PERIOD"
                            }
                         },
-
-
-			"line": {
+                        "line": {
                            "options": {
                               "x": "TIME_PERIOD",
                               "y": "OBS_VALUE",
@@ -105,8 +106,6 @@
                            }
                         }
                      },
-
-
                      "default_graph": "bar",
                      "data": [
                         {
@@ -114,8 +113,7 @@
                            "id": "ROSA",
                            "version": "1.0",
                            "dq": ".PT_M_20-24_MRD_U18._T",
-"round": 1,
-
+                           "round": 1,
                            "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
                         }
                      ],
@@ -157,8 +155,8 @@
                               "barmode": "group",
                               "text": "OBS_VALUE",
                               "hover_name": "TIME_PERIOD"
-                           }                        
-                     },
+                           }
+                        },
                         "line": {
                            "options": {
                               "x": "TIME_PERIOD",
@@ -173,7 +171,6 @@
                            }
                         }
                      },
-
                      "default_graph": "bar",
                      "data": [
                         {
@@ -181,8 +178,7 @@
                            "id": "ROSA",
                            "version": "1.0",
                            "dq": ".PT_CHLD_Y0T4_REG._T",
-"round": 1,
-
+                           "round": 1,
                            "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
                         }
                      ],
@@ -225,8 +221,7 @@
                               "text": "OBS_VALUE",
                               "hover_name": "TIME_PERIOD"
                            }
-                     },
-
+                        },
                         "line": {
                            "options": {
                               "x": "TIME_PERIOD",
@@ -241,8 +236,6 @@
                            }
                         }
                      },
-
-
                      "default_graph": "bar",
                      "data": [
                         {
@@ -250,8 +243,7 @@
                            "id": "ROSA",
                            "version": "1.0",
                            "dq": ".PT_CHLD_5-17_LBR_ECON-HC._T",
-"round": 1,
-
+                           "round": 1,
                            "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
                         }
                      ],
@@ -295,7 +287,7 @@
                               "hover_name": "TIME_PERIOD"
                            }
                         },
-"line": {
+                        "line": {
                            "options": {
                               "x": "TIME_PERIOD",
                               "y": "OBS_VALUE",
@@ -309,8 +301,6 @@
                            }
                         }
                      },
-
-                    
                      "default_graph": "bar",
                      "data": [
                         {
@@ -318,8 +308,7 @@
                            "id": "ROSA",
                            "version": "1.0",
                            "dq": ".PT_F_GE15_PS-SX-EM_V_PTNR_12MNTH._T",
-"round": 1,
-
+                           "round": 1,
                            "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
                         }
                      ],
@@ -338,7 +327,7 @@
                               "hover_name": "TIME_PERIOD"
                            }
                         },
-                     "line": {
+                        "line": {
                            "options": {
                               "x": "TIME_PERIOD",
                               "y": "OBS_VALUE",
@@ -352,7 +341,6 @@
                            }
                         }
                      },
-
                      "default_graph": "bar",
                      "data": [
                         {
@@ -360,8 +348,7 @@
                            "id": "ROSA",
                            "version": "1.0",
                            "dq": ".PT_ST_13-15_BUL_30-DYS._T",
-"round": 1,
-
+                           "round": 1,
                            "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
                         }
                      ],
@@ -379,9 +366,8 @@
                               "text": "OBS_VALUE",
                               "hover_name": "TIME_PERIOD"
                            }
-                        
-                     },
-"line": {
+                        },
+                        "line": {
                            "options": {
                               "x": "TIME_PERIOD",
                               "y": "OBS_VALUE",
@@ -395,7 +381,6 @@
                            }
                         }
                      },
-
                      "default_graph": "bar",
                      "data": [
                         {
@@ -403,8 +388,7 @@
                            "id": "ROSA",
                            "version": "1.0",
                            "dq": ".PT_M_15-49_W-BTNG._T",
-"round": 1,
-
+                           "round": 1,
                            "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
                         },
                         {

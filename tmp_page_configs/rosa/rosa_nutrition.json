@@ -1,8 +1,12 @@
 {
    "main_title": "Nutrition11",
    "page_nav": {
-      "type": "all"
+      "type": "none"
    },
+   "themes_nav":{
+      "type":"none"
+   },
+   "home_button":{"params":"prj=rosa&page=home_page"},
    "THEMES": {
       "CHILDMALNUTRITION": {
          "NAME": "Child Malnutrition",
@@ -13,12 +17,12 @@
                      "type": "card",
                      "data": {
                         "agency": "ROSA",
-                        "id":"ROSA",
+                        "id": "ROSA",
                         "version": "1.0",
-                        "dq":"UNICEF_SA.NT_ANT_WHZ_NE2._T",
+                        "dq": "UNICEF_SA.NT_ANT_WHZ_NE2._T",
                         "lastnobservations": 1
                      },
-                     "label":"Weight-for-height <-2 SD (wasting)",
+                     "label": "Weight-for-height <-2 SD (wasting)",
                      "round": 1
                   },
                   {
@@ -27,7 +31,7 @@
                         "agency": "ROSA",
                         "id": "ROSA",
                         "version": "1.0",
-                        "dq":"UNICEF_SA.NT_ANT_WHZ_PO2._T",
+                        "dq": "UNICEF_SA.NT_ANT_WHZ_PO2._T",
                         "lastnobservations": 1
                      },
                      "label": "Weight-for-height >+2 SD (overweight)",
@@ -39,7 +43,7 @@
                         "agency": "ROSA",
                         "id": "ROSA",
                         "version": "1.0",
-                        "dq":"UNICEF_SA.NT_ANT_WHZ_NE3._T",
+                        "dq": "UNICEF_SA.NT_ANT_WHZ_NE3._T",
                         "lastnobservations": 1
                      },
                      "label": "Weight-for-height <-3 SD (severe wasting)",
@@ -72,23 +76,22 @@
                               "render_mode": "svg"
                            },
                            "trace_options": {
-                              "mode":"lines+markers"
+                              "mode": "lines+markers"
                            }
                         }
                      },
                      "default_graph": "bar",
                      "data": [
                         {
-                           "agency":"ROSA",
+                           "agency": "ROSA",
                            "id": "ROSA",
                            "version": "1.0",
-                           "dq":".NT_ANT_WHZ_NE3._T",
-"round": 1,
-
+                           "dq": ".NT_ANT_WHZ_NE3._T",
+                           "round": 1,
                            "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
                         }
                      ],
-                     "default":".NT_ANT_WHZ_PO2._T"
+                     "default": ".NT_ANT_WHZ_PO2._T"
                   },
                   {
                      "type": "chart",
@@ -100,36 +103,35 @@
                               "y": "OBS_VALUE",
                               "barmode": "group",
                               "text": "OBS_VALUE",
-                              "hover_name":"TIME_PERIOD"
+                              "hover_name": "TIME_PERIOD"
                            }
                         },
                         "line": {
                            "options": {
                               "x": "TIME_PERIOD",
                               "y": "OBS_VALUE",
-                              "color":"REF_AREA",
-                              "hover_name":"TIME_PERIOD",
-                              "line_shape":"spline",
-                              "render_mode":"svg"
+                              "color": "REF_AREA",
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
                            },
                            "trace_options": {
-                              "mode":"lines+markers"
+                              "mode": "lines+markers"
                            }
                         }
                      },
                      "default_graph": "bar",
                      "data": [
                         {
-                           "agency":"ROSA",
+                           "agency": "ROSA",
                            "id": "ROSA",
-                           "version":"1.0",
-                           "dq":".NT_ANT_WAZ_NE2._T",
-"round": 1,
-
+                           "version": "1.0",
+                           "dq": ".NT_ANT_WAZ_NE2._T",
+                           "round": 1,
                            "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
                         }
                      ],
-                     "default":".NT_ANT_WHZ_NE2._T"
+                     "default": ".NT_ANT_WHZ_NE2._T"
                   }
                ]
             }
@@ -141,39 +143,39 @@
             {
                "elements": [
                   {
-                     "type":"card",
+                     "type": "card",
                      "data": {
-                        "agency":"ROSA",
-                        "id":"ROSA",
+                        "agency": "ROSA",
+                        "id": "ROSA",
                         "version": "1.0",
-                        "dq":"UNICEF_SA.NT_BF_CBF_12_23._T",
+                        "dq": "UNICEF_SA.NT_BF_CBF_12_23._T",
                         "lastnobservations": 1
                      },
-                     "label":"Continued breastfeeding (12-23 months)",
-                     "round": 1
-                  },
-                  {
-                     "type":"card",
-                     "data": {
-                        "agency":"ROSA",
-                        "id":"ROSA",
-                        "version":"1.0",
-                        "dq":"UNICEF_SA.NT_CF_MAD._T",
-                        "lastnobservations": 1
-                     },
-                     "label":"Minimum acceptable diet (children aged 6-23 months)",
+                     "label": "Continued breastfeeding (12-23 months)",
                      "round": 1
                   },
                   {
                      "type": "card",
                      "data": {
-                        "agency":"ROSA",
-                        "id":"ROSA",
-                        "version":"1.0",
-                        "dq":"UNICEF_SA.NT_BF_EIBF._T",
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.NT_CF_MAD._T",
                         "lastnobservations": 1
                      },
-                     "label":"Early initiation of breastfeeding",
+                     "label": "Minimum acceptable diet (children aged 6-23 months)",
+                     "round": 1
+                  },
+                  {
+                     "type": "card",
+                     "data": {
+                        "agency": "ROSA",
+                        "id": "ROSA",
+                        "version": "1.0",
+                        "dq": "UNICEF_SA.NT_BF_EIBF._T",
+                        "lastnobservations": 1
+                     },
+                     "label": "Early initiation of breastfeeding",
                      "round": 1
                   }
                ]
@@ -188,9 +190,9 @@
                            "options": {
                               "x": "REF_AREA",
                               "y": "OBS_VALUE",
-                              "barmode":"group",
+                              "barmode": "group",
                               "text": "OBS_VALUE",
-                              "hover_name":"TIME_PERIOD"
+                              "hover_name": "TIME_PERIOD"
                            }
                         },
                         "line": {
@@ -198,12 +200,12 @@
                               "x": "TIME_PERIOD",
                               "y": "OBS_VALUE",
                               "color": "REF_AREA",
-                              "hover_name":"TIME_PERIOD",
-                              "line_shape":"spline",
-                              "render_mode":"svg"
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
                            },
                            "trace_options": {
-                              "mode":"lines+markers"
+                              "mode": "lines+markers"
                            }
                         }
                      },
@@ -214,12 +216,11 @@
                            "id": "ROSA",
                            "version": "1.0",
                            "dq": ".NT_CF_MMF._T",
-"round": 1,
-
+                           "round": 1,
                            "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
                         }
                      ],
-                     "default":".NT_CF_MAD._T"
+                     "default": ".NT_CF_MAD._T"
                   },
                   {
                      "type": "chart",
@@ -239,12 +240,12 @@
                               "x": "TIME_PERIOD",
                               "y": "OBS_VALUE",
                               "color": "REF_AREA",
-                              "hover_name":"TIME_PERIOD",
-                              "line_shape":"spline",
-                              "render_mode":"svg"
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
                            },
                            "trace_options": {
-                              "mode":"lines+markers"
+                              "mode": "lines+markers"
                            }
                         }
                      },
@@ -254,13 +255,12 @@
                            "agency": "ROSA",
                            "id": "ROSA",
                            "version": "1.0",
-                           "dq":".NT_BF_EIBF._T",
-"round": 1,
-
+                           "dq": ".NT_BF_EIBF._T",
+                           "round": 1,
                            "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
                         }
                      ],
-                     "default":".NT_BF_CBF_12_23._T"
+                     "default": ".NT_BF_CBF_12_23._T"
                   }
                ]
             }
@@ -277,7 +277,7 @@
                         "agency": "ROSA",
                         "id": "ROSA",
                         "version": "1.0",
-                        "dq":"UNICEF_SA.NT_IOD_ANY_TS._T",
+                        "dq": "UNICEF_SA.NT_IOD_ANY_TS._T",
                         "lastnobservations": 1
                      },
                      "label": "Iodized salt consumption (>0 ppm) among all tested households with salt",
@@ -297,7 +297,7 @@
                               "y": "OBS_VALUE",
                               "barmode": "group",
                               "text": "OBS_VALUE",
-                              "hover_name":"TIME_PERIOD"
+                              "hover_name": "TIME_PERIOD"
                            }
                         },
                         "line": {
@@ -305,12 +305,12 @@
                               "x": "TIME_PERIOD",
                               "y": "OBS_VALUE",
                               "color": "REF_AREA",
-                              "hover_name":"TIME_PERIOD",
-                              "line_shape":"spline",
-                              "render_mode":"svg"
+                              "hover_name": "TIME_PERIOD",
+                              "line_shape": "spline",
+                              "render_mode": "svg"
                            },
                            "trace_options": {
-                              "mode":"lines+markers"
+                              "mode": "lines+markers"
                            }
                         }
                      },
@@ -320,13 +320,12 @@
                            "agency": "ROSA",
                            "id": "ROSA",
                            "version": "1.0",
-                           "dq":".NT_IOD_ANY_TH._T",
-"round": 1,
-
+                           "dq": ".NT_IOD_ANY_TH._T",
+                           "round": 1,
                            "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
                         }
                      ],
-                     "default":".NT_VAS_TWODOSE._T"
+                     "default": ".NT_VAS_TWODOSE._T"
                   },
                   {
                      "type": "chart",
@@ -338,7 +337,7 @@
                               "y": "OBS_VALUE",
                               "barmode": "group",
                               "text": "OBS_VALUE",
-                              "hover_name":"TIME_PERIOD"
+                              "hover_name": "TIME_PERIOD"
                            }
                         },
                         "line": {
@@ -348,26 +347,25 @@
                               "color": "REF_AREA",
                               "hover_name": "TIME_PERIOD",
                               "line_shape": "spline",
-                              "render_mode":"svg"
+                              "render_mode": "svg"
                            },
                            "trace_options": {
                               "mode": "lines+markers"
                            }
                         }
                      },
-                     "default_graph":"bar",
+                     "default_graph": "bar",
                      "data": [
                         {
                            "agency": "ROSA",
                            "id": "ROSA",
                            "version": "1.0",
                            "dq": ".NT_IOD_ANY_TS._T",
-"round": 1,
-
+                           "round": 1,
                            "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
                         }
                      ],
-                     "default":".NT_VAS_TWODOSE._T"
+                     "default": ".NT_VAS_TWODOSE._T"
                   }
                ]
             }
@@ -384,7 +382,7 @@
                         "agency": "ROSA",
                         "id": "ROSA",
                         "version": "1.0",
-                        "dq":"UNICEF_SA.NT_BW_LBW_MOD_NUMTH._T",
+                        "dq": "UNICEF_SA.NT_BW_LBW_MOD_NUMTH._T",
                         "lastnobservations": 1
                      },
                      "label": "Number (in thousands) of live births that weighed less than 2500 g (Modeled Estimates)",
@@ -431,7 +429,7 @@
                            "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
                         }
                      ],
-                     "default":"NT_BW_LBW._T"
+                     "default": "NT_BW_LBW._T"
                   },
                   {
                      "type": "chart",
@@ -456,7 +454,7 @@
                               "render_mode": "svg"
                            },
                            "trace_options": {
-                              "mode":"lines+markers"
+                              "mode": "lines+markers"
                            }
                         }
                      },
@@ -470,7 +468,7 @@
                            "force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
                         }
                      ],
-                     "default":"NT_BW_UNW._T"
+                     "default": "NT_BW_UNW._T"
                   }
                ]
             }

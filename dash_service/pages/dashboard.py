@@ -170,6 +170,7 @@ def layout(lang="en", **query_params):
 # Gets the element that will be rendered on the navigation bar
 def get_page_nav_items(page_config, project_slug, lang):
     nav_type = None
+    ret = None
     if "page_nav" in page_config and "type" in page_config["page_nav"]:
         nav_type = page_config["page_nav"]["type"]
     if nav_type is None:
@@ -184,10 +185,10 @@ def get_page_nav_items(page_config, project_slug, lang):
             .all()
         )
 
-    ret = [
-        {"name": ni.title, "prj_slug": ni.prj_slug, "slug": ni.slug, "lang": lang}
-        for ni in nav_items
-    ]
+        ret = [
+            {"name": ni.title, "prj_slug": ni.prj_slug, "slug": ni.slug, "lang": lang}
+            for ni in nav_items
+        ]
     return ret
 
 
@@ -213,6 +214,18 @@ def render_page_template(
         aio_id=ELEM_ID_YEARS_RANGE_SEL, additional_classes="pb-2"
     )
 
+
+    home_icon = None
+    
+    if "home_button" in page_config and "params" in page_config["home_button"]:
+        #"home_button":{"params":"prj=rosa&page=home_page"},
+        home_link = "?"+page_config["home_button"]["params"]
+        home_icon = html.A(
+            className="text-primary",
+            children=html.I(className="fa-solid fa-house fa-2xl"),
+            href=home_link
+        )
+
     ret = html.Div(
         [
             dcc.Store(id="lang", data=lang),  # stores the language
@@ -234,7 +247,11 @@ def render_page_template(
                         className="d-flex justify-content-center py-2",
                         children=[dbc.ButtonGroup(id="theme_buttons")],
                     ),
-                    elem_years_selector,
+                    html.Div(className="float-start align-middle ms-3", children=[home_icon]),
+                    html.Div(
+                        className="d-flex justify-content-center",
+                        children=elem_years_selector,
+                    ),
                 ],
             ),
             html.Div(id="dashboard_contents", className="mt-2", children=[]),
@@ -315,8 +332,16 @@ def show_themes(selections, config):
     subtitle = theme_node.get("NAME", "")
 
     # Creates the Themes' buttons
-    # hide the buttons when only one option is available
-    if len(config[CFG_N_THEMES].items()) == 1:
+    # hide the buttons when only one option is available or when the themes have been hidden in the cfg
+    no_themes_buttons = False
+    if (
+        "themes_nav" in config
+        and "type" in config["themes_nav"]
+        and config["themes_nav"]["type"] == "none"
+    ):
+        no_themes_buttons = True
+
+    if len(config[CFG_N_THEMES].items()) == 1 or no_themes_buttons:
         theme_buttons = None
     else:
         theme_buttons = [

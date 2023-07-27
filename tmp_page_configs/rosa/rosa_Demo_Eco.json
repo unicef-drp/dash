@@ -1,27 +1,37 @@
 {
 	"main_title": "Demography and Economic",
 	"page_nav": {
-		"type": "all"
+		"type": "none"
+	},
+	"themes_nav": {
+		"type": "none"
+	},
+	"home_button": {
+		"params": "prj=rosa&page=home_page"
 	},
 	"THEMES": {
 		"DEMOGRAPHY": {
 			"NAME": "Demography",
-			"ROWS": [{
-					"elements": [{
-						"type": "card",
-						"data": {
-							"agency": "ROSA",
-							"id": "ROSA",
-							"version": "1.0",
-							"dq": "UNICEF_SA.DM_FRATE_TOT._T",
-							"lastnobservations": 1
-						},
-						"label": "Total fertility rate",
-						"round": 1
-					}]
+			"ROWS": [
+				{
+					"elements": [
+						{
+							"type": "card",
+							"data": {
+								"agency": "ROSA",
+								"id": "ROSA",
+								"version": "1.0",
+								"dq": "UNICEF_SA.DM_FRATE_TOT._T",
+								"lastnobservations": 1
+							},
+							"label": "Total fertility rate",
+							"round": 1
+						}
+					]
 				},
 				{
-					"elements": [{
+					"elements": [
+						{
 							"type": "chart",
 							"label": " Total fertility rate",
 							"graphs": {
@@ -48,9 +58,9 @@
 									}
 								}
 							},
-
 							"default_graph": "bar",
-							"data": [{
+							"data": [
+								{
 									"agency": "ROSA",
 									"id": "ROSA",
 									"version": "1.0",
@@ -80,8 +90,6 @@
 										"hover_name": "TIME_PERIOD"
 									}
 								},
-
-
 								"line": {
 									"options": {
 										"x": "TIME_PERIOD",
@@ -96,43 +104,45 @@
 									}
 								}
 							},
-
-
 							"default_graph": "bar",
-							"data": [{
-								"agency": "ROSA",
-								"id": "ROSA",
-								"version": "1.0",
-								"dq": ".DM_POP_ADLCNT._T",
-"round": 1,
-								"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
-							}],
+							"data": [
+								{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ".DM_POP_ADLCNT._T",
+									"round": 1,
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								}
+							],
 							"default": "DM_DPR_CHD._T"
 						}
 					]
 				}
 			]
 		},
-
-
 		"ECONOMIC": {
 			"NAME": "Economic",
-			"ROWS": [{
-					"elements": [{
-						"type": "card",
-						"data": {
-							"agency": "ROSA",
-							"id": "ROSA",
-							"version": "1.0",
-							"dq": " UNICEF_SA.ECON_GVT_REV_PTGDP._T",
-							"lastnobservations": 1
-						},
-						"label": " Government revenue (%GDP)",
-						"round": 1
-					}]
+			"ROWS": [
+				{
+					"elements": [
+						{
+							"type": "card",
+							"data": {
+								"agency": "ROSA",
+								"id": "ROSA",
+								"version": "1.0",
+								"dq": " UNICEF_SA.ECON_GVT_REV_PTGDP._T",
+								"lastnobservations": 1
+							},
+							"label": " Government revenue (%GDP)",
+							"round": 1
+						}
+					]
 				},
 				{
-					"elements": [{
+					"elements": [
+						{
 							"type": "chart",
 							"label": " Government expenditure (% GDP)",
 							"graphs": {
@@ -159,9 +169,9 @@
 									}
 								}
 							},
-
 							"default_graph": "bar",
-							"data": [{
+							"data": [
+								{
 									"agency": "ROSA",
 									"id": "ROSA",
 									"version": "1.0",
@@ -191,8 +201,6 @@
 										"hover_name": "TIME_PERIOD"
 									}
 								},
-
-
 								"line": {
 									"options": {
 										"x": "TIME_PERIOD",
@@ -207,18 +215,17 @@
 									}
 								}
 							},
-
-
 							"default_graph": "bar",
-							"data": [{
-								"agency": "ROSA",
-								"id": "ROSA",
-								"version": "1.0",
-								"dq": ".ECON_GVT_HLTH_EXP_PTGDP._T",
-								"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
-							}],
+							"data": [
+								{
+									"agency": "ROSA",
+									"id": "ROSA",
+									"version": "1.0",
+									"dq": ".ECON_GVT_HLTH_EXP_PTGDP._T",
+									"force_ref_areas": "AFG+BGD+BTN+IND+MDV+NPL+PAK+LKA"
+								}
+							],
 							"default": " ECON_SOC_PRO_EXP_PTGDP._T"
-
 						}
 					]
 				}

@@ -1,8 +1,12 @@
 {
    "main_title": "Education",
    "page_nav": {
-      "type": "all"
+      "type": "none"
    },
+   "themes_nav":{
+      "type":"none"
+   },
+   "home_button":{"params":"prj=rosa&page=home_page"},
    "THEMES": {
       "NETATTENDANCE": {
          "NAME": "Net Attendance",

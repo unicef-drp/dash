@@ -54,7 +54,6 @@ class YearsRangeSelectorAIO(html.Div):
 
         ret = [
             html.Div(
-                className="d-flex justify-content-center",
                 children=dbc.Button(
                     id=self.ids.years_range_open_collapse_btn(aio_id),
                     class_name="btn btn-secondary dropdown-toggle",
@@ -62,28 +61,7 @@ class YearsRangeSelectorAIO(html.Div):
                     children=f"{years_label}: {sel_year_min} - {sel_year_max}",
                 ),
             ),
-            # dbc.Collapse(
-            #     dbc.Card(
-            #         dbc.CardBody(
-            #             dcc.RangeSlider(
-            #                 className="w-100",
-            #                 id=self.ids.years_range(aio_id),
-            #                 min=year_min,
-            #                 max=year_max,
-            #                 step=1,
-            #                 marks={year_min: str(year_min), year_max: str(year_min)},
-            #                 value=[
-            #                     sel_year_min,
-            #                     sel_year_max,
-            #                 ],
-            #                 tooltip={"placement": "bottom", "always_visible": True},
-            #             )
-            #         )
-            #     ),
-            #     id=self.ids.years_range_open_collapse_elem(aio_id),
-            #     is_open=False,
-            #     style={"opacity":1}
-            # ),
+
             html.Div(
                 id=self.ids.years_range_open_collapse_elem(aio_id),
                 className="d-none",

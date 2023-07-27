@@ -1,7 +1,13 @@
 {
 	"main_title": "Water, Sanitation and Hygiene",
 	"page_nav": {
-		"type": "all"
+		"type": "none"
+	},
+	"themes_nav": {
+		"type": "none"
+	},
+	"home_button": {
+		"params": "prj=rosa&page=home_page"
 	},
 	"THEMES": {
 		"WATER": {

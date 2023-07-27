@@ -1,8 +1,12 @@
 {
    "main_title": "Health",
    "page_nav": {
-      "type": "all"
+      "type": "none"
    },
+   "themes_nav":{
+      "type":"none"
+   },
+   "home_button":{"params":"prj=rosa&page=home_page"},
    "THEMES": {
       "FERTILITY": {
          "NAME": " Fertility and Mortality ",
@@ -40,7 +44,6 @@
                         "id": "ROSA",
                         "version": "1.0",
                         "dq": "UNICEF_SA.._T",
-
                         "lastnobservations": 1
                      },
                      "label": "Adolescent birth rate (number of live births to adolescent women per 1,000 adolescent women)",
