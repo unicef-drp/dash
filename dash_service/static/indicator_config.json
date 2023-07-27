@@ -546,7 +546,7 @@
             ]
         }
     },
-    "ECD_CHLD_36-59M_ADLT_SRC": {
+    "ECD_CHLD_24-59M_ADLT_SRC": {
         "RESIDENCE": {
             "AGE": [
                 "M24T59",
@@ -690,7 +690,7 @@
             ]
         }
     },
-    "ECD_CHLD_36-59M_FHR-SPT-LNG": {
+    "ECD_CHLD_24-59M_FHR-SPT-LNG": {
         "RESIDENCE": {
             "AGE": [
                 "M24T59",

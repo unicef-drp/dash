@@ -220,7 +220,7 @@ page_config = {
             },
             {
                 "name": "",
-                "indicator": "ECD_CHLD_36-59M_ADLT_SRC",
+                "indicator": "ECD_CHLD_24-59M_ADLT_SRC",
                 "suffix": min_max_card_suffix,
                 "min_max": True,
             },
@@ -249,7 +249,7 @@ page_config = {
                 "ECD_CHLD_36-59M_LMPSL",
                 "CME_MRM0",
                 "NT_BF_EXBF",
-                "ECD_CHLD_36-59M_ADLT_SRC",
+                "ECD_CHLD_24-59M_ADLT_SRC",
                 "EDUNF_NERA_L1_UNDER1",
                 "ECD_IN_CHILDCARE",
                 "ECD_EARLY_EDU",
