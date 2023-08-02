@@ -395,7 +395,7 @@ page_config = {
         },
     },
     "DCD": {
-        "NAME": "Disaster, conflict and displacemnent",
+        "NAME": "Disaster, conflict and displacement",
         "CARDS": [
             {
                 "name": "",

@@ -1316,8 +1316,94 @@ def get_base_layout(**kwargs):
                     )
                 )
             ),
+            html.Br(),
+            dbc.Row(
+                html.H3(
+                    children=["CRC Recommendations related to (name of subdomain)"],
+                    style={
+                        "color": domain_colour,
+                        "marginTop": "10px",
+                        "marginBottom": "0px",
+                    },
+                )
+            ),
+            html.Br(),
+            dbc.Row(
+                [
+                    html.P(
+                        "Filter by country:",
+                        style={"margin-bottom": "10px"},
+                    ),
+                    dcc.Dropdown(
+                        id=f"{page_prefix}-country-filter-crc",
+                        options=[
+                            {"label": country, "value": country}
+                            for country in all_countries
+                        ],
+                        value=["Albania"],
+                        placeholder="Select country",
+                        multi=False,
+                        clearable=True,
+                        style={"width": "300px"},
+                    ),
+                ],
+            ),
+            dbc.Row(
+                [
+                    dbc.Col(
+                        [
+                            html.H5(
+                                children=["Enabling Environment"],
+                                style={
+                                    "color": domain_colour,
+                                    "marginTop": "10px",
+                                    "marginBottom": "10px",
+                                },
+                            ),
+                            dcc.Markdown(test_text1),
+                        ]
+                    ),
+                    dbc.Col(
+                        [
+                            html.H5(
+                                children=["Supply"],
+                                style={
+                                    "color": domain_colour,
+                                    "marginTop": "10px",
+                                    "marginBottom": "10px",
+                                },
+                            ),
+                            dcc.Markdown(test_text2),
+                        ]
+                    ),
+                    dbc.Col(
+                        [
+                            html.H5(
+                                children=["Demand"],
+                                style={
+                                    "color": domain_colour,
+                                    "marginTop": "10px",
+                                    "marginBottom": "10px",
+                                },
+                            ),
+                            dcc.Markdown(test_text3),
+                        ]
+                    ),
+                ]
+            ),
         ],
     )
+
+
+test_text1 = """
+- 55(c) Strengthen the monitoring of existing marketing regulations relating to breast-milk substitutes and ensure that such regulations are monitored on a regular basis and action is taken against those who violate these regulations.<br>
+- 35(e) Address malnutrition, including overweight and obesity, among children and promote healthy lifestyles and physical activity."""
+
+test_text2 = """
+- 55(b) Ensure that the main maternity hospitals meet the required standards and are certified as baby-friendly"""
+
+test_text3 = """
+- 55(a) Strengthen its awareness-raising efforts on the importance of exclusive breastfeeding of children up to the age of 6 months"""
 
 
 def make_card(
@@ -2064,13 +2150,18 @@ def aio_area_figure(
     df_indicator_sources = df_sources[df_sources["Code"] == card_key]
     unique_indicator_sources = df_indicator_sources["Source_Full"].unique()
     source = (
-        "; ".join(list(unique_indicator_sources))
-        if len(unique_indicator_sources) > 0
-        else "Multiple sources"
+        (
+            "; ".join(list(unique_indicator_sources))
+            if len(unique_indicator_sources) > 0 and "DM_CHLD_POP" not in data.CODE
+            else ""
+        )
+        if "DM_CHLD_POP" in data.CODE
+        else "Multiple Sources"
     )
+
     source_link = (
         df_indicator_sources["Source_Link"].unique()[0]
-        if len(unique_indicator_sources) > 0 and source != "Multiple sources"
+        if len(unique_indicator_sources) > 0 and "DM_CHLD_POP" not in data.CODE
         else ""
     )
 
