@@ -98,6 +98,14 @@ indicator_names = {
     code.id: code.name.en
     for code in dsd.dimensions.get("INDICATOR").local_representation.enumerated
 }
+
+button_name_file_path = (
+    f"{pathlib.Path(__file__).parent.parent.absolute()}/static/indicator_buttons.json"
+)
+with open(button_name_file_path) as button_file:
+    indicator_buttons = json.load(button_file)
+
+
 # custom names as requested by siraj: update thousands for consistency, packed indicators
 custom_names = {
     # erase_name_thousands
@@ -477,12 +485,22 @@ domain_pages = {
     "Cross-Cutting": "child-cross-cutting",
 }
 
-# Read the CCRC Excel file and skip the first row (header is in the second row)
+# Read the CRC Excel file and skip the first row (header is in the second row)
 crc_file_path = f"{pathlib.Path(__file__).parent.parent.absolute()}/static/Full CRC database - v25-1-22.xlsx"
 CRC_df = pd.read_excel(
     crc_file_path,
     sheet_name="Full CRC database ECA",
     header=1,  # Use the second row as column headers
+)
+
+# Read the master list Excel file and set the first row as header
+master_file_path = (
+    f"{pathlib.Path(__file__).parent.parent.absolute()}/static/master_list.xlsx"
+)
+master_df = pd.read_excel(
+    master_file_path,
+    sheet_name="Master List",
+    header=0,  # Use the second row as column headers
 )
 
 
@@ -1200,7 +1218,7 @@ def get_base_layout(**kwargs):
                                                                             dbc.Col(
                                                                                 [
                                                                                     html.Button(
-                                                                                        "Download data",  # Button text
+                                                                                        "Download data",
                                                                                         id=f"{page_prefix}-download_btn",
                                                                                         className="download_btn",
                                                                                     ),
@@ -1384,19 +1402,37 @@ def get_base_layout(**kwargs):
                                 dcc.Tab(
                                     label="Enabling Environment",
                                     children=[
-                                        dcc.Markdown(id=f"{page_prefix}-crc-enabling"),
+                                        dcc.Loading(
+                                            [
+                                                dcc.Markdown(
+                                                    id=f"{page_prefix}-crc-enabling"
+                                                ),
+                                            ]
+                                        )
                                     ],
                                 ),
                                 dcc.Tab(
                                     label="Supply",
                                     children=[
-                                        dcc.Markdown(id=f"{page_prefix}-crc-supply"),
+                                        dcc.Loading(
+                                            [
+                                                dcc.Markdown(
+                                                    id=f"{page_prefix}-crc-supply"
+                                                ),
+                                            ]
+                                        )
                                     ],
                                 ),
                                 dcc.Tab(
                                     label="Demand",
                                     children=[
-                                        dcc.Markdown(id=f"{page_prefix}-crc-demand"),
+                                        dcc.Loading(
+                                            [
+                                                dcc.Markdown(
+                                                    id=f"{page_prefix}-crc-demand"
+                                                ),
+                                            ]
+                                        )
                                     ],
                                 ),
                             ]
@@ -1493,10 +1529,10 @@ def filter_crc_data(country, selections, indicators_dict):
 
     header_text = f"CRC Recommendations - '{subdomain}'"
 
-    if most_recent_year is not None:
-        report_year_text = f"Year of latest report: {most_recent_year}"
-    else:
+    if np.isnan(most_recent_year):
         report_year_text = "Year of latest report: N/A"
+    else:
+        report_year_text = f"Year of latest report: {most_recent_year}"
 
     return (
         header_text,
@@ -1936,16 +1972,25 @@ def aio_options(theme, indicators_dict, page_prefix):
             else ""
         )
 
-        area_buttons = [
-            dbc.Button(
-                indicator_names[code],
-                id={"type": f"{page_prefix}-indicator_button", "index": code},
-                color=f"{page_prefix}",
-                className="my-1",
-                active=code == default_option if default_option != "" else num == 0,
-            )
-            for num, code in enumerate(area_indicators)
-        ]
+    area_buttons = [
+        dbc.Button(
+            [
+                html.Span(
+                    re.sub(r"\s*\(SDG.*\)", " ", indicator_buttons[code]),
+                    className="mr-2",
+                ),  # Button label without "(SDG ...)"
+                dbc.Badge("SDG", color="primary", className="mr-1")
+                if "SDG" in indicator_buttons[code]
+                else None,
+            ],
+            id={"type": f"{page_prefix}-indicator_button", "index": code},
+            color=f"{page_prefix}",
+            className="my-1",
+            active=code == default_option if default_option != "" else num == 0,
+        )
+        for num, code in enumerate(area_indicators)
+    ]
+
     # return html.Div(className="force-inline-controls", children=area_buttons)
     return area_buttons
 
