@@ -147,3 +147,14 @@ div.dt-table-container__row.dt-table-container__row-1 {
     align-items: center;
     justify-content: flex-start;
 }
+
+.badge-top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+}
+
+.flex-grow-1 {
+    flex-grow: 1; /* Allow the button text to take up remaining space */
+}

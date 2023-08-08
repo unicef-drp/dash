@@ -98,6 +98,14 @@ indicator_names = {
     code.id: code.name.en
     for code in dsd.dimensions.get("INDICATOR").local_representation.enumerated
 }
+
+button_name_file_path = (
+    f"{pathlib.Path(__file__).parent.parent.absolute()}/static/indicator_buttons.json"
+)
+with open(button_name_file_path) as button_file:
+    indicator_buttons = json.load(button_file)
+
+
 # custom names as requested by siraj: update thousands for consistency, packed indicators
 custom_names = {
     # erase_name_thousands
@@ -1210,7 +1218,7 @@ def get_base_layout(**kwargs):
                                                                             dbc.Col(
                                                                                 [
                                                                                     html.Button(
-                                                                                        "Download data",  # Button text
+                                                                                        "Download data",
                                                                                         id=f"{page_prefix}-download_btn",
                                                                                         className="download_btn",
                                                                                     ),
@@ -1964,16 +1972,25 @@ def aio_options(theme, indicators_dict, page_prefix):
             else ""
         )
 
-        area_buttons = [
-            dbc.Button(
-                indicator_names[code],
-                id={"type": f"{page_prefix}-indicator_button", "index": code},
-                color=f"{page_prefix}",
-                className="my-1",
-                active=code == default_option if default_option != "" else num == 0,
-            )
-            for num, code in enumerate(area_indicators)
-        ]
+    area_buttons = [
+        dbc.Button(
+            [
+                html.Span(
+                    re.sub(r"\s*\(SDG.*\)", " ", indicator_buttons[code]),
+                    className="mr-2",
+                ),  # Button label without "(SDG ...)"
+                dbc.Badge("SDG", color="primary", className="mr-1")
+                if "SDG" in indicator_buttons[code]
+                else None,
+            ],
+            id={"type": f"{page_prefix}-indicator_button", "index": code},
+            color=f"{page_prefix}",
+            className="my-1",
+            active=code == default_option if default_option != "" else num == 0,
+        )
+        for num, code in enumerate(area_indicators)
+    ]
+
     # return html.Div(className="force-inline-controls", children=area_buttons)
     return area_buttons
 
