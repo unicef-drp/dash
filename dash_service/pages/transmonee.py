@@ -6,12 +6,15 @@ from pathlib import Path
 import pathlib
 from flask import request
 from urllib.parse import urlsplit, urlunsplit
+import re
 
 import numpy as np
 import pandas as pd
 import pandasdmx as sdmx
 import plotly.express as px
 import plotly.io as pio
+import plotly
+import dash
 import requests
 import plotly.graph_objects as go
 import textwrap
@@ -111,6 +114,7 @@ custom_names = {
     "ICT_SECURITY_CONCERN": "Percentage of 16-24 year olds who limited their personal internet activities in the last 12 months due to security concerns",
     "ICT_PERSONAL_DATA": "Percentage of 16-24 year olds who used the internet in the last 3 months and managed access to their personal data",
     "MT_SDG_SUICIDE": "3.4.2 Suicide mortality rate for 15-19 year olds (deaths per 100,000 population)",
+    "EC_SP_GOV_EXP_GDP": "General government expenditure on social protection (% of GDP)",
     # custom plots
     "packed_CRG": "National Human Rights Institutions in compliance with the Paris Principles",
     "packed_EXP": "Expenditure on education levels as a percentage of government expenditure on education",
@@ -472,6 +476,14 @@ domain_pages = {
     "Poverty and Adequate Standard of Living": "child-poverty",
     "Cross-Cutting": "child-cross-cutting",
 }
+
+# Read the CCRC Excel file and skip the first row (header is in the second row)
+crc_file_path = f"{pathlib.Path(__file__).parent.parent.absolute()}/static/Full CRC database - v25-1-22.xlsx"
+CRC_df = pd.read_excel(
+    crc_file_path,
+    sheet_name="Full CRC database ECA",
+    header=1,  # Use the second row as column headers
+)
 
 
 def get_card_popover_body(sources):
@@ -974,38 +986,44 @@ def get_base_layout(**kwargs):
                             dbc.Row(
                                 [
                                     dbc.Col(
-                                        dbc.DropdownMenu(
-                                            label=f"Filter by years: {years[0]} - {years[-1]}",
-                                            id=f"{page_prefix}-collapse-years-button",
-                                            className="m-2",
-                                            color="secondary",
-                                            # block=True,
-                                            children=[
-                                                dbc.Card(
-                                                    dcc.RangeSlider(
-                                                        id=f"{page_prefix}-year_slider",
-                                                        min=0,
-                                                        max=len(years) - 1,
-                                                        step=1,
-                                                        marks={
-                                                            # display only even years
-                                                            index: str(year)
-                                                            for index, year in enumerate(
-                                                                years
-                                                            )
-                                                            if index % 2 == 0
+                                        [
+                                            html.P(
+                                                "Filter by years:",
+                                                style={"margin-bottom": "10px"},
+                                            ),
+                                            dbc.DropdownMenu(
+                                                label=f"{years[0]} - {years[-1]}",
+                                                id=f"{page_prefix}-collapse-years-button",
+                                                className="m-2",
+                                                color="secondary",
+                                                # block=True,
+                                                children=[
+                                                    dbc.Card(
+                                                        dcc.RangeSlider(
+                                                            id=f"{page_prefix}-year_slider",
+                                                            min=0,
+                                                            max=len(years) - 1,
+                                                            step=1,
+                                                            marks={
+                                                                # display only even years
+                                                                index: str(year)
+                                                                for index, year in enumerate(
+                                                                    years
+                                                                )
+                                                                if index % 2 == 0
+                                                            },
+                                                            value=[0, len(years) - 1],
+                                                        ),
+                                                        style={
+                                                            "maxHeight": "250px",
+                                                            "minWidth": "500px",
                                                         },
-                                                        value=[0, len(years) - 1],
+                                                        className="overflow-auto",
+                                                        body=True,
                                                     ),
-                                                    style={
-                                                        "maxHeight": "250px",
-                                                        "minWidth": "500px",
-                                                    },
-                                                    className="overflow-auto",
-                                                    body=True,
-                                                ),
-                                            ],
-                                        ),
+                                                ],
+                                            ),
+                                        ],
                                         width="auto",
                                     ),
                                     dbc.Col(
@@ -1103,7 +1121,7 @@ def get_base_layout(**kwargs):
                     ),
                 ],
                 # sticky="top",
-                className="sticky-top bg-light",
+                className="bg-light",
                 justify="center",
                 align="center",
                 style={
@@ -1221,6 +1239,8 @@ def get_base_layout(**kwargs):
                                                                                 "autoScale",
                                                                             ],
                                                                             "displaylogo": False,
+                                                                            "autosizable": False,
+                                                                            "showTips": True,
                                                                         },
                                                                     )
                                                                 ],
@@ -1316,6 +1336,74 @@ def get_base_layout(**kwargs):
                     )
                 )
             ),
+            html.Br(),
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        dbc.Row(
+                            html.H3(
+                                id=f"{page_prefix}-crc-header",
+                                children="CRC Recommendations - ",
+                                style={
+                                    "color": domain_colour,
+                                    "marginTop": "10px",
+                                    "marginBottom": "0px",
+                                },
+                            )
+                        ),
+                        html.Br(),
+                        html.Div(
+                            className="flex-container",
+                            children=[
+                                html.P(
+                                    "Select country:",
+                                    style={"margin-right": "10px"},
+                                ),
+                                dcc.Dropdown(
+                                    id=f"{page_prefix}-country-filter-crc",
+                                    options=[
+                                        {"label": country, "value": country}
+                                        for country in all_countries
+                                    ],
+                                    value="Albania",
+                                    placeholder="Select country",
+                                    multi=False,
+                                    clearable=True,
+                                    style={"width": "200px"},
+                                ),
+                                html.P(
+                                    id=f"{page_prefix}-crc-year",
+                                    children="Year of latest report: ",
+                                    style={"margin-left": "15px"},
+                                ),
+                            ],
+                        ),
+                        html.Br(),
+                        dcc.Tabs(
+                            [
+                                dcc.Tab(
+                                    label="Enabling Environment",
+                                    children=[
+                                        dcc.Markdown(id=f"{page_prefix}-crc-enabling"),
+                                    ],
+                                ),
+                                dcc.Tab(
+                                    label="Supply",
+                                    children=[
+                                        dcc.Markdown(id=f"{page_prefix}-crc-supply"),
+                                    ],
+                                ),
+                                dcc.Tab(
+                                    label="Demand",
+                                    children=[
+                                        dcc.Markdown(id=f"{page_prefix}-crc-demand"),
+                                    ],
+                                ),
+                            ]
+                        ),
+                    ],
+                )
+            ),
         ],
     )
 
@@ -1360,9 +1448,63 @@ def make_card(
         ),
     ]
 
-    # print("make_card: %s seconds" % (time.time() - start_time))
-
     return card, get_card_popover_body(numerator_pairs)
+
+
+# Function to filter CRC_df based on country, subdomain, and bottleneck type
+def filter_crc_data(country, selections, indicators_dict):
+    subdomain = indicators_dict[selections["theme"]].get("NAME")
+    country_filtered_df = CRC_df.loc[CRC_df["Name of the country"] == country]
+    most_recent_year = country_filtered_df["Year of report "].max()
+
+    filtered_df = country_filtered_df.loc[
+        (country_filtered_df["Year of report "] == most_recent_year)
+        & (
+            country_filtered_df["ECA child rights monitoring framework\nSub-Domain"]
+            == subdomain
+        )
+    ]
+
+    # Filter recommendations for the most recent year
+    recommendations_df = filtered_df.loc[
+        filtered_df["Year of report "] == most_recent_year
+    ]
+
+    # Format recommendations by bottleneck type
+    recommendations_by_bottleneck = {}
+    for bottleneck in ["Enabling environment", "Supply", "Demand"]:
+        recs = recommendations_df.loc[
+            recommendations_df["Bottleneck type"].str.contains(bottleneck, case=False),
+            "Recommendation",
+        ]
+        formatted_recs = [
+            re.sub(r"^\d+[.)]?(\s|\(.\))*", "- ", rec).strip() + "  " for rec in recs
+        ]
+
+        # Replace ";" or "; and" endings with "."
+        formatted_recs = [
+            rec.replace("; and", ".").replace(";", ".") for rec in formatted_recs
+        ]
+
+        if len(formatted_recs) == 0:
+            recommendations_by_bottleneck[bottleneck] = "No related recommendations"
+        else:
+            recommendations_by_bottleneck[bottleneck] = "\n".join(formatted_recs)
+
+    header_text = f"CRC Recommendations - '{subdomain}'"
+
+    if most_recent_year is not None:
+        report_year_text = f"Year of latest report: {most_recent_year}"
+    else:
+        report_year_text = "Year of latest report: N/A"
+
+    return (
+        header_text,
+        report_year_text,
+        recommendations_by_bottleneck["Enabling environment"],
+        recommendations_by_bottleneck["Supply"],
+        recommendations_by_bottleneck["Demand"],
+    )
 
 
 def indicator_card(
@@ -1559,8 +1701,6 @@ def indicator_card(
         )
         indicator_header = sum_format.format(indicator_sum)
 
-    # print("get indicator card: %s seconds" % (time.time() - start_time))
-
     return make_card(
         name,
         suffix,
@@ -1748,8 +1888,6 @@ def get_filters(years_slider, countries, country_group):
         countries=countries_selected_codes,
         count_names=filter_countries,
     )
-    # print("filters: %s seconds" % (time.time() - start_time))
-    print(filter_countries)
     return (filter_dict, filter_countries, selected_years, country_text)
 
 
@@ -1781,8 +1919,6 @@ def themes(selections, indicators_dict, page_prefix):
         )
         for num, (key, value) in enumerate(indicators_dict.items())
     ]
-
-    # print("themes: %s seconds" % (time.time() - start_time))
     return subdomain, description, buttons
 
 
@@ -1810,7 +1946,6 @@ def aio_options(theme, indicators_dict, page_prefix):
             )
             for num, code in enumerate(area_indicators)
         ]
-    # print("aio_options: %s seconds" % (time.time() - start_time))
     # return html.Div(className="force-inline-controls", children=area_buttons)
     return area_buttons
 
@@ -1993,7 +2128,7 @@ def aio_area_figure(
         # check if the dataframe is empty meaning no data to display as per the user's selection
         if data.empty:
             return (
-                f"Filter by years: {selected_years[0]} - {selected_years[-1]}",
+                f"{selected_years[0]} - {selected_years[-1]}",
                 EMPTY_CHART,
                 "",
                 [],
@@ -2013,7 +2148,7 @@ def aio_area_figure(
 
     except requests.exceptions.HTTPError as err:
         return (
-            f"Filter by years: {selected_years[0]} - {selected_years[-1]}",
+            f"{selected_years[0]} - {selected_years[-1]}",
             EMPTY_CHART,
             "",
             [],
@@ -2064,13 +2199,18 @@ def aio_area_figure(
     df_indicator_sources = df_sources[df_sources["Code"] == card_key]
     unique_indicator_sources = df_indicator_sources["Source_Full"].unique()
     source = (
-        "; ".join(list(unique_indicator_sources))
-        if len(unique_indicator_sources) > 0
-        else "Multiple sources"
+        (
+            "; ".join(list(unique_indicator_sources))
+            if len(unique_indicator_sources) > 0 and "DM_CHLD_POP" not in data.CODE
+            else ""
+        )
+        if "DM_CHLD_POP" in data.CODE
+        else "Multiple Sources"
     )
+
     source_link = (
         df_indicator_sources["Source_Link"].unique()[0]
-        if len(unique_indicator_sources) > 0 and source != "Multiple sources"
+        if len(unique_indicator_sources) > 0 and "DM_CHLD_POP" not in data.CODE
         else ""
     )
 
@@ -2177,10 +2317,12 @@ def aio_area_figure(
     fig.update_layout(xaxis_title="")
     if fig_type == "bar" and not dimension and "YES_NO" not in data.UNIT_MEASURE.values:
         fig.update_traces(marker_color=domain_colour)
-        if (data.OBS_VALUE == 0).any():
-            fig.update_traces(textposition="outside")
+        # if (data.OBS_VALUE == 0).any():
+        # fig.update_traces(textposition="outside")
     if fig_type == "line":
         fig.update_traces(**traces)
+        # adding invisible line at zero to make sure the y-axis starts at zero
+        fig.add_hline(y=-0.3, line_color="rgba(0,0,0,0)")
 
     # if fig_type == "choropleth_mapbox":
     # Remove the colorbar title
@@ -2213,9 +2355,8 @@ def aio_area_figure(
 
     json_data = data.to_dict()
 
-    # print("aio_area_figure: %s seconds" % (time.time() - start_time))
     return (
-        f"Filter by years: {selected_years[0]} - {selected_years[-1]}",
+        f"{selected_years[0]} - {selected_years[-1]}",
         fig,
         [
             html.Div(
