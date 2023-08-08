@@ -33,6 +33,7 @@ from dash_service.pages.transmonee import (
     fig_options,
     download_data,
     update_country_selection,
+    filter_crc_data,
 )
 
 
@@ -355,6 +356,21 @@ def apply_download_data(n_clicks, data):
 )
 def apply_update_country_selection(country_group, country_selection):
     return update_country_selection(country_group, country_selection)
+
+
+@callback(
+    Output(f"{page_prefix}-crc-header", "children"),
+    Output(f"{page_prefix}-crc-year", "children"),
+    Output(f"{page_prefix}-crc-enabling", "children"),
+    Output(f"{page_prefix}-crc-supply", "children"),
+    Output(f"{page_prefix}-crc-demand", "children"),
+    Input(f"{page_prefix}-country-filter-crc", "value"),
+    Input(f"{page_prefix}-store", "data"),
+    State(f"{page_prefix}-indicators", "data"),
+    prevent_initial_call=True,
+)
+def apply_filter_crc_data(country, selections, indicators_dict):
+    return filter_crc_data(country, selections, indicators_dict)
 
 
 @callback(
