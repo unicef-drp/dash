@@ -105,6 +105,10 @@ button_name_file_path = (
 with open(button_name_file_path) as button_file:
     indicator_buttons = json.load(button_file)
 
+indicator_def_file_path = f"{pathlib.Path(__file__).parent.parent.absolute()}/static/indicator_definitions.json"
+with open(indicator_def_file_path) as definitions_file:
+    indicator_definitions = json.load(definitions_file)
+
 
 # custom names as requested by siraj: update thousands for consistency, packed indicators
 custom_names = {
@@ -1182,6 +1186,43 @@ def get_base_layout(**kwargs):
                                                                 ),
                                                             ],
                                                         ),
+                                                        html.Div(
+                                                            [
+                                                                html.P(
+                                                                    "Description",
+                                                                    style={
+                                                                        "color": domain_colour,
+                                                                        "display": "inline-block",
+                                                                        "textAlign": "center",
+                                                                        "position": "relative",
+                                                                    },
+                                                                ),
+                                                                html.I(
+                                                                    id=f"{page_prefix}-definition-button",
+                                                                    className="fas fa-info-circle",
+                                                                    style={
+                                                                        "color": domain_colour,
+                                                                        "display": "flex",
+                                                                        "alignContent": "center",
+                                                                        "flexWrap": "wrap",
+                                                                        "paddingLeft": "5px",
+                                                                    },
+                                                                ),
+                                                                dbc.Popover(
+                                                                    [
+                                                                        dbc.PopoverBody(
+                                                                            id=f"{page_prefix}-definition-popover",
+                                                                        )
+                                                                    ],
+                                                                    target=f"{page_prefix}-definition-button",
+                                                                    trigger="hover",
+                                                                    placement="right",
+                                                                ),
+                                                            ],
+                                                            style={
+                                                                "display": "inline-flex"
+                                                            },
+                                                        ),
                                                         html.Br(),
                                                         dbc.Card(
                                                             id=f"{page_prefix}-indicator_card",
@@ -1468,15 +1509,6 @@ def make_card(
                 ),
                 html.H4(suffix, className="card-title"),
                 html.P(name, className="lead"),
-                # html.Div(
-                #   fa("fas fa-info-circle"),
-                #  id=f"{page_prefix}-indicator_card_info",
-                # style={
-                #    "position": "absolute",
-                #   "bottom": "10px",
-                #  "right": "10px",
-                # },
-                # ),
             ],
             style={
                 "textAlign": "center",
@@ -2137,6 +2169,7 @@ def aio_area_figure(
             else compare
         )
         indicator_name = str(indicator_names.get(indicator, ""))
+        indicator_description = indicator_definitions.get(indicator, "")
 
         if indicator not in packed_config:
             # query one indicator
@@ -2183,6 +2216,7 @@ def aio_area_figure(
                 "",
                 [],
                 [],
+                "",
             )
         else:
             data.sort_values(
@@ -2203,6 +2237,7 @@ def aio_area_figure(
             "",
             [],
             [],
+            "",
         )
 
     # indicator card
@@ -2243,19 +2278,18 @@ def aio_area_figure(
     )
     df_indicator_sources = df_sources[df_sources["Code"] == card_key]
     unique_indicator_sources = df_indicator_sources["Source_Full"].unique()
-    source = (
-        (
-            "; ".join(list(unique_indicator_sources))
-            if len(unique_indicator_sources) > 0 and "DM_CHLD_POP" not in data.CODE
-            else ""
-        )
-        if "DM_CHLD_POP" in data.CODE
-        else "Multiple Sources"
-    )
+
+    if data["CODE"].isin(["DM_CHLD_POP", "DM_CHLD_POP_PT"]).any():
+        source = "Multiple Sources"
+    elif len(unique_indicator_sources) > 0:
+        source = "; ".join(list(unique_indicator_sources))
+    else:
+        source = ""
 
     source_link = (
         df_indicator_sources["Source_Link"].unique()[0]
-        if len(unique_indicator_sources) > 0 and "DM_CHLD_POP" not in data.CODE
+        if len(unique_indicator_sources) > 0
+        and not data["CODE"].isin(["DM_CHLD_POP", "DM_CHLD_POP_PT"]).any()
         else ""
     )
 
@@ -2479,4 +2513,5 @@ def aio_area_figure(
         dcc.Markdown(["- " + "\n- ".join(sorted(not_rep_count, key=str.lower))]),
         graph_info,
         json_data,
+        indicator_description,
     )

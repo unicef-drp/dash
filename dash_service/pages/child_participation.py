@@ -311,6 +311,7 @@ def apply_filter_crc_data(country, selections, indicators_dict):
         Output(f"{page_prefix}-no-data-hover-body", "children"),
         Output(f"{page_prefix}-aio_area_graph_info", "children"),
         Output(f"{page_prefix}-data-store", "data"),
+        Output(f"{page_prefix}-definition-popover", "children"),
     ],
     [
         Input({"type": "area_breakdowns", "index": f"{page_prefix}-AIO_AREA"}, "value"),
