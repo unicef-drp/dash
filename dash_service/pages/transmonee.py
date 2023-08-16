@@ -943,17 +943,13 @@ def get_base_layout(**kwargs):
                                                                 },
                                                             ),
                                                         ],
-                                                        # id=f"{page_prefix}-subdomain-hover",
-                                                        # id=f"{page_prefix}-info-tooltip",
                                                         target=f"{page_prefix}-info-icon",
-                                                        # placement="top-start",
                                                         trigger="hover",
                                                         style={
                                                             "height": "200px",
                                                             "overflowY": "auto",
                                                             "whiteSpace": "pre-wrap",
                                                             "opacity": 1,
-                                                            # "padding": "8px",
                                                         },
                                                         delay={"hide": 0, "show": 0},
                                                     ),
@@ -1174,7 +1170,7 @@ def get_base_layout(**kwargs):
                                                                             vertical=True,
                                                                             style={
                                                                                 "marginBottom": "20px",
-                                                                                "width": "95%",
+                                                                                "flexGrow": "1",
                                                                             },
                                                                             class_name="theme_buttons",
                                                                         ),
@@ -1182,6 +1178,9 @@ def get_base_layout(**kwargs):
                                                                     style={
                                                                         "maxHeight": "350px",
                                                                         "overflowY": "scroll",
+                                                                        "width": "95%",  # Set the width of the containing div
+                                                                        "display": "flex",  # Use Flexbox for layout
+                                                                        "flex-direction": "column",
                                                                     },
                                                                 ),
                                                             ],
@@ -1216,7 +1215,15 @@ def get_base_layout(**kwargs):
                                                                     ],
                                                                     target=f"{page_prefix}-definition-button",
                                                                     trigger="hover",
-                                                                    placement="right",
+                                                                    style={
+                                                                        "overflowY": "auto",
+                                                                        "whiteSpace": "pre-wrap",
+                                                                        "opacity": 1,
+                                                                    },
+                                                                    delay={
+                                                                        "hide": 0,
+                                                                        "show": 0,
+                                                                    },
                                                                 ),
                                                             ],
                                                             style={
@@ -1431,9 +1438,29 @@ def get_base_layout(**kwargs):
                                     style={"width": "200px"},
                                 ),
                                 html.P(
-                                    id=f"{page_prefix}-crc-year",
-                                    children="Year of latest report: ",
-                                    style={"margin-left": "15px"},
+                                    "Select report year:",
+                                    style={
+                                        "margin-right": "10px",
+                                        "margin-left": "10px",
+                                    },
+                                ),
+                                dcc.Dropdown(
+                                    id=f"{page_prefix}-year-filter-crc",
+                                    multi=False,
+                                    clearable=False,
+                                    style={"width": "100px"},
+                                ),
+                                html.P(
+                                    html.A(
+                                        "Explore CRC Recommendations Dashboard",
+                                        href="https://public.tableau.com/app/profile/ecaro.data/viz/RecommendationsoftheCommitteeontheRightsoftheChild/Overview",
+                                        target="_blank",
+                                        style={
+                                            "color": domain_colour,
+                                            "text-decoration": "underline",
+                                            "margin-left": "20px",
+                                        },
+                                    )
                                 ),
                             ],
                         ),
@@ -1519,30 +1546,40 @@ def make_card(
     return card, get_card_popover_body(numerator_pairs)
 
 
-# Function to filter CRC_df based on country, subdomain, and bottleneck type
-def filter_crc_data(country, selections, indicators_dict):
+# Function to get populate the year of report crc filter
+def available_crc_years(country, selections, indicators_dict):
     subdomain = indicators_dict[selections["theme"]].get("NAME")
     country_filtered_df = CRC_df.loc[CRC_df["Name of the country"] == country]
-    most_recent_year = country_filtered_df["Year of report "].max()
+    available_years = country_filtered_df[
+        country_filtered_df["ECA child rights monitoring framework\nSub-Domain"]
+        == subdomain
+    ]["Year of report "].unique()
 
-    filtered_df = country_filtered_df.loc[
-        (country_filtered_df["Year of report "] == most_recent_year)
-        & (
-            country_filtered_df["ECA child rights monitoring framework\nSub-Domain"]
-            == subdomain
-        )
-    ]
+    if len(available_years) > 0:
+        latest_year = max(available_years)
+    else:
+        latest_year = None
 
-    # Filter recommendations for the most recent year
-    recommendations_df = filtered_df.loc[
-        filtered_df["Year of report "] == most_recent_year
+    return [
+        {"label": str(year), "value": year} for year in available_years
+    ], latest_year
+
+
+# Function to filter CRC_df based on country, subdomain, and bottleneck type
+def filter_crc_data(year, country, selections, indicators_dict):
+    subdomain = indicators_dict[selections["theme"]].get("NAME")
+
+    filtered_df = CRC_df[
+        (CRC_df["Name of the country"] == country)
+        & (CRC_df["ECA child rights monitoring framework\nSub-Domain"] == subdomain)
+        & (CRC_df["Year of report "] == year)
     ]
 
     # Format recommendations by bottleneck type
     recommendations_by_bottleneck = {}
     for bottleneck in ["Enabling environment", "Supply", "Demand"]:
-        recs = recommendations_df.loc[
-            recommendations_df["Bottleneck type"].str.contains(bottleneck, case=False),
+        recs = filtered_df.loc[
+            filtered_df["Bottleneck type"].str.contains(bottleneck, case=False),
             "Recommendation",
         ]
         formatted_recs = [
@@ -1554,21 +1591,16 @@ def filter_crc_data(country, selections, indicators_dict):
             rec.replace("; and", ".").replace(";", ".") for rec in formatted_recs
         ]
 
-        if len(formatted_recs) == 0:
-            recommendations_by_bottleneck[bottleneck] = "No related recommendations"
-        else:
-            recommendations_by_bottleneck[bottleneck] = "\n".join(formatted_recs)
+        recommendations_by_bottleneck[bottleneck] = (
+            "\n".join(formatted_recs)
+            if formatted_recs
+            else "No related recommendations"
+        )
 
     header_text = f"CRC Recommendations - '{subdomain}'"
 
-    if np.isnan(most_recent_year):
-        report_year_text = "Year of latest report: N/A"
-    else:
-        report_year_text = f"Year of latest report: {most_recent_year}"
-
     return (
         header_text,
-        report_year_text,
         recommendations_by_bottleneck["Enabling environment"],
         recommendations_by_bottleneck["Supply"],
         recommendations_by_bottleneck["Demand"],

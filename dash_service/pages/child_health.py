@@ -34,7 +34,7 @@ from dash_service.pages.transmonee import (
     download_data,
     update_country_selection,
     filter_crc_data,
-    fa,
+    available_crc_years,
 )
 
 
@@ -547,18 +547,32 @@ def apply_update_country_selection(country_group, country_selection):
 
 
 @callback(
+    Output(f"{page_prefix}-year-filter-crc", "options"),
+    Output(f"{page_prefix}-year-filter-crc", "value"),
+    [
+        Input(f"{page_prefix}-country-filter-crc", "value"),
+        Input(f"{page_prefix}-store", "data"),
+        Input(f"{page_prefix}-indicators", "data"),
+    ],
+    prevent_initial_call=True,
+)
+def apply_available_crc_years(country, selections, indicators_dict):
+    return available_crc_years(country, selections, indicators_dict)
+
+
+@callback(
     Output(f"{page_prefix}-crc-header", "children"),
-    Output(f"{page_prefix}-crc-year", "children"),
     Output(f"{page_prefix}-crc-enabling", "children"),
     Output(f"{page_prefix}-crc-supply", "children"),
     Output(f"{page_prefix}-crc-demand", "children"),
+    Input(f"{page_prefix}-year-filter-crc", "value"),
     Input(f"{page_prefix}-country-filter-crc", "value"),
     Input(f"{page_prefix}-store", "data"),
-    State(f"{page_prefix}-indicators", "data"),
+    Input(f"{page_prefix}-indicators", "data"),
     prevent_initial_call=True,
 )
-def apply_filter_crc_data(country, selections, indicators_dict):
-    return filter_crc_data(country, selections, indicators_dict)
+def apply_filter_crc_data(year, country, selections, indicators_dict):
+    return filter_crc_data(year, country, selections, indicators_dict)
 
 
 @callback(
