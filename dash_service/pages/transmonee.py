@@ -1451,63 +1451,34 @@ def get_base_layout(**kwargs):
                                     style={"width": "100px"},
                                 ),
                                 html.P(
-                                    html.A(
-                                        "Explore CRC Recommendations Dashboard",
-                                        href="https://public.tableau.com/app/profile/ecaro.data/viz/RecommendationsoftheCommitteeontheRightsoftheChild/Overview",
-                                        target="_blank",
-                                        style={
-                                            "color": domain_colour,
-                                            "text-decoration": "underline",
-                                            "margin-left": "20px",
-                                        },
-                                    )
+                                    [
+                                        html.I(
+                                            className="fa-solid fa-arrow-up-right-from-square",
+                                            style={
+                                                "color": domain_colour,
+                                                "margin-left": "20px",
+                                                "margin-right": "5px",
+                                            },
+                                        ),
+                                        html.A(
+                                            "Explore CRC Recommendations Dashboard",
+                                            href="https://public.tableau.com/app/profile/ecaro.data/viz/RecommendationsoftheCommitteeontheRightsoftheChild/Overview",
+                                            target="_blank",
+                                            style={
+                                                "color": domain_colour,
+                                                "text-decoration": "underline",
+                                            },
+                                        ),
+                                    ]
                                 ),
                             ],
                         ),
                         html.Br(),
-                        dcc.Tabs(
-                            [
-                                dcc.Tab(
-                                    label="Enabling Environment",
-                                    children=[
-                                        dcc.Loading(
-                                            [
-                                                dcc.Markdown(
-                                                    id=f"{page_prefix}-crc-enabling"
-                                                ),
-                                            ]
-                                        )
-                                    ],
-                                ),
-                                dcc.Tab(
-                                    label="Supply",
-                                    children=[
-                                        dcc.Loading(
-                                            [
-                                                dcc.Markdown(
-                                                    id=f"{page_prefix}-crc-supply"
-                                                ),
-                                            ]
-                                        )
-                                    ],
-                                ),
-                                dcc.Tab(
-                                    label="Demand",
-                                    children=[
-                                        dcc.Loading(
-                                            [
-                                                dcc.Markdown(
-                                                    id=f"{page_prefix}-crc-demand"
-                                                ),
-                                            ]
-                                        )
-                                    ],
-                                ),
-                            ]
-                        ),
+                        html.Div(id=f"{page_prefix}-crc-accordion"),
                     ],
                 ),
-                style={"display": "None"},
+                className="crc_card",
+                # style={"display": "None"},
             ),
         ],
     )
@@ -1567,7 +1538,7 @@ def available_crc_years(country, selections, indicators_dict):
 
 
 # Function to filter CRC_df based on country, subdomain, and bottleneck type
-def filter_crc_data(year, country, selections, indicators_dict):
+def filter_crc_data(year, country, selections, indicators_dict, page_prefix):
     subdomain = indicators_dict[selections["theme"]].get("NAME")
 
     filtered_df = CRC_df[
@@ -1577,35 +1548,59 @@ def filter_crc_data(year, country, selections, indicators_dict):
     ]
 
     # Format recommendations by bottleneck type
+    # Format recommendations by bottleneck type
     recommendations_by_bottleneck = {}
     for bottleneck in ["Enabling environment", "Supply", "Demand"]:
         recs = filtered_df.loc[
             filtered_df["Bottleneck type"].str.contains(bottleneck, case=False),
             "Recommendation",
         ]
-        formatted_recs = [
-            re.sub(r"^\d+[.)]?(\s|\(.\))*", "- ", rec).strip() + "  " for rec in recs
-        ]
 
         # Replace ";" or "; and" endings with "."
-        formatted_recs = [
-            rec.replace("; and", ".").replace(";", ".") for rec in formatted_recs
-        ]
+        formatted_recs = [rec.replace("; and", ".").replace(";", ".") for rec in recs]
 
         recommendations_by_bottleneck[bottleneck] = (
-            "\n".join(formatted_recs)
-            if formatted_recs
-            else "No related recommendations"
+            "\n".join(formatted_recs) if formatted_recs else None
         )
 
-    header_text = f"CRC Recommendations - '{subdomain}'"
+    header_text = f"CRC Recommendations - {subdomain}"
 
-    return (
-        header_text,
-        recommendations_by_bottleneck["Enabling environment"],
-        recommendations_by_bottleneck["Supply"],
-        recommendations_by_bottleneck["Demand"],
-    )
+    # Check if all sections have no recommendations
+    if all(val is None for val in recommendations_by_bottleneck.values()):
+        return header_text, html.P(
+            "No related recommendations for this country and subdomain."
+        )
+
+    # Generate Accordion items for non-empty recommendations
+    accordion_items = []
+    for idx, (bottleneck, title) in enumerate(
+        [
+            ("Enabling environment", "Enabling Environment"),
+            ("Supply", "Supply"),
+            ("Demand", "Demand"),
+        ]
+    ):
+        rec = recommendations_by_bottleneck.get(bottleneck)
+        if rec:  # Only add the AccordionItem if there are recommendations
+            accordion_items.append(
+                dbc.AccordionItem(
+                    title=title,
+                    item_id=f"accordion-{idx}",  # Set item_id for each AccordionItem
+                    children=[
+                        dcc.Loading(
+                            [
+                                dcc.Markdown(
+                                    id=f"{page_prefix}-crc-{bottleneck.lower()}",
+                                    children=rec,
+                                )
+                            ]
+                        )
+                    ],
+                    style={"margin-bottom": "10px"},  # Inline style
+                )
+            )
+
+    return header_text, dbc.Accordion(accordion_items, active_item="-1")
 
 
 def indicator_card(
