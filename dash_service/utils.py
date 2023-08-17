@@ -5,7 +5,7 @@ from functools import wraps
 from urllib.parse import parse_qs
 
 import dash
-import dash_html_components as html
+from dash import html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Output, Input, State
 from dash.exceptions import PreventUpdate
@@ -106,8 +106,8 @@ class DashRouter:
 
             page = self.routes.get("/")
 
-            #Needs to be cleaned when transmonee will use the Database
-            #It is quite messy: dynaically load the page module needed for transmonee using the query param
+            # Needs to be cleaned when transmonee will use the Database
+            # It is quite messy: dynaically load the page module needed for transmonee using the query param
             if search is not None and search != "":
                 qparams = parse_qs(search.lstrip("?"))
                 param_viz = "/"
