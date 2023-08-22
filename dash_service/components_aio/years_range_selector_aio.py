@@ -1,7 +1,7 @@
 from dash import html
 import uuid
 import dash_bootstrap_components as dbc
-import dash_core_components as dcc
+from dash import dcc
 import datetime
 
 from dash import Input, Output, State, html, callback, MATCH
@@ -61,7 +61,6 @@ class YearsRangeSelectorAIO(html.Div):
                     children=f"{years_label}: {sel_year_min} - {sel_year_max}",
                 ),
             ),
-
             html.Div(
                 id=self.ids.years_range_open_collapse_elem(aio_id),
                 className="d-none",
@@ -77,7 +76,7 @@ class YearsRangeSelectorAIO(html.Div):
                             sel_year_min,
                             sel_year_max,
                         ],
-                        tooltip={"placement": "bottom", "always_visible": True},                        
+                        tooltip={"placement": "bottom", "always_visible": True},
                     )
                 ],
             ),
@@ -97,8 +96,7 @@ class YearsRangeSelectorAIO(html.Div):
         prevent_initial_call=True,
     )
     def toggle_collapse(n, className):
-
-        if className=="d-none":
+        if className == "d-none":
             return "d-block"
         else:
             return "d-none"

@@ -1506,7 +1506,8 @@ def get_base_layout(**kwargs):
                             ]
                         ),
                     ],
-                )
+                ),
+                style={"display": "None"},
             ),
         ],
     )

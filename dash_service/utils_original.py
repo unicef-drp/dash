@@ -5,7 +5,7 @@ from functools import wraps
 from urllib.parse import parse_qs
 
 import dash
-import dash_html_components as html
+from dash import html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Output, Input, State
 from dash.exceptions import PreventUpdate
@@ -85,7 +85,7 @@ class DashRouter:
         self.routes = {get_url(route): layout for route, layout in urls}
 
         @app.callback(
-            #Output(app.server.config["CONTENT_CONTAINER_ID"], "children"),
+            # Output(app.server.config["CONTENT_CONTAINER_ID"], "children"),
             Output("MAIN_CONTAINER", "children"),
             [
                 # Input(server.config["LOCATION_COMPONENT_ID"], "pathname"),
@@ -94,7 +94,7 @@ class DashRouter:
                 Input("dash-location", "search"),
             ],
             [
-                #State(server.config["LOCATION_COMPONENT_ID"], "hash"),
+                # State(server.config["LOCATION_COMPONENT_ID"], "hash"),
                 State("dash-location", "hash"),
             ],
         )
