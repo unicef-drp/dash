@@ -132,6 +132,12 @@ page_config = {
                 "suffix": min_max_card_suffix,
                 "min_max": True,
             },
+            {
+                "name": "",
+                "indicator": "FP_CPI_TOTL_ZG",
+                "suffix": min_max_card_suffix,
+                "min_max": True,
+            },
         ],
         "AIO_AREA": {
             "graphs": graphs_dict,
@@ -143,6 +149,7 @@ page_config = {
                 "PV_GINI_COEF",
                 "EC_SL_UEM_TOTL_ZS",
                 "EC_EAP_RT",
+                "FP_CPI_TOTL_ZG",
             ],
             "default_graph": "bar",
             "default": "EC_HDI",
@@ -243,12 +250,6 @@ page_config = {
             },
             {
                 "name": "",
-                "indicator": "CR_SG_STT_CAPTY",
-                "suffix": min_max_card_suffix,
-                "min_max": True,
-            },
-            {
-                "name": "",
                 "indicator": "CR_SG_STT_NSDSFND",
                 "suffix": "countries",
                 "min_max": False,
@@ -289,7 +290,6 @@ page_config = {
             "indicators": [
                 "CR_IQ_SCI_OVRL",
                 "CR_SG_STT_FPOS",
-                "CR_SG_STT_CAPTY",
                 "CR_SG_STT_NSDSFND",
                 "CR_SG_STT_NSDSIMPL",
                 "CR_SG_STT_NSDSFDGVT",

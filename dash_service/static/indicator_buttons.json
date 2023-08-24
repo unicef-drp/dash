@@ -189,10 +189,10 @@
     "MNCH_SH_MMR_RISK": NaN,
     "MNCH_SH_MMR_RISK_ZS": NaN,
     "IM_MCV1": NaN,
-    "IM_MCV2": "MCV coverage (SDG 3.b.1)",
+    "IM_MCV2": "MCV2 coverage (SDG 3.b.1)",
     "HT_DIST80DTP3_P": NaN,
     "IM_DTP1": NaN,
-    "IM_DTP3": "DTP coverage (SDG 3.b.1)",
+    "IM_DTP3": "DTP3 coverage (SDG 3.b.1)",
     "IM_PCV3": "PCV3 coverage (SDG 3.b.1)",
     "IM_HPV": "HPV coverage (SDG 3.b.1)",
     "HT_SH_ACS_PCV3": NaN,
@@ -831,5 +831,6 @@
     "CR_INFORM_CC_INS": NaN,
     "CR_INFORM_CC_INF": NaN,
     "DM_SM_POP_REFG": NaN,
-    "DM_SM_POP_REFG_OR": NaN
+    "DM_SM_POP_REFG_OR": NaN,
+    "FP_CPI_TOTL_ZG": "Inflation"
 }
