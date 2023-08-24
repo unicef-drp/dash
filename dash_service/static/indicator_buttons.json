@@ -189,10 +189,10 @@
     "MNCH_SH_MMR_RISK": NaN,
     "MNCH_SH_MMR_RISK_ZS": NaN,
     "IM_MCV1": NaN,
-    "IM_MCV2": "MCV coverage (SDG 3.b.1)",
+    "IM_MCV2": "MCV2 coverage (SDG 3.b.1)",
     "HT_DIST80DTP3_P": NaN,
     "IM_DTP1": NaN,
-    "IM_DTP3": "DTP coverage (SDG 3.b.1)",
+    "IM_DTP3": "DTP3 coverage (SDG 3.b.1)",
     "IM_PCV3": "PCV3 coverage (SDG 3.b.1)",
     "IM_HPV": "HPV coverage (SDG 3.b.1)",
     "HT_SH_ACS_PCV3": NaN,
@@ -783,8 +783,8 @@
     "HT_NEW_REG_CHLD_DISAB_PROP": "Children newly registered as having disabilities",
     "SP_CHLD_DISAB_CASH": NaN,
     "SP_PS_DISAB_CASH": NaN,
-    "ECD_CHLD_36-59M_ADLT_SRC": "Engagement in early simulation activities with adult",
-    "ECD_CHLD_36-59M_FHR-SPT-LNG": "Engagement in early simulation activities with father",
+    "ECD_CHLD_24-59M_ADLT_SRC": "Engagement in early simulation activities with adult",
+    "ECD_CHLD_24-59M_FHR-SPT-LNG": "Engagement in early simulation activities with father",
     "ECD_CHLD_36-59M_LMPSL": "Early Childhood Development Index (SDG 4.2.1)",
     "ECD_EARLY_EDU": "Pupils from age 3 to the starting age of compulsory education at primary level",
     "ECD_IN_CHILDCARE": "Children in formal childcare",
@@ -831,5 +831,6 @@
     "CR_INFORM_CC_INS": NaN,
     "CR_INFORM_CC_INF": NaN,
     "DM_SM_POP_REFG": NaN,
-    "DM_SM_POP_REFG_OR": NaN
+    "DM_SM_POP_REFG_OR": NaN,
+    "FP_CPI_TOTL_ZG": "Inflation"
 }
