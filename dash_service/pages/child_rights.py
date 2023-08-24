@@ -525,12 +525,12 @@ def apply_available_crc_years(country, selections, indicators_dict):
     Output(f"{page_prefix}-crc-header", "children"),
     Output(f"{page_prefix}-crc-accordion", "children"),
     Input(f"{page_prefix}-year-filter-crc", "value"),
-    Input(f"{page_prefix}-country-filter-crc", "value"),
     Input(f"{page_prefix}-store", "data"),
     Input(f"{page_prefix}-indicators", "data"),
+    State(f"{page_prefix}-country-filter-crc", "value"),
     prevent_initial_call=True,
 )
-def apply_filter_crc_data(year, country, selections, indicators_dict):
+def apply_filter_crc_data(year, selections, indicators_dict, country):
     return filter_crc_data(year, country, selections, indicators_dict, page_prefix)
 
 
