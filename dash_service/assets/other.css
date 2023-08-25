@@ -152,10 +152,12 @@ div.dt-table-container__row.dt-table-container__row-1 {
     justify-content: flex-start;
 }
 
-.has-bootstrap .tm-link {
-    font-size: 14px;
-}
-
 .crc-accordion .collapse.show {
     display: block;
+}
+
+.has-bootstrap .crc-link {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
 }

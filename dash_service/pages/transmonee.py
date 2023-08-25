@@ -1476,7 +1476,8 @@ def get_base_layout(**kwargs):
                                                 "text-decoration": "underline",
                                             },
                                         ),
-                                    ]
+                                    ],
+                                    className="crc-link",
                                 ),
                             ],
                         ),
