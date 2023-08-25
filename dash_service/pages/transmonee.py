@@ -1470,6 +1470,7 @@ def get_base_layout(**kwargs):
                                             "Explore CRC Recommendations Dashboard",
                                             href="https://public.tableau.com/app/profile/ecaro.data/viz/RecommendationsoftheCommitteeontheRightsoftheChild/Overview",
                                             target="_blank",
+                                            className="tm-link",
                                             style={
                                                 "color": domain_colour,
                                                 "text-decoration": "underline",
@@ -1634,6 +1635,7 @@ def filter_crc_data(year, country, selections, indicators_dict, page_prefix):
                     dbc.AccordionItem(
                         title=title,
                         item_id=f"accordion-{idx}",  # Set item_id for each AccordionItem
+                        class_name="crc-accordion",
                         children=[
                             dcc.Loading(
                                 [
@@ -1712,6 +1714,7 @@ def filter_crc_data(year, country, selections, indicators_dict, page_prefix):
                 dbc.AccordionItem(
                     title=title,
                     item_id=f"accordion-{idx}",  # Set item_id for each AccordionItem
+                    class_name="crc-accordion",
                     children=[
                         dcc.Loading(
                             [
@@ -1722,7 +1725,7 @@ def filter_crc_data(year, country, selections, indicators_dict, page_prefix):
                             ]
                         )
                     ],
-                    style={"margin-bottom": "10px"},  # Inline style
+                    style={"margin-bottom": "10px"},
                 )
             )
 
