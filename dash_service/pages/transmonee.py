@@ -1240,6 +1240,7 @@ def get_base_layout(**kwargs):
                                                             },
                                                         ),
                                                     ],
+                                                    class_name="indic_btn_col",
                                                     width=3,
                                                 ),
                                                 dbc.Col(
@@ -1454,7 +1455,7 @@ def get_base_layout(**kwargs):
                                     id=f"{page_prefix}-year-filter-crc",
                                     multi=False,
                                     clearable=False,
-                                    style={"width": "100px"},
+                                    style={"width": "220px"},
                                 ),
                                 html.P(
                                     [
@@ -1529,7 +1530,14 @@ def make_card(
 # Function to get populate the year of report crc filter
 def available_crc_years(country, selections, indicators_dict):
     if country == "all_countries":
-        return [{"label": "N/A", "value": "N/A"}], "N/A"
+        all_years = sorted(CRC_df["Year of report "].unique(), reverse=True)
+        all_years_options = [{"label": str(year), "value": year} for year in all_years]
+        all_years_options.insert(
+            0, {"label": "Latest year for each country", "value": "All"}
+        )
+        latest_year = "All"
+        return all_years_options, latest_year
+
     subdomain = indicators_dict[selections["theme"]].get("NAME")
     country_filtered_df = CRC_df.loc[CRC_df["Name of the country"] == country]
     available_years = country_filtered_df[
@@ -1555,103 +1563,224 @@ def escape_markdown_numbering(text):
 
 
 # Function to filter CRC_df based on country, subdomain, and bottleneck type
-def filter_crc_data(year, country, selections, indicators_dict, page_prefix):
+def filter_crc_data2(year, country, selections, indicators_dict, page_prefix):
     subdomain = indicators_dict[selections["theme"]].get("NAME")
 
-    if year == "N/A" and country == "all_countries":
-        # Extract the latest year for each country
-        latest_years = (
-            CRC_df.groupby("Name of the country")["Year of report "].max().to_dict()
-        )
+    if country == "all_countries":
+        if year == "All":
+            # Extract the latest year for each country
+            latest_years = (
+                CRC_df.groupby("Name of the country")["Year of report "].max().to_dict()
+            )
 
-        recommendations_by_bottleneck = {
-            "Enabling environment": [],
-            "Supply": [],
-            "Demand": [],
-        }
+            recommendations_by_bottleneck = {
+                "Enabling environment": [],
+                "Supply": [],
+                "Demand": [],
+            }
 
-        for country_name, latest_year in latest_years.items():
-            filtered_country_df = CRC_df[
-                (CRC_df["Name of the country"] == country_name)
-                & (
+            for country_name, latest_year in latest_years.items():
+                filtered_country_df = CRC_df[
+                    (CRC_df["Name of the country"] == country_name)
+                    & (
+                        CRC_df["ECA child rights monitoring framework\nSub-Domain"]
+                        == subdomain
+                    )
+                    & (CRC_df["Year of report "] == latest_year)
+                ]
+
+                for bottleneck in ["Enabling environment", "Supply", "Demand"]:
+                    recs = filtered_country_df.loc[
+                        filtered_country_df["Bottleneck type"].str.contains(
+                            bottleneck, case=False
+                        ),
+                        "Recommendation",
+                    ]
+
+                    formatted_recs = [
+                        escape_markdown_numbering(
+                            rec.replace("; and", ".").replace(";", ".")
+                        )
+                        for rec in recs
+                    ]
+
+                    if formatted_recs:
+                        recommendations_by_bottleneck[bottleneck].append(
+                            f"**{country_name} ({latest_year}):**\n\n"
+                            + "\n\n".join(formatted_recs)
+                        )
+
+            # Combine country recommendations for each bottleneck
+            for bottleneck, recs in recommendations_by_bottleneck.items():
+                recommendations_by_bottleneck[bottleneck] = (
+                    "\n\n".join(recs) if recs else None
+                )
+
+            header_text = f"CRC Recommendations - {subdomain}"
+
+            if all(val is None for val in recommendations_by_bottleneck.values()):
+                return header_text, html.P(
+                    "No related recommendations for this subdomain."
+                )
+
+            # Generate Accordion items for non-empty recommendations
+            accordion_items = []
+            for idx, (bottleneck, title) in enumerate(
+                [
+                    (
+                        "Enabling environment",
+                        "Enabling environment - legislation, policy, resources, coordination, data",
+                    ),
+                    (
+                        "Supply",
+                        "Supply - adequately staffed services, facilities, information, commodities",
+                    ),
+                    (
+                        "Demand",
+                        "Demand - financial access and social behavioural drivers",
+                    ),
+                ]
+            ):
+                rec = recommendations_by_bottleneck.get(bottleneck)
+                if rec:  # Only add the AccordionItem if there are recommendations
+                    accordion_items.append(
+                        dbc.AccordionItem(
+                            title=title,
+                            item_id=f"accordion-{idx}",  # Set item_id for each AccordionItem
+                            class_name="crc-accordion",
+                            children=[
+                                dcc.Loading(
+                                    [
+                                        dcc.Markdown(
+                                            id=f"{page_prefix}-crc-{bottleneck.lower()}",
+                                            children=rec,
+                                        )
+                                    ]
+                                )
+                            ],
+                            style={"margin-bottom": "10px"},  # Inline style
+                        )
+                    )
+
+            return header_text, dbc.Accordion(accordion_items, active_item="-1")
+
+        else:
+            # condition for a specific year across all countries
+            filtered_df = CRC_df[
+                (
                     CRC_df["ECA child rights monitoring framework\nSub-Domain"]
                     == subdomain
                 )
-                & (CRC_df["Year of report "] == latest_year)
+                & (CRC_df["Year of report "] == year)
             ]
 
-            for bottleneck in ["Enabling environment", "Supply", "Demand"]:
-                recs = filtered_country_df.loc[
-                    filtered_country_df["Bottleneck type"].str.contains(
-                        bottleneck, case=False
-                    ),
-                    "Recommendation",
+            print(filtered_df.shape)
+
+            unique_countries = filtered_df["Name of the country"].unique()
+
+            # Store country specific recommendations here
+            country_specific_recommendations = {}
+
+            for country_name in unique_countries:
+                country_filtered_df = filtered_df[
+                    filtered_df["Name of the country"] == country_name
                 ]
 
-                formatted_recs = [
-                    escape_markdown_numbering(
-                        rec.replace("; and", ".").replace(";", ".")
+                recommendations_by_bottleneck = {
+                    "Enabling environment": [],
+                    "Supply": [],
+                    "Demand": [],
+                }
+
+                for bottleneck in ["Enabling environment", "Supply", "Demand"]:
+                    recs = country_filtered_df.loc[
+                        country_filtered_df["Bottleneck type"].str.contains(
+                            bottleneck, case=False
+                        ),
+                        "Recommendation",
+                    ]
+
+                    formatted_recs = [
+                        escape_markdown_numbering(
+                            rec.replace("; and", ".").replace(";", ".")
+                        )
+                        for rec in recs
+                    ]
+
+                    if formatted_recs:
+                        recommendations_by_bottleneck[bottleneck].extend(formatted_recs)
+                    print(
+                        f"Recommendations for {country_name}:",
+                        recommendations_by_bottleneck,
                     )
-                    for rec in recs
-                ]
 
-                if formatted_recs:
-                    recommendations_by_bottleneck[bottleneck].append(
-                        f"**{country_name} ({latest_year}):**\n\n"
-                        + "\n\n".join(formatted_recs)
-                    )
+                # Grouping the recommendations by country name
+                country_specific_recommendations[
+                    country_name
+                ] = recommendations_by_bottleneck
 
-        # Combine country recommendations for each bottleneck
-        for bottleneck, recs in recommendations_by_bottleneck.items():
-            recommendations_by_bottleneck[bottleneck] = (
-                "\n\n".join(recs) if recs else None
-            )
+            # Construct the final recommendations by country
+            final_recommendations = []
+            for country_name, bottlenecks in country_specific_recommendations.items():
+                for bottleneck, recs in bottlenecks.items():
+                    if recs:
+                        final_recommendations.append(
+                            f"**{country_name} ({year}):**\n\n" + "\n\n".join(recs)
+                        )
 
-        header_text = f"CRC Recommendations - {subdomain}"
+            header_text = f"CRC Recommendations - {subdomain} ({year})"
 
-        if all(val is None for val in recommendations_by_bottleneck.values()):
-            return header_text, html.P("No related recommendations for this subdomain.")
-
-        # Generate Accordion items for non-empty recommendations
-        accordion_items = []
-        for idx, (bottleneck, title) in enumerate(
-            [
-                (
-                    "Enabling environment",
-                    "Enabling environment - legislation, policy, resources, coordination, data",
-                ),
-                (
-                    "Supply",
-                    "Supply - adequately staffed services, facilities, information, commodities",
-                ),
-                (
-                    "Demand",
-                    "Demand - financial access and social behavioural drivers",
-                ),
-            ]
-        ):
-            rec = recommendations_by_bottleneck.get(bottleneck)
-            if rec:  # Only add the AccordionItem if there are recommendations
-                accordion_items.append(
-                    dbc.AccordionItem(
-                        title=title,
-                        item_id=f"accordion-{idx}",  # Set item_id for each AccordionItem
-                        class_name="crc-accordion",
-                        children=[
-                            dcc.Loading(
-                                [
-                                    dcc.Markdown(
-                                        id=f"{page_prefix}-crc-{bottleneck.lower()}",
-                                        children=rec,
-                                    )
-                                ]
-                            )
-                        ],
-                        style={"margin-bottom": "10px"},  # Inline style
-                    )
+            if not final_recommendations:
+                return header_text, html.P(
+                    "No related recommendations for this subdomain."
                 )
 
-        return header_text, dbc.Accordion(accordion_items, active_item="-1")
+            print("Final Recommendations:", final_recommendations)
+            # Generate Accordion items for non-empty recommendations
+            accordion_items = []
+            for idx, (bottleneck, title) in enumerate(
+                [
+                    (
+                        "Enabling environment",
+                        "Enabling environment - legislation, policy, resources, coordination, data",
+                    ),
+                    (
+                        "Supply",
+                        "Supply - adequately staffed services, facilities, information, commodities",
+                    ),
+                    (
+                        "Demand",
+                        "Demand - financial access and social behavioural drivers",
+                    ),
+                ]
+            ):
+                # Here, we group all the recommendations for a bottleneck
+                recs_for_bottleneck = "\n\n".join(
+                    rec for rec in final_recommendations if bottleneck in rec
+                )
+                if (
+                    recs_for_bottleneck
+                ):  # Only add the AccordionItem if there are recommendations
+                    accordion_items.append(
+                        dbc.AccordionItem(
+                            title=title,
+                            item_id=f"accordion-{idx}",  # Set item_id for each AccordionItem
+                            class_name="crc-accordion",
+                            children=[
+                                dcc.Loading(
+                                    [
+                                        dcc.Markdown(
+                                            id=f"{page_prefix}-crc-{bottleneck.lower()}",
+                                            children=recs_for_bottleneck,
+                                        )
+                                    ]
+                                )
+                            ],
+                            style={"margin-bottom": "10px"},  # Inline style
+                        )
+                    )
+
+            return header_text, dbc.Accordion(accordion_items, active_item="-1")
 
     filtered_df = CRC_df[
         (CRC_df["Name of the country"] == country)
@@ -1730,6 +1859,116 @@ def filter_crc_data(year, country, selections, indicators_dict, page_prefix):
                 )
             )
 
+    return header_text, dbc.Accordion(accordion_items, active_item="-1")
+
+
+# Function to format recommendations by bottleneck type
+def format_recommendations_by_bottleneck(df, country, year):
+    recommendations = {
+        "Enabling environment": [],
+        "Supply": [],
+        "Demand": [],
+    }
+    for bottleneck in recommendations.keys():
+        recs = df.loc[
+            df["Bottleneck type"].str.contains(bottleneck, case=False), "Recommendation"
+        ]
+        formatted_recs = [
+            escape_markdown_numbering(rec.replace("; and", ".").replace(";", "."))
+            for rec in recs
+        ]
+        if formatted_recs:
+            recommendations[bottleneck].append(
+                f"\n\n**{country} ({year}):**\n\n" + "\n\n".join(formatted_recs)
+            )
+    return recommendations
+
+
+# Function to generate Accordion items
+def generate_accordion_items(recommendations, page_prefix):
+    titles = [
+        (
+            "Enabling environment",
+            "Enabling environment - legislation, policy, resources, coordination, data",
+        ),
+        (
+            "Supply",
+            "Supply - adequately staffed services, facilities, information, commodities",
+        ),
+        ("Demand", "Demand - financial access and social behavioural drivers"),
+    ]
+    accordion_items = [
+        dbc.AccordionItem(
+            title=title,
+            item_id=f"accordion-{idx}",
+            class_name="crc-accordion",
+            children=[
+                dcc.Loading(
+                    [
+                        dcc.Markdown(
+                            id=f"{page_prefix}-crc-{bottleneck.lower()}", children=recs
+                        )
+                    ]
+                )
+            ],
+            style={"margin-bottom": "10px"},
+        )
+        for idx, (bottleneck, title) in enumerate(titles)
+        if (recs := recommendations.get(bottleneck))
+    ]
+    return accordion_items
+
+
+def filter_crc_data(year, country, selections, indicators_dict, page_prefix):
+    subdomain = indicators_dict[selections["theme"]].get("NAME")
+
+    # Filter condition
+    filter_condition = (
+        CRC_df["ECA child rights monitoring framework\nSub-Domain"] == subdomain
+    )
+
+    if country == "all_countries":
+        if year == "All":
+            latest_years = (
+                CRC_df.groupby("Name of the country")["Year of report "].max().to_dict()
+            )
+            all_recommendations = {}
+            for country_name, latest_year in latest_years.items():
+                df = CRC_df[
+                    filter_condition
+                    & (CRC_df["Year of report "] == latest_year)
+                    & (CRC_df["Name of the country"] == country_name)
+                ]
+                recommendations = format_recommendations_by_bottleneck(
+                    df, country_name, latest_year
+                )
+                for key, value in recommendations.items():
+                    all_recommendations.setdefault(key, []).extend(value)
+        else:
+            df = CRC_df[filter_condition & (CRC_df["Year of report "] == year)]
+            all_recommendations = {}
+            unique_countries = df["Name of the country"].unique()
+            for country_name in unique_countries:
+                country_df = df[df["Name of the country"] == country_name]
+                recommendations = format_recommendations_by_bottleneck(
+                    country_df, country_name, year
+                )
+                for key, value in recommendations.items():
+                    all_recommendations.setdefault(key, []).extend(value)
+    else:
+        df = CRC_df[
+            filter_condition
+            & (CRC_df["Year of report "] == year)
+            & (CRC_df["Name of the country"] == country)
+        ]
+        all_recommendations = format_recommendations_by_bottleneck(df, country, year)
+
+    header_text = f"CRC Recommendations - {subdomain}"
+    if all(val is None for val in all_recommendations.values()):
+        return header_text, html.P(
+            f"No related recommendations for this {'subdomain' if country == 'all_countries' else 'country and subdomain'}."
+        )
+    accordion_items = generate_accordion_items(all_recommendations, page_prefix)
     return header_text, dbc.Accordion(accordion_items, active_item="-1")
 
 
