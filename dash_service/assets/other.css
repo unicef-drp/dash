@@ -156,8 +156,16 @@ div.dt-table-container__row.dt-table-container__row-1 {
     display: block;
 }
 
+.has-bootstrap .tm-link {
+    font-size: 14px;
+}
+
 .has-bootstrap .crc-link {
     display: flex;
     align-items: center;
     font-size: 14px;
+}
+
+.has-bootstrap .indic_btn_col {
+    display: block;
 }
