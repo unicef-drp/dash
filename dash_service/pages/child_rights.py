@@ -35,6 +35,7 @@ from dash_service.pages.transmonee import (
     update_country_selection,
     filter_crc_data,
     available_crc_years,
+    combined_callback,
 )
 
 min_max_card_suffix = "min - max values"
@@ -403,6 +404,29 @@ def layout(page_slug=None, **query_parmas):
 )
 def update_url(value):
     return value, ""
+
+
+@callback(
+    [
+        Output(f"{page_prefix}-domain-dropdown", "value"),
+        Output(f"{page_prefix}-subdomain-dropdown", "options"),
+        Output(f"{page_prefix}-subdomain-dropdown", "value"),
+        Output(f"{page_prefix}-indicator-dropdown", "options"),
+        Output(f"{page_prefix}-indicator-dropdown", "value"),
+        Output(f"{page_prefix}-domain-dropdown", "className"),
+        Output(f"{page_prefix}-subdomain-dropdown", "className"),
+        Output(f"{page_prefix}-indicator-dropdown", "className"),
+    ],
+    [
+        Input(f"{page_prefix}-domain-dropdown", "value"),
+        Input(f"{page_prefix}-subdomain-dropdown", "value"),
+        Input(f"{page_prefix}-indicator-dropdown", "value"),
+    ],
+)
+def apply_combined_callback(domain_value, subdomain_value, indicator_value):
+    return combined_callback(
+        domain_value, subdomain_value, indicator_value, page_prefix
+    )
 
 
 @callback(

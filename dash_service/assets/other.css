@@ -151,3 +151,17 @@ div.dt-table-container__row.dt-table-container__row-1 {
     align-items: center;
     justify-content: flex-start;
 }
+
+.crm_dropdown .Select-control {
+    background-color: #562061;
+    color: white;
+}
+
+.crm_dropdown .Select-menu-outer {
+    color: #562061;
+}
+
+.crm_dropdown .Select-value-label {
+    color: white !important;
+}
+

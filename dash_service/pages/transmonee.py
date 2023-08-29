@@ -489,6 +489,16 @@ domain_pages = {
     "Cross-Cutting": "child-cross-cutting",
 }
 
+domain_classes = {
+    "Child Rights Landscape and Governance": "crg-dropdown",
+    "Health and Nutrition": "han-dropdown",
+    "Education, Leisure and Culture": "edu-dropdown",
+    "Family Environment and Protection": "chp-dropdown",
+    "Participation and Civil Rights": "par-dropdown",
+    "Poverty and Adequate Standard of Living": "pov-dropdown",
+    "Cross-Cutting": "cci-dropdown",
+}
+
 # Read the CRC Excel file and skip the first row (header is in the second row)
 crc_file_path = f"{pathlib.Path(__file__).parent.parent.absolute()}/static/Full CRC database - v25-1-22.xlsx"
 CRC_df = pd.read_excel(
@@ -506,6 +516,11 @@ master_df = pd.read_excel(
     sheet_name="Master List",
     header=0,  # Use the second row as column headers
 )
+
+framework_file_path = f"{pathlib.Path(__file__).parent.parent.absolute()}/static/crm_framework_indicators.json"
+# Load the crm framework data
+with open(framework_file_path, "r") as infile:
+    data_dict = json.load(infile)
 
 
 def get_card_popover_body(sources):
@@ -667,6 +682,166 @@ def only_dtype(config):
 # function to check if a certain indicator is nominal data
 def nominal_data(config):
     return only_dtype(config) and config["NOMINAL"]
+
+
+def update_subdomain_dropdown(selected_domain):
+    if selected_domain:
+        subdomains = data_dict["domains"][selected_domain]
+        options = [{"label": subdomain, "value": subdomain} for subdomain in subdomains]
+        value = subdomains[0]
+    else:
+        # If no domain is selected, show all subdomains
+        options = [
+            {"label": subdomain, "value": subdomain}
+            for subdomain in data_dict["subdomains"].keys()
+        ]
+        value = None
+    return options, value
+
+
+def update_domain_and_indicator_dropdowns(selected_subdomain):
+    if selected_subdomain:
+        # Find the domain for the selected subdomain
+        for domain, subdomains in data_dict["domains"].items():
+            if selected_subdomain in subdomains:
+                domain_value = domain
+                break
+        # Set the indicator dropdown values based on the subdomain
+        indicators = data_dict["subdomains"][selected_subdomain]
+        indicator_options = [
+            {"label": indicator["Indicator Name"], "value": indicator["Code"]}
+            for indicator in indicators
+        ]
+        indicator_value = indicators[0]["Code"]
+    else:
+        # If no subdomain is selected, show all indicators
+        indicator_options = [
+            {"label": indicator["Indicator Name"], "value": indicator["Code"]}
+            for sublist in data_dict["subdomains"].values()
+            for indicator in sublist
+        ]
+        domain_value = None
+        indicator_value = None
+
+    return domain_value, indicator_options, indicator_value
+
+
+def update_domain_and_subdomain_dropdowns(selected_indicator_code):
+    if selected_indicator_code:
+        for subdomain, indicators in data_dict["subdomains"].items():
+            for indicator in indicators:
+                if indicator["Code"] == selected_indicator_code:
+                    selected_subdomain = subdomain
+                    break
+            else:
+                continue
+            break
+
+        # Find the domain for the selected subdomain
+        for domain, subdomains in data_dict["domains"].items():
+            if selected_subdomain in subdomains:
+                domain_value = domain
+                break
+    else:
+        domain_value = None
+        selected_subdomain = None
+
+    return domain_value, selected_subdomain
+
+
+def combined_callback(domain_value, subdomain_value, indicator_value, page_prefix):
+    ctx = dash.callback_context
+    trigger_id = ctx.triggered[0]["prop_id"].split(".")[0]
+
+    # Handle Domain dropdown selection
+    if trigger_id == f"{page_prefix}-domain-dropdown":
+        # Get the first subdomain of the selected domain
+        subdomain_options, subdomain_value = update_subdomain_dropdown(domain_value)
+
+        # Get the first indicator of the selected subdomain
+        _, indicator_options, indicator_value = update_domain_and_indicator_dropdowns(
+            subdomain_value
+        )
+
+        dropdown_class = domain_classes.get(
+            domain_value, "default-class"
+        )  # default-class can be any default class you want
+
+        return (
+            domain_value,
+            subdomain_options,
+            subdomain_value,
+            indicator_options,
+            indicator_value,
+            dropdown_class,  # Return the class name for the domain dropdown
+            dropdown_class,  # Return the class name for the subdomain dropdown
+            dropdown_class,  # Return the class name for the indicator dropdown
+        )
+
+    # Handle Subdomain dropdown selection
+    elif trigger_id == f"{page_prefix}-subdomain-dropdown":
+        (
+            domain_value,
+            indicator_options,
+            indicator_value,
+        ) = update_domain_and_indicator_dropdowns(subdomain_value)
+        subdomain_options = [
+            {"label": subdomain, "value": subdomain}
+            for subdomain in data_dict["subdomains"].keys()
+        ]
+
+        dropdown_class = domain_classes.get(
+            domain_value, "default-class"
+        )  # default-class can be any default class you want
+
+        return (
+            domain_value,
+            subdomain_options,
+            subdomain_value,
+            indicator_options,
+            indicator_value,
+            dropdown_class,  # Return the class name for the domain dropdown
+            dropdown_class,  # Return the class name for the subdomain dropdown
+            dropdown_class,  # Return the class name for the indicator dropdown
+        )
+
+    # Handle Indicator dropdown selection
+    elif trigger_id == f"{page_prefix}-indicator-dropdown":
+        domain_value, subdomain_value = update_domain_and_subdomain_dropdowns(
+            indicator_value
+        )
+        subdomain_options, _ = update_subdomain_dropdown(domain_value)
+        indicator_options = [
+            {"label": indicator["Indicator Name"], "value": indicator["Code"]}
+            for sublist in data_dict["subdomains"].values()
+            for indicator in sublist
+        ]
+        dropdown_class = domain_classes.get(
+            domain_value, "default-class"
+        )  # default-class can be any default class you want
+
+        return (
+            domain_value,
+            subdomain_options,
+            subdomain_value,
+            indicator_options,
+            indicator_value,
+            dropdown_class,  # Return the class name for the domain dropdown
+            dropdown_class,  # Return the class name for the subdomain dropdown
+            dropdown_class,  # Return the class name for the indicator dropdown
+        )
+
+    # Default case
+    return (
+        dash.no_update,
+        dash.no_update,
+        dash.no_update,
+        dash.no_update,
+        dash.no_update,
+        dash.no_update,
+        dash.no_update,
+        dash.no_update,
+    )
 
 
 def get_data(
@@ -962,44 +1137,102 @@ def get_base_layout(**kwargs):
                             )
                         ],
                     ),
+                    style={"display": "None"},
                 )
             ),
             dbc.Row(
                 children=[
                     dbc.Col(
-                        [
-                            html.A(
-                                html.Img(
-                                    id="wheel-icon",
-                                    src=home_icon_file_path,
-                                    width=30,
-                                    height=30,
-                                ),
-                                href=home_icon_href,
-                            ),
-                            dbc.Tooltip(
-                                "Return to ECA CRM Framework", target="wheel-icon"
-                            ),
-                        ],
-                        width={"size": 1, "offset": 0},
+                        width={"size": 0.5, "offset": 0},
                         style={"paddingTop": 15, "justifyContent": "normal"},
                     ),
                     dbc.Col(
                         [
                             dbc.Row(
-                                dbc.Col(
-                                    [
-                                        dbc.ButtonGroup(
-                                            id=f"{page_prefix}-themes",
-                                        ),
-                                    ],
-                                    width="auto",
-                                ),
-                                id=f"{page_prefix}-theme-row",
-                                className="my-2 theme_buttons",
-                                justify="center",
-                                align="center",
-                                style=themes_row_style,
+                                children=[
+                                    dbc.Col(
+                                        [
+                                            html.P(
+                                                "DOMAIN",
+                                                style={"margin-bottom": "10px"},
+                                            ),
+                                            dcc.Dropdown(
+                                                id=f"{page_prefix}-domain-dropdown",
+                                                options=[
+                                                    {
+                                                        "label": domain,
+                                                        "value": domain,
+                                                    }
+                                                    for domain in data_dict[
+                                                        "domains"
+                                                    ].keys()
+                                                ],
+                                                value=list(data_dict["domains"].keys())[
+                                                    0
+                                                ],  # Set default value as the first domain
+                                                clearable=True,
+                                                placeholder="Select a Domain",
+                                                className="crm_dropdown",
+                                            ),
+                                        ],
+                                        width=3,  # Adjust the width as needed
+                                    ),
+                                    dbc.Col(
+                                        [
+                                            html.P(
+                                                "SUBDOMAIN",
+                                                style={"margin-bottom": "10px"},
+                                            ),
+                                            dcc.Dropdown(
+                                                id=f"{page_prefix}-subdomain-dropdown",
+                                                options=[
+                                                    {
+                                                        "label": subdomain,
+                                                        "value": subdomain,
+                                                    }
+                                                    for subdomain in data_dict[
+                                                        "subdomains"
+                                                    ].keys()
+                                                ],
+                                                value=None,  # No default value, showing all options
+                                                placeholder="Select a Subdomain",
+                                                clearable=True,
+                                                className="crm_dropdown",
+                                            ),
+                                        ],
+                                        width=3,  # Adjust the width as needed
+                                    ),
+                                    dbc.Col(
+                                        [
+                                            html.P(
+                                                "INDICATOR",
+                                                style={"margin-bottom": "10px"},
+                                            ),
+                                            dcc.Dropdown(
+                                                id=f"{page_prefix}-indicator-dropdown",
+                                                options=[
+                                                    {
+                                                        "label": indicator[
+                                                            "Indicator Name"
+                                                        ],
+                                                        "value": indicator["Code"],
+                                                    }
+                                                    for sublist in data_dict[
+                                                        "subdomains"
+                                                    ].values()
+                                                    for indicator in sublist
+                                                ],
+                                                value=None,  # No default value, showing all options
+                                                placeholder="Select an Indicator",
+                                                optionHeight=55,
+                                                clearable=True,
+                                                className="crm_dropdown",
+                                            ),
+                                        ],
+                                        width=6,  # Adjust the width as needed
+                                    ),
+                                ],
+                                className="crm-dropdown-col",
                             ),
                             dbc.Row(
                                 [
@@ -1132,19 +1365,17 @@ def get_base_layout(**kwargs):
                                 },
                             ),
                         ],
-                        width={"size": 10, "offset": 0},
+                        width={"size": 11, "offset": 0},
                     ),
                     dbc.Col(
-                        width={"size": 1, "offset": 0},
+                        width={"size": 0.5, "offset": 0},
                     ),
                 ],
                 # sticky="top",
                 className="bg-light",
                 justify="center",
                 align="center",
-                style={
-                    "paddingBottom": 15,
-                },
+                style={"paddingBottom": 15},
             ),
             html.Br(),
             dbc.Row(

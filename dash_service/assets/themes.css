@@ -48,6 +48,20 @@
     border-color: #562061
 }
 
+.crg-dropdown .Select-control {
+    background-color: #562061;
+    color: white;
+}
+
+.crg-dropdown .Select-menu-outer {
+    color: #562061;
+}
+
+.crg-dropdown .Select-value-label {
+    color: white !important;
+}
+
+
 /* colour theme for HAN domain*/
 
 .theme_buttons .btn-han {
@@ -100,6 +114,19 @@
     border-color: #3e7c49
 }
 
+.han-dropdown .Select-control {
+    background-color: #3e7c49;
+    color: white;
+}
+
+.han-dropdown .Select-menu-outer {
+    color: #3e7c49;
+}
+
+.han-dropdown .Select-value-label {
+    color: white !important;
+}
+
 /* colour theme for POV domain*/
 
 .theme_buttons .btn-pov {
@@ -148,6 +175,19 @@
     color: white;
     background-color: #4c8cbb;
     border-color: #4c8cbb
+}
+
+.pov-dropdown .Select-control {
+    background-color: #4c8cbb;
+    color: white;
+}
+
+.pov-dropdown .Select-menu-outer {
+    color: #4c8cbb;
+}
+
+.pov-dropdown .Select-value-label {
+    color: white !important;
 }
 
 
@@ -201,6 +241,19 @@
     border-color: #37568f
 }
 
+.edu-dropdown .Select-control {
+    background-color: #37568f;
+    color: white;
+}
+
+.edu-dropdown .Select-menu-outer {
+    color: #37568f;
+}
+
+.edu-dropdown .Select-value-label {
+    color: white !important;
+}
+
 /* colour theme for CHP domain*/
 
 .theme_buttons .btn-chp {
@@ -250,6 +303,20 @@
     background-color: #e5ae4c;
     border-color: #e5ae4c
 }
+
+.chp-dropdown .Select-control {
+    background-color: #e5ae4c;
+    color: #5A5A5A;
+}
+
+.chp-dropdown .Select-menu-outer {
+    color: #e5ae4c;
+}
+
+.chp-dropdown .Select-value-label {
+    color: #5A5A5A !important;
+}
+
 
 /* colour theme for PAR domain*/
 
@@ -301,6 +368,20 @@
     border-color: #861c3f
 }
 
+.par-dropdown .Select-control {
+    background-color: #861c3f;
+    color: white;
+}
+
+.par-dropdown .Select-menu-outer {
+    color: #861c3f;
+}
+
+.par-dropdown .Select-value-label {
+    color: white !important;
+}
+
+
 /* colour theme for CCI domain*/
 
 .theme_buttons .btn-cci {
@@ -349,4 +430,17 @@
     color: white;
     background-color: #ec5e24;
     border-color: #ec5e24
+}
+
+.cci-dropdown .Select-control {
+    background-color: #ec5e24;
+    color: white;
+}
+
+.cci-dropdown .Select-menu-outer {
+    color: #ec5e24;
+}
+
+.cci-dropdown .Select-value-label {
+    color: white !important;
 }
