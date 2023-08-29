@@ -355,34 +355,37 @@
 .crc-accordion.accordion-item:nth-child(1) .accordion-button {
     color: #4e79a7;
     border: 1px solid #4e79a7;
+    box-shadow: none;
 }
 
 /* Background color for the enabling environment accordion item when active (expanded) */
 .has-bootstrap .crc-accordion.accordion-item:nth-child(1) .accordion-button:not(.collapsed) {
     background-color: white;
-    box-shadow: #4e79a7;
+    box-shadow: 5px 5px 10px #4e79a7;
 }
 
 /* Orange header style for supply accordion item */
-.has-boostrap .crc-accordion.accordion-item:nth-child(2) .accordion-button {
+.has-bootstrap .crc-accordion.accordion-item:nth-child(2) .accordion-button {
     color: #f38e2c;
     border: 1px solid #f38e2c;
+    box-shadow: none
 }
 
 /* Background color for the supply accordion item when active (expanded) */
 .has-bootstrap .crc-accordion.accordion-item:nth-child(2) .accordion-button:not(.collapsed) {
     background-color: white;
-    box-shadow: #f38e2c;
+    box-shadow: 5px 5px 10px #f38e2c;
 }
 
 /* Red header style for demand accordion item */
 .crc-accordion.accordion-item:nth-child(3) .accordion-button {
     color: #e15759;
     border: 1px solid #e15759;
+    box-shadow: none;
 }
 
 /* Background color for the demand accordion item when active (expanded) */
 .has-bootstrap .crc-accordion.accordion-item:nth-child(3) .accordion-button:not(.collapsed) {
     background-color: white;
-    box-shadow: #e15759;
+    box-shadow: 5px 5px 10px #e15759;
 }
