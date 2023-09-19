@@ -866,7 +866,7 @@ def get_base_layout(**kwargs):
         if k not in ["prj", "page", "hash"]:
             pass_through_params.append(f"{k}={v}")
 
-    home_icon_href = "?" + "&".join(pass_through_params) + "e&page=home"
+    home_icon_href = "https://www.transmonee.org/transmonee-dashboard-wheel"
 
     domain_pages_links = []
     for k, v in domain_pages.items():
@@ -1560,6 +1560,7 @@ def escape_markdown_numbering(text):
     """Escape numbering in markdown to prevent auto-formatting."""
     # Use regex to find patterns like "27." and replace them with "27\."
     return re.sub(r"(\d+)\.", r"\1\.", text)
+
 
 # Function to format recommendations by bottleneck type
 def format_recommendations_by_bottleneck(df, country, year):
