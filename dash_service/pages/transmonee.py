@@ -425,6 +425,7 @@ data_sources = {
     "SDG": "Sustainable Development Goals",
     "UIS": "UNESCO Institute for Statistics",
     "NEW_UIS": "UNESCO Institute for Statistics",
+    "BDDS_UIS": "UNESCO Institute for Statistics",
     "UNDP": "United Nations Development Programme",
     "TMEE": "Transformative Monitoring for Enhanced Equity (TransMonEE)",
 }
@@ -496,6 +497,27 @@ CRC_df = pd.read_excel(
     sheet_name="Full CRC database ECA",
     header=1,  # Use the second row as column headers
 )
+
+# Renaming columns for easier access
+CRC_df = CRC_df.rename(
+    columns={
+        "Name of the country": "Country",
+        "Year of report ": "Year",
+        "ECA child rights monitoring framework\nSub-Domain": "Sub-Domain",
+        "Recommendation": "Recommendation",
+        "Bottleneck type": "Bottleneck Type",
+    }
+)
+
+# List of cross-cutting subdomain columns
+crosscutting_columns = [
+    "Gender",
+    "Adolescents",
+    "Disability",
+    "Early childhood development",
+    "Disaster, conflict and displacement",
+    "Environment and climate",
+]
 
 # Read the master list Excel file and set the first row as header
 master_file_path = (
@@ -1487,7 +1509,7 @@ def get_base_layout(**kwargs):
                     ],
                 ),
                 className="crc_card",
-                style={"display": "None"} if page_prefix != "chp" else {},
+                # style={"display": "None"} if page_prefix != "chp" else {},
             ),
         ],
     )
@@ -1527,10 +1549,9 @@ def make_card(
     return card, get_card_popover_body(numerator_pairs)
 
 
-# Function to get populate the year of report crc filter
 def available_crc_years(country, selections, indicators_dict):
     if country == "all_countries":
-        all_years = sorted(CRC_df["Year of report "].unique(), reverse=True)
+        all_years = sorted(CRC_df["Year"].unique(), reverse=True)
         all_years_options = [{"label": str(year), "value": year} for year in all_years]
         all_years_options.insert(
             0, {"label": "Latest year for each country", "value": "All"}
@@ -1539,11 +1560,18 @@ def available_crc_years(country, selections, indicators_dict):
         return all_years_options, latest_year
 
     subdomain = indicators_dict[selections["theme"]].get("NAME")
-    country_filtered_df = CRC_df.loc[CRC_df["Name of the country"] == country]
-    available_years = country_filtered_df[
-        country_filtered_df["ECA child rights monitoring framework\nSub-Domain"]
-        == subdomain
-    ]["Year of report "].unique()
+
+    # Check if the subdomain is one of the cross-cutting subdomains
+    if subdomain in crosscutting_columns:
+        country_filtered_df = CRC_df.loc[
+            (CRC_df["Country"] == country) & (CRC_df[subdomain] == "Yes")
+        ]
+    else:
+        country_filtered_df = CRC_df.loc[
+            (CRC_df["Country"] == country) & (CRC_df["Sub-Domain"] == subdomain)
+        ]
+
+    available_years = country_filtered_df["Year"].unique()
 
     if len(available_years) > 0:
         latest_year = max(available_years)
@@ -1571,7 +1599,7 @@ def format_recommendations_by_bottleneck(df, country, year):
     }
     for bottleneck in recommendations.keys():
         recs = df.loc[
-            df["Bottleneck type"].str.contains(bottleneck, case=False), "Recommendation"
+            df["Bottleneck Type"].str.contains(bottleneck, case=False), "Recommendation"
         ]
         formatted_recs = [
             escape_markdown_numbering(rec.replace("; and", ".").replace(";", "."))
@@ -1622,22 +1650,21 @@ def generate_accordion_items(recommendations, page_prefix):
 def filter_crc_data(year, country, selections, indicators_dict, page_prefix):
     subdomain = indicators_dict[selections["theme"]].get("NAME")
 
-    # Filter condition
-    filter_condition = (
-        CRC_df["ECA child rights monitoring framework\nSub-Domain"] == subdomain
-    )
+    # Adjusting the filter condition for cross-cutting subdomains
+    if subdomain in crosscutting_columns:
+        filter_condition = CRC_df[subdomain] == "Yes"
+    else:
+        filter_condition = CRC_df["Sub-Domain"] == subdomain
 
     if country == "all_countries":
         if year == "All":
-            latest_years = (
-                CRC_df.groupby("Name of the country")["Year of report "].max().to_dict()
-            )
+            latest_years = CRC_df.groupby("Country")["Year"].max().to_dict()
             all_recommendations = {}
             for country_name, latest_year in latest_years.items():
                 df = CRC_df[
                     filter_condition
-                    & (CRC_df["Year of report "] == latest_year)
-                    & (CRC_df["Name of the country"] == country_name)
+                    & (CRC_df["Year"] == latest_year)
+                    & (CRC_df["Country"] == country_name)
                 ]
                 recommendations = format_recommendations_by_bottleneck(
                     df, country_name, latest_year
@@ -1645,11 +1672,11 @@ def filter_crc_data(year, country, selections, indicators_dict, page_prefix):
                 for key, value in recommendations.items():
                     all_recommendations.setdefault(key, []).extend(value)
         else:
-            df = CRC_df[filter_condition & (CRC_df["Year of report "] == year)]
+            df = CRC_df[filter_condition & (CRC_df["Year"] == year)]
             all_recommendations = {}
-            unique_countries = df["Name of the country"].unique()
+            unique_countries = df["Country"].unique()
             for country_name in unique_countries:
-                country_df = df[df["Name of the country"] == country_name]
+                country_df = df[df["Country"] == country_name]
                 recommendations = format_recommendations_by_bottleneck(
                     country_df, country_name, year
                 )
@@ -1657,9 +1684,7 @@ def filter_crc_data(year, country, selections, indicators_dict, page_prefix):
                     all_recommendations.setdefault(key, []).extend(value)
     else:
         df = CRC_df[
-            filter_condition
-            & (CRC_df["Year of report "] == year)
-            & (CRC_df["Name of the country"] == country)
+            filter_condition & (CRC_df["Year"] == year) & (CRC_df["Country"] == country)
         ]
         all_recommendations = format_recommendations_by_bottleneck(df, country, year)
 
