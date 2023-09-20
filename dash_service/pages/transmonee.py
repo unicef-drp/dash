@@ -1509,7 +1509,7 @@ def get_base_layout(**kwargs):
                     ],
                 ),
                 className="crc_card",
-                # style={"display": "None"} if page_prefix != "chp" else {},
+                style={"display": "None"} if page_prefix not in ["chp", "cci"] else {},
             ),
         ],
     )
