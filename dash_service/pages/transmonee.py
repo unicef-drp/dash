@@ -491,7 +491,7 @@ domain_pages = {
 }
 
 # Read the CRC Excel file and skip the first row (header is in the second row)
-crc_file_path = f"{pathlib.Path(__file__).parent.parent.absolute()}/static/Full CRC database - v25-1-22.xlsx"
+crc_file_path = f"{pathlib.Path(__file__).parent.parent.absolute()}/static/Full CRC database - v21-9-23.xlsx"
 CRC_df = pd.read_excel(
     crc_file_path,
     sheet_name="Full CRC database ECA",
