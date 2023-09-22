@@ -249,7 +249,7 @@ class DataAccess_SDMX(data_access.Data_access):
         if endperiod is not None:
             params["endPeriod"] = endperiod
         if lastnobs:
-            params["startPeriod"] = 1900
+            params["startPeriod"] = startperiod if startperiod is not None else 1900
             params["lastnobservations"] = 1
 
         start_time = time.time()
