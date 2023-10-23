@@ -328,33 +328,7 @@ page_config = {
 }
 
 # customization of plots requested by Siraj
-packed_config = {
-    "packed_CRG": {
-        "indicators": [
-            "PP_SG_NHR_NOAPPLN",
-            "PP_SG_NHR_NOSTUSN",
-            "PP_SG_NHR_INTEXSTN",
-            "PP_SG_NHR_IMPLN",
-        ],
-        "card_key": "PP_SG_NHR_NOAPPLN",
-        "mapping": {
-            "CODE": {
-                "OBS_VALUE": {
-                    "PP_SG_NHR_NOAPPLN": "D",
-                    "PP_SG_NHR_NOSTUSN": "C",
-                    "PP_SG_NHR_INTEXSTN": "B",
-                    "PP_SG_NHR_IMPLN": "A",
-                }
-            },
-            "Unit_name": {"Unit_name": {"Yes/No": "Status"}},
-        },
-        "agg": {
-            "bar": "data.groupby('REF_AREA', as_index=False).agg('last')",
-            "map": "data.groupby('REF_AREA', as_index=False).agg('last')",
-        },
-        "yaxis": ["A", "B", "C", "D"],
-    }
-}
+packed_config = {}
 
 # register_page(
 #     __name__,
@@ -382,9 +356,7 @@ def layout(page_slug=None, **query_parmas):
                 fluid=True,
                 children=get_base_layout(
                     indicators=page_config,
-                    main_subtitle="Child Rights Landscape and Governance",
                     page_prefix=page_prefix,
-                    page_path=page_path,
                     domain_colour=domain_colour,
                     query_params=query_parmas,
                 ),
@@ -393,17 +365,6 @@ def layout(page_slug=None, **query_parmas):
         ],
         id="mainContainer",
     )
-
-
-# callback to navigate to different domain
-@callback(
-    Output(f"{page_prefix}-theme", "search"),
-    Output(f"{page_prefix}-theme", "hash"),
-    [Input(f"{page_prefix}-topic-dropdown", "value")],
-    prevent_initial_call=True,
-)
-def update_url(value):
-    return value, ""
 
 
 @callback(
@@ -430,27 +391,6 @@ def apply_combined_callback(domain_value, subdomain_value, indicator_value):
 
 
 @callback(
-    Output(f"{page_prefix}-store", "data"),
-    Input(f"{page_prefix}-theme", "hash"),
-    State(f"{page_prefix}-indicators", "data"),
-)
-def apply_selections(theme, indicator):
-    return selections(theme, indicator)
-
-
-@callback(
-    Output(f"{page_prefix}-main_title", "children"),
-    Output(f"{page_prefix}-info-tooltip", "children"),
-    Output(f"{page_prefix}-themes", "children"),
-    Input(f"{page_prefix}-store", "data"),
-    State(f"{page_prefix}-indicators", "data"),
-    prevent_initial_call=True,
-)
-def show_themes(selections, indicators_dict):
-    return themes(selections, indicators_dict, page_prefix)
-
-
-@callback(
     Output({"type": "button_group", "index": f"{page_prefix}-AIO_AREA"}, "children"),
     Input(f"{page_prefix}-store", "data"),
     State(f"{page_prefix}-indicators", "data"),
@@ -463,35 +403,23 @@ def set_aio_options(theme, indicators_dict):
 @callback(
     Output({"type": "area_types", "index": f"{page_prefix}-AIO_AREA"}, "options"),
     Output({"type": "area_types", "index": f"{page_prefix}-AIO_AREA"}, "value"),
-    [Input({"type": f"{page_prefix}-indicator_button", "index": ALL}, "active")],
-    State({"type": f"{page_prefix}-indicator_button", "index": ALL}, "id"),
+    [Input(f"{page_prefix}-indicator-dropdown", "value")],
     prevent_initial_call=True,
 )
-def set_fig_options(is_active_button, buttons_id):
-    return fig_options(is_active_button, buttons_id, packed_config)
-
-
-@callback(
-    Output({"type": f"{page_prefix}-indicator_button", "index": ALL}, "active"),
-    Input({"type": f"{page_prefix}-indicator_button", "index": ALL}, "n_clicks"),
-    State({"type": f"{page_prefix}-indicator_button", "index": ALL}, "id"),
-    prevent_initial_call=True,
-)
-def set_active_button(_, buttons_id):
-    return active_button(_, buttons_id)
+def set_fig_options(indicator):
+    return fig_options(indicator)
 
 
 @callback(
     Output({"type": "area_breakdowns", "index": f"{page_prefix}-AIO_AREA"}, "options"),
     [
-        Input({"type": f"{page_prefix}-indicator_button", "index": ALL}, "active"),
+        Input(f"{page_prefix}-indicator-dropdown", "value"),
         Input({"type": "area_types", "index": f"{page_prefix}-AIO_AREA"}, "value"),
     ],
-    State({"type": f"{page_prefix}-indicator_button", "index": ALL}, "id"),
     prevent_initial_call=True,
 )
-def set_breakdown_options(is_active_button, fig_type, buttons_id):
-    return breakdown_options(is_active_button, fig_type, buttons_id, packed_config)
+def set_breakdown_options(indicator, fig_type):
+    return breakdown_options(indicator, fig_type)
 
 
 @callback(
@@ -536,13 +464,13 @@ def apply_update_country_selection(country_group, country_selection):
     Output(f"{page_prefix}-year-filter-crc", "value"),
     [
         Input(f"{page_prefix}-country-filter-crc", "value"),
-        Input(f"{page_prefix}-store", "data"),
+        Input(f"{page_prefix}-subdomain-dropdown", "value"),
         Input(f"{page_prefix}-indicators", "data"),
     ],
     prevent_initial_call=True,
 )
-def apply_available_crc_years(country, selections, indicators_dict):
-    return available_crc_years(country, selections, indicators_dict)
+def apply_available_crc_years(country, subdomain, indicators_dict):
+    return available_crc_years(country, subdomain, indicators_dict)
 
 
 @callback(
@@ -550,12 +478,11 @@ def apply_available_crc_years(country, selections, indicators_dict):
     Output(f"{page_prefix}-crc-accordion", "children"),
     Input(f"{page_prefix}-year-filter-crc", "value"),
     Input(f"{page_prefix}-country-filter-crc", "value"),
-    Input(f"{page_prefix}-store", "data"),
-    Input(f"{page_prefix}-indicators", "data"),
+    Input(f"{page_prefix}-subdomain-dropdown", "value"),
     prevent_initial_call=True,
 )
-def apply_filter_crc_data(year, country, selections, indicators_dict):
-    return filter_crc_data(year, country, selections, indicators_dict, page_prefix)
+def apply_filter_crc_data(year, country, subdomain_code):
+    return filter_crc_data(year, country, subdomain_code, page_prefix)
 
 
 @callback(
@@ -573,42 +500,39 @@ def apply_filter_crc_data(year, country, selections, indicators_dict):
         Output(f"{page_prefix}-definition-popover", "children"),
     ],
     [
+        Input(f"{page_prefix}-indicator-dropdown", "value"),
         Input({"type": "area_breakdowns", "index": f"{page_prefix}-AIO_AREA"}, "value"),
         Input(f"{page_prefix}-year_slider", "value"),
         Input(f"{page_prefix}-country-filter", "value"),
         Input(f"{page_prefix}-country-group", "value"),
     ],
     [
-        State(f"{page_prefix}-store", "data"),
+        State(f"{page_prefix}-subdomain-dropdown", "value"),
         State(f"{page_prefix}-indicators", "data"),
-        State({"type": "button_group", "index": f"{page_prefix}-AIO_AREA"}, "children"),
         State({"type": "area_types", "index": f"{page_prefix}-AIO_AREA"}, "value"),
     ],
     prevent_initial_call=True,
 )
 def apply_aio_area_figure(
+    indicator,
     compare,
     years_slider,
     countries,
     country_group,
-    selections,
+    subdomain,
     indicators_dict,
-    buttons_properties,
     selected_type,
 ):
     return aio_area_figure(
+        indicator,
         compare,
         years_slider,
         countries,
         country_group,
-        selections,
+        subdomain,
         indicators_dict,
-        buttons_properties,
         selected_type,
         page_prefix,
-        packed_config,
         domain_colour,
-        light_domain_colour,
-        dark_domain_colour,
         map_colour,
     )
