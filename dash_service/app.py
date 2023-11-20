@@ -64,9 +64,11 @@ def page_login():
 
 @server.route("/dl_db")
 def page_dldb():
-    print("DL_DB")
+    if flask_login.current_user.is_authenticated:
+        if flask_login.current_user.is_admin:
+            return send_from_directory(".", "pages.db")
     #return send_from_directory(directory=app.config['UPLOAD_FOLDER'], filename="pages.db")
-    return send_from_directory(".", "pages.db")
+    
 
 
 @server.route("/do_login", methods=["POST", "GET"])
