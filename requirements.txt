@@ -20,6 +20,7 @@ pandasdmx
 pandasdmx[cache]
 scipy
 openpyxl
+shapely
 
 sentry-sdk[flask]
 

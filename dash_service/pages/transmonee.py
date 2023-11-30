@@ -14,6 +14,7 @@ import pandasdmx as sdmx
 import plotly.express as px
 import plotly.io as pio
 import plotly
+from shapely.geometry import shape
 import dash
 import requests
 import plotly.graph_objects as go
@@ -63,7 +64,7 @@ EMPTY_CHART = {
         "yaxis": {"visible": False},
         "annotations": [
             {
-                "text": "No data is available for the selected filters.",
+                "text": "No indicator chosen or data is available for the selected filters.",
                 "xref": "paper",
                 "yref": "paper",
                 "showarrow": False,
@@ -194,7 +195,7 @@ countries_iso3_dict = {
     "Ireland": "IRL",
     "Italy": "ITA",
     "Kazakhstan": "KAZ",
-    "Kosovo (UN SC resolution 1244)": "XKX",  # UNDP defines it as KOS
+    "Kosovo (UNSCR 1244)": "XKX",  # UNDP defines it as KOS
     "Kyrgyzstan": "KGZ",
     "Latvia": "LVA",
     "Liechtenstein": "LIE",
@@ -253,7 +254,7 @@ reversed_countries_iso3_dict = {
     "IRL": "Ireland",
     "ITA": "Italy",
     "KAZ": "Kazakhstan",
-    "XKX": "Kosovo (UN SC resolution 1244)",
+    "XKX": "Kosovo (UNSCR 1244)",
     "KGZ": "Kyrgyzstan",
     "LVA": "Latvia",
     "LIE": "Liechtenstein",
@@ -303,7 +304,7 @@ unicef_country_prog = [
     "Georgia",
     "Greece",
     "Kazakhstan",
-    "Kosovo (UN SC resolution 1244)",
+    "Kosovo (UNSCR 1244)",
     "Kyrgyzstan",
     "Montenegro",
     "North Macedonia",
@@ -376,7 +377,7 @@ all_countries = [
     "Ireland",
     "Italy",
     "Kazakhstan",
-    "Kosovo (UN SC resolution 1244)",
+    "Kosovo (UNSCR 1244)",
     "Kyrgyzstan",
     "Latvia",
     "Liechtenstein",
@@ -684,169 +685,103 @@ def nominal_data(config):
     return only_dtype(config) and config["NOMINAL"]
 
 
-def update_subdomain_dropdown(selected_domain):
-    if selected_domain:
-        subdomains = data_dict["domains"][selected_domain]
-        options = [
-            {"label": subdomain, "value": data_dict["subdomains"][subdomain]["code"]}
-            for subdomain in subdomains
-        ]
-        value = subdomains[0]
+def update_indicator_dropdown(indicator_filter):
+    print(f"Update domain and indicator - Selected_subdomain: {indicator_filter}")
+
+    # Function to get indicators for a specific subdomain
+    def get_indicators_for_subdomain(subdomain_name):
+        return data_dict["subdomains"][subdomain_name]["indicators"]
+
+    # Function to get all indicators for a specific domain
+    def get_indicators_for_domain(domain):
+        indicators = []
+        if domain in data_dict["domains"]:
+            subdomains = data_dict["domains"][domain]
+            for subdomain in subdomains:
+                indicators.extend(get_indicators_for_subdomain(subdomain))
+        return indicators
+
+    # Initialize indicator options and value
+    indicator_options = []
+    indicator_value = None
+
+    if indicator_filter is not None and indicator_filter != "all":
+        # Check if indicator_filter is a domain
+        if indicator_filter in data_dict["domains"]:
+            # Get indicators for the selected domain
+            indicators = get_indicators_for_domain(indicator_filter)
+
+        # Check if indicator_filter is a subdomain code
+        elif any(indicator_filter == data_dict["subdomains"][sub]["code"] for sub in data_dict["subdomains"]):
+            # Find the subdomain name corresponding to the code
+            subdomain_name = next(sub for sub, details in data_dict["subdomains"].items() if details["code"] == indicator_filter)
+            # Get indicators for the selected subdomain
+            indicators = get_indicators_for_subdomain(subdomain_name)
+
+        else:
+            indicators = []
+
+        # Set the indicator dropdown values
+        indicator_options = [{"label": indicator["Indicator Name"], "value": indicator["Code"]} for indicator in indicators]
+
     else:
-        # If no domain is selected, show all subdomains
-        options = [
-            {"label": subdomain, "value": data_dict["subdomains"][subdomain]["code"]}
-            for subdomain in data_dict["subdomains"].keys()
-        ]
-        value = None
-    return options, value
+        # Show all indicators if no subdomain or domain is selected
+        for subdomain in data_dict["subdomains"].values():
+            indicator_options.extend([
+                {"label": indicator["Indicator Name"], "value": indicator["Code"]}
+                for indicator in subdomain["indicators"]
+            ])
+
+    print(f"Update domain and indicator - indicator_filter: {indicator_filter}")
+    return indicator_options, indicator_value
 
 
-def update_domain_and_indicator_dropdowns(selected_subdomain):
-    if selected_subdomain:
-        # Find the domain for the selected subdomain
-        for domain, subdomains in data_dict["domains"].items():
-            if selected_subdomain in subdomains:
-                domain_value = domain
-                break
-        # Set the indicator dropdown values based on the subdomain
-        subdomain_info = data_dict["subdomains"][selected_subdomain]
-        indicators = subdomain_info["indicators"]
-        indicator_options = [
-            {"label": indicator["Indicator Name"], "value": indicator["Code"]}
-            for indicator in indicators
-        ]
-        indicator_value = indicators[0]["Code"]
-    else:
-        # If no subdomain is selected, show all indicators
-        indicator_options = [
-            {"label": indicator["Indicator Name"], "value": indicator["Code"]}
-            for sublist in [sd["indicators"] for sd in data_dict["subdomains"].values()]
-            for indicator in sublist
-        ]
-        domain_value = None
-        indicator_value = None
+def update_domain_and_subdomain_values(selected_indicator_code):
+    """
+    Finds and returns the domain name, subdomain name, and subdomain code corresponding to a given indicator code.
 
-    return domain_value, indicator_options, indicator_value
+    Args:
+    selected_indicator_code (str): The indicator code to search for.
+
+    Returns:
+    tuple: The matching domain name, subdomain name, and subdomain code, or (None, None, None) if no match is found.
+    """
+    for domain, subdomains in data_dict['domains'].items():
+        for subdomain in subdomains:
+            indicators = data_dict['subdomains'][subdomain]['indicators']
+            if any(indicator['Code'] == selected_indicator_code for indicator in indicators):
+                subdomain_code = data_dict['subdomains'][subdomain]['code']
+                return domain, subdomain, subdomain_code  # Return domain, subdomain, and subdomain code
+
+    return None, None, None  # Return None for all if no match is found
 
 
-def update_domain_and_subdomain_dropdowns(selected_indicator_code):
-    if selected_indicator_code:
-        for subdomain, indicators in data_dict["subdomains"].items():
-            for indicator in indicators:
-                if indicator["Code"] == selected_indicator_code:
-                    selected_subdomain = subdomain
-                    break
-            else:
-                continue
-            break
-
-        # Find the domain for the selected subdomain
-        for domain, subdomains in data_dict["domains"].items():
-            if selected_subdomain in subdomains:
-                domain_value = domain
-                break
-    else:
-        domain_value = None
-        selected_subdomain = None
-
-    return domain_value, selected_subdomain
+def get_subdomain_name_by_code(subdomain_code):
+    # Iterate over all subdomain items in the data_dict['subdomains'] dictionary
+    for subdomain_name, subdomain_info in data_dict["subdomains"].items():
+        # Check if the code matches the one we're looking for
+        if subdomain_info["code"] == subdomain_code:
+            # Return the name of the subdomain if the code matches
+            return subdomain_name
+    # Return None or an appropriate value if no match is found
+    return None
 
 
-def combined_callback(domain_value, subdomain_value, indicator_value, page_prefix):
-    ctx = dash.callback_context
-    trigger_id = ctx.triggered[0]["prop_id"].split(".")[0]
+def create_CRM_dropdown(data_dict):
+    dropdown_data = [{"label": "Select All", "value": "all"}]  
 
-    # Handle Domain dropdown selection
-    if trigger_id == f"{page_prefix}-domain-dropdown":
-        # Get the first subdomain of the selected domain
-        subdomain_options, subdomain_value = update_subdomain_dropdown(domain_value)
+    for domain, subdomains in data_dict['domains'].items():
+        # Add the domain as a main entry
+        dropdown_data.append({"label": html.Span([f"{domain} Domain"], style={'color': 'Purple', 'font-size': 20}),
+                              "value": domain})
+        for subdomain in subdomains:
+            subdomain_code = data_dict['subdomains'][subdomain]['code']
+            # Add each subdomain under its domain
+            dropdown_data.append({"label": f" {subdomain}", "value": subdomain_code})
+    return dropdown_data
 
-        # Get the first indicator of the selected subdomain
-        _, indicator_options, indicator_value = update_domain_and_indicator_dropdowns(
-            subdomain_value
-        )
-
-        dropdown_class = domain_classes.get(
-            domain_value, "default-class"
-        )  # default-class can be any default class you want
-
-        return (
-            domain_value,
-            subdomain_options,
-            subdomain_value,
-            indicator_options,
-            indicator_value,
-            dropdown_class,  # Return the class name for the domain dropdown
-            dropdown_class,  # Return the class name for the subdomain dropdown
-            dropdown_class,  # Return the class name for the indicator dropdown
-        )
-
-    # Handle Subdomain dropdown selection
-    elif trigger_id == f"{page_prefix}-subdomain-dropdown":
-        (
-            domain_value,
-            indicator_options,
-            indicator_value,
-        ) = update_domain_and_indicator_dropdowns(subdomain_value)
-        subdomain_options = [
-            {"label": subdomain, "value": subdomain}
-            for subdomain in data_dict["subdomains"].keys()
-        ]
-
-        dropdown_class = domain_classes.get(
-            domain_value, "default-class"
-        )  # default-class can be any default class you want
-
-        return (
-            domain_value,
-            subdomain_options,
-            subdomain_value,
-            indicator_options,
-            indicator_value,
-            dropdown_class,  # Return the class name for the domain dropdown
-            dropdown_class,  # Return the class name for the subdomain dropdown
-            dropdown_class,  # Return the class name for the indicator dropdown
-        )
-
-    # Handle Indicator dropdown selection
-    elif trigger_id == f"{page_prefix}-indicator-dropdown":
-        domain_value, subdomain_value = update_domain_and_subdomain_dropdowns(
-            indicator_value
-        )
-        subdomain_options, _ = update_subdomain_dropdown(domain_value)
-        indicator_options = [
-            {"label": indicator["Indicator Name"], "value": indicator["Code"]}
-            for sublist in data_dict["subdomains"].values()
-            for indicator in sublist
-        ]
-        dropdown_class = domain_classes.get(
-            domain_value, "default-class"
-        )  # default-class can be any default class you want
-
-        return (
-            domain_value,
-            subdomain_options,
-            subdomain_value,
-            indicator_options,
-            indicator_value,
-            dropdown_class,  # Return the class name for the domain dropdown
-            dropdown_class,  # Return the class name for the subdomain dropdown
-            dropdown_class,  # Return the class name for the indicator dropdown
-        )
-
-    # Default case
-    return (
-        dash.no_update,
-        dash.no_update,
-        dash.no_update,
-        dash.no_update,
-        dash.no_update,
-        dash.no_update,
-        dash.no_update,
-        dash.no_update,
-    )
-
+# Example usage
+dropdown_options = create_CRM_dropdown(data_dict)
 
 def get_data(
     indicators: list,
@@ -1035,6 +970,7 @@ def get_base_layout(**kwargs):
     qparams = kwargs.get("query_params")
 
     home_icon_file_path = f"{request.root_url}assets/home-icon-2.svg"
+    unicef_icon_file_path = f"{request.root_url}assets/unicef_icon.png"
 
     pass_through_params = ["prj=tm"]
     for k, v in qparams.items():
@@ -1058,114 +994,181 @@ def get_base_layout(**kwargs):
             dbc.Row(
                 children=[
                     dbc.Col(
-                        width={"size": 0.5, "offset": 0},
-                        style={"paddingTop": 15, "justifyContent": "normal"},
+                        html.Img(id="unicef-icon", src=unicef_icon_file_path),
+                        lg=2, md=4, sm=6, xs=12,
+                        align="center",
                     ),
                     dbc.Col(
-                        [
-                            dbc.Row(
-                                children=[
-                                    dbc.Col(
-                                        [
-                                            html.P(
-                                                "DOMAIN",
-                                                style={"margin-bottom": "10px"},
-                                            ),
-                                            dcc.Dropdown(
-                                                id=f"{page_prefix}-domain-dropdown",
-                                                options=[
-                                                    {
-                                                        "label": domain,
-                                                        "value": domain,
-                                                    }
-                                                    for domain in data_dict[
-                                                        "domains"
-                                                    ].keys()
-                                                ],
-                                                value=list(data_dict["domains"].keys())[
-                                                    0
-                                                ],  # Set default value as the first domain
-                                                clearable=True,
-                                                placeholder="Select a Domain",
-                                                className="crm_dropdown",
-                                            ),
-                                        ],
-                                        width=3,  # Adjust the width as needed
-                                    ),
-                                    dbc.Col(
-                                        [
-                                            html.P(
-                                                "SUBDOMAIN",
-                                                style={"margin-bottom": "10px"},
-                                            ),
-                                            dcc.Dropdown(
-                                                id=f"{page_prefix}-subdomain-dropdown",
-                                                options=[
-                                                    {
-                                                        "label": subdomain,
-                                                        "value": data_dict[
-                                                            "subdomains"
-                                                        ][subdomain]["code"],
-                                                    }
-                                                    for subdomain in data_dict[
-                                                        "subdomains"
-                                                    ].keys()
-                                                ],
-                                                value=None,  # No default value, showing all options
-                                                placeholder="Select a Subdomain",
-                                                clearable=True,
-                                                className="crm_dropdown",
-                                            ),
-                                        ],
-                                        width=3,  # Adjust the width as needed
-                                    ),
-                                    dbc.Col(
-                                        [
-                                            html.P(
-                                                "INDICATOR",
-                                                style={"margin-bottom": "10px"},
-                                            ),
-                                            dcc.Dropdown(
-                                                id=f"{page_prefix}-indicator-dropdown",
-                                                options=[
-                                                    {
-                                                        "label": indicator[
-                                                            "Indicator Name"
-                                                        ],
-                                                        "value": indicator["Code"],
-                                                    }
-                                                    for sublist in [
-                                                        sd["indicators"]
-                                                        for sd in data_dict[
-                                                            "subdomains"
-                                                        ].values()
-                                                    ]
-                                                    for indicator in sublist
-                                                ],
-                                                value=None,  # No default value, showing all options
-                                                placeholder="Select an Indicator",
-                                                optionHeight=55,
-                                                clearable=True,
-                                                className="crm_dropdown",
-                                            ),
-                                        ],
-                                        width=6,  # Adjust the width as needed
-                                    ),
-                                ],
-                                className="crm-dropdown-col",
-                            ),
-                        ],
-                        width={"size": 11, "offset": 0},
+                        html.Div([
+                            html.H2("TransMonEE Dashboard", style={'color': 'white', 'marginTop': '0.75em', 'fontWeight': 'bold'}),
+                            html.H5("Monitoring child rights data in Europe and Central Asia", style={'color': 'white', 'marginTop': '0.5em'})
+                        ]),
+                        lg=7, md=8, sm=12,
                     ),
                     dbc.Col(
-                        width={"size": 1, "offset": 0},
+                        html.Div([
+                            dbc.Button("Explore by domain", color="primary", className="mb-2", style={"display": "block"}),
+                            dbc.Button("Search by indicator", color="secondary", style={"display": "block"})
+                        ], style={"display": "flex", "flexDirection": "column", "alignItems": "center"}),
+                        lg=3, md=12, align="center",
                     ),
                 ],
-                # sticky="top",
-                className="bg-light",
-                justify="center",
+                justify="between",
                 align="center",
-                style={"paddingBottom": 15},
+                style={"background-color": '#00acef', "paddingBottom": 15, "minHeight": 200},
+            ),
+            html.Br(),
+            dbc.Row(
+                children=[
+                    dbc.Row(
+                        [
+                            # Column for Step 1
+                            dbc.Col(
+                                [
+                                    html.P("Step 1: Filter indicators by domain/sub-domain (optional)", style={"margin-bottom": "10px"}),
+                                    dcc.Dropdown(
+                                        id=f"{page_prefix}-crm-dropdown",
+                                        options=dropdown_options,
+                                        value="all",  # Default value
+                                        placeholder="Select a domain or subdomain"
+                                    ),
+                                ],
+                                # Define width for different screen sizes
+                                width=12,  # Full width on extra small screens
+                                sm=12,  # Full width on small screens
+                                md=4,  # 4 columns wide on medium and larger screens
+                            ),
+
+                            # Column for Step 2
+                            dbc.Col(
+                                [
+                                    html.H6("Step 2: Select indicator", style={"margin-top": "0.75em","margin-bottom": "10px"}),
+                                    dcc.Dropdown(
+                                        id=f"{page_prefix}-indicator-dropdown",
+                                        options=[
+                                            {
+                                                "label": indicator["Indicator Name"],
+                                                "value": indicator["Code"],
+                                            }
+                                            for sublist in [sd["indicators"] for sd in data_dict["subdomains"].values()]
+                                            for indicator in sublist
+                                        ],
+                                        value=None,  # No default value, showing all options
+                                        placeholder="Select an indicator",
+                                        optionHeight=55,
+                                        clearable=True,
+                                        className="crm_dropdown",
+                                    ),
+                                ],
+                                # Define width for different screen sizes
+                                width=12,  # Full width on extra small screens
+                                sm=12,  # Full width on small screens
+                                md=8,  # 8 columns wide on medium and larger screens
+                            ),
+                        ],
+                        style={"margin-bottom": "15px"}
+                    ),
+                    html.Br(),
+                    dbc.Row(
+                        [
+                            dbc.Col(width=1),
+                            dbc.Col(
+                                [
+                                    dbc.Row(
+                                        [
+                                            dbc.Col(
+                                                html.Div([
+                                                    html.P("Years:", style={"margin-bottom": "10px", "margin-top": "5px"}),
+                                                    dbc.DropdownMenu(
+                                                        label=f"{years[0]} - {years[-1]}",
+                                                        id=f"{page_prefix}-collapse-years-button",
+                                                        className="m-2",
+                                                        color="secondary",
+                                                        children=[
+                                                            dbc.Card(
+                                                                dcc.RangeSlider(
+                                                                    id=f"{page_prefix}-year_slider",
+                                                                    min=0,
+                                                                    max=len(years) - 1,
+                                                                    step=1,
+                                                                    marks={index: str(year) for index, year in enumerate(years) if index % 2 == 0},
+                                                                    value=[0, len(years) - 1],
+                                                                ),
+                                                                style={"maxHeight": "250px", "minWidth": "500px"},
+                                                                className="overflow-auto",
+                                                                body=True,
+                                                            ),
+                                                        ],
+                                                    ),
+                                                ]),
+                                                width="auto",
+                                                align="start"  # Aligns content at the top
+                                            ),
+                                            dbc.Col(
+                                                html.Div([
+                                                    html.P("Country groupings:", style={"margin-bottom": "10px", "margin-top": "5px"}),
+                                                    dcc.Dropdown(
+                                                        id=f"{page_prefix}-country-group",
+                                                        options=[
+                                                            {"label": "All countries", "value": "all"},
+                                                            {"label": "UNICEF programme countries", "value": "unicef"},
+                                                            {"label": "EU countries", "value": "eu"},
+                                                            {"label": "EFTA countries", "value": "efta"},
+                                                            {"label": "EU + EFTA countries", "value": "eu + efta"},
+                                                        ],
+                                                        value="all",
+                                                        placeholder="Select country group",
+                                                        style={"width": "250px"},
+                                                    ),
+                                                ]),
+                                                width="auto",
+                                                align="start"  # Aligns content at the top
+                                            ),
+                                            dbc.Col(
+                                                html.Div([
+                                                    html.P("Countries:", style={"margin-bottom": "10px", "margin-top": "5px"}),
+                                                    dcc.Dropdown(
+                                                        id=f"{page_prefix}-country-filter",
+                                                        options=[{"label": "Select all", "value": "all_values"}] + [{"label": country, "value": country} for country in all_countries],
+                                                        value=["all_values"],
+                                                        placeholder="Select country",
+                                                        multi=True,
+                                                        clearable=False,
+                                                        style={"width": "300px"},
+                                                    ),
+                                                ]),
+                                                width="auto",
+                                                align="start"  # Aligns content at the top
+                                            ),
+                                            dbc.Col(
+                                                html.Div([
+                                                    html.P("Chart type:", style={"margin-bottom": "10px", "margin-top": "5px"}),
+                                                    dbc.RadioItems(
+                                                        id={
+                                                            "type": "area_types",
+                                                            "index": f"{page_prefix}-AIO_AREA",
+                                                        },
+                                                        className="custom-control-input-crg force-inline-control align-middle",
+                                                        inline=True,
+                                                    ),
+                                                ]),                                                
+                                                width="auto",
+                                                align="start"  # Aligns content at the top
+                                            ),
+                                        ],
+                                        justify="start"
+                                    ),
+                                ],
+                                lg=10, md=10, sm=12, xs=12
+                            ),
+                            dbc.Col(width=1),
+                        ],
+                        style={"border": "1px solid #ddd", "padding": "10px"},
+                        align="center",
+                        className="bg-light",
+                        justify="center"
+                    ),
+                ],
             ),
             html.Br(),
             dbc.Row(
@@ -1179,147 +1182,6 @@ def get_base_layout(**kwargs):
                                             [
                                                 dbc.Col(
                                                     [
-                                                        dbc.Row(
-                                                            [
-                                                                html.P(
-                                                                    "Filter by years:",
-                                                                    style={
-                                                                        "margin-bottom": "10px"
-                                                                    },
-                                                                ),
-                                                                dbc.DropdownMenu(
-                                                                    label=f"{years[0]} - {years[-1]}",
-                                                                    id=f"{page_prefix}-collapse-years-button",
-                                                                    className="m-2",
-                                                                    color="secondary",
-                                                                    # block=True,
-                                                                    children=[
-                                                                        dbc.Card(
-                                                                            dcc.RangeSlider(
-                                                                                id=f"{page_prefix}-year_slider",
-                                                                                min=0,
-                                                                                max=len(
-                                                                                    years
-                                                                                )
-                                                                                - 1,
-                                                                                step=1,
-                                                                                marks={
-                                                                                    # display only even years
-                                                                                    index: str(
-                                                                                        year
-                                                                                    )
-                                                                                    for index, year in enumerate(
-                                                                                        years
-                                                                                    )
-                                                                                    if index
-                                                                                    % 2
-                                                                                    == 0
-                                                                                },
-                                                                                value=[
-                                                                                    0,
-                                                                                    len(
-                                                                                        years
-                                                                                    )
-                                                                                    - 1,
-                                                                                ],
-                                                                            ),
-                                                                            style={
-                                                                                "maxHeight": "250px",
-                                                                                "minWidth": "500px",
-                                                                            },
-                                                                            className="overflow-auto",
-                                                                            body=True,
-                                                                        ),
-                                                                    ],
-                                                                ),
-                                                            ],
-                                                        ),
-                                                        dbc.Row(
-                                                            [
-                                                                html.P(
-                                                                    "Filter by country group:",
-                                                                    style={
-                                                                        "margin-bottom": "10px"
-                                                                    },
-                                                                ),
-                                                                dcc.Dropdown(
-                                                                    id=f"{page_prefix}-country-group",
-                                                                    options=[
-                                                                        {
-                                                                            "label": "All countries",
-                                                                            "value": "all",
-                                                                        },
-                                                                        {
-                                                                            "label": "UNICEF programme countries",
-                                                                            "value": "unicef",
-                                                                        },
-                                                                        {
-                                                                            "label": "EU countries",
-                                                                            "value": "eu",
-                                                                        },
-                                                                        {
-                                                                            "label": "EFTA countries",
-                                                                            "value": "efta",
-                                                                        },
-                                                                        {
-                                                                            "label": "EU + EFTA countries",
-                                                                            "value": "eu + efta",
-                                                                        },
-                                                                    ],
-                                                                    value="all",
-                                                                    placeholder="Select country group",
-                                                                    style={
-                                                                        "width": "250px"
-                                                                    },
-                                                                ),
-                                                            ],
-                                                        ),
-                                                        dbc.Row(
-                                                            [
-                                                                html.P(
-                                                                    "Filter by country:",
-                                                                    style={
-                                                                        "margin-bottom": "10px"
-                                                                    },
-                                                                ),
-                                                                dcc.Dropdown(
-                                                                    id=f"{page_prefix}-country-filter",
-                                                                    options=[
-                                                                        {
-                                                                            "label": "Select all",
-                                                                            "value": "all_values",
-                                                                        }
-                                                                    ]
-                                                                    + [
-                                                                        {
-                                                                            "label": country,
-                                                                            "value": country,
-                                                                        }
-                                                                        for country in all_countries
-                                                                    ],
-                                                                    value=[
-                                                                        "all_values"
-                                                                    ],
-                                                                    placeholder="Select country",
-                                                                    multi=True,
-                                                                    clearable=False,
-                                                                    style={
-                                                                        "width": "300px"
-                                                                    },
-                                                                ),
-                                                            ],
-                                                        ),
-                                                        html.Br(),
-                                                        dbc.Row(
-                                                            dbc.RadioItems(
-                                                                id={
-                                                                    "type": "area_types",
-                                                                    "index": f"{page_prefix}-AIO_AREA",
-                                                                },
-                                                                className="custom-control-input-crg force-inline-control align-middle",
-                                                                inline=True,
-                                                            ),
-                                                        ),
                                                         html.Div(
                                                             [
                                                                 html.P(
@@ -1366,16 +1228,37 @@ def get_base_layout(**kwargs):
                                                             },
                                                         ),
                                                         html.Br(),
-                                                        dbc.Card(
-                                                            id=f"{page_prefix}-indicator_card",
-                                                            color="primary",
-                                                            outline=True,
+                                                        html.P(
+                                                            id=f"{page_prefix}-domain-text",
                                                             style={
-                                                                "width": "95%",
+                                                                "color": domain_colour,
+                                                                "display": "inline-block",
+                                                                "textAlign": "center",
+                                                                "position": "relative",
                                                             },
                                                         ),
+                                                        html.P(
+                                                            id=f"{page_prefix}-subdomain-text",
+                                                            style={
+                                                                "color": domain_colour,
+                                                                "display": "inline-block",
+                                                                "textAlign": "center",
+                                                                "position": "relative",
+                                                            },
+                                                        ),
+                                                        # dbc.Card(
+                                                        #   id=f"{page_prefix}-indicator_card",
+                                                        #   color="primary",
+                                                        #  outline=True,
+                                                        # style={
+                                                        #    "width": "95%",
+                                                        # },
+                                                        # ),
                                                     ],
-                                                    width=3,
+                                                     # Define width for different screen sizes
+                                                    width=12,  # Full width on extra small screens
+                                                    sm=12,  # Full width on small screens
+                                                    md=3,  # 4 columns wide on medium and larger screens
                                                 ),
                                                 dbc.Col(
                                                     html.Div(
@@ -1390,6 +1273,7 @@ def get_base_layout(**kwargs):
                                                                                         "type": "area_breakdowns",
                                                                                         "index": f"{page_prefix}-AIO_AREA",
                                                                                     },
+                                                                                    value = "TOTAL",
                                                                                     inputStyle={
                                                                                         "color": domain_colour
                                                                                     },
@@ -1427,24 +1311,27 @@ def get_base_layout(**kwargs):
                                                                 },
                                                             ),
                                                             dcc.Loading(
-                                                                [
-                                                                    dcc.Graph(
-                                                                        id={
-                                                                            "type": "area",
-                                                                            "index": f"{page_prefix}-AIO_AREA",
-                                                                        },
-                                                                        config={
-                                                                            "modeBarButtonsToRemove": [
-                                                                                "select2d",
-                                                                                "lasso2d",
-                                                                                "autoScale",
-                                                                            ],
-                                                                            "displaylogo": False,
-                                                                            "autosizable": False,
-                                                                            "showTips": True,
-                                                                        },
+                                                                children=[
+                                                                    html.Div(
+                                                                        dcc.Graph(
+                                                                            id={
+                                                                                "type": "area",
+                                                                                "index": f"{page_prefix}-AIO_AREA",
+                                                                            },
+                                                                            config={
+                                                                                "modeBarButtonsToRemove": ["select2d", "lasso2d", "autoScale"],
+                                                                                "displaylogo": False,
+                                                                                "autosizable": False,
+                                                                                "showTips": True,
+                                                                            },
+                                                                            responsive=True,
+                                                                        ),
+                                                                        style={
+                                                                            'overflowX': 'scroll',  # Enable horizontal scrolling
+                                                                            'minWidth': '700px'         # Set the width of the div
+                                                                        }
                                                                     )
-                                                                ],
+                                                                ]
                                                             ),
                                                             dcc.Markdown(
                                                                 id=f"{page_prefix}-aio_area_graph_info",
@@ -1519,7 +1406,10 @@ def get_base_layout(**kwargs):
                                                             ),
                                                         ],
                                                     ),
-                                                    width=9,
+                                                    # Define width for different screen sizes
+                                                    width=12,  # Full width on extra small screens
+                                                    sm=12,  # Full width on small screens
+                                                    md=9,  # 9 columns wide on medium and larger screens
                                                 ),
                                             ],
                                             justify="evenly",
@@ -1654,7 +1544,10 @@ def make_card(
 
 
 # Function to get populate the year of report crc filter
-def available_crc_years(country, subdomain, indicators_dict):
+def available_crc_years(country, indicator, indicators_dict):
+    if indicator is None:
+        return {"label": 'Select subdomain', "value": None}, None
+    _, _, subdomain = update_domain_and_subdomain_values(indicator)
     subdomain = indicators_dict[subdomain].get("NAME")
     country_filtered_df = CRC_df.loc[CRC_df["Name of the country"] == country]
     available_years = country_filtered_df[
@@ -1673,7 +1566,8 @@ def available_crc_years(country, subdomain, indicators_dict):
 
 
 # Function to filter CRC_df based on country, subdomain, and bottleneck type
-def filter_crc_data(year, country, subdomain_code, page_prefix):
+def filter_crc_data(year, country, indicator, page_prefix):
+    _, _, subdomain_code = update_domain_and_subdomain_values(indicator)
     # Get the subdomain name based on the subdomain code
     subdomain_name = None
     for subdomain, details in data_dict["subdomains"].items():
@@ -1684,7 +1578,7 @@ def filter_crc_data(year, country, subdomain_code, page_prefix):
     if subdomain_name is None:
         # Handle the case where the subdomain code doesn't match any subdomain
         return (
-            "Invalid Subdomain Code",
+            "Select subdomain/indicator",
             "No related recommendations for this country and subdomain.",
         )
 
@@ -2187,7 +2081,6 @@ def aio_options(theme, indicators_dict, page_prefix):
 
 
 def breakdown_options(indicator, fig_type):
-
     options = [{"label": "Total", "value": "TOTAL"}]
     # lbassil: change the disaggregation to use the names of the dimensions instead of the codes
     all_breakdowns = [
@@ -2206,7 +2099,6 @@ def breakdown_options(indicator, fig_type):
 
 
 def fig_options(indicator):
-
     # get the first indicator of the list... we have more than one indicator in the cards
     indicator_config = indicators_config.get(indicator, {})
 
@@ -2237,22 +2129,24 @@ def active_button(_, buttons_id):
     return [button_code == id_button["index"] for id_button in buttons_id]
 
 
-def default_compare(compare_options, selected_type, indicators_dict, theme):
+def default_compare(compare_options, selected_type, indicators_dict, indicator):
+    if indicator is None:
+        return "TOTAL"
     area = "AIO_AREA"
-    current_theme = theme["theme"]
-
-    config = indicators_dict[current_theme][area]["graphs"][selected_type]
+    _, _, subdomain = update_domain_and_subdomain_values(indicator)
+    config = indicators_dict[subdomain][area]["graphs"][selected_type]
     default_compare = config.get("compare")
 
-    return (
-        "TOTAL"
-        if selected_type != "bar" or default_compare is None
-        else default_compare
-        if default_compare in compare_options
-        else compare_options[1]["value"]
-        if len(compare_options) > 1
-        else compare_options[0]["value"]
-    )
+    if selected_type != "bar":
+        return "TOTAL"
+    elif default_compare is None:
+        return "TOTAL"
+    elif default_compare in compare_options:
+        return default_compare
+    elif len(compare_options) > 1:
+        return compare_options[1]["value"]
+    else:
+        return compare_options[0]["value"]
 
 
 def aio_area_figure(
@@ -2261,7 +2155,6 @@ def aio_area_figure(
     years_slider,
     countries,
     country_group,
-    subdomain,
     indicators_dict,
     selected_type,
     page_prefix,
@@ -2275,16 +2168,28 @@ def aio_area_figure(
         country_group,
     )
 
-    try:
-        area = "AIO_AREA"
-        default_graph = indicators_dict[subdomain][area].get(
-            "default_graph", "line"
+    if indicator is None:
+        return (
+            f"{selected_years[0]} - {selected_years[-1]}",
+            EMPTY_CHART,
+            "",
+             # [], indicator card placeholder
+            [],
+            "",
+            [],
+            "",
+            [],
+            [],
+            "",
         )
 
+    try:
+        area = "AIO_AREA"
+        _, _, subdomain = update_domain_and_subdomain_values(indicator)
+        default_graph = indicators_dict[subdomain][area].get("default_graph", "line")
+
         fig_type = selected_type if selected_type else default_graph
-        fig_config = indicators_dict[subdomain][area]["graphs"][
-            fig_type
-        ].copy()
+        fig_config = indicators_dict[subdomain][area]["graphs"][fig_type].copy()
         options = fig_config.get("options")
         traces = fig_config.get("trace_options")
         layout_opt = fig_config.get("layout_options")
@@ -2311,7 +2216,7 @@ def aio_area_figure(
                 f"{selected_years[0]} - {selected_years[-1]}",
                 EMPTY_CHART,
                 "",
-                [],
+                # [],
                 [],
                 "",
                 [],
@@ -2332,7 +2237,7 @@ def aio_area_figure(
             f"{selected_years[0]} - {selected_years[-1]}",
             EMPTY_CHART,
             "",
-            [],
+            # [],
             [],
             "",
             [],
@@ -2497,10 +2402,6 @@ def aio_area_figure(
         # adding invisible line at zero to make sure the y-axis starts at zero
         fig.add_hline(y=-0.3, line_color="rgba(0,0,0,0)")
 
-    # if fig_type == "choropleth_mapbox":
-    # Remove the colorbar title
-    # fig.update_layout(coloraxis_colorbar_title="")
-
     fig.update_traces(hovertemplate=hovertext)
 
     if fig_type == "bar" and "YES_NO" in data.UNIT_MEASURE.values:
@@ -2556,7 +2457,7 @@ def aio_area_figure(
                 ],
             )
         ],
-        ind_card[0],
+        # ind_card[0],
         [
             html.Div(
                 [

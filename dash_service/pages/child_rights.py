@@ -35,7 +35,7 @@ from dash_service.pages.transmonee import (
     update_country_selection,
     filter_crc_data,
     available_crc_years,
-    combined_callback,
+    update_indicator_dropdown,
 )
 
 min_max_card_suffix = "min - max values"
@@ -368,26 +368,13 @@ def layout(page_slug=None, **query_parmas):
 
 
 @callback(
-    [
-        Output(f"{page_prefix}-domain-dropdown", "value"),
-        Output(f"{page_prefix}-subdomain-dropdown", "options"),
-        Output(f"{page_prefix}-subdomain-dropdown", "value"),
-        Output(f"{page_prefix}-indicator-dropdown", "options"),
-        Output(f"{page_prefix}-indicator-dropdown", "value"),
-        Output(f"{page_prefix}-domain-dropdown", "className"),
-        Output(f"{page_prefix}-subdomain-dropdown", "className"),
-        Output(f"{page_prefix}-indicator-dropdown", "className"),
-    ],
-    [
-        Input(f"{page_prefix}-domain-dropdown", "value"),
-        Input(f"{page_prefix}-subdomain-dropdown", "value"),
-        Input(f"{page_prefix}-indicator-dropdown", "value"),
-    ],
+    Output(f"{page_prefix}-indicator-dropdown", "options"),
+    Output(f"{page_prefix}-indicator-dropdown", "value"),
+    Input(f"{page_prefix}-crm-dropdown", "value"),
 )
-def apply_combined_callback(domain_value, subdomain_value, indicator_value):
-    return combined_callback(
-        domain_value, subdomain_value, indicator_value, page_prefix
-    )
+def apply_update_indicator_dropdown(indicator_filter):
+    print(f"update_indicator_dropdown - indicator_filter: {indicator_filter}")
+    return update_indicator_dropdown(indicator_filter)
 
 
 @callback(
@@ -428,12 +415,13 @@ def set_breakdown_options(indicator, fig_type):
     [
         State({"type": "area_types", "index": f"{page_prefix}-AIO_AREA"}, "value"),
         State(f"{page_prefix}-indicators", "data"),
-        State(f"{page_prefix}-store", "data"),
+        State(f"{page_prefix}-indicator-dropdown", "value"),
     ],
     prevent_initial_call=True,
 )
-def set_default_compare(compare_options, selected_type, indicators_dict, theme):
-    return default_compare(compare_options, selected_type, indicators_dict, theme)
+def set_default_compare(compare_options, selected_type, indicators_dict, indicator):
+    print(f"Indicator (default_compare): {indicator}")
+    return default_compare(compare_options, selected_type, indicators_dict, indicator)
 
 
 @callback(
@@ -464,13 +452,13 @@ def apply_update_country_selection(country_group, country_selection):
     Output(f"{page_prefix}-year-filter-crc", "value"),
     [
         Input(f"{page_prefix}-country-filter-crc", "value"),
-        Input(f"{page_prefix}-subdomain-dropdown", "value"),
+        Input(f"{page_prefix}-indicator-dropdown", "value"),
         Input(f"{page_prefix}-indicators", "data"),
     ],
     prevent_initial_call=True,
 )
-def apply_available_crc_years(country, subdomain, indicators_dict):
-    return available_crc_years(country, subdomain, indicators_dict)
+def apply_available_crc_years(country, indicator, indicators_dict):
+    return available_crc_years(country, indicator, indicators_dict)
 
 
 @callback(
@@ -478,11 +466,11 @@ def apply_available_crc_years(country, subdomain, indicators_dict):
     Output(f"{page_prefix}-crc-accordion", "children"),
     Input(f"{page_prefix}-year-filter-crc", "value"),
     Input(f"{page_prefix}-country-filter-crc", "value"),
-    Input(f"{page_prefix}-subdomain-dropdown", "value"),
+    Input(f"{page_prefix}-indicator-dropdown", "value"),
     prevent_initial_call=True,
 )
-def apply_filter_crc_data(year, country, subdomain_code):
-    return filter_crc_data(year, country, subdomain_code, page_prefix)
+def apply_filter_crc_data(year, country, indicator):
+    return filter_crc_data(year, country, indicator, page_prefix)
 
 
 @callback(
@@ -490,7 +478,7 @@ def apply_filter_crc_data(year, country, subdomain_code):
         Output(f"{page_prefix}-collapse-years-button", "label"),
         Output({"type": "area", "index": f"{page_prefix}-AIO_AREA"}, "figure"),
         Output(f"{page_prefix}-aio_area_area_info", "children"),
-        Output(f"{page_prefix}-indicator_card", "children"),
+        # Output(f"{page_prefix}-indicator_card", "children"),
         Output(f"{page_prefix}-aio_area_data_info_rep", "children"),
         Output(f"{page_prefix}-data-hover-body", "children"),
         Output(f"{page_prefix}-aio_area_data_info_nonrep", "children"),
@@ -505,9 +493,9 @@ def apply_filter_crc_data(year, country, subdomain_code):
         Input(f"{page_prefix}-year_slider", "value"),
         Input(f"{page_prefix}-country-filter", "value"),
         Input(f"{page_prefix}-country-group", "value"),
+        
     ],
     [
-        State(f"{page_prefix}-subdomain-dropdown", "value"),
         State(f"{page_prefix}-indicators", "data"),
         State({"type": "area_types", "index": f"{page_prefix}-AIO_AREA"}, "value"),
     ],
@@ -519,17 +507,16 @@ def apply_aio_area_figure(
     years_slider,
     countries,
     country_group,
-    subdomain,
     indicators_dict,
     selected_type,
 ):
+    print(f"Area_Fig - Indicator: {indicator}")
     return aio_area_figure(
         indicator,
         compare,
         years_slider,
         countries,
         country_group,
-        subdomain,
         indicators_dict,
         selected_type,
         page_prefix,
