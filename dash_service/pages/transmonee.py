@@ -64,11 +64,11 @@ EMPTY_CHART = {
         "yaxis": {"visible": False},
         "annotations": [
             {
-                "text": "No indicator chosen or data is available for the selected filters.",
+                "text": "No indicator chosen or no data is available for the selected filters.",
                 "xref": "paper",
                 "yref": "paper",
                 "showarrow": False,
-                "font": {"size": 28},
+                "font": {"size": 20},
             }
         ],
     }
@@ -501,12 +501,33 @@ domain_classes = {
 }
 
 # Read the CRC Excel file and skip the first row (header is in the second row)
-crc_file_path = f"{pathlib.Path(__file__).parent.parent.absolute()}/static/Full CRC database - v25-1-22.xlsx"
+crc_file_path = f"{pathlib.Path(__file__).parent.parent.absolute()}/static/Full CRC database - v21-9-23.xlsx"
 CRC_df = pd.read_excel(
     crc_file_path,
     sheet_name="Full CRC database ECA",
     header=1,  # Use the second row as column headers
 )
+
+# Renaming columns for easier access
+CRC_df = CRC_df.rename(
+    columns={
+        "Name of the country": "Country",
+        "Year of report ": "Year",
+        "ECA child rights monitoring framework\nSub-Domain": "Sub-Domain",
+        "Recommendation": "Recommendation",
+        "Bottleneck type": "Bottleneck Type",
+    }
+)
+
+# List of cross-cutting subdomain columns
+crosscutting_columns = [
+    "Gender",
+    "Adolescents",
+    "Disability",
+    "Early childhood development",
+    "Disaster, conflict and displacement",
+    "Environment and climate",
+]
 
 # Read the master list Excel file and set the first row as header
 master_file_path = (
@@ -703,25 +724,18 @@ def update_indicator_dropdown(indicator_filter):
 
     # Initialize indicator options and value
     indicator_options = []
-    indicator_value = None
 
     if indicator_filter is not None and indicator_filter != "all":
         # Check if indicator_filter is a domain
         if indicator_filter in data_dict["domains"]:
-            # Get indicators for the selected domain
             indicators = get_indicators_for_domain(indicator_filter)
-
         # Check if indicator_filter is a subdomain code
         elif any(indicator_filter == data_dict["subdomains"][sub]["code"] for sub in data_dict["subdomains"]):
-            # Find the subdomain name corresponding to the code
             subdomain_name = next(sub for sub, details in data_dict["subdomains"].items() if details["code"] == indicator_filter)
-            # Get indicators for the selected subdomain
             indicators = get_indicators_for_subdomain(subdomain_name)
-
         else:
             indicators = []
 
-        # Set the indicator dropdown values
         indicator_options = [{"label": indicator["Indicator Name"], "value": indicator["Code"]} for indicator in indicators]
 
     else:
@@ -732,9 +746,11 @@ def update_indicator_dropdown(indicator_filter):
                 for indicator in subdomain["indicators"]
             ])
 
-    print(f"Update domain and indicator - indicator_filter: {indicator_filter}")
-    return indicator_options, indicator_value
+    # Sort the indicator options alphabetically by label
+    indicator_options = sorted(indicator_options, key=lambda x: x['label'])
 
+    # Return the sorted indicator options and the first value as default
+    return indicator_options, indicator_options[0]["value"] if indicator_options else None
 
 def update_domain_and_subdomain_values(selected_indicator_code):
     """
@@ -772,7 +788,7 @@ def create_CRM_dropdown(data_dict):
 
     for domain, subdomains in data_dict['domains'].items():
         # Add the domain as a main entry
-        dropdown_data.append({"label": html.Span([f"{domain} Domain"], style={'color': 'Purple', 'font-size': 20}),
+        dropdown_data.append({"label": html.Span([f"{domain} Domain"], style={'color': '#00acef', 'font-size': 16}),
                               "value": domain})
         for subdomain in subdomains:
             subdomain_code = data_dict['subdomains'][subdomain]['code']
@@ -1007,8 +1023,8 @@ def get_base_layout(**kwargs):
                     ),
                     dbc.Col(
                         html.Div([
-                            dbc.Button("Explore by domain", color="primary", className="mb-2", style={"display": "block"}),
-                            dbc.Button("Search by indicator", color="secondary", style={"display": "block"})
+                            dbc.Button("Explore using ECA CRM Framework", className="nav-btn"),
+                            dbc.Button("Search by indicator", className="nav-btn")
                         ], style={"display": "flex", "flexDirection": "column", "alignItems": "center"}),
                         lg=3, md=12, align="center",
                     ),
@@ -1025,7 +1041,7 @@ def get_base_layout(**kwargs):
                             # Column for Step 1
                             dbc.Col(
                                 [
-                                    html.P("Step 1: Filter indicators by domain/sub-domain (optional)", style={"margin-bottom": "10px"}),
+                                    html.P("Filter list of indicators (optional)", style={"margin-bottom": "10px"}),
                                     dcc.Dropdown(
                                         id=f"{page_prefix}-crm-dropdown",
                                         options=dropdown_options,
@@ -1042,7 +1058,7 @@ def get_base_layout(**kwargs):
                             # Column for Step 2
                             dbc.Col(
                                 [
-                                    html.H6("Step 2: Select indicator", style={"margin-top": "0.75em","margin-bottom": "10px"}),
+                                    html.P("Select indicator", style={"margin-top": "0.75em","margin-bottom": "10px"}),
                                     dcc.Dropdown(
                                         id=f"{page_prefix}-indicator-dropdown",
                                         options=[
@@ -1185,46 +1201,28 @@ def get_base_layout(**kwargs):
                                                         html.Div(
                                                             [
                                                                 html.P(
-                                                                    "Description",
+                                                                    "Indicator Definition:",
                                                                     style={
-                                                                        "color": domain_colour,
-                                                                        "display": "inline-block",
-                                                                        "textAlign": "center",
-                                                                        "position": "relative",
+                                                                        "textAlign": "left",
+                                                                        "marginBottom": "5px",  # Adjust spacing as needed
                                                                     },
                                                                 ),
-                                                                html.I(
-                                                                    id=f"{page_prefix}-definition-button",
-                                                                    className="fas fa-info-circle",
+                                                                html.Div(
+                                                                    id=f"{page_prefix}-definition-text",
                                                                     style={
                                                                         "color": domain_colour,
-                                                                        "display": "flex",
-                                                                        "alignContent": "center",
-                                                                        "flexWrap": "wrap",
-                                                                        "paddingLeft": "5px",
-                                                                    },
-                                                                ),
-                                                                dbc.Popover(
-                                                                    [
-                                                                        dbc.PopoverBody(
-                                                                            id=f"{page_prefix}-definition-popover",
-                                                                        )
-                                                                    ],
-                                                                    target=f"{page_prefix}-definition-button",
-                                                                    trigger="hover",
-                                                                    style={
-                                                                        "overflowY": "auto",
-                                                                        "whiteSpace": "pre-wrap",
-                                                                        "opacity": 1,
-                                                                    },
-                                                                    delay={
-                                                                        "hide": 0,
-                                                                        "show": 0,
+                                                                        "border": "1px solid #ccc",  # Optional: border around the text box
+                                                                        "padding": "10px",          # Padding inside the text box
+                                                                        "marginBottom": "10px",     # Margin below the text box
+                                                                        "height": "150px",          # Fixed height for the text box
+                                                                        "overflowY": "auto",        # Scroll vertically if content overflows
+                                                                        "whiteSpace": "pre-wrap",   # Keep whitespaces and line breaks
+                                                                        "textAlign": "left",        # Align text to the left
                                                                     },
                                                                 ),
                                                             ],
                                                             style={
-                                                                "display": "inline-flex"
+                                                                "display": "block",  # Changed to block for vertical stacking
                                                             },
                                                         ),
                                                         html.Br(),
@@ -1246,14 +1244,14 @@ def get_base_layout(**kwargs):
                                                                 "position": "relative",
                                                             },
                                                         ),
-                                                        # dbc.Card(
-                                                        #   id=f"{page_prefix}-indicator_card",
-                                                        #   color="primary",
-                                                        #  outline=True,
-                                                        # style={
-                                                        #    "width": "95%",
-                                                        # },
-                                                        # ),
+                                                        dbc.Card(
+                                                           id=f"{page_prefix}-indicator_card",
+                                                           color="primary",
+                                                           outline=True,
+                                                            style={
+                                                            "width": "95%",
+                                                         },
+                                                         ),
                                                     ],
                                                      # Define width for different screen sizes
                                                     width=12,  # Full width on extra small screens
@@ -1285,13 +1283,14 @@ def get_base_layout(**kwargs):
                                                                             dbc.Col(
                                                                                 [
                                                                                     html.Button(
-                                                                                        "Download data",
+                                                                                        [
+                                                                                            html.I(className="fas fa-download", style={'color':'#00acef'}),  # Font Awesome download icon
+                                                                                            " Download data"  
+                                                                                        ],
                                                                                         id=f"{page_prefix}-download_btn",
-                                                                                        className="download_btn",
+                                                                                        className="download_btn custom-download-button",  # Add custom class
                                                                                     ),
-                                                                                    dcc.Download(
-                                                                                        id=f"{page_prefix}-download-csv-info"
-                                                                                    ),
+                                                                                    dcc.Download(id=f"{page_prefix}-download-csv-info"),
                                                                                     dbc.Tooltip(
                                                                                         "Click to download the data displayed in graph as a CSV file.",
                                                                                         target=f"{page_prefix}-download_btn",
@@ -1300,7 +1299,7 @@ def get_base_layout(**kwargs):
                                                                                 ],
                                                                                 class_name="force-inline-control",
                                                                                 width="auto",
-                                                                            ),
+                                                                            )
                                                                         ],
                                                                     )
                                                                 ],
@@ -1453,10 +1452,16 @@ def get_base_layout(**kwargs):
                                 dcc.Dropdown(
                                     id=f"{page_prefix}-country-filter-crc",
                                     options=[
+                                        {
+                                            "label": "All countries",
+                                            "value": "all_countries",
+                                        }
+                                    ]
+                                    + [
                                         {"label": country, "value": country}
                                         for country in all_countries
                                     ],
-                                    value="Albania",
+                                    value="all_countries",
                                     placeholder="Select country",
                                     multi=False,
                                     clearable=True,
@@ -1473,7 +1478,7 @@ def get_base_layout(**kwargs):
                                     id=f"{page_prefix}-year-filter-crc",
                                     multi=False,
                                     clearable=False,
-                                    style={"width": "100px"},
+                                    style={"width": "220px"},
                                 ),
                                 html.P(
                                     [
@@ -1519,7 +1524,6 @@ def make_card(
     page_prefix,
     domain_colour,
 ):
-    # start_time = time.time()
     card = [
         dbc.CardBody(
             [
@@ -1542,18 +1546,32 @@ def make_card(
 
     return card, get_card_popover_body(numerator_pairs)
 
-
-# Function to get populate the year of report crc filter
 def available_crc_years(country, indicator, indicators_dict):
     if indicator is None:
         return {"label": 'Select subdomain', "value": None}, None
     _, _, subdomain = update_domain_and_subdomain_values(indicator)
     subdomain = indicators_dict[subdomain].get("NAME")
-    country_filtered_df = CRC_df.loc[CRC_df["Name of the country"] == country]
-    available_years = country_filtered_df[
-        country_filtered_df["ECA child rights monitoring framework\nSub-Domain"]
-        == subdomain
-    ]["Year of report "].unique()
+
+    if country == "all_countries":
+        all_years = sorted(CRC_df["Year"].unique(), reverse=True)
+        all_years_options = [{"label": str(year), "value": year} for year in all_years]
+        all_years_options.insert(
+            0, {"label": "Latest year for each country", "value": "All"}
+        )
+        latest_year = "All"
+        return all_years_options, latest_year
+
+    # Check if the subdomain is one of the cross-cutting subdomains
+    if subdomain in crosscutting_columns:
+        country_filtered_df = CRC_df.loc[
+            (CRC_df["Country"] == country) & (CRC_df[subdomain] == "Yes")
+        ]
+    else:
+        country_filtered_df = CRC_df.loc[
+            (CRC_df["Country"] == country) & (CRC_df["Sub-Domain"] == subdomain)
+        ]
+
+    available_years = country_filtered_df["Year"].unique()
 
     if len(available_years) > 0:
         latest_year = max(available_years)
@@ -1564,6 +1582,69 @@ def available_crc_years(country, indicator, indicators_dict):
         {"label": str(year), "value": year} for year in available_years
     ], latest_year
 
+
+# stop automatic numbering of CRC recommendations
+def escape_markdown_numbering(text):
+    """Escape numbering in markdown to prevent auto-formatting."""
+    # Use regex to find patterns like "27." and replace them with "27\."
+    return re.sub(r"(\d+)\.", r"\1\.", text)
+
+
+# Function to format recommendations by bottleneck type
+def format_recommendations_by_bottleneck(df, country, year):
+    recommendations = {
+        "Enabling environment": [],
+        "Supply": [],
+        "Demand": [],
+    }
+    for bottleneck in recommendations.keys():
+        recs = df.loc[
+            df["Bottleneck Type"].str.contains(bottleneck, case=False), "Recommendation"
+        ]
+        formatted_recs = [
+            escape_markdown_numbering(rec.replace("; and", ".").replace(";", "."))
+            for rec in recs
+        ]
+        if formatted_recs:
+            recommendations[bottleneck].append(
+                f"\n\n**{country} ({year}):**\n\n" + "\n\n".join(formatted_recs)
+            )
+    return recommendations
+
+
+# Function to generate Accordion items
+def generate_accordion_items(recommendations, page_prefix):
+    titles = [
+        (
+            "Enabling environment",
+            "Enabling environment - legislation, policy, resources, coordination, data",
+        ),
+        (
+            "Supply",
+            "Supply - adequately staffed services, facilities, information, commodities",
+        ),
+        ("Demand", "Demand - financial access and social behavioural drivers"),
+    ]
+    accordion_items = [
+        dbc.AccordionItem(
+            title=title,
+            item_id=f"accordion-{idx}",
+            class_name="crc-accordion",
+            children=[
+                dcc.Loading(
+                    [
+                        dcc.Markdown(
+                            id=f"{page_prefix}-crc-{bottleneck.lower()}", children=recs
+                        )
+                    ]
+                )
+            ],
+            style={"margin-bottom": "10px"},
+        )
+        for idx, (bottleneck, title) in enumerate(titles)
+        if (recs := recommendations.get(bottleneck))
+    ]
+    return accordion_items
 
 # Function to filter CRC_df based on country, subdomain, and bottleneck type
 def filter_crc_data(year, country, indicator, page_prefix):
@@ -1578,77 +1659,61 @@ def filter_crc_data(year, country, indicator, page_prefix):
     if subdomain_name is None:
         # Handle the case where the subdomain code doesn't match any subdomain
         return (
-            "Select subdomain/indicator",
-            "No related recommendations for this country and subdomain.",
+            "CRC Recommendations - Select subdomain or indicator",
+            f"No related recommendations for this {'subdomain' if country == 'all_countries' else 'country and subdomain'}.",
         )
 
-    filtered_df = CRC_df[
-        (CRC_df["Name of the country"] == country)
-        & (
-            CRC_df["ECA child rights monitoring framework\nSub-Domain"]
-            == subdomain_name
-        )
-        & (CRC_df["Year of report "] == year)
-    ]
-    # Format recommendations by bottleneck type
-    recommendations_by_bottleneck = {}
-    for bottleneck in ["Enabling environment", "Supply", "Demand"]:
-        recs = filtered_df.loc[
-            filtered_df["Bottleneck type"].str.contains(bottleneck, case=False),
-            "Recommendation",
+    # Adjusting the filter condition for cross-cutting subdomains
+    if subdomain_name in crosscutting_columns:
+        filter_condition = CRC_df[subdomain_name] == "Yes"
+    else:
+        filter_condition = CRC_df["Sub-Domain"] == subdomain_name
+
+    if country == "all_countries":
+        if year == "All":
+            latest_years = CRC_df.groupby("Country")["Year"].max().to_dict()
+            all_recommendations = {}
+            for country_name, latest_year in latest_years.items():
+                df = CRC_df[
+                    filter_condition
+                    & (CRC_df["Year"] == latest_year)
+                    & (CRC_df["Country"] == country_name)
+                ]
+                recommendations = format_recommendations_by_bottleneck(
+                    df, country_name, latest_year
+                )
+                for key, value in recommendations.items():
+                    all_recommendations.setdefault(key, []).extend(value)
+        else:
+            df = CRC_df[filter_condition & (CRC_df["Year"] == year)]
+            all_recommendations = {}
+            unique_countries = df["Country"].unique()
+            for country_name in unique_countries:
+                country_df = df[df["Country"] == country_name]
+                recommendations = format_recommendations_by_bottleneck(
+                    country_df, country_name, year
+                )
+                for key, value in recommendations.items():
+                    all_recommendations.setdefault(key, []).extend(value)
+    else:
+        df = CRC_df[
+            filter_condition & (CRC_df["Year"] == year) & (CRC_df["Country"] == country)
         ]
-
-        # Replace ";" or "; and" endings with "."
-        formatted_recs = [rec.replace("; and", ".").replace(";", ".") for rec in recs]
-
-        recommendations_by_bottleneck[bottleneck] = (
-            "\n".join(formatted_recs) if formatted_recs else None
-        )
+        all_recommendations = format_recommendations_by_bottleneck(df, country, year)
 
     header_text = f"CRC Recommendations - {subdomain_name}"
-
-    # Check if all sections have no recommendations
-    if all(val is None for val in recommendations_by_bottleneck.values()):
-        return header_text, html.P(
-            "No related recommendations for this country and subdomain."
-        )
-
-    # Generate Accordion items for non-empty recommendations
-    accordion_items = []
-    for idx, (bottleneck, title) in enumerate(
-        [
-            ("Enabling environment", "Enabling Environment"),
-            ("Supply", "Supply"),
-            ("Demand", "Demand"),
-        ]
-    ):
-        rec = recommendations_by_bottleneck.get(bottleneck)
-        if rec:  # Only add the AccordionItem if there are recommendations
-            accordion_items.append(
-                dbc.AccordionItem(
-                    title=title,
-                    item_id=f"accordion-{idx}",  # Set item_id for each AccordionItem
-                    children=[
-                        dcc.Loading(
-                            [
-                                dcc.Markdown(
-                                    id=f"{page_prefix}-crc-{bottleneck.lower()}",
-                                    children=rec,
-                                )
-                            ]
-                        )
-                    ],
-                    style={"margin-bottom": "10px"},  # Inline style
-                )
-            )
-
+    # Check if there are no recommendations
+    if not any(all_recommendations.values()):
+        return header_text, f"No related recommendations for this {'subdomain' if country == 'all_countries' else 'country and subdomain'}."
+        
+    accordion_items = generate_accordion_items(all_recommendations, page_prefix)
     return header_text, dbc.Accordion(accordion_items, active_item="-1")
 
 
 def indicator_card(
     filters,
     name,
-    numerator,
+    indicator,
     suffix,
     absolute=False,
     average=False,
@@ -1659,8 +1724,7 @@ def indicator_card(
     domain_colour="#1cabe2",
 ):
     try:
-        # start_time = time.time()
-        indicators = numerator.split(",")
+        indicators = [indicator] # adapting code as now only one indicator is used
 
         # TODO: Change to use albertos config
         # lbassil: had to change this to cater for 2 dimensions set to the indicator card like age and sex
@@ -1745,7 +1809,7 @@ def indicator_card(
 
     if "countries" in suffix.lower():
         # this is a hack to accomodate small cases (to discuss with James)
-        if "FREE" in numerator or "COMP" in numerator:
+        if "FREE" in indicator or "COMP" in indicator:
             # trick to filter number of years of free education
             indicator_sum = (numerator_pairs.OBS_VALUE >= 1).to_numpy().sum()
             sources = numerator_pairs.index.tolist()
@@ -2173,7 +2237,7 @@ def aio_area_figure(
             f"{selected_years[0]} - {selected_years[-1]}",
             EMPTY_CHART,
             "",
-             # [], indicator card placeholder
+            [],
             [],
             "",
             [],
@@ -2216,7 +2280,7 @@ def aio_area_figure(
                 f"{selected_years[0]} - {selected_years[-1]}",
                 EMPTY_CHART,
                 "",
-                # [],
+                [],
                 [],
                 "",
                 [],
@@ -2237,7 +2301,7 @@ def aio_area_figure(
             f"{selected_years[0]} - {selected_years[-1]}",
             EMPTY_CHART,
             "",
-            # [],
+            [],
             [],
             "",
             [],
@@ -2457,7 +2521,7 @@ def aio_area_figure(
                 ],
             )
         ],
-        # ind_card[0],
+        ind_card[0],
         [
             html.Div(
                 [

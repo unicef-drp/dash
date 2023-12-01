@@ -126,6 +126,8 @@ div.dt-table-container__row.dt-table-container__row-1 {
 
 
 .download_btn {
+    border: none;
+    background-color: white;
     padding: 5px;
     min-width: 120px;
 }
@@ -164,4 +166,3 @@ div.dt-table-container__row.dt-table-container__row-1 {
 .crm_dropdown .Select-value-label {
     color: white !important;
 }
-

@@ -444,3 +444,86 @@
 .cci-dropdown .Select-value-label {
     color: white !important;
 }
+
+/* Blue header style for enabling environment accordion item  */
+.crc-accordion.accordion-item:nth-child(1) .accordion-button {
+    color: #4e79a7;
+    border: 1px solid #4e79a7;
+    box-shadow: none;
+}
+
+/* Background color for the enabling environment accordion item when active (expanded) */
+.has-bootstrap .crc-accordion.accordion-item:nth-child(1) .accordion-button:not(.collapsed) {
+    background-color: white;
+    box-shadow: 5px 5px 10px #4e79a7;
+}
+
+/* Orange header style for supply accordion item */
+.has-bootstrap .crc-accordion.accordion-item:nth-child(2) .accordion-button {
+    color: #f38e2c;
+    border: 1px solid #f38e2c;
+    box-shadow: none
+}
+
+/* Background color for the supply accordion item when active (expanded) */
+.has-bootstrap .crc-accordion.accordion-item:nth-child(2) .accordion-button:not(.collapsed) {
+    background-color: white;
+    box-shadow: 5px 5px 10px #f38e2c;
+}
+
+/* Red header style for demand accordion item */
+.crc-accordion.accordion-item:nth-child(3) .accordion-button {
+    color: #e15759;
+    border: 1px solid #e15759;
+    box-shadow: none;
+}
+
+/* Background color for the demand accordion item when active (expanded) */
+.has-bootstrap .crc-accordion.accordion-item:nth-child(3) .accordion-button:not(.collapsed) {
+    background-color: white;
+    box-shadow: 5px 5px 10px #e15759;
+}
+
+/* colour theme for navigation buttons*/
+.nav-btn {
+    color: white;
+    background-color: #ab86b1;
+    border-color: #ab86b1;
+    display: block;
+    width: 280px;
+}
+
+.nav-btn.focus,
+.nav-btn:focus,
+.nav-btn:hover {
+    color: white;
+    background-color: #562061;
+    border-color: #562061
+}
+
+.nav-btn:not(:disabled):not(.disabled).active,
+.nav-btn:not(:disabled):not(.disabled):active,
+.show>.nav-btn.dropdown-toggle {
+    color: white;
+    background-color: #562061;
+    border-color: #562061
+}
+
+.nav-btn-sub {
+    color: #562061;
+    background-color: white;
+    border-color: #562061;
+    border-width: 3px;
+    text-transform: initial;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nnav-btn-sub.focus,
+.nav-btn-sub:focus,
+.nav-btn-sub:hover {
+    color: white;
+    background-color: #562061;
+    border-color: #562061
+}
