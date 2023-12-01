@@ -166,3 +166,9 @@ div.dt-table-container__row.dt-table-container__row-1 {
 .crm_dropdown .Select-value-label {
     color: white !important;
 }
+
+.def-btn {
+    color: #374EA2 !important;
+    background-color: white !important;
+    border-color: white !important;
+}

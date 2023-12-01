@@ -1023,8 +1023,9 @@ def get_base_layout(**kwargs):
                     ),
                     dbc.Col(
                         html.Div([
-                            dbc.Button("Explore using ECA CRM Framework", className="nav-btn"),
-                            dbc.Button("Search by indicator", className="nav-btn")
+                            dbc.Button("Explore using ECA CRM Framework", className="nav-btn mb-2"),
+                            dbc.Button("Search by indicator", className="nav-btn mb-2"),
+                            dbc.Button("View country profiles", className="nav-btn")
                         ], style={"display": "flex", "flexDirection": "column", "alignItems": "center"}),
                         lg=3, md=12, align="center",
                     ),
@@ -1179,12 +1180,13 @@ def get_base_layout(**kwargs):
                             ),
                             dbc.Col(width=1),
                         ],
-                        style={"border": "1px solid #ddd", "padding": "10px"},
+                        style={"border": "1px solid #ddd", "margin": "auto", "padding": "15px 0px"},
                         align="center",
                         className="bg-light",
                         justify="center"
                     ),
                 ],
+                style={"padding": "0px 15px"},
             ),
             html.Br(),
             dbc.Row(
@@ -1200,29 +1202,36 @@ def get_base_layout(**kwargs):
                                                     [
                                                         html.Div(
                                                             [
-                                                                html.P(
-                                                                    "Indicator Definition:",
-                                                                    style={
-                                                                        "textAlign": "left",
-                                                                        "marginBottom": "5px",  # Adjust spacing as needed
-                                                                    },
+                                                                dbc.Button(
+                                                                    [
+                                                                        html.I(className="fas fa-plus mr-2"),  # Icon with a right margin
+                                                                        " Indicator Definition"
+                                                                    ],
+                                                                    id=f"{page_prefix}-collapse-button",
+                                                                    className="def-btn mb-2",
+                                                                    #color="primary", 
+                                                                    n_clicks=0,
                                                                 ),
-                                                                html.Div(
-                                                                    id=f"{page_prefix}-definition-text",
-                                                                    style={
-                                                                        "color": domain_colour,
-                                                                        "border": "1px solid #ccc",  # Optional: border around the text box
-                                                                        "padding": "10px",          # Padding inside the text box
-                                                                        "marginBottom": "10px",     # Margin below the text box
-                                                                        "height": "150px",          # Fixed height for the text box
-                                                                        "overflowY": "auto",        # Scroll vertically if content overflows
-                                                                        "whiteSpace": "pre-wrap",   # Keep whitespaces and line breaks
-                                                                        "textAlign": "left",        # Align text to the left
-                                                                    },
+                                                                dbc.Collapse(
+                                                                    html.Div(
+                                                                        id=f"{page_prefix}-definition-text",
+                                                                        style={
+                                                                            "color": domain_colour,
+                                                                            "border": "1px solid #ccc",
+                                                                            "padding": "5px",
+                                                                            "marginBottom": "10px",
+                                                                            "height": "120px",
+                                                                            "overflowY": "auto",
+                                                                            "whiteSpace": "pre-wrap",
+                                                                            "textAlign": "left",
+                                                                            "border-radius": "10px",
+                                                                        },
+                                                                    ),
+                                                                    id=f"{page_prefix}-collapse",
                                                                 ),
                                                             ],
                                                             style={
-                                                                "display": "block",  # Changed to block for vertical stacking
+                                                                "display": "block",
                                                             },
                                                         ),
                                                         html.Br(),

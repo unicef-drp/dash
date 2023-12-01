@@ -1889,6 +1889,15 @@ def layout(page_slug=None, **query_parmas):
         id="mainContainer",
     )
 
+@callback(
+    Output(f"{page_prefix}-collapse", "is_open"),
+    [Input(f"{page_prefix}-collapse-button", "n_clicks")],
+    [State(f"{page_prefix}-collapse", "is_open")],
+)
+def toggle_collapse(n, is_open):
+    if n:
+        return not is_open
+    return is_open
 
 @callback(
     Output(f"{page_prefix}-indicator-dropdown", "options"),

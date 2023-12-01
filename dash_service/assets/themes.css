@@ -485,10 +485,12 @@
 }
 
 /* colour theme for navigation buttons*/
+
 .nav-btn {
-    color: white;
-    background-color: #ab86b1;
-    border-color: #ab86b1;
+    color: #374EA2 !important;
+    background-color: white !important;
+    border-color: #374EA2 !important;
+    border-width: 2px !important;
     display: block;
     width: 280px;
 }
@@ -496,34 +498,15 @@
 .nav-btn.focus,
 .nav-btn:focus,
 .nav-btn:hover {
-    color: white;
-    background-color: #562061;
-    border-color: #562061
+    color: white !important;
+    background-color: #374EA2 !important;
+    border-color: #374EA2 !important;
 }
 
 .nav-btn:not(:disabled):not(.disabled).active,
 .nav-btn:not(:disabled):not(.disabled):active,
 .show>.nav-btn.dropdown-toggle {
-    color: white;
-    background-color: #562061;
-    border-color: #562061
-}
-
-.nav-btn-sub {
-    color: #562061;
-    background-color: white;
-    border-color: #562061;
-    border-width: 3px;
-    text-transform: initial;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.nnav-btn-sub.focus,
-.nav-btn-sub:focus,
-.nav-btn-sub:hover {
-    color: white;
-    background-color: #562061;
-    border-color: #562061
+    color: #374EA2 !important;
+    background-color: white !important;
+    border-color: white !important
 }
