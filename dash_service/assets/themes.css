@@ -155,6 +155,7 @@
     color: #4c8cbb;
     background-color: white;
     border-color: #4c8cbb;
+    border-width: 3px;
     text-transform: initial;
     display: flex;
     justify-content: center;
@@ -219,6 +220,7 @@
     color: #37568f;
     background-color: white;
     border-color: #37568f;
+    border-width: 3px;
     text-transform: initial;
     display: flex;
     justify-content: center;
@@ -282,6 +284,7 @@
     color: #e5ae4c;
     background-color: white;
     border-color: #e5ae4c;
+    border-width: 3px;
     text-transform: initial;
     display: flex;
     justify-content: center;
@@ -346,6 +349,7 @@
     color: #861c3f;
     background-color: white;
     border-color: #861c3f;
+    border-width: 3px;
     text-transform: initial;
     display: flex;
     justify-content: center;
@@ -410,6 +414,7 @@
     color: #ec5e24;
     background-color: white;
     border-color: #ec5e24;
+    border-width: 3px;
     text-transform: initial;
     display: flex;
     justify-content: center;
@@ -506,7 +511,7 @@
 .nav-btn:not(:disabled):not(.disabled).active,
 .nav-btn:not(:disabled):not(.disabled):active,
 .show>.nav-btn.dropdown-toggle {
-    color: #374EA2 !important;
-    background-color: white !important;
-    border-color: white !important
+    color: white !important;
+    background-color: #374EA2 !important;
+    border-color: #374EA2 !important;
 }

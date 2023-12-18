@@ -124,12 +124,21 @@ div.dt-table-container__row.dt-table-container__row-1 {
     opacity: 0
 }
 
-
-.download_btn {
+.country-data-btn {
     border: none;
     background-color: white;
-    padding: 5px;
-    min-width: 120px;
+    padding-right: 15px !important;
+    margin-top: 15px !important;
+    width: 100%;
+    border-radius: 5px !important;
+}
+
+.download_btn {
+    padding: 15px;
+    border: none;
+    background-color: white;
+    border-radius: 5px !important;
+    width: 100%;
 }
 
 .dropdown-subtitle {
@@ -155,20 +164,57 @@ div.dt-table-container__row.dt-table-container__row-1 {
 }
 
 .crm_dropdown .Select-control {
-    background-color: #562061;
-    color: white;
-}
-
-.crm_dropdown .Select-menu-outer {
-    color: #562061;
+    background-color: white;
+    color: black;
 }
 
 .crm_dropdown .Select-value-label {
-    color: white !important;
+    color: black !important;
+}
+
+.crm_dropdown .domain_dropdown {
+    font-size: 20px;
 }
 
 .def-btn {
-    color: #374EA2 !important;
+    color: grey !important;
     background-color: white !important;
     border-color: white !important;
+    width: 95%
+}
+
+.sdg-toggle {
+    margin-top: 3em;
+}
+
+.sdg-toggle [type=checkbox] {
+    margin-right: 10px;
+}
+
+.sdg-toggle label {
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+.boolean-switch button {
+    border-radius: 50%;
+}
+
+.boolean-switch div.daq-booleanswitch--light__background {
+    width: 50px !important;
+}
+
+.boolean-switch .gJuplL {
+    background-color: #00acef;
+}
+
+.boolean-switch .chqyiX {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.boolean-switch {
+    margin-top: 3em;
 }

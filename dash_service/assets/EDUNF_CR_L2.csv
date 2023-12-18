@@ -1,0 +1,50 @@
+,Country_code,Country_name,Indicator_Code,Indicator_name,OBS_VALUE,TIME_PERIOD,Sex,Residence,Wealth_quintile,Age,OBS_FOOTNOTE,FREQ,DATA_SOURCE
+0,MLT,Malta,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,100,2018,Total,Total,Total,Total,N/A,1,https://education-estimates.org/completion/data/; extracted on 18<br>August 2023 (GEMR/UIS)
+1,TUR,Türkiye,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,96,2018,Total,Total,Total,Total,N/A,1,https://education-estimates.org/completion/data/; extracted on 18<br>August 2023 (GEMR/UIS)
+2,ISL,Iceland,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,100,2018,Total,Total,Total,Total,N/A,1,https://education-estimates.org/completion/data/; extracted on 18<br>August 2023 (GEMR/UIS)
+3,IRL,Ireland,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,98,2018,Total,Total,Total,Total,N/A,1,https://education-estimates.org/completion/data/; extracted on 18<br>August 2023 (GEMR/UIS)
+4,GBR,United Kingdom,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,100,2019,Total,Total,Total,Total,N/A,1,United Kingdom of Great Britain and Northern Ireland EU-LFS 2019<br>(GEMR).
+5,ALB,Albania,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,97,2020,Total,Total,Total,Total,N/A,1,https://education-estimates.org/completion/data/; extracted on 18<br>August 2023 (GEMR/UIS)
+6,KGZ,Kyrgyzstan,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,99,2020,Total,Total,Total,Total,N/A,1,UNESCO
+7,KAZ,Kazakhstan,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,100,2020,Total,Total,Total,Total,N/A,1,UNESCO
+8,UKR,Ukraine,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,99,2020,Total,Total,Total,Total,N/A,1,UNESCO
+9,MNE,Montenegro,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,98,2020,Total,Total,Total,Total,N/A,1,https://education-estimates.org/completion/data/; extracted on 18<br>August 2023 (GEMR/UIS)
+10,NLD,Netherlands,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,93,2020,Total,Total,Total,Total,N/A,1,https://education-estimates.org/completion/data/; extracted on 18<br>August 2023 (GEMR/UIS)
+11,GEO,Georgia,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,97,2020,Total,Total,Total,Total,N/A,1,UNESCO
+12,MKD,North Macedonia,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,97,2020,Total,Total,Total,Total,N/A,1,https://education-estimates.org/completion/data/; extracted on 18<br>August 2023 (GEMR/UIS)
+13,MDA,Republic of Moldova,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,97,2020,Total,Total,Total,Total,N/A,1,UNESCO
+14,SRB,Serbia,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,99,2020,Total,Total,Total,Total,N/A,1,https://education-estimates.org/completion/data/; extracted on 18<br>August 2023 (GEMR/UIS)
+15,SVK,Slovakia,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,100,2020,Total,Total,Total,Total,N/A,1,https://education-estimates.org/completion/data/; extracted on 18<br>August 2023 (GEMR/UIS)
+16,CZE,Czech Republic,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,100,2020,Total,Total,Total,Total,N/A,1,https://education-estimates.org/completion/data/; extracted on 18<br>August 2023 (GEMR/UIS)
+17,BLR,Belarus,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,99,2020,Total,Total,Total,Total,N/A,1,UNESCO
+18,BIH,Bosnia and Herzegovina,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,99,2020,Total,Total,Total,Total,N/A,1,UNESCO
+19,TJK,Tajikistan,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,92,2020,Total,Total,Total,Total,N/A,1,UNESCO
+20,TKM,Turkmenistan,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,100,2020,Total,Total,Total,Total,N/A,1,UNESCO
+21,AZE,Azerbaijan,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,96,2020,Total,Total,Total,Total,N/A,1,UNESCO
+22,ARM,Armenia,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,98,2020,Total,Total,Total,Total,N/A,1,UNESCO
+23,PRT,Portugal,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,99,2021,Total,Total,Total,Total,N/A,1,Portugal EU-LFS 2021 (GEMR).
+24,POL,Poland,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,94,2021,Total,Total,Total,Total,N/A,1,Poland EU-LFS 2021 (GEMR).
+25,NOR,Norway,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,100,2021,Total,Total,Total,Total,N/A,1,Norway EU-LFS 2021 (GEMR).
+26,SVN,Slovenia,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,99,2021,Total,Total,Total,Total,N/A,1,Slovenia EU-LFS 2021 (GEMR).
+27,SWE,Sweden,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,99,2021,Total,Total,Total,Total,N/A,1,Sweden EU-LFS 2021 (GEMR).
+28,RUS,Russian Federation,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,100,2021,Total,Total,Total,Total,N/A,1,Russian Federation RLMS-HSE 2021 (GEMR).
+29,ROU,Romania,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,96,2021,Total,Total,Total,Total,N/A,1,Romania EU-LFS 2021 (GEMR).
+30,ITA,Italy,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,99,2021,Total,Total,Total,Total,N/A,1,Italy EU-LFS 2021 (GEMR).
+31,LUX,Luxembourg,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,96,2021,Total,Total,Total,Total,N/A,1,Luxembourg EU-LFS 2021 (GEMR).
+32,AUT,Austria,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,98,2021,Total,Total,Total,Total,N/A,1,Austria EU-LFS 2021 (GEMR).
+33,BEL,Belgium,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,95,2021,Total,Total,Total,Total,N/A,1,Belgium EU-LFS 2021 (GEMR).
+34,BGR,Bulgaria,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,98,2021,Total,Total,Total,Total,N/A,1,Bulgaria EU-LFS 2021 (GEMR).
+35,CHE,Switzerland,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,99,2021,Total,Total,Total,Total,N/A,1,Switzerland EU-LFS 2021 (GEMR).
+36,CYP,Cyprus,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,95,2021,Total,Total,Total,Total,N/A,1,Cyprus EU-LFS 2021 (GEMR).
+37,DEU,Germany,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,92,2021,Total,Total,Total,Total,N/A,1,Germany EU-LFS 2021 (GEMR).
+38,DNK,Denmark,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,99,2021,Total,Total,Total,Total,N/A,1,Denmark EU-LFS 2021 (GEMR).
+39,ESP,Spain,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,97,2021,Total,Total,Total,Total,N/A,1,Spain EU-LFS 2021 (GEMR).
+40,EST,Estonia,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,100,2021,Total,Total,Total,Total,N/A,1,Estonia EU-LFS 2021 (GEMR).
+41,FIN,Finland,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,100,2021,Total,Total,Total,Total,N/A,1,Finland EU-LFS 2021 (GEMR).
+42,FRA,France,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,98,2021,Total,Total,Total,Total,N/A,1,France EU-LFS 2021 (GEMR).
+43,GRC,Greece,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,98,2021,Total,Total,Total,Total,N/A,1,Greece EU-LFS 2021 (GEMR).
+44,HRV,Croatia,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,100,2021,Total,Total,Total,Total,N/A,1,Croatia EU-LFS 2021 (GEMR).
+45,HUN,Hungary,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,98,2021,Total,Total,Total,Total,N/A,1,Hungary EU-LFS 2021 (GEMR).
+46,LTU,Lithuania,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,99,2021,Total,Total,Total,Total,N/A,1,Lithuania EU-LFS 2021 (GEMR).
+47,LVA,Latvia,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,99,2021,Total,Total,Total,Total,N/A,1,Latvia EU-LFS 2021 (GEMR).
+48,UZB,Uzbekistan,EDUNF_CR_L2,Lower secondary education completion rate -  SDG 4.1.2,99,2022,Total,Total,Total,Total,N/A,1,Uzbekistan MICS 2021-22. The survey collected data on school<br>attendance for age 3-24 and educational attainment for age 3 and<br>above.

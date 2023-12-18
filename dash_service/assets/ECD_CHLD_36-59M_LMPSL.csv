@@ -1,0 +1,14 @@
+,Country_code,Country_name,Indicator_Code,OBS_VALUE,TIME_PERIOD,Sex,Residence,Wealth_quintile,Age,OBS_FOOTNOTE,FREQ,DATA_SOURCE
+0,BIH,Bosnia and Herzegovina,ECD_CHLD_36-59M_LMPSL,96,2012,Total,Total,Total,36 to 59 months old,N/A,0,MICS 2011-12
+1,MDA,Republic of Moldova,ECD_CHLD_36-59M_LMPSL,84,2012,Total,Total,Total,36 to 59 months old,N/A,0,MICS 2012
+2,UKR,Ukraine,ECD_CHLD_36-59M_LMPSL,89,2012,Total,Total,Total,36 to 59 months old,N/A,0,MICS 2012
+3,KAZ,Kazakhstan,ECD_CHLD_36-59M_LMPSL,86,2015,Total,Total,Total,36 to 59 months old,N/A,0,MICS 2015
+4,GEO,Georgia,ECD_CHLD_36-59M_LMPSL,90,2018,Total,Total,Total,36 to 59 months old,N/A,0,MICS 2018
+5,KGZ,Kyrgyzstan,ECD_CHLD_36-59M_LMPSL,72,2018,Total,Total,Total,36 to 59 months old,N/A,0,MICS 2018
+6,MNE,Montenegro,ECD_CHLD_36-59M_LMPSL,90,2018,Total,Total,Total,36 to 59 months old,N/A,0,MICS 2018
+7,TUR,Türkiye,ECD_CHLD_36-59M_LMPSL,74,2018,Total,Total,Total,36 to 59 months old,N/A,0,DHS 2018
+8,BLR,Belarus,ECD_CHLD_36-59M_LMPSL,87,2019,Total,Total,Total,36 to 59 months old,N/A,0,MICS 2019
+9,MKD,North Macedonia,ECD_CHLD_36-59M_LMPSL,82,2019,Total,Total,Total,36 to 59 months old,N/A,0,MICS 2018-19
+10,SRB,Serbia,ECD_CHLD_36-59M_LMPSL,97,2019,Total,Total,Total,36 to 59 months old,N/A,0,MICS 2019
+11,TKM,Turkmenistan,ECD_CHLD_36-59M_LMPSL,95,2019,Total,Total,Total,36 to 59 months old,N/A,0,MICS 2019
+12,UZB,Uzbekistan,ECD_CHLD_36-59M_LMPSL,83,2022,Total,Total,Total,24 to 59 months old,ECDI 2030,0,MICS 2021-22
