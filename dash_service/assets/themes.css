@@ -3,6 +3,7 @@
     color: white;
     background-color: #ab86b1;
     border-color: #ab86b1;
+    margin-top: 5px;
 }
 
 .theme_buttons .btn-crg.focus,
@@ -30,6 +31,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 5px;
+    max-width: 350px;
 }
 
 .theme_buttons .btn-crg-sub.focus,
@@ -96,6 +99,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 5px;
+    max-width: 400px;
 }
 
 .theme_buttons .btn-han-sub.focus,
@@ -160,6 +165,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 5px;
+    max-width: 350px;
 }
 
 .theme_buttons .btn-pov-sub.focus,
@@ -225,6 +232,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 5px;
+    max-width: 350px;
 }
 
 .theme_buttons .btn-edu-sub.focus,
@@ -289,6 +298,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 5px;
+    max-width: 350px;
 }
 
 .theme_buttons .btn-chp-sub.focus,
@@ -354,6 +365,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 5px;
+    max-width: 350px;
 }
 
 .theme_buttons .btn-par-sub.focus,
@@ -419,6 +432,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 5px;
+    max-width: 350px;
 }
 
 .theme_buttons .btn-cci-sub.focus,
@@ -497,7 +512,7 @@
     border-color: #374EA2 !important;
     border-width: 2px !important;
     display: block;
-    width: 280px;
+    width: 350px;
 }
 
 .nav-btn.focus,

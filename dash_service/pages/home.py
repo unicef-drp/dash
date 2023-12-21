@@ -141,8 +141,6 @@ def set_default_compare(compare_options, selected_type, indicator):
     prevent_initial_call=True,
 )
 def set_active_button(_, buttons_id):
-    print(f"buttons_id: {buttons_id}")
-    print(active_button(_, buttons_id))
     return active_button(_, buttons_id)
 
 
@@ -186,21 +184,53 @@ def apply_available_crc_years(country, indicator):
     [
         Input("indicator-dropdown", "value"),
         Input({'type': "indicator-button", 'index': ALL}, 'active'),
+        Input({'type': "nav_buttons", 'index': "crm_view"}, 'active')
     ],
     [
         State({'type': "indicator-button", 'index': ALL}, 'id')
     ]
 )
-def update_current_indicator(dropdown_value, active_buttons, button_ids):
-    view_toggle = True
-    if view_toggle:  # If the view is based on indicator buttons
-        active_index = next((i for i, active in enumerate(active_buttons) if active), None)
+def update_current_indicator(dropdown_value, active_indicator_buttons, crm_view_active, indicator_button_ids):
+    # Check if 'crm_view' button is active to set the view_toggle
+    view_toggle = crm_view_active
+
+    if view_toggle:  # If the view is based on 'crm_view' button
+        active_index = next((i for i, active in enumerate(active_indicator_buttons) if active), None)
         if active_index is not None:
-            print(f"current_indicator: {button_ids[active_index]['index']}")
-            return button_ids[active_index]['index']
-    print(f"dropdown_value")
+            return indicator_button_ids[active_index]['index']
     return dropdown_value  # Otherwise, return the dropdown value
 
+@callback(
+    [
+        Output('search_by_indicator_div', 'style'),
+        Output('crm_framework_view_div', 'style'),
+        Output('indicator_buttons_div', 'style')
+    ],
+    [Input({'type': "nav_buttons", 'index': "crm_view"}, 'active')],
+    [
+        State('search_by_indicator_div', 'style'),
+        State('crm_framework_view_div', 'style'),
+        State('indicator_buttons_div', 'style')
+    ]
+)
+def toggle_divs_visibility(crm_view_active, style_search_by_indicator, style_crm_framework_view, style_indicator_buttons):
+    # Function to return default style or empty dict if None
+    default_style = lambda style: {k: v for k, v in (style or {}).items() if k != 'display'}
+
+    if crm_view_active:
+        # Hide 'search_by_indicator_div', show other two divs
+        style_search_by_indicator_updated = {**default_style(style_search_by_indicator), 'display': 'none'}
+        style_crm_framework_view_updated = default_style(style_crm_framework_view)
+        style_indicator_buttons_updated = default_style(style_indicator_buttons)
+    else:
+        # Show 'search_by_indicator_div', hide other two divs
+        style_search_by_indicator_updated = default_style(style_search_by_indicator)
+        style_crm_framework_view_updated = {**default_style(style_crm_framework_view), 'display': 'none'}
+        style_indicator_buttons_updated = {**default_style(style_indicator_buttons), 'display': 'none'}
+
+    return style_search_by_indicator_updated, style_crm_framework_view_updated, style_indicator_buttons_updated
+
+    
 @callback(
     Output("crc-header", "children"),
     Output("crc-header", "style"),
@@ -249,6 +279,15 @@ def apply_create_indicator_buttons(active_button, subdomain_buttons):
     return create_indicator_buttons(active_button, subdomain_buttons)
 
 @callback(
+    Output({"type": "nav_buttons", "index": ALL}, "active"),
+    Input({"type": "nav_buttons", "index": ALL}, "n_clicks"),
+    State({"type": "nav_buttons", "index": ALL}, "id"),
+    prevent_initial_call=True,
+)
+def set_active_nav_button(_, buttons_id):
+    return active_button(_, buttons_id)
+
+@callback(
     [
         Output("collapse-years-button", "label"),
         Output({"type": "area", "index": "AIO_AREA"}, "figure"),
@@ -268,11 +307,8 @@ def apply_create_indicator_buttons(active_button, subdomain_buttons):
         Input("year_slider", "value"),
         Input("country-filter", "value"),
         Input("country-group", "value"),
-        
     ],
-    [
         State({"type": "area_types", "index": "AIO_AREA"}, "value"),
-    ],
     prevent_initial_call=True,
 )
 def apply_aio_area_figure(

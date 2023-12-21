@@ -114,6 +114,10 @@ indicator_def_file_path = f"{pathlib.Path(__file__).parent.parent.absolute()}/st
 with open(indicator_def_file_path) as definitions_file:
     indicator_definitions = json.load(definitions_file)
 
+# Load the descriptions from the JSON file
+descriptions_file_path = f"{pathlib.Path(__file__).parent.parent.absolute()}/static/subdomain_descriptions.json"
+with open(descriptions_file_path) as indicator_file:
+    subdomain_descriptions = json.load(indicator_file)
 
 # custom names as requested by siraj: update thousands for consistency, packed indicators
 custom_names = {
@@ -506,7 +510,7 @@ domain_classes = {
 }
 
 # Read the CRC Excel file and skip the first row (header is in the second row)
-crc_file_path = f"{pathlib.Path(__file__).parent.parent.absolute()}/static/Full CRC database - v21-9-23.xlsx"
+crc_file_path = f"{pathlib.Path(__file__).parent.parent.absolute()}/static/Full CRC database.xlsx"
 CRC_df = pd.read_excel(
     crc_file_path,
     sheet_name="Full CRC database ECA",
@@ -517,7 +521,7 @@ CRC_df = pd.read_excel(
 CRC_df = CRC_df.rename(
     columns={
         "Name of the country": "Country",
-        "Year of report ": "Year",
+        "Year of report": "Year",
         "ECA child rights monitoring framework\nSub-Domain": "Sub-Domain",
         "Recommendation": "Recommendation",
         "Bottleneck type": "Bottleneck Type",
@@ -567,8 +571,10 @@ def get_card_popover_body(sources):
         numeric = sources.OBS_VALUE.dtype.kind in "iufc"
         # sort by values if numeric else by country
         sort_col = "OBS_VALUE" if numeric else "Country_name"
-        for index, source_info in sources.sort_values(by=sort_col).iterrows():
-            country_list.append(f"- {index[0]}: {source_info[0]} ({index[1]})")
+        sources_sorted = sources.sort_values(by=sort_col)
+        for i in range(len(sources_sorted)):
+            source_info = sources_sorted.iloc[i]
+            country_list.append(f"- {source_info.name[0]}: {source_info.iloc[0]} ({source_info.name[1]})")
         card_countries = "\n".join(country_list)
         return card_countries
     else:
@@ -836,7 +842,97 @@ all_crm_dropdown_options = create_CRM_dropdown(merged_page_config, False)
 # dropdown with just domains
 domain_dropdown_options = create_CRM_dropdown(merged_page_config, True)
 
+# Define a function to create a popover for a subdomain
+def create_subdomain_popover(subdomain, subdomain_description, domain_colour):
+    return dbc.Popover(
+        dbc.PopoverBody(subdomain_description),
+        target=f"popover-target",  # Unique ID for the popover target
+        trigger="hover",
+        style={
+            "color": domain_colour,
+            "overflowY": "auto",
+            "whiteSpace": "pre-wrap",
+            "opacity": 1,
+        },
+        delay={
+            "hide": 0,
+            "show": 0,
+        },
+    )
+
 def update_indicator_dropdown_class(indicator):
+    if indicator is None:
+        return (
+            "crm_dropdown",
+            html.P(
+                "No indicator selected",
+                style={
+                    "color": "black",
+                    "display": "inline-block",
+                    "position": "relative",
+                    "marginBottom": "5px",
+                    "marginTop": "0px",
+                    "font-weight": "bold"
+                }
+            )
+        )
+
+    domain, _, subdomain = update_domain_and_subdomain_values(indicator)
+    domain_colour = merged_page_config[domain]['domain_colour']
+    subdomain_description = subdomain_descriptions[subdomain]  # Assuming subdomain_descriptions is defined
+
+    # Create popover for the subdomain
+    popover = create_subdomain_popover(subdomain, subdomain_description, domain_colour)
+
+    # Map the selected domain to its corresponding CSS class
+    if domain and domain in domain_classes:
+        return (
+            domain_classes[domain],
+            html.Div([
+                html.P(
+                    [
+                        html.Span(f"{merged_page_config[domain]['domain_name']}/ "),
+                        html.Br(),
+                        html.Span(f"{merged_page_config[domain]['SUBDOMAINS'][subdomain]['NAME']}",
+                                  id=f"popover-target"),
+                        popover 
+                    ],
+                    style={
+                        "color": domain_colour,
+                        "display": "inline-block",
+                        "position": "relative",
+                        "marginBottom": "5px",
+                        "marginTop": "0px",
+                        "font-weight": "bold"
+                    }
+                ),
+            ])
+        )
+
+    return (
+        "crm_dropdown",
+        html.Div([
+            html.P(
+                [
+                    html.Span(f"{merged_page_config[domain]['domain_name']} Choose indicator/ ", style={"font-weight": "bold"}),
+                    html.Br(),
+                    html.Span(f"{merged_page_config[domain]['SUBDOMAINS'][subdomain]['NAME']}",
+                                id=f"popover-target"),
+                    popover 
+                ],
+                style={
+                    "color": domain_colour,
+                    "display": "inline-block",
+                    "position": "relative",
+                    "marginBottom": "5px",
+                    "marginTop": "0px",
+                    "font-weight": "bold"
+                }
+            ),
+        ])
+    )
+
+def update_indicator_dropdown_class2(indicator):
     if indicator is None:
         return (
                 "crm_dropdown",
@@ -1078,7 +1174,8 @@ def get_base_layout(**kwargs):
     domain_colour = kwargs.get("domain_colour")
     qparams = kwargs.get("query_params")
 
-    home_icon_file_path = f"{request.root_url}assets/home-icon-2.svg"
+    sdg_icon_path = f"{request.root_url}assets/big_sdg_logo.png"
+    wheel_icon_path = f"{request.root_url}assets/SOCR_Wheel.png"
     unicef_icon_file_path = f"{request.root_url}assets/unicef_icon.png"
 
     pass_through_params = ["prj=tm"]
@@ -1110,15 +1207,23 @@ def get_base_layout(**kwargs):
                             html.H2("TransMonEE Dashboard", style={'color': 'white', 'marginTop': '0.75em', 'marginBottom': '0.2em','fontWeight': 'bold'}),
                             html.H5("Monitoring child rights data in Europe and Central Asia", style={'color': 'white', 'marginTop': '0.2em'})
                         ]),
-                        lg=7, md=8, sm=12,
+                        lg=6, md=8, sm=12,
                     ),
                     dbc.Col(
                         html.Div([
-                            dbc.Button("Explore using ECA CRM Framework", className="nav-btn mb-2"),
-                            dbc.Button("Search by indicator", className="nav-btn mb-2 active"),
-                            #dbc.Button("View country profiles", className="nav-btn")
+                            dbc.Button(
+                                "Explore using the Europe and Central Asia Child Rights Monitoring Framework",
+                                id={"type": "nav_buttons", "index": "crm_view"},  
+                                className="nav-btn mb-2",
+                                active=True,
+                                ),
+                            dbc.Button(
+                                "Search by indicator", 
+                                id={"type": "nav_buttons", "index": "indicator_view"}, 
+                                className="nav-btn mb-2"
+                                ),
                         ], style={"display": "flex", "flexDirection": "column", "alignItems": "center"}),
-                        lg=3, md=12, align="center",
+                        lg=4, md=12, align="center",
                     ),
                 ],
                 justify="between",
@@ -1131,36 +1236,73 @@ def get_base_layout(**kwargs):
                     html.Div(
                         [
                             dbc.Row(
-                                [
-                                    html.P("Select ECA CRM Domain:", style={"margin-bottom": "10px"}),
-                                    dcc.Dropdown(
-                                        id="domain-dropdown",
-                                        options= domain_dropdown_options,
-                                        value=domain_dropdown_options[0]['value'],
-                                        placeholder="Select a domain",
-                                        optionHeight=55,
-                                        clearable=False,
-                                        className="crm_dropdown domain_dropdown",
+                                dbc.Col(
+                                    html.Div(
+                                        [
+                                            # "Select ECA CRM Domain" text and Dropdown
+                                            html.Div(
+                                                [
+                                                    html.P(
+                                                        "Select ECA CRM Domain:", 
+                                                        style={"margin-bottom": "10px", "display": "inline-block", "margin-right": "10px"}
+                                                    ),
+                                                    dcc.Dropdown(
+                                                        id="domain-dropdown",
+                                                        options=domain_dropdown_options,
+                                                        value=domain_dropdown_options[0]['value'],
+                                                        placeholder="Select a domain",
+                                                        optionHeight=55,
+                                                        clearable=False,
+                                                        className="crm_dropdown domain_dropdown",
+                                                        style={"display": "inline-block", "vertical-align": "middle"}
+                                                    ),
+                                                ],
+                                                className="domain-dropdown-container",
+                                                style={"display": "inline-flex", "align-items": "center"}
+                                            ),
+                                            # Wheel icon and "ECA CRM Framework" text
+                                            html.Div(
+                                                [
+                                                    html.Img(id="wheel-icon",src=wheel_icon_path, style={"margin-right": "5px", "margin-left": "15px", "height":"45px"}),
+                                                    html.A("Learn more about ECA CRM Framework",
+                                                        href="https://www.unicef.org/eca/europe-and-central-asia-child-rights-monitoring-framework",
+                                                        target="_blank",
+                                                        style={"color": '#374EA2'}
+                                                    ),
+                                                ],
+                                                className="learn-more-container",
+                                                style={"display": "inline-flex", "align-items": "center", "color": '#374EA2'}
+                                            ),
+                                        ],
+                                        style={"text-align": "center", "display": "flex", "justify-content": "center", "align-items": "center", "flex-wrap": "wrap"}
                                     ),
-                                ],
+                                    width=12
+                                ),
+                                justify="center",
+                                className="responsive-row"
                             ),
-                            html.Br(),
+                            html.Br(),                            
                             dbc.Row(
                                 dbc.Col(
-                                    [
-                                        dbc.ButtonGroup(
-                                            id="themes",
-                                        ),
-                                    ],
+                                    html.Div(
+                                        [
+                                            dbc.ButtonGroup(
+                                                id="themes",
+                                                style={"align-self": "center", "flex-wrap": "wrap"}
+                                            ),
+                                        ],
+                                        style={"display": "flex", "justify-content": "center", "align-items": "center", "flex-wrap": "wrap"}
+                                    ),
                                     width="auto",
                                 ),
                                 id="theme-row",
                                 className="my-2 theme_buttons",
                                 justify="center",
                                 align="center",
-                                style={"verticalAlign": "center", "display": "flex"},
+                                style={"verticalAlign": "center", "display": "flex"}
                             ),
                         ],
+                        id = 'crm_framework_view_div',
                         style={"margin-bottom": "15px"}
                     ),
                     html.Br(),
@@ -1168,26 +1310,53 @@ def get_base_layout(**kwargs):
                         [
                             dbc.Col(
                                 [
-                                    # Toggle for 'SDGs only'
-                                    html.Div([
+                                    # Container for Toggle and Image
+                                    html.Div(
+                                        [
                                             daq.BooleanSwitch(
                                                 on=False,
                                                 id="sdg-toggle",
-                                                label="Show only SDGs",
+                                                #label="Only SDGs",
                                                 labelPosition="right",
-                                                className="boolean-switch"
-                                            )
-                                    ]),
+                                                className="boolean-switch",
+                                            ),
+                                            html.Img(
+                                                id="sdg-icon",
+                                                src=sdg_icon_path,
+                                                style={"align-self": "center", "margin-top":"2.5em", "height":"50px"}  # Added for vertical alignment
+                                            ),
+                                            dbc.Popover(
+                                                        [
+                                                            dbc.PopoverBody(
+                                                                "Filter list to show only SDG indicators.",
+                                                                id="sdg-popover",
+                                                            )
+                                                        ],
+                                                        target="sdg-icon",
+                                                        trigger="hover",
+                                                        placement="top",
+                                                        style={
+                                                            "overflowY": "auto",
+                                                            "whiteSpace": "pre-wrap",
+                                                            "opacity": 1,
+                                                        },
+                                                        delay={
+                                                            "hide": 0,
+                                                            "show": 0,
+                                                        },
+                                                    ),
+                                        ],
+                                        style={"display": "flex", "align-items": "center", "justify-content": "right"}  # Flexbox layout
+                                    )
                                 ],
                                 # Define width for different screen sizes
                                 width=12,
                                 sm=12, 
-                                md=2, 
+                                md=2,
                             ),
-                            # Column for Step 1
                             dbc.Col(
                                 [
-                                    html.P("Filter list of indicators (optional)", style={"margin-bottom": "10px"}),
+                                    html.P("Filter indicators by ECA CRM Framework (optional)", style={"margin-bottom": "10px"}),
                                     dcc.Dropdown(
                                         id="crm-dropdown",
                                         options=all_crm_dropdown_options,
@@ -1200,8 +1369,6 @@ def get_base_layout(**kwargs):
                                 sm=12, 
                                 md=4, 
                             ),
-
-                            # Column for Step 2
                             dbc.Col(
                                 [
                                     html.P("Select indicator", style={"margin-bottom": "10px"}),
@@ -1228,6 +1395,7 @@ def get_base_layout(**kwargs):
                                 md=6,  # 6 columns wide on medium and larger screens
                             ),
                         ],
+                        id = "search_by_indicator_div",
                         style={"margin-bottom": "15px"}
                     ),
                     html.Br(),
@@ -1321,6 +1489,7 @@ def get_base_layout(**kwargs):
                                         justify="start"
                                     ),
                                 ],
+                                style={"display":"flex", "justify-content":"center"},
                                 lg=10, md=10, sm=12, xs=12
                             ),
                             dbc.Col(width=1),
@@ -1350,32 +1519,22 @@ def get_base_layout(**kwargs):
                                                                 html.Div(
                                                                     [
                                                                         dbc.ButtonGroup(
-                                                                            id={
-                                                                                "type": "button_group",
-                                                                                "index": "AIO_AREA",
-                                                                            },
+                                                                            id={"type": "button_group", "index": "AIO_AREA"},
                                                                             vertical=True,
-                                                                            style={
-                                                                                "marginBottom": "20px",
-                                                                                "flexGrow": "1",
-                                                                            },
+                                                                            style={"marginBottom": "20px", "flexGrow": "1"},
                                                                             class_name="theme_buttons",
                                                                         ),
                                                                     ],
-                                                                    style={
-                                                                        "maxHeight": "350px",
-                                                                        "overflowY": "scroll",
-                                                                        "width": "95%",  # Set the width of the containing div
-                                                                        "display": "flex",  # Use Flexbox for layout
-                                                                        "flex-direction": "column",
-                                                                    },
+                                                                    style={"maxHeight": "500px", "overflowY": "scroll", "width": "95%", "display": "flex", "flex-direction": "column"},
                                                                 ),
                                                             ],
                                                         ),
                                                     ],
+                                                    id='indicator_buttons_div',
                                                     class_name="indic_btn_col",
-                                                    width=3,
-                                                ),                                                
+                                                    width=12,  # Full width on small screens
+                                                    lg=3,  # Original width on large screens
+                                                ),                                              
                                                 dbc.Col(
                                                     html.Div(
                                                         [
@@ -1390,10 +1549,11 @@ def get_base_layout(**kwargs):
                                                                                         "index": "AIO_AREA",
                                                                                     },
                                                                                     value = "TOTAL",
-                                                                                    class_name="force-inline-control",
+                                                                                    class_name="force-inline-control responsive-radio-items",
                                                                                     inline=True,
                                                                                 ),
                                                                                 width="auto",
+                                                                                className="radio-items-col",
                                                                             ),
                                                                         ],
                                                                     )
@@ -1404,33 +1564,44 @@ def get_base_layout(**kwargs):
                                                                     "justifyContent": "flex-end",
                                                                 },
                                                             ),
-                                                            dcc.Loading(
-                                                                children=[
-                                                                    html.Div(
-                                                                        dcc.Graph(
-                                                                            id={
-                                                                                "type": "area",
-                                                                                "index": "AIO_AREA",
-                                                                            },
-                                                                            config={
-                                                                                "modeBarButtonsToRemove": ["select2d", "lasso2d", "autoScale"],
-                                                                                "displaylogo": False,
-                                                                                "autosizable": False,
-                                                                                "showTips": True,
-                                                                            },
-                                                                            responsive=True,
-                                                                        ),
-                                                                        style={
-                                                                            'overflowX': 'scroll',  # Enable horizontal scrolling
-                                                                            'minWidth': '700px'         # Set the width of the div
-                                                                        }
-                                                                    )
-                                                                ]
+                                                            html.Div(
+                                                                dcc.Graph(
+                                                                    id={
+                                                                        "type": "area",
+                                                                        "index": "AIO_AREA",
+                                                                    },
+                                                                    config={
+                                                                        "modeBarButtonsToRemove": ["select2d", "lasso2d", "autoScale"],
+                                                                        "displaylogo": False,
+                                                                        "autosizable": True,
+                                                                        "showTips": True,
+                                                                    },
+                                                                    responsive=True,
+                                                                ),
+                                                                style={
+                                                                    'overflowX': 'auto',  
+                                                                    'minWidth': '700px', 
+                                                                    'width': '100%',  
+                                                                    'minHeight':'500px',  
+                                                                },
+                                                                className="graph-scroll" 
                                                             ),
                                                             dcc.Markdown(
                                                                 id="aio_area_graph_info",
+                                                            ),
+                                                            html.Div(
+                                                                    [
+                                                                        html.P(
+                                                                            "Source: ",
+                                                                            style={
+                                                                                "display": "inline-block",
+                                                                            },
+                                                                        ),
+                                                                    ],
+                                                                id="aio_area_area_info",
                                                             ),                                            
                                                         ],
+                                                        style={"overflowX":"scroll"},
                                                     ),
                                                 ),
                                                 dbc.Row(
@@ -1449,21 +1620,54 @@ def get_base_layout(**kwargs):
                                                         width=12, md=4
                                                         ),
                                                         dbc.Col([
-                                                                html.P("ECA CRM Framework location: ", style={"marginBottom": "5px"}),
-                                                                html.Div(
-                                                                id="domain-text",
-                                                                ),
                                                                 html.Div(
                                                                     [
-                                                                        html.P(
-                                                                            "Source: ",
+                                                                    html.P(
+                                                                            "Indicator definition",
                                                                             style={
                                                                                 "display": "inline-block",
+                                                                                "textAlign": "center",
+                                                                                "position": "relative",
+                                                                            },
+                                                                        ),
+                                                                    html.I(
+                                                                            id="definition-button",
+                                                                            className="fas fa-info-circle",
+                                                                            style={
+                                                                                "display": "flex",
+                                                                                "alignContent": "center",
+                                                                                "flexWrap": "wrap",
+                                                                                "paddingLeft": "5px",
+                                                                            },
+                                                                        ),
+                                                                    dbc.Popover(
+                                                                            [
+                                                                                dbc.PopoverBody(
+                                                                                    id="definition-popover",
+                                                                                )
+                                                                            ],
+                                                                            target="definition-button",
+                                                                            trigger="hover",
+                                                                            style={
+                                                                                "overflowY": "auto",
+                                                                                "whiteSpace": "pre-wrap",
+                                                                                "opacity": 1,
+                                                                            },
+                                                                            delay={
+                                                                                "hide": 0,
+                                                                                "show": 0,
                                                                             },
                                                                         ),
                                                                     ],
-                                                                id="aio_area_area_info",
-                                                                ),                                                                     
+                                                                    style={
+                                                                        "display": "inline-flex",
+                                                                        "marginTop":"10px",
+                                                                    },
+                                                                ),    
+                                                                html.P("ECA CRM Framework location: ", style={"marginBottom": "5px", "marginTop": "0px"}),
+                                                                html.Div(
+                                                                id="domain-text",
+                                                                ),                                                                 
                                                             ],
                                                         width=12, md=3
                                                         ),
@@ -1555,6 +1759,7 @@ def get_base_layout(**kwargs):
                                                                                 style={"opacity": 1},
                                                                             ),
                                                                 ],
+                                                                style={"width":"100%"},
                                                                 ),                                                                                                                                                                                                                        
                                                             ],
                                                         style={"display":"flex", "justifyContent":"center"},
@@ -1562,50 +1767,6 @@ def get_base_layout(**kwargs):
                                                         ),
                                                         dbc.Col(
                                                             [
-                                                                html.Div(
-                                                                    [
-                                                                        html.P(
-                                                                            "Indicator definition",
-                                                                            style={
-                                                                                "display": "inline-block",
-                                                                                "textAlign": "center",
-                                                                                "position": "relative",
-                                                                            },
-                                                                        ),
-                                                                        html.I(
-                                                                            id="definition-button",
-                                                                            className="fas fa-info-circle",
-                                                                            style={
-                                                                                "display": "flex",
-                                                                                "alignContent": "center",
-                                                                                "flexWrap": "wrap",
-                                                                                "paddingLeft": "5px",
-                                                                            },
-                                                                        ),
-                                                                        dbc.Popover(
-                                                                            [
-                                                                                dbc.PopoverBody(
-                                                                                    id="definition-popover",
-                                                                                )
-                                                                            ],
-                                                                            target="definition-button",
-                                                                            trigger="hover",
-                                                                            style={
-                                                                                "overflowY": "auto",
-                                                                                "whiteSpace": "pre-wrap",
-                                                                                "opacity": 1,
-                                                                            },
-                                                                            delay={
-                                                                                "hide": 0,
-                                                                                "show": 0,
-                                                                            },
-                                                                        ),
-                                                                    ],
-                                                                    style={
-                                                                        "display": "inline-flex",
-                                                                        "marginTop":"15px",
-                                                                    },
-                                                                ),
                                                                 dbc.Col(
                                                                     [
                                                                         html.Button(
@@ -1652,7 +1813,7 @@ def get_base_layout(**kwargs):
                         dbc.Row(
                             html.H3(
                                 id="crc-header",
-                                children="CRC Recommendations - ",
+                                children="Convention on the Rights of Child Recommendations - ",
                                 style={
                                     "color": domain_colour,
                                     "marginTop": "10px",
@@ -1662,7 +1823,7 @@ def get_base_layout(**kwargs):
                         ),
                         html.Br(),
                         html.Div(
-                            className="flex-container",
+                            className="responsive-container",
                             children=[
                                 html.P(
                                     "Select country:",
@@ -1867,7 +2028,7 @@ def generate_accordion_items(recommendations):
 # Function to filter CRC_df based on country, subdomain, and bottleneck type
 def filter_crc_data(year, country, indicator, text_style):
     if indicator is None:
-        return 'CRC Recommendations - Select indicator', {**text_style, 'color': 'black'}, []
+        return 'Convention on the Rights of Child Recommendations - Select indicator', {**text_style, 'color': 'black'}, []
     
     domain, subdomain_name, subdomain_code = update_domain_and_subdomain_values(indicator)
     domain_colour = merged_page_config[domain]['domain_colour']
@@ -1875,7 +2036,7 @@ def filter_crc_data(year, country, indicator, text_style):
     if subdomain_name is None:
         # Handle the case where the subdomain code doesn't match any subdomain
         return (
-            "CRC Recommendations - Select indicator",
+            "Convention on the Rights of Child Recommendations - Select indicator",
             {**text_style, 'color': 'black'},
             f"No related recommendations for this {'subdomain' if country == 'all_countries' else 'country and subdomain'}.",
         )
@@ -1918,7 +2079,7 @@ def filter_crc_data(year, country, indicator, text_style):
         ]
         all_recommendations = format_recommendations_by_bottleneck(df, country, year)
 
-    header_text = f"CRC Recommendations - {subdomain_name}"
+    header_text = f"Convention on the Rights of Child Recommendations - {subdomain_name}"
     # Check if there are no recommendations
     if not any(all_recommendations.values()):
         return header_text, {**text_style}, f"No related recommendations for this {'subdomain' if country == 'all_countries' else 'country and subdomain'}."
@@ -2332,7 +2493,7 @@ def create_subdomain_buttons(domain_dropdown_value):
                 button = dbc.Button(
                     subdomain_info["NAME"],
                     id=button_id,
-                    color="sub",
+                    color=f"{page_prefix}-sub",
                     className="theme mx-1",
                     active=is_first_button  # Set only the first button as active
                 )
@@ -2377,7 +2538,7 @@ def create_indicator_buttons(subdomain_button_active, subdomain_button_ids):
         dbc.Button(
             [
                 html.Span(
-                    re.sub(r"\s*\(SDG.*\)", " ", indicator['name']),
+                    re.sub(r"\s*\(SDG.*\)", " ", indicator['button_name']),
                     className="mr-2"
                 ),  # Button label without "(SDG ...)"
                 dbc.Badge("SDG", color="primary", className="mr-1")
@@ -2534,7 +2695,7 @@ def aio_area_figure(
     country_group,
     selected_type,
 ):
-    # start_time = time.time()
+    
     filters, country_selector, selected_years, country_text = get_filters(
         years_slider,
         countries,
@@ -2596,7 +2757,8 @@ def aio_area_figure(
         default_graph = merged_page_config[domain]['SUBDOMAINS'][subdomain][area].get("default_graph", "line")
 
         fig_type = selected_type if selected_type else default_graph
-        fig_config = merged_page_config[domain]['SUBDOMAINS'][subdomain][area]["graphs"][fig_type].copy()
+        #fig_config = merged_page_config[domain]['SUBDOMAINS'][subdomain][area]["graphs"][fig_type].copy()
+        fig_config = graphs_dict[fig_type]
         options = fig_config.get("options")
         traces = fig_config.get("trace_options")
         layout_opt = fig_config.get("layout_options")
@@ -2853,6 +3015,7 @@ def aio_area_figure(
             options["color"] = "Status"
             options["color_discrete_map"] = {"Yes": "#1CABE2", "No": "#fcba03"}
         else:
+            options["color"] = "OBS_VALUE"
             options["color_continuous_scale"] = map_colour
             options["range_color"] = [data.OBS_VALUE.min(), data.OBS_VALUE.max()]
 
@@ -2860,19 +3023,22 @@ def aio_area_figure(
         # turn off number formatting of data labels under 100
         if max(data.OBS_VALUE) <= 100:
             options["text_auto"] = False
+        if (data['OBS_VALUE'] == 0).any():
+            graph_info = "Zero values not showing on graph; see 'Countries with data' for more information."
+
+    # removing zero values from bar chart as they cause a bug where countries without data display on chart
+    fig_data = data[data['OBS_VALUE'] != 0] if fig_type == "bar" else data
 
     if fig_type == "count_bar":
         # change to fig type to generate px.bar
         fig_type = "bar"
 
-    fig = getattr(px, fig_type)(data, **options)
+    fig = getattr(px, fig_type)(fig_data, **options)
     fig.update_layout(layout)
     # remove x-axis title but keep space below
     fig.update_layout(xaxis_title="")
     if fig_type == "bar" and not dimension and "YES_NO" not in data.UNIT_MEASURE.values:
         fig.update_traces(marker_color=domain_colour)
-        # if (data.OBS_VALUE == 0).any():
-        # fig.update_traces(textposition="outside")
     if fig_type == "line":
         fig.update_traces(**traces)
         # adding invisible line at zero to make sure the y-axis starts at zero
@@ -2983,5 +3149,4 @@ def aio_area_figure(
         graph_info,
         json_data,
         indicator_description,
-        #{**text_style, 'color': domain_colour},
     )
