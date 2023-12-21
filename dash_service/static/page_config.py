@@ -146,7 +146,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'Net migration'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['DM_CHLD_POP',
                         'DM_CHLD_POP_PT',
                         'DM_BRTS',
@@ -190,7 +190,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'Labour force participation rate'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['EC_HDI',
                         'EC_TEC_GRL_GOV_EXP',
                         'EC_NY_GDP_PCAP_PP_CD',
@@ -206,7 +206,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': 'countries in compliance with the Paris Principles',
                         'min_max': False,
                         'button_name': 'Status of National Human Rights Institutions (SDG 16.a.1)'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['PP_SG_NHR_IMPLN'],
                         'default_graph': 'map',
                         'default': 'PP_SG_NHR_IMPLN'}},
@@ -241,7 +241,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'Expenditure on family-children benefits'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['EDU_FIN_EXP_PT_GDP-SPE',
                         'EDU_FIN_EXP_L02',
                         'EDU_FIN_EXP_L1',
@@ -296,7 +296,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': 'countries',
                         'min_max': False,
                         'button_name': 'Census (SDG 17.19.2)'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['CR_IQ_SCI_OVRL',
                         'CR_SG_STT_FPOS',
                         'CR_SG_STT_CAPTY',
@@ -319,7 +319,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': 'children',
                         'min_max': False,
                         'button_name': 'Number of children with disabilities who lodged a complaint a human rights complaint during the year'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['JJ_CHLD_COMPLAINT_HHRR', 'JJ_CHLD_DISAB_COMPLAINT_HHRR'],
                         'default_graph': 'bar',
                         'default': 'JJ_CHLD_COMPLAINT_HHRR'}},
@@ -329,7 +329,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': 'No indicator chosen.',
                         'min_max': True,
                         'button_name': 'No indicators available yet for this sub-domain.'},],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': [],
                         'default_graph': 'bar',
                         'default': 'BUSINESS-INDICATOR'}},}},
@@ -375,7 +375,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'Population covered by health insurance '}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['HT_UHC_IDX',
                         'HT_SH_XPD_CHEX_GD_ZS',
                         'HT_SH_XPD_GHED_GD_ZS',
@@ -421,7 +421,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'Low birth weight among newborns'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['CME_MRM0',
                         'CME_MRY0',
                         'CME_MRY0T4',
@@ -452,7 +452,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'HPV coverage (SDG 3.b.1)'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['IM_MCV2', 'IM_DTP3', 'IM_PCV3', 'IM_HPV'],
                         'default_graph': 'bar',
                         'default': 'IM_MCV2'}},
@@ -507,7 +507,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'Anaemia among children under 5 years'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['NT_BF_EXBF',
                         'NT_BF_EIBF',
                         'NT_CF_ISSSF_FL',
@@ -541,7 +541,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'WHO-recommended daily exercise'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['FT_SP_DYN_ADKL',
                         'HT_ADOL_MT',
                         'MT_SDG_SUICIDE',
@@ -579,7 +579,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'Children receiving ART'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['HVA_EPI_LHIV_0-19',
                         'HVA_EPI_INF_RT_0-14',
                         'HVA_EPI_DTH_ANN_0-19',
@@ -630,7 +630,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': 'countries',
                         'min_max': False,
                         'button_name': 'Learning assessments in reading (end of lower secondary education)'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['EDU_FIN_EXP_PT_GDP',
                         'EDUNF_ADMIN_L1_GLAST_MAT',
                         'EDUNF_ADMIN_L1_GLAST_REA',
@@ -711,7 +711,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'Youth and adults in education and training (SDG 4.3.1)'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['EDUNF_CR_L1',
                         'EDUNF_CR_L2',
                         'EDUNF_CR_L3',
@@ -759,7 +759,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': ' Percentage of youth not in education, employment or training (SDG 8.6.1)'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['EDU_PISA_LOW_ACHIEVE_MAT',
                         'EDU_PISA_LOW_ACHIEVE_REA',
                         'EDU_PISA_LOW_ACHIEVE_SCI',
@@ -779,7 +779,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'Adolescents who use the internet and social networks before or after school'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['PP_ADOL_TVGM', 'PP_ADOL_INET'],
                         'default_graph': 'bar',
                         'default': 'PP_ADOL_TVGM'}}}},
@@ -820,7 +820,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': 'child victims of violence',
                         'min_max': False,
                         'button_name': 'Child victims of violence'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['PT_CHLD_1-14_PS-PSY-V_CGVR',
                         'PT_ADLT_PS_NEC',
                         'PT_F_GE15_PS-SX-EM_V_PTNR_12MNTH',
@@ -850,7 +850,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'Rate of formal adoption of children'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['PT_CHLD_INFORMALCARE_RATE',
                         'PT_CHLD_INRESIDENTIAL_RATE_B',
                         'PT_CHLD_INCARE_FOSTER_RATE',
@@ -903,7 +903,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'Unsentenced detainees (SDG 16.3.2)'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['JJ_CHLD_DETENTION_RATE',
                         'JJ_CHLD_PRE_SENTENCE_DETENTION_RATE',
                         'JJ_CHLD_POST_SENTENCE_DETENTION_RATE',
@@ -936,7 +936,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'Boys aged 15-19 years who are currently married or in union'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['PT_F_20-24_MRD_U18',
                         'PT_M_20-24_MRD_U18',
                         'PT_F_15-19_MRD',
@@ -954,7 +954,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'Child labour - economic activities'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['PT_CHLD_5-17_LBR_ECON-HC', 'PT_CHLD_5-17_LBR_ECON'],
                         'default_graph': 'bar',
                         'default': 'PT_CHLD_5-17_LBR_ECON-HC'}}}},
@@ -980,7 +980,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': 'countries',
                         'min_max': False,
                         'button_name': 'Death registration data (SDG 17.19.2)'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['PT_CHLD_Y0T4_REG',
                         'PP_SG_REG_BRTH90N',
                         'PP_SG_REG_DETH75N'],
@@ -992,7 +992,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': 'No indicator chosen.',
                         'min_max': True,
                         'button_name': 'No indicators available yet for this sub-domain.'},],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': [],
                         'default_graph': 'bar',
                         'default': 'PART-INDICATOR'}},   
@@ -1002,7 +1002,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': 'No indicator chosen.',
                         'min_max': True,
                         'button_name': 'No indicators available yet for this sub-domain.'},],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': [],
                         'default_graph': 'bar',
                         'default': 'CIVIL-INDICATOR'}},                                                
@@ -1037,7 +1037,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'Internet security concerns'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['PP_IT_USE_ii99',
                         'PP_SE_ADT_ACTS_PRGM',
                         'PP_SE_ADT_ACTS_ATCH',
@@ -1093,7 +1093,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'Expenditure on family-children benefits'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['PV_SI_COV_BENFTS',
                         'PV_SI_COV_CHLD',
                         'PV_SI_COV_MATNL',
@@ -1140,7 +1140,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'Inability to afford a meal with protein'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['SI_POV_UMIC',
                         'PV_SDG_SI_POV_NAHC',
                         'PV_AROPE',
@@ -1166,7 +1166,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'No bath, shower, or indoor flushing toilet in household'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['WS_PPL_W-SM', 'WS_PPL_S-SM', 'HT_NO_BTH_SHW_FLSH'],
                         'default_graph': 'bar',
                         'default': 'WS_PPL_W-SM'}}}},
@@ -1227,7 +1227,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'Women aged 20-24 years married or in union before age 18 (SDG 5.3.1)'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['EC_GDI',
                         'EC_GII',
                         'FT_SP_DYN_ADKL-GND',
@@ -1286,7 +1286,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'Population with severe disabilities receiving disability cash benefit (SDG 1.3.1)'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['HT_REG_CHLD_DISAB_PROP',
                         'HT_NEW_REG_CHLD_DISAB_PROP',
                         'EDU_SDG_SCH_L1-DIS',
@@ -1334,7 +1334,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'Pupils from age 3 to the starting age of compulsory education at primary level'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['ECD_CHLD_36-59M_LMPSL',
                         'CME_MRM0-ECD',
                         'NT_BF_EXBF-ECD',
@@ -1385,7 +1385,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'Privacy and protection of personal data'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['FT_SP_DYN_ADKL-ADO',
                         'MT_SDG_SUICIDE-ADO',
                         'EDU_SDG_YOUTH_NEET-ADO',
@@ -1437,7 +1437,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': min_max_card_suffix,
                         'min_max': True,
                         'button_name': 'Air quality (SDG 11.6.2)'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['CR_CCRI',
                         'CR_CCRI_EXP_CESS',
                         'CR_CCRI_VUL_ES',
@@ -1479,7 +1479,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'suffix': 'persons',
                         'min_max': False,
                         'button_name': 'Unaccompanied minors'}],
-                        'AIO_AREA': {'graphs': graphs_dict,
+                        'AIO_AREA': {
                         'indicators': ['CR_INFORM',
                         'CR_VC_DSR_MTMP',
                         'CR_VC_DSR_DAFF',

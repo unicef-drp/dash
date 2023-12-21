@@ -18,11 +18,7 @@ import plotly.graph_objects as go
 import textwrap
 
 from dash_service.pages.transmonee import (
-    geo_json_countries,
     get_base_layout,
-    indicator_card,
-    graphs_dict,
-    selections,
     active_button,
     breakdown_options,
     default_compare,
@@ -41,23 +37,6 @@ from dash_service.pages.transmonee import (
 from dash_service.static.page_config import (
     merged_page_config
 )
-
-# customization of plots requested by Siraj
-packed_config = {}
-
-# register_page(
-#     __name__,
-#     # path_template="/transmonee/<page_slug>",
-#     path="/transmonee/child-rights",
-#     title="Child Rights Landscape and Governance",
-#     # order=1,
-# )
-page_prefix = "crg"
-page_path = "child-rights"
-domain_colour = "#562061"
-light_domain_colour = "#e7c9ed"
-dark_domain_colour = "#44194d"
-map_colour = "purpor"
 
 
 # configure the Dash instance's layout
@@ -132,7 +111,7 @@ def set_breakdown_options(indicator, fig_type):
     prevent_initial_call=True,
 )
 def set_default_compare(compare_options, selected_type, indicator):
-    return default_compare(compare_options, selected_type, indicator)
+    return "TOTAL"
 
 @callback(
     Output({"type": "indicator-button", "index": ALL}, "active"),

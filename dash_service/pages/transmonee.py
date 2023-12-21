@@ -39,17 +39,6 @@ pio.templates.default = "plotly_white"
 px.defaults.color_continuous_scale = px.colors.sequential.BuGn
 px.defaults.color_discrete_sequence = px.colors.qualitative.Dark24
 
-colours = [
-    "primary",
-    "success",
-    "warning",
-    "danger",
-    "secondary",
-    "info",
-    "success",
-    "danger",
-]
-
 
 DEFAULT_LABELS = {
     "Country_name": "Country",
@@ -81,9 +70,6 @@ EMPTY_CHART = {
 
 # TODO: Move all of these to env/setting vars from production
 
-# parent = Path(__file__).resolve().parent
-# with open(parent / "../static/indicator_config.json") as config_file:
-#     indicators_config = json.load(config_file)
 
 config_file_path = (
     f"{pathlib.Path(__file__).parent.parent.absolute()}/static/indicator_config.json"
@@ -104,12 +90,6 @@ indicator_names = {
     for code in dsd.dimensions.get("INDICATOR").local_representation.enumerated
 }
 
-button_name_file_path = (
-    f"{pathlib.Path(__file__).parent.parent.absolute()}/static/indicator_buttons.json"
-)
-with open(button_name_file_path) as button_file:
-    indicator_buttons = json.load(button_file)
-
 indicator_def_file_path = f"{pathlib.Path(__file__).parent.parent.absolute()}/static/indicator_definitions.json"
 with open(indicator_def_file_path) as definitions_file:
     indicator_definitions = json.load(definitions_file)
@@ -124,7 +104,7 @@ custom_names = {
     # erase_name_thousands
     "DM_BRTS": "Number of births",
     "DM_POP_TOT_AGE": "Population by age",
-    "HT_SN_STA_OVWGTN": "2.2.2. Number of children moderately or severely overweight",
+    "HT_SN_STA_OVWGTN": "Number of children moderately or severely overweight - SDG 2.2.2",
     "DM_CHLD_POP": "Child population aged 0-17 years",
     "DM_ADOL_POP": "Adolescent population aged 10-19 years",
     "DM_TOT_POP_PROSP": "Population prospects",
@@ -134,7 +114,7 @@ custom_names = {
     "DM_CHLD_YOUNG_COMP_POP": "Child population aged 0-17 years",
     "ICT_SECURITY_CONCERN": "Percentage of 16-24 year olds who limited their personal internet activities in the last 12 months due to security concerns",
     "ICT_PERSONAL_DATA": "Percentage of 16-24 year olds who used the internet in the last 3 months and managed access to their personal data",
-    "MT_SDG_SUICIDE": "3.4.2 Suicide mortality rate for 15-19 year olds (deaths per 100,000 population)",
+    "MT_SDG_SUICIDE": "Suicide mortality rate for 15-19 year olds (deaths per 100,000 population) - SDG 3.4.2",
     "EC_SP_GOV_EXP_GDP": "General government expenditure on social protection (% of GDP)",
     # custom plots
     "packed_CRG": "National Human Rights Institutions in compliance with the Paris Principles",
@@ -439,6 +419,7 @@ data_sources = {
     "TMEE": "Transformative Monitoring for Enhanced Equity (TransMonEE)",
 }
 
+'''
 dict_topics_subtopics = {
     "Child Rights Landscape and Governance": [
         "Demographics",
@@ -488,6 +469,7 @@ dict_topics_subtopics = {
         "Disaster, conflict and displacement",
     ],
 }
+''' 
 
 domain_pages = {
     "Child Rights Landscape and Governance": "child-rights",
@@ -537,16 +519,6 @@ crosscutting_columns = [
     "Disaster, conflict and displacement",
     "Environment and climate",
 ]
-
-# Read the master list Excel file and set the first row as header
-master_file_path = (
-    f"{pathlib.Path(__file__).parent.parent.absolute()}/static/master_list.xlsx"
-)
-master_df = pd.read_excel(
-    master_file_path,
-    sheet_name="Master List",
-    header=0,  # Use the second row as column headers
-)
 
 framework_file_path = f"{pathlib.Path(__file__).parent.parent.absolute()}/static/crm_framework_indicators.json"
 # Load the crm framework data
@@ -691,20 +663,6 @@ def update_country_selection(country_group, country_selection):
         else:
             # No update to dropdown options or value
             return no_update, no_update
-
-
-def get_sector(subtopic):
-    """
-    Get the sector based on the given subtopic.
-    Args:
-        subtopic (str): The subtopic to match and find the corresponding sector.
-    Returns:
-        str: The sector that corresponds to the given subtopic. If no sector is found, an empty string is returned.
-    """
-    for key in dict_topics_subtopics.keys():
-        if subtopic.strip() in dict_topics_subtopics.get(key):
-            return key
-    return ""
 
 
 # function to check if the config of a certain indicator are only about its dtype and if its nominal data
@@ -1129,8 +1087,6 @@ df_topics_subtopics.dropna(subset=["Issue"], inplace=True)
 df_sources = pd.merge(df_topics_subtopics, snapshot_df, how="outer", on=["Code"])
 # assign source = TMEE to all indicators without a source since they all come from excel data collection files
 df_sources.fillna("TMEE", inplace=True)
-# Concatenate sectors/subtopics dictionary value lists (mapping str lower)
-sitan_subtopics = list(map(str.lower, sum(dict_topics_subtopics.values(), [])))
 
 df_sources.rename(
     columns={
@@ -1139,16 +1095,11 @@ df_sources.rename(
     },
     inplace=True,
 )
-# filter the sources to keep only sitan related sectors and sub-topics
-df_sources["Subdomain"] = df_sources["Subdomain"].str.strip()
-df_sources["Domain"] = df_sources["Subdomain"].apply(
-    lambda x: get_sector(x) if not pd.isna(x) else ""
-)
+
 df_sources["Source_Full"] = df_sources["Source"].apply(
     lambda x: data_sources[x] if not pd.isna(x) and x in data_sources else ""
 )
 
-df_sources = df_sources[df_sources["Subdomain"].str.lower().isin(sitan_subtopics)]
 # read source table from excel data-dictionary and merge
 source_table_df = pd.read_excel(BytesIO(data_dict_content), sheet_name="Source")
 df_sources = df_sources.merge(
@@ -1349,10 +1300,7 @@ def get_base_layout(**kwargs):
                                         style={"display": "flex", "align-items": "center", "justify-content": "right"}  # Flexbox layout
                                     )
                                 ],
-                                # Define width for different screen sizes
-                                width=12,
-                                sm=12, 
-                                md=2,
+                                width=12, sm=12, md=2,
                             ),
                             dbc.Col(
                                 [
@@ -1364,10 +1312,7 @@ def get_base_layout(**kwargs):
                                         placeholder="Select a domain or subdomain"
                                     ),
                                 ],
-                                # Define width for different screen sizes
-                                width=12,
-                                sm=12, 
-                                md=4, 
+                                width=12, sm=12, md=4, 
                             ),
                             dbc.Col(
                                 [
@@ -1389,10 +1334,7 @@ def get_base_layout(**kwargs):
                                         className="crm_dropdown",
                                     ),
                                 ],
-                                # Define width for different screen sizes
-                                width=12,  # Full width on extra small screens
-                                sm=12,  # Full width on small screens
-                                md=6,  # 6 columns wide on medium and larger screens
+                                width=12, sm=12, md=6,
                             ),
                         ],
                         id = "search_by_indicator_div",
@@ -1432,7 +1374,7 @@ def get_base_layout(**kwargs):
                                                     ),
                                                 ]),
                                                 width="auto",
-                                                align="start"  # Aligns content at the top
+                                                align="start"
                                             ),
                                             dbc.Col(
                                                 html.Div([
@@ -1452,7 +1394,7 @@ def get_base_layout(**kwargs):
                                                     ),
                                                 ]),
                                                 width="auto",
-                                                align="start"  # Aligns content at the top
+                                                align="start"
                                             ),
                                             dbc.Col(
                                                 html.Div([
@@ -1468,7 +1410,7 @@ def get_base_layout(**kwargs):
                                                     ),
                                                 ]),
                                                 width="auto",
-                                                align="start"  # Aligns content at the top
+                                                align="start"
                                             ),
                                             dbc.Col(
                                                 html.Div([
@@ -1483,7 +1425,7 @@ def get_base_layout(**kwargs):
                                                     ),
                                                 ]),                                                
                                                 width="auto",
-                                                align="start"  # Aligns content at the top
+                                                align="start"
                                             ),
                                         ],
                                         justify="start"
@@ -1532,8 +1474,7 @@ def get_base_layout(**kwargs):
                                                     ],
                                                     id='indicator_buttons_div',
                                                     class_name="indic_btn_col",
-                                                    width=12,  # Full width on small screens
-                                                    lg=3,  # Original width on large screens
+                                                    width=12, lg=3,
                                                 ),                                              
                                                 dbc.Col(
                                                     html.Div(
@@ -1868,6 +1809,7 @@ def get_base_layout(**kwargs):
                                                 "color": '#374EA2',
                                                 "margin-left": "20px",
                                                 "margin-right": "5px",
+                                                "display":"none",
                                             },
                                         ),
                                         html.A(
@@ -1877,6 +1819,7 @@ def get_base_layout(**kwargs):
                                             style={
                                                 "color": '#374EA2',
                                                 "text-decoration": "underline",
+                                                "display":"none",
                                             },
                                         ),
                                     ]
@@ -1888,17 +1831,13 @@ def get_base_layout(**kwargs):
                     ],
                 ),
                 className="crc_card",
-                # style={"display": "None"},
             ),
         ],
     )
 
 
 def make_card(
-    name,
     suffix,
-    indicator_sources,
-    source_link,
     indicator_header,
     numerator_pairs,
     domain_colour,
@@ -1915,7 +1854,6 @@ def make_card(
                     },
                 ),
                 html.H4(suffix, className="card-title"),
-                #html.P(name, className="lead"),
             ],
             style={
                 "textAlign": "center",
@@ -2090,7 +2028,6 @@ def filter_crc_data(year, country, indicator, text_style):
 
 def indicator_card(
     filters,
-    name,
     indicator,
     suffix,
     absolute=False,
@@ -2126,27 +2063,14 @@ def indicator_card(
 
         df_indicator_sources = df_sources[df_sources["Code"].isin(indicators)]
         unique_indicator_sources = df_indicator_sources["Source_Full"].unique()
-        indicator_sources = (
-            "; ".join(list(unique_indicator_sources))
-            if len(unique_indicator_sources) > 0
-            else ""
-        )
-        source_link = (
-            df_indicator_sources["Source_Link"].unique()[0]
-            if len(unique_indicator_sources) > 0
-            else ""
-        )
+
         # lbassil: add this check because we are getting an exception where there is no data; i.e. no totals for all dimensions mostly age for the selected indicator
         if filtered_data.empty:
             indicator_header = "No data"
-            indicator_sources = "NA"
             suffix = ""
             numerator_pairs = []
             return make_card(
-                name,
                 suffix,
-                indicator_sources,
-                source_link,
                 indicator_header,
                 numerator_pairs,
                 domain_colour,
@@ -2154,14 +2078,10 @@ def indicator_card(
 
     except requests.exceptions.HTTPError as err:
         indicator_header = "No data"
-        indicator_sources = "NA"
         suffix = ""
         numerator_pairs = []
         return make_card(
-            name,
             suffix,
-            indicator_sources,
-            source_link,
             indicator_header,
             numerator_pairs,
             domain_colour,
@@ -2281,10 +2201,7 @@ def indicator_card(
         indicator_header = sum_format.format(indicator_sum)
 
     return make_card(
-        name,
         suffix,
-        indicator_sources,
-        source_link,
         indicator_header,
         numerator_pairs,
         domain_colour,
@@ -2670,17 +2587,8 @@ def active_button(_, buttons_id):
 def default_compare(compare_options, selected_type, indicator):
     if indicator is None:
         return "TOTAL"
-    area = "AIO_AREA"
-    domain, _, subdomain = update_domain_and_subdomain_values(indicator)
-    config = merged_page_config[domain]['SUBDOMAINS'][subdomain][area]["graphs"][selected_type]
-    default_compare = config.get("compare")
-
-    if selected_type != "bar":
+    elif selected_type != "bar":
         return "TOTAL"
-    elif default_compare is None:
-        return "TOTAL"
-    elif default_compare in compare_options:
-        return default_compare
     elif len(compare_options) > 1:
         return compare_options[1]["value"]
     else:
@@ -2757,7 +2665,6 @@ def aio_area_figure(
         default_graph = merged_page_config[domain]['SUBDOMAINS'][subdomain][area].get("default_graph", "line")
 
         fig_type = selected_type if selected_type else default_graph
-        #fig_config = merged_page_config[domain]['SUBDOMAINS'][subdomain][area]["graphs"][fig_type].copy()
         fig_config = graphs_dict[fig_type]
         options = fig_config.get("options")
         traces = fig_config.get("trace_options")
@@ -2899,7 +2806,6 @@ def aio_area_figure(
         if not card_config
         else indicator_card(
             filters,
-            card_config["name"],
             card_config["indicator"],
             card_config["suffix"],
             card_config.get("absolute"),
