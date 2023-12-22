@@ -3,16 +3,7 @@ from urllib.parse import parse_qs, urlparse
 from .db_utils import db_utils
 
 from dash_service.pages import empty_renderer, dashboard, data_explorer, menu_page
-from dash_service.pages import (
-    child_cross_cutting,
-    child_education,
-    child_health,
-    child_participation,
-    child_poverty,
-    child_protection,
-    child_rights,
-    home,
-)
+from dash_service.pages import home
 from dash.development.base_component import Component
 from werkzeug.datastructures import MultiDict
 from .exceptions import InvalidLayoutError
@@ -30,16 +21,6 @@ class CustomRouter:
         if isinstance(layout, Component):
             return True
         return False
-
-    tm_layouts = {
-        "child-cross-cutting": child_cross_cutting.layout,
-        "child-education": child_education.layout,
-        "child-health": child_health.layout,
-        "child-participation": child_participation.layout,
-        "child-poverty": child_poverty.layout,
-        "child-protection": child_protection.layout,
-        "child-rights": child_rights.layout,
-    }
 
     def __init__(self, app, html_container_id) -> None:
         """
@@ -82,9 +63,11 @@ class CustomRouter:
 
             if param_prj == "tm":
                 if param_page == "":
-                    layout_to_use = home.layout(parsedurl, request)
+                    layout_to_use = home.layout()
                 else:
-                    layout_to_use = CustomRouter.tm_layouts[param_page]
+                    layout_to_use = home.layout()
+                    # removing domain pages for the moment
+                    #layout_to_use = CustomRouter.tm_layouts[param_page]
             else:
                 page_type = db_utils().get_page_type(param_prj, param_page)
                 if page_type == db_utils.TYPE_DASHBOARD:

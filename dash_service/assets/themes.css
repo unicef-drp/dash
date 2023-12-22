@@ -3,6 +3,7 @@
     color: white;
     background-color: #ab86b1;
     border-color: #ab86b1;
+    margin-top: 5px;
 }
 
 .theme_buttons .btn-crg.focus,
@@ -30,6 +31,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 5px;
+    max-width: 350px;
 }
 
 .theme_buttons .btn-crg-sub.focus,
@@ -47,6 +50,20 @@
     background-color: #562061;
     border-color: #562061
 }
+
+.crg-dropdown .Select-control {
+    background-color: #562061;
+    color: white;
+}
+
+.crg-dropdown .Select-menu-outer {
+    color: #562061;
+}
+
+.crg-dropdown .Select-value-label {
+    color: white !important;
+}
+
 
 /* colour theme for HAN domain*/
 
@@ -82,6 +99,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 5px;
+    max-width: 400px;
 }
 
 .theme_buttons .btn-han-sub.focus,
@@ -98,6 +117,19 @@
     color: white;
     background-color: #3e7c49;
     border-color: #3e7c49
+}
+
+.han-dropdown .Select-control {
+    background-color: #3e7c49;
+    color: white;
+}
+
+.han-dropdown .Select-menu-outer {
+    color: #3e7c49;
+}
+
+.han-dropdown .Select-value-label {
+    color: white !important;
 }
 
 /* colour theme for POV domain*/
@@ -128,10 +160,13 @@
     color: #4c8cbb;
     background-color: white;
     border-color: #4c8cbb;
+    border-width: 3px;
     text-transform: initial;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 5px;
+    max-width: 350px;
 }
 
 .theme_buttons .btn-pov-sub.focus,
@@ -148,6 +183,19 @@
     color: white;
     background-color: #4c8cbb;
     border-color: #4c8cbb
+}
+
+.pov-dropdown .Select-control {
+    background-color: #4c8cbb;
+    color: white;
+}
+
+.pov-dropdown .Select-menu-outer {
+    color: #4c8cbb;
+}
+
+.pov-dropdown .Select-value-label {
+    color: white !important;
 }
 
 
@@ -179,10 +227,13 @@
     color: #37568f;
     background-color: white;
     border-color: #37568f;
+    border-width: 3px;
     text-transform: initial;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 5px;
+    max-width: 350px;
 }
 
 .theme_buttons .btn-edu-sub.focus,
@@ -199,6 +250,19 @@
     color: white;
     background-color: #37568f;
     border-color: #37568f
+}
+
+.edu-dropdown .Select-control {
+    background-color: #37568f;
+    color: white;
+}
+
+.edu-dropdown .Select-menu-outer {
+    color: #37568f;
+}
+
+.edu-dropdown .Select-value-label {
+    color: white !important;
 }
 
 /* colour theme for CHP domain*/
@@ -229,10 +293,13 @@
     color: #e5ae4c;
     background-color: white;
     border-color: #e5ae4c;
+    border-width: 3px;
     text-transform: initial;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 5px;
+    max-width: 350px;
 }
 
 .theme_buttons .btn-chp-sub.focus,
@@ -250,6 +317,20 @@
     background-color: #e5ae4c;
     border-color: #e5ae4c
 }
+
+.chp-dropdown .Select-control {
+    background-color: #e5ae4c;
+    color: #5A5A5A;
+}
+
+.chp-dropdown .Select-menu-outer {
+    color: #e5ae4c;
+}
+
+.chp-dropdown .Select-value-label {
+    color: #5A5A5A !important;
+}
+
 
 /* colour theme for PAR domain*/
 
@@ -279,10 +360,13 @@
     color: #861c3f;
     background-color: white;
     border-color: #861c3f;
+    border-width: 3px;
     text-transform: initial;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 5px;
+    max-width: 350px;
 }
 
 .theme_buttons .btn-par-sub.focus,
@@ -300,6 +384,20 @@
     background-color: #861c3f;
     border-color: #861c3f
 }
+
+.par-dropdown .Select-control {
+    background-color: #861c3f;
+    color: white;
+}
+
+.par-dropdown .Select-menu-outer {
+    color: #861c3f;
+}
+
+.par-dropdown .Select-value-label {
+    color: white !important;
+}
+
 
 /* colour theme for CCI domain*/
 
@@ -329,10 +427,13 @@
     color: #ec5e24;
     background-color: white;
     border-color: #ec5e24;
+    border-width: 3px;
     text-transform: initial;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 5px;
+    max-width: 350px;
 }
 
 .theme_buttons .btn-cci-sub.focus,
@@ -349,6 +450,19 @@
     color: white;
     background-color: #ec5e24;
     border-color: #ec5e24
+}
+
+.cci-dropdown .Select-control {
+    background-color: #ec5e24;
+    color: white;
+}
+
+.cci-dropdown .Select-menu-outer {
+    color: #ec5e24;
+}
+
+.cci-dropdown .Select-value-label {
+    color: white !important;
 }
 
 /* Blue header style for enabling environment accordion item  */
@@ -388,4 +502,31 @@
 .has-bootstrap .crc-accordion.accordion-item:nth-child(3) .accordion-button:not(.collapsed) {
     background-color: white;
     box-shadow: 5px 5px 10px #e15759;
+}
+
+/* colour theme for navigation buttons*/
+
+.nav-btn {
+    color: #374EA2 !important;
+    background-color: white !important;
+    border-color: #374EA2 !important;
+    border-width: 2px !important;
+    display: block;
+    width: 350px;
+}
+
+.nav-btn.focus,
+.nav-btn:focus,
+.nav-btn:hover {
+    color: white !important;
+    background-color: #374EA2 !important;
+    border-color: #374EA2 !important;
+}
+
+.nav-btn:not(:disabled):not(.disabled).active,
+.nav-btn:not(:disabled):not(.disabled):active,
+.show>.nav-btn.dropdown-toggle {
+    color: white !important;
+    background-color: #374EA2 !important;
+    border-color: #374EA2 !important;
 }

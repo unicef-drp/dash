@@ -23,16 +23,37 @@
     padding-bottom: 1px;
 }
 
-/*To force inline controls*/
+/* Base style for inline controls */
 .force-inline-control {
-    display: inline-flex;
-    align-items: normal;
-    margin-bottom: 0;
+    display: flex;
+    /* Use flex instead of inline-flex for wrapping */
+    flex-wrap: wrap;
+    /* Allow items to wrap to the next line */
+    align-items: center;
+    /* Keep items aligned */
 }
 
+.force-inline-control .form-check {
+    margin-right: 10px;
+    /* Adjust spacing between radio items */
+    margin-bottom: 5px;
+    /* Space between rows when wrapped */
+}
+
+/* Smaller screens */
+@media screen and (max-width: 768px) {
+    .force-inline-control {
+        flex-direction: row;
+        /* Keep items in a row but allow wrapping */
+    }
+}
+
+/* Adjust label alignment if necessary */
 .force-inline-control label {
-    align-items: normal;
+    align-items: center;
+    /* Adjust if you want to change the alignment */
     margin-bottom: 0;
+    /* Keep labels close to their inputs */
 }
 
 /*To force inline controls END*/
@@ -124,10 +145,22 @@ div.dt-table-container__row.dt-table-container__row-1 {
     opacity: 0
 }
 
+.country-data-btn {
+    border: none;
+    background-color: white;
+    padding-right: 15px !important;
+    margin-top: 15px !important;
+    width: 100%;
+    border-radius: 5px !important;
+}
 
 .download_btn {
-    padding: 5px;
-    min-width: 120px;
+    padding: 15px;
+    border: none;
+    background-color: white;
+    border-radius: 5px !important;
+    width: 100%;
+    margin-top: 15px !important;
 }
 
 .dropdown-subtitle {
@@ -152,6 +185,149 @@ div.dt-table-container__row.dt-table-container__row-1 {
     justify-content: flex-start;
 }
 
+.crm_dropdown .Select-control {
+    background-color: white;
+    color: black;
+}
+
+.crm_dropdown .Select-value-label {
+    color: black !important;
+}
+
+.crm_dropdown.domain_dropdown {
+    width: 500px;
+}
+
+.crm_dropdown.domain_dropdown .Select-control,
+.crm_dropdown.domain_dropdown .Select-control {
+    font-size: 18px;
+}
+
+.def-btn {
+    color: grey !important;
+    background-color: white !important;
+    border-color: white !important;
+    width: 95%
+}
+
+.sdg-toggle {
+    margin-top: 3em;
+}
+
+.sdg-toggle [type=checkbox] {
+    margin-right: 10px;
+}
+
+.sdg-toggle label {
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+.boolean-switch button {
+    border-radius: 50%;
+}
+
+.boolean-switch div.daq-booleanswitch--light__background {
+    width: 50px !important;
+}
+
+.boolean-switch .gJuplL {
+    background-color: #00acef;
+}
+
+.boolean-switch .chqyiX {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.boolean-switch {
+    margin-top: 3em;
+}
+
+/* Flex container style */
+.responsive-container {
+    display: flex;
+    flex-wrap: wrap;
+    /* Allows items to wrap to the next line on smaller screens */
+    align-items: center;
+    justify-content: flex-start;
+    /* Align items to the left */
+}
+
+/* Style for each child inside the flex container */
+.responsive-container>* {
+    margin: 5px;
+    /* Adjust margins as needed */
+    flex: 0 1 auto;
+    /* Adjust this to prevent growing and only allow shrinking */
+}
+
+/* Media query for smaller screens (e.g., mobile devices) */
+@media screen and (max-width: 768px) {
+    .responsive-container {
+        flex-direction: column;
+        /* Stack elements vertically on small screens */
+    }
+
+    .responsive-container>* {
+        width: 100%;
+        /* Full width for children on small screens */
+        margin: 5px 0;
+        /* Adjust margins for vertical layout */
+    }
+}
+
+
+/* Responsive styles for smaller screens */
+@media screen and (max-width: 768px) {
+    .crm_dropdown.domain_dropdown {
+        width: 350px;
+        /* Reduced width on small screens */
+    }
+
+    .crm_dropdown.domain_dropdown .Select-control,
+    .crm_dropdown.domain_dropdown .Select-control {
+        font-size: 14px;
+        /* Reduced font size on small screens */
+    }
+
+    .domain-dropdown-container {
+        flex-direction: column;
+        /* Stack elements vertically */
+        margin-bottom: 10px;
+        /* Add space between the dropdown and the link */
+    }
+
+    .learn-more-container {
+        justify-content: center;
+        /* Center the link */
+    }
+
+    .responsive-row .col {
+        width: 100%;
+        /* Full width columns */
+    }
+
+    .indic_btn_col {
+        /* Adjust the styling for the first column on smaller screens */
+        margin-bottom: 20px;
+        /* Add some space before the next column */
+    }
+
+    .theme_buttons button {
+        /* Optionally, adjust button styles for smaller screens */
+        font-size: 14px;
+        /* Smaller font size */
+        padding: 10px;
+        /* Adjust padding */
+    }
+
+    .graph-scroll {
+        overflow-x: scroll;
+        /* Ensures horizontal scrolling */
+    }
 .crc-accordion .collapse.show {
     display: block;
 }

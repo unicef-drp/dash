@@ -180,7 +180,7 @@ def after_request(response):
         "Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS"
     )
     response.headers.add("Access-Control-Allow-Headers", "Content-Type")
-    #response.headers.add("Content-Security-Policy", r"object-src 'self' https://dash-service.azurewebsites.net/assets/")
+    # response.headers.add("Content-Security-Policy", r"object-src 'self' https://dash-service.azurewebsites.net/assets/")
 
     return response
 
