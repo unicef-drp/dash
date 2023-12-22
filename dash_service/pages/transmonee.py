@@ -415,6 +415,7 @@ data_sources = {
     "UIS": "UNESCO Institute for Statistics",
     "BDDS_UIS": "UNESCO Institute for Statistics",
     "NEW_UIS": "UNESCO Institute for Statistics",
+    "BDDS_UIS": "UNESCO Institute for Statistics",
     "UNDP": "United Nations Development Programme",
     "TMEE": "Transformative Monitoring for Enhanced Equity (TransMonEE)",
 }
@@ -1134,7 +1135,7 @@ def get_base_layout(**kwargs):
         if k not in ["prj", "page", "hash"]:
             pass_through_params.append(f"{k}={v}")
 
-    home_icon_href = "?" + "&".join(pass_through_params) + "e&page=home"
+    home_icon_href = "https://www.transmonee.org/transmonee-dashboard-wheel"
 
     domain_pages_links = []
     for k, v in domain_pages.items():
@@ -1816,13 +1817,16 @@ def get_base_layout(**kwargs):
                                             "Explore CRC Recommendations Dashboard",
                                             href="https://public.tableau.com/app/profile/ecaro.data/viz/RecommendationsoftheCommitteeontheRightsoftheChild/Overview",
                                             target="_blank",
+                                            className="tm-link",
                                             style={
                                                 "color": '#374EA2',
                                                 "text-decoration": "underline",
                                                 "display":"none",
                                             },
                                         ),
-                                    ]
+                                    ],
+                                    className="crc-link",
+                                    style={"display": "none"},
                                 ),
                             ],
                         ),

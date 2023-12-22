@@ -1,6 +1,6 @@
 import sentry_sdk
 from dash import Dash
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect,send_from_directory
 from sentry_sdk.integrations.flask import FlaskIntegration
 
 from . import admin, default_settings, register_extensions
@@ -61,6 +61,14 @@ def page_login():
             message = "User not found"
 
     return render_template("login.html", message=message)
+
+@server.route("/dl_db")
+def page_dldb():
+    if flask_login.current_user.is_authenticated:
+        if flask_login.current_user.is_admin:
+            return send_from_directory(".", "pages.db")
+    #return send_from_directory(directory=app.config['UPLOAD_FOLDER'], filename="pages.db")
+    
 
 
 @server.route("/do_login", methods=["POST", "GET"])
