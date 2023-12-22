@@ -1128,7 +1128,7 @@ def get_base_layout(**kwargs):
 
     sdg_icon_path = f"{request.root_url}assets/sdg_icon.png"
     wheel_icon_path = f"{request.root_url}assets/SOCR_Wheel.png"
-    unicef_icon_file_path = f"{request.root_url}assets/unicef_icon.png"
+    unicef_icon_file_path = f"{request.root_url}assets/UNICEF_ForEveryChild_White_Vertical.png"
 
     pass_through_params = ["prj=tm"]
     for k, v in qparams.items():
@@ -3004,7 +3004,8 @@ def aio_area_figure(
                         },
                         className="tm-link",
                         style={"color": domain_colour,
-                               "textDecoration": "underline",},
+                               "textDecoration": "underline",
+                               "display":"inline-flex"},
                     ),
                 ],
                 style={"lineHeight": "0.3"}

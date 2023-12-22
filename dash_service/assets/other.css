@@ -246,6 +246,10 @@ div.dt-table-container__row.dt-table-container__row-1 {
     min-width: 0px;
 }
 
+.boolean-switch .dlqMgb {
+    min-width: 0px;
+}
+
 .boolean-switch {
     margin-top: 3em;
 }
