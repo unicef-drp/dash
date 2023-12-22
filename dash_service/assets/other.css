@@ -242,6 +242,10 @@ div.dt-table-container__row.dt-table-container__row-1 {
     justify-content: flex-end;
 }
 
+.boolean-switch .igrnnx {
+    min-width: 0px;
+}
+
 .boolean-switch {
     margin-top: 3em;
 }
@@ -328,12 +332,15 @@ div.dt-table-container__row.dt-table-container__row-1 {
         overflow-x: scroll;
         /* Ensures horizontal scrolling */
     }
+}
+
 .crc-accordion .collapse.show {
     display: block;
 }
 
 .has-bootstrap .tm-link {
     font-size: 14px;
+    font-weight: bold;
 }
 
 .has-bootstrap .crc-link {

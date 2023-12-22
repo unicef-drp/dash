@@ -1126,7 +1126,7 @@ def get_base_layout(**kwargs):
     domain_colour = kwargs.get("domain_colour")
     qparams = kwargs.get("query_params")
 
-    sdg_icon_path = f"{request.root_url}assets/big_sdg_logo.png"
+    sdg_icon_path = f"{request.root_url}assets/sdg_icon.png"
     wheel_icon_path = f"{request.root_url}assets/SOCR_Wheel.png"
     unicef_icon_file_path = f"{request.root_url}assets/unicef_icon.png"
 
@@ -1219,6 +1219,7 @@ def get_base_layout(**kwargs):
                                                     html.A("Learn more about ECA CRM Framework",
                                                         href="https://www.unicef.org/eca/europe-and-central-asia-child-rights-monitoring-framework",
                                                         target="_blank",
+                                                        className= "tm-link",
                                                         style={"color": '#374EA2'}
                                                     ),
                                                 ],
@@ -1753,7 +1754,7 @@ def get_base_layout(**kwargs):
                 dbc.CardBody(
                     [
                         dbc.Row(
-                            html.H3(
+                            html.H5(
                                 id="crc-header",
                                 children="Convention on the Rights of Child Recommendations - ",
                                 style={
@@ -3001,7 +3002,7 @@ def aio_area_figure(
                             "type": "area_sources",
                             "index": "AIO_AREA",
                         },
-                        className="alert-link",
+                        className="tm-link",
                         style={"color": domain_colour,
                                "textDecoration": "underline",},
                     ),
