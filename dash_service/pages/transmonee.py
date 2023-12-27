@@ -1047,9 +1047,13 @@ def get_data(
     data["OBS_FOOTNOTE"] = data.OBS_FOOTNOTE.str.wrap(70).str.replace("\n", "<br>")
     data["DATA_SOURCE"] = data.DATA_SOURCE.str.wrap(70).str.replace("\n", "<br>")
 
-    if "IDX" in data.UNIT_MEASURE.values or "HVA_EPI_INF_RT_0-14" in data.CODE.values:
+    # some indexes have been listed as ratios in SDG database so we need to specify not to round these indicators
+    codes_3_decimals = ['HVA_EPI_INF_RT_0-14', 'EDU_SE_TOT_GPI_L2_MAT', 'EDU_SE_TOT_GPI_L2_REA', 'EDU_SE_AGP_CPRA_L3']
+    codes_1_decimal = ['DM_FRATE_TOT', 'PV_GINI_COEF']
+
+    if "IDX" in data.UNIT_MEASURE.values or any(code in data.CODE.values for code in codes_3_decimals):
         data.OBS_VALUE = data.OBS_VALUE.round(3)
-    elif "DM_FRATE_TOT" in data.CODE.values:
+    elif any(code in data.CODE.values for code in codes_1_decimal):
         data.OBS_VALUE = data.OBS_VALUE.round(1)
     else:
         data.OBS_VALUE = data.OBS_VALUE.round(1)
@@ -2805,6 +2809,9 @@ def aio_area_figure(
         None
     )
 
+    # Retrieve the y-axis title 
+    y_axis_title = card_config.get('yaxis', '') 
+
     # Create the indicator card if configuration is available
     ind_card = (
         []
@@ -2950,10 +2957,13 @@ def aio_area_figure(
 
     fig = getattr(px, fig_type)(fig_data, **options)
     fig.update_layout(layout)
+    # Update layout with title for the Y-axis
+    fig.update_layout(yaxis_title=y_axis_title)
     # remove x-axis title but keep space below
     fig.update_layout(xaxis_title="")
     if fig_type == "bar" and not dimension and "YES_NO" not in data.UNIT_MEASURE.values:
         fig.update_traces(marker_color=domain_colour)
+        fig.update_layout(showlegend=False)
     if fig_type == "line":
         fig.update_traces(**traces)
         # adding invisible line at zero to make sure the y-axis starts at zero
