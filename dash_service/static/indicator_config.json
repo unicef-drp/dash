@@ -6415,20 +6415,6 @@
         }
     },
     "NT_CF_ISSSF_FL": {
-        "AGE": {
-            "AGE": [
-                "M6T23"
-            ],
-            "RESIDENCE": [
-                "_T"
-            ],
-            "SEX": [
-                "_T"
-            ],
-            "WEALTH_QUINTILE": [
-                "_T"
-            ]
-        },
         "RESIDENCE": {
             "AGE": [
                 "M6T23"
@@ -8385,7 +8371,7 @@
     "PT_ST_13-15_BUL_30-DYS": {
         "SEX": {
             "AGE": [
-                "_T"
+                "Y13T15"
             ],
             "SEX": [
                 "F",
@@ -8394,7 +8380,7 @@
         },
         "TOTAL": {
             "AGE": [
-                "_T",
+                "Y13T15",
                 "Y15"
             ],
             "SEX": [
