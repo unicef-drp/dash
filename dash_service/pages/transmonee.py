@@ -2917,6 +2917,10 @@ def aio_area_figure(
         data.sort_values(by=[dimension], inplace=True)
 
     graph_info = ""
+
+    if base_indicator == 'ECD_CHLD_36-59M_LMPSL' and 'UZB' in data['REF_AREA'].values:
+        graph_info = "This indicator has been calculated for Uzbekistan using data for children aged 24-59 months."
+
     # rename figure_type 'map': 'choropleth' (plotly express)
     if fig_type == "map":
         # map disclaimer text
