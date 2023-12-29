@@ -276,6 +276,7 @@ def set_active_nav_button(_, buttons_id):
         Output("data-hover-body", "children"),
         Output("aio_area_data_info_nonrep", "children"),
         Output("no-data-hover-body", "children"),
+        Output("aio_area_indicator_link", "children"),
         Output("aio_area_graph_info", "children"),
         Output("data-store", "data"),
         Output("definition-popover", "children"),
