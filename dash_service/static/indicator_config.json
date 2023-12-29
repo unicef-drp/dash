@@ -1791,19 +1791,6 @@
             ]
         }
     },
-    "ECD_EARLY_EDU": {
-        "SEX": {
-            "SEX": [
-                "F",
-                "M"
-            ]
-        },
-        "TOTAL": {
-            "SEX": [
-                "_T"
-            ]
-        }
-    },
     "ECD_IN_CHILDCARE": {
         "TOTAL": {
             "SEX": [

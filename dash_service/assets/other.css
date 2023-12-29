@@ -353,6 +353,11 @@ div.dt-table-container__row.dt-table-container__row-1 {
     font-size: 14px;
 }
 
+.has-bootstrap .indicator-link {
+    text-decoration: underline;
+    font-size: 14px;
+}
+
 .has-bootstrap .indic_btn_col {
     display: block;
 }

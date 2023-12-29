@@ -1533,9 +1533,16 @@ def get_base_layout(**kwargs):
                                                                 },
                                                                 className="graph-scroll" 
                                                             ),
+                                                            html.Div([
+                                                                html.Div(
+                                                                id="aio_area_indicator_link",
+                                                                className="indicator-link",
+                                                                ),
                                                             dcc.Markdown(
                                                                 id="aio_area_graph_info",
-                                                            ),
+                                                                style={"margin-top":"5px"},
+                                                                ),
+                                                            ]),
                                                             html.Div(
                                                                     [
                                                                         html.P(
@@ -2496,40 +2503,6 @@ def themes(subdomain_code):
     return subdomain_code, description
 
 
-def aio_options(theme, indicators_dict, page_prefix):
-    area = "AIO_AREA"
-    current_theme = theme["theme"]
-    if area in indicators_dict[subdomain]:
-        indicators = indicators_dict[current_theme][area].get("indicators")
-        area_indicators = indicators.keys() if indicators is dict else indicators
-
-        default_option = (
-            indicators_dict[current_theme][area].get("default")
-            if area in indicators_dict[current_theme]
-            else ""
-        )
-
-    area_buttons = [
-        dbc.Button(
-            [
-                html.Span(
-                    re.sub(r"\s*\(SDG.*\)", " ", indicator_buttons[code]),
-                    className="mr-2",
-                ),  # Button label without "(SDG ...)"
-                dbc.Badge("SDG", color="primary", className="mr-1")
-                if "SDG" in indicator_buttons[code]
-                else None,
-            ],
-            id={"type": "indicator_button", "index": code},
-            color=f"{page_prefix}",
-            className="my-1",
-            active=code == default_option if default_option != "" else num == 0,
-        )
-        for num, code in enumerate(area_indicators)
-    ]
-
-    return area_buttons
-
 def breakdown_options(indicator, fig_type):
 
     if indicator is None:
@@ -2663,6 +2636,7 @@ def aio_area_figure(
             "",
             [],
             [],
+            [],
             "",
         )
 
@@ -2743,6 +2717,8 @@ def aio_area_figure(
                 "",
                 [],
                 [],
+                [],
+                [],
                 "",
             )
         else:
@@ -2795,6 +2771,7 @@ def aio_area_figure(
                 ]
             ),
             "",
+            [],
             [],
             [],
             "",
@@ -2924,14 +2901,35 @@ def aio_area_figure(
         data.sort_values(by=[dimension], inplace=True)
 
     graph_info = ""
+    indicator_link = []
+
+    if base_indicator in ['JJ_CHLD_DISAB_COMPLAINT_HHRR', 'PV_SI_COV_DISAB', 'HT_REG_CHLD_DISAB_PROP', 'HT_NEW_REG_CHLD_DISAB_PROP', 
+            'PT_CHLD_DISAB_INRESIDENTIAL_PROP', 'PT_CHLD_DISAB_INFAMILY_PROP', 'PT_CHLD_DISAB_INFOSTER_PROP', 'PV_SI_COV_DISAB']:
+        graph_info = "Please note the definition of 'disabilities' may differ across countries and indicators."
+
+    if base_indicator in ['HT_SH_STA_ANEM', 'HT_ANEM_U5']:
+        indicator_link =  html.A(
+                                "Learn more about child marriage around the world",
+                                href="https://www.who.int/data/gho/data/themes/topics/anaemia_in_women_and_children",
+                                target="_blank")
+
+    if base_indicator in ['PT_F_20-24_MRD_U18', 'PT_M_20-24_MRD_U18', 'PT_F_15-19_MRD', 'PT_M_15-19_MRD']:
+        indicator_link =  html.A(
+                                "Learn more about WHO's global anaemia estimates.",
+                                href="https://childmarriagedata.org/",
+                                target="_blank")        
+        #graph_info = "[Click here to learn more about child marriage around the world. ](https://childmarriagedata.org/)"
 
     if base_indicator == 'ECD_CHLD_36-59M_LMPSL' and 'UZB' in data['REF_AREA'].values:
-        graph_info = "This indicator has been calculated for Uzbekistan using data for children aged 24-59 months."
+        graph_info = "This indicator has been calculated for Uzbekistan using data for children aged 24-59 months. "
+    
+    if base_indicator in ['HVA_EPI_LHIV_0-19', 'HVA_EPI_DTH_ANN_0-19']:
+        graph_info = "Many countries only report data for this indicator for the 15-19 years age group; this data can be viewed in the age-disaggregated bar chart. "
 
     # rename figure_type 'map': 'choropleth' (plotly express)
     if fig_type == "map":
         # map disclaimer text
-        graph_info = "Maps on this site do not reflect a position by UNICEF on the legal status of any country or territory or the delimitation of any frontiers."
+        graph_info = "Maps on this site do not reflect a position by UNICEF on the legal status of any country or territory or the delimitation of any frontiers. " + graph_info
         fig_type = "choropleth_mapbox"
         if "YES_NO" in data.UNIT_MEASURE.values:
             options["color"] = "Status"
@@ -2946,7 +2944,7 @@ def aio_area_figure(
         if max(data.OBS_VALUE) <= 100:
             options["text_auto"] = False
         if (data['OBS_VALUE'] == 0).any():
-            graph_info = "Zero values not showing on graph; see 'Countries with data' for more information."
+            graph_info =  graph_info + "Zero values not showing on graph; see 'Countries with data' for more information."
 
     # removing zero values from bar chart as they cause a bug where countries without data display on chart
     fig_data = data[data['OBS_VALUE'] != 0] if fig_type == "bar" else data
@@ -3072,6 +3070,7 @@ def aio_area_figure(
             )
         ],
         dcc.Markdown(["- " + "\n- ".join(sorted(not_rep_count, key=str.lower))]),
+        indicator_link, 
         graph_info,
         json_data,
         indicator_description,
