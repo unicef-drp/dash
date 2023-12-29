@@ -1536,9 +1536,8 @@ def get_base_layout(**kwargs):
                                                             html.Div([
                                                                 html.Div(
                                                                 id="aio_area_indicator_link",
-                                                                className="indicator-link",
                                                                 ),
-                                                            dcc.Markdown(
+                                                            html.P(
                                                                 id="aio_area_graph_info",
                                                                 style={"margin-top":"5px"},
                                                                 ),
@@ -2905,20 +2904,23 @@ def aio_area_figure(
 
     if base_indicator in ['JJ_CHLD_DISAB_COMPLAINT_HHRR', 'PV_SI_COV_DISAB', 'HT_REG_CHLD_DISAB_PROP', 'HT_NEW_REG_CHLD_DISAB_PROP', 
             'PT_CHLD_DISAB_INRESIDENTIAL_PROP', 'PT_CHLD_DISAB_INFAMILY_PROP', 'PT_CHLD_DISAB_INFOSTER_PROP', 'PV_SI_COV_DISAB']:
-        graph_info = "Please note the definition of 'disabilities' may differ across countries and indicators."
+        graph_info = "Note: the definition of disability may differ across countries and indicators."
 
     if base_indicator in ['HT_SH_STA_ANEM', 'HT_ANEM_U5']:
         indicator_link =  html.A(
-                                "Learn more about child marriage around the world",
+                                "Click here to learn more about WHO's global anaemia estimates.",
                                 href="https://www.who.int/data/gho/data/themes/topics/anaemia_in_women_and_children",
-                                target="_blank")
+                                target="_blank",
+                                style={"color": '#374EA2'},
+                                className= "indicator-link")
 
     if base_indicator in ['PT_F_20-24_MRD_U18', 'PT_M_20-24_MRD_U18', 'PT_F_15-19_MRD', 'PT_M_15-19_MRD']:
         indicator_link =  html.A(
-                                "Learn more about WHO's global anaemia estimates.",
+                                "Click here to learn more about child marriage around the world.",
                                 href="https://childmarriagedata.org/",
-                                target="_blank")        
-        #graph_info = "[Click here to learn more about child marriage around the world. ](https://childmarriagedata.org/)"
+                                style={"color": '#374EA2'},
+                                target="_blank",
+                                className= "indicator-link")        
 
     if base_indicator == 'ECD_CHLD_36-59M_LMPSL' and 'UZB' in data['REF_AREA'].values:
         graph_info = "This indicator has been calculated for Uzbekistan using data for children aged 24-59 months. "
