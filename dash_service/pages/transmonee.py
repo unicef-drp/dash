@@ -1078,17 +1078,16 @@ def get_data(
 
     return data
 
+# path to excel data dictionary
+data_dict_content = f"{pathlib.Path(__file__).parent.parent.absolute()}/static/indicator_dictionary_TM_v8.xlsx"
 
-# path to excel data dictionary in repo
-github_url = "https://github.com/UNICEFECAR/data-etl/raw/proto_API/tmee/data_in/data_dictionary/indicator_dictionary_TM_v8.xlsx"
-data_dict_content = requests.get(github_url).content
-# Reading the downloaded content and turning it into a pandas dataframe and read Snapshot sheet from excel data-dictionary
-snapshot_df = pd.read_excel(BytesIO(data_dict_content), sheet_name="Snapshot")
+# turning it into a pandas dataframe and read Snapshot sheet from excel data-dictionary
+snapshot_df = pd.read_excel(data_dict_content, sheet_name="Snapshot")
 snapshot_df.dropna(subset=["Source_name"], inplace=True)
 snapshot_df["Source"] = snapshot_df["Source_name"].apply(lambda x: x.split(":")[0])
 # read indicators table from excel data-dictionary
-df_topics_subtopics = pd.read_excel(BytesIO(data_dict_content), sheet_name="Indicator")
-df_topics_subtopics.dropna(subset=["Issue"], inplace=True)
+df_topics_subtopics = pd.read_excel(data_dict_content, sheet_name="Indicator")
+df_topics_subtopics.dropna(subset=["Sub-Domain"], inplace=True)
 df_sources = pd.merge(df_topics_subtopics, snapshot_df, how="outer", on=["Code"])
 # assign source = TMEE to all indicators without a source since they all come from excel data collection files
 df_sources.fillna("TMEE", inplace=True)
@@ -1096,7 +1095,6 @@ df_sources.fillna("TMEE", inplace=True)
 df_sources.rename(
     columns={
         "Name_x": "Indicator",
-        "Issue": "Subdomain",
     },
     inplace=True,
 )
@@ -1106,7 +1104,7 @@ df_sources["Source_Full"] = df_sources["Source"].apply(
 )
 
 # read source table from excel data-dictionary and merge
-source_table_df = pd.read_excel(BytesIO(data_dict_content), sheet_name="Source")
+source_table_df = pd.read_excel(data_dict_content, sheet_name="Source")
 df_sources = df_sources.merge(
     source_table_df[["Source_Id", "Source_Link"]],
     on="Source_Id",
@@ -2126,6 +2124,13 @@ def indicator_card(
             indicator_sum = (numerator_pairs.OBS_VALUE >= 1).to_numpy().sum()
             sources = numerator_pairs.index.tolist()
             numerator_pairs = numerator_pairs[numerator_pairs.OBS_VALUE >= 1]
+
+        elif base_indicator == 'PP_SG_NHR_STATUS':
+            indicator_sum = ((numerator_pairs.OBS_VALUE == 1).to_numpy().sum())
+            sources = numerator_pairs.index.tolist()
+            if average and len(sources) > 1:
+                indicator_sum = indicator_sum / len(sources)    
+
         elif absolute:
             # trick cards data availability among group of indicators and latest time_period
             # doesn't require filtering by count == len(numors)
@@ -2139,6 +2144,7 @@ def indicator_card(
             numerator_pairs.set_index(["Country_name", "TIME_PERIOD"], inplace=True)
             sources = numerator_pairs.index.tolist()
             indicator_sum = len(sources)
+
         else:
             # trick to accomodate cards for admin exams (AND for boolean indicators)
             # filter exams according to number of indicators
@@ -2214,6 +2220,11 @@ def indicator_card(
             + "f}"
         )
         indicator_header = sum_format.format(indicator_sum)
+
+    if base_indicator == 'PP_SG_NHR_STATUS':
+        status_mapping = {1: "A status", 2: "B status", 3: "C status", 4: "D status"}
+        # Map the OBS_VALUE to the corresponding status
+        numerator_pairs["OBS_VALUE"] = numerator_pairs["OBS_VALUE"].map(status_mapping)
 
     return make_card(
         suffix,
@@ -2294,7 +2305,7 @@ graphs_dict = {
         "options": dict(
             x="Status",
             color="Status",
-            color_discrete_map={"Yes": "#1CABE2", "No": "#fcba03"},
+            color_discrete_map={"Yes": "#1CABE2", "No": "#fcba03", "A status": "#3e7c49", "B status": "#e5ae4c", "C status": "#ec5e24", "D status": "#861c3f"},
             custom_data=[
                 "OBS_VALUE",
                 "Country_name",
@@ -2928,14 +2939,21 @@ def aio_area_figure(
     if base_indicator in ['HVA_EPI_LHIV_0-19', 'HVA_EPI_DTH_ANN_0-19']:
         graph_info = "Many countries only report data for this indicator for the 15-19 years age group; this data can be viewed in the age-disaggregated bar chart. "
 
+    if base_indicator == 'PP_SG_NHR_STATUS':
+        data.sort_values("OBS_VALUE", ascending=True, inplace=True)
+        status_mapping = {1: "A status", 2: "B status", 3: "C status", 4: "D status"}
+        # Map the OBS_VALUE to the corresponding status
+        data['Status'] = data['OBS_VALUE'].map(status_mapping)
+        graph_info = "A status: compliant with Paris Principles, B status: not fully compliant with Paris Principles, C status: no status, D status: no application for accreditation. "
+
     # rename figure_type 'map': 'choropleth' (plotly express)
     if fig_type == "map":
         # map disclaimer text
         graph_info = "Maps on this site do not reflect a position by UNICEF on the legal status of any country or territory or the delimitation of any frontiers. " + graph_info
         fig_type = "choropleth_mapbox"
-        if "YES_NO" in data.UNIT_MEASURE.values:
+        if "YES_NO" in data.UNIT_MEASURE.values or base_indicator == 'PP_SG_NHR_STATUS':
             options["color"] = "Status"
-            options["color_discrete_map"] = {"Yes": "#1CABE2", "No": "#fcba03"}
+            options["color_discrete_map"] = {"Yes": "#1CABE2", "No": "#fcba03", "A status": "#3e7c49", "B status": "#e5ae4c", "C status": "#ec5e24", "D status": "#861c3f"}
         else:
             options["color"] = "OBS_VALUE"
             options["color_continuous_scale"] = map_colour
@@ -2961,7 +2979,7 @@ def aio_area_figure(
     fig.update_layout(yaxis_title=y_axis_title)
     # remove x-axis title but keep space below
     fig.update_layout(xaxis_title="")
-    if fig_type == "bar" and not dimension and "YES_NO" not in data.UNIT_MEASURE.values:
+    if fig_type == "bar" and not dimension and "YES_NO" not in data.UNIT_MEASURE.values and base_indicator != 'PP_SG_NHR_STATUS':
         fig.update_traces(marker_color=domain_colour)
         fig.update_layout(showlegend=False)
     if fig_type == "line":
