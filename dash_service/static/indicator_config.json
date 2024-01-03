@@ -6676,6 +6676,10 @@
             ]
         }
     },
+    "PP_SG_NHR_STATUS": {
+        "DTYPE": "str",
+        "NOMINAL": true
+    },
     "PP_SG_NHR_IMPLN": {
         "DTYPE": "str",
         "NOMINAL": true

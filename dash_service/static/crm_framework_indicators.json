@@ -162,8 +162,8 @@
             "code": "CRG",
             "indicators": [
                 {
-                    "Indicator Name": "Countries with National Human Rights Institutions in compliance with the Paris Principles (A status) - SDG 16.a.1",
-                    "Code": "PP_SG_NHR_IMPLN"
+                    "Indicator Name": "Existence of independent national human rights institutions in compliance with the Paris Principles (by status level) - SDG 16.a.1",
+                    "Code": "PP_SG_NHR_STATUS"
                 }
             ]
         },

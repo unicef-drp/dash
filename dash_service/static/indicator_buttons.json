@@ -68,6 +68,7 @@
     "CR_UN_RIGHTS_DISAB": NaN,
     "CR_UN_CHLD_ARMED": NaN,
     "CR_UN_CHLD_COMM": NaN,
+    "PP_SG_NHR_STATUS": "Status of national human rights institutions (SDG 16.a.1)",
     "PP_SG_NHR_IMPLN": "Status of National Human Rights Institutions (SDG 16.a.1)",
     "PP_SG_NHR_INTEXSTN": NaN,
     "PP_SG_NHR_NOSTUSN": NaN,
