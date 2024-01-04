@@ -547,7 +547,17 @@ def get_card_popover_body(sources):
         sources_sorted = sources.sort_values(by=sort_col)
         for i in range(len(sources_sorted)):
             source_info = sources_sorted.iloc[i]
-            country_list.append(f"- {source_info.name[0]}: {source_info.iloc[0]} ({source_info.name[1]})")
+            value = source_info.iloc[0]
+
+            # Check if the value is an integer
+            if isinstance(value, float) and value.is_integer():
+                # Format it as an integer with thousands separators
+                formatted_value = "{:,}".format(int(value))
+            else:
+                # Otherwise, convert the value directly to a string
+                formatted_value = str(value)
+
+            country_list.append(f"- {source_info.name[0]}: {formatted_value} ({source_info.name[1]})")
         card_countries = "\n".join(country_list)
         return card_countries
     else:
