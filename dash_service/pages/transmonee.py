@@ -547,7 +547,17 @@ def get_card_popover_body(sources):
         sources_sorted = sources.sort_values(by=sort_col)
         for i in range(len(sources_sorted)):
             source_info = sources_sorted.iloc[i]
-            country_list.append(f"- {source_info.name[0]}: {source_info.iloc[0]} ({source_info.name[1]})")
+            value = source_info.iloc[0]
+
+            # Check if the value is an integer
+            if isinstance(value, float) and value.is_integer():
+                # Format it as an integer with thousands separators
+                formatted_value = "{:,}".format(int(value))
+            else:
+                # Otherwise, convert the value directly to a string
+                formatted_value = str(value)
+
+            country_list.append(f"- {source_info.name[0]}: {formatted_value} ({source_info.name[1]})")
         card_countries = "\n".join(country_list)
         return card_countries
     else:
@@ -852,8 +862,14 @@ def update_indicator_dropdown_class(indicator):
                     [
                         html.Span(f"{merged_page_config[domain]['domain_name']}/ "),
                         html.Br(),
-                        html.Span(f"{merged_page_config[domain]['SUBDOMAINS'][subdomain]['NAME']}",
-                                  id=f"popover-target"),
+                        html.Span(f"{merged_page_config[domain]['SUBDOMAINS'][subdomain]['NAME']}"),
+                        html.I(
+                            id="popover-target",
+                            className="fas fa-info-circle",
+                            style={
+                                "paddingLeft": "5px",
+                            },
+                        ),
                         popover 
                     ],
                     style={
@@ -875,8 +891,14 @@ def update_indicator_dropdown_class(indicator):
                 [
                     html.Span(f"{merged_page_config[domain]['domain_name']} Choose indicator/ ", style={"font-weight": "bold"}),
                     html.Br(),
-                    html.Span(f"{merged_page_config[domain]['SUBDOMAINS'][subdomain]['NAME']}",
-                                id=f"popover-target"),
+                    html.Span(f"{merged_page_config[domain]['SUBDOMAINS'][subdomain]['NAME']}"),
+                    html.I(
+                        id="popover-target",
+                        className="fas fa-info-circle",
+                        style={
+                            "paddingLeft": "5px",
+                        },
+                    ),
                     popover 
                 ],
                 style={
@@ -891,63 +913,6 @@ def update_indicator_dropdown_class(indicator):
         ])
     )
 
-def update_indicator_dropdown_class2(indicator):
-    if indicator is None:
-        return (
-                "crm_dropdown",
-                html.P(
-                    "No indicator selected",
-            style={
-                "color": "black",
-                "display": "inline-block",
-                "position": "relative",
-                "marginBottom":"5px",
-                "marginTop":"0px",
-                "font-weight": "bold"
-            }
-        )
-        ) 
-
-    domain, _, subdomain = update_domain_and_subdomain_values(indicator)
-    domain_colour = merged_page_config[domain]['domain_colour']
-    # Map the selected domain to its corresponding CSS class
-    if domain and domain in domain_classes:
-        return (
-            domain_classes[domain],
-            html.P(
-            [
-                html.Span(f"{merged_page_config[domain]['domain_name']}/ "),
-                html.Br(),
-                html.Span(f"{merged_page_config[domain]['SUBDOMAINS'][subdomain]['NAME']}"),
-            ],
-            style={
-                "color": domain_colour,
-                "display": "inline-block",
-                "position": "relative",
-                "marginBottom":"5px",
-                "marginTop":"0px",
-                "font-weight": "bold"
-            }
-        ),  
-    )
-    return (
-        "crm_dropdown",
-        html.P(
-            [
-                html.Span(f"{merged_page_config[domain]['domain_name']} Choose indicator/ ", style={"font-weight": "bold"}),
-                html.Br(),
-                merged_page_config[domain]['SUBDOMAINS'][subdomain]['NAME']
-            ],
-            style={
-                "color": domain_colour,
-                "display": "inline-block",
-                "position": "relative",
-                "marginBottom":"5px",
-                "marginTop":"0px",
-                "font-weight": "bold"
-            }
-        ),  
-    )
 
 def get_data(
     indicators: list,
