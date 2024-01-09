@@ -2186,6 +2186,10 @@ def indicator_card(
         )
         indicator_header = sum_format.format(indicator_sum)
 
+    if base_indicator in ['HVA_EPI_LHIV_0-19', 'HVA_EPI_INF_RT_0-14', 'HVA_PED_ART_CVG', 'HVA_PMTCT_STAT_CVG', 'HVA_EPI_DTH_ANN_0-19']:
+        # add less than sign for HIV indicators
+        indicator_header = f"<{indicator_header}"
+
     if base_indicator == 'PP_SG_NHR_STATUS':
         status_mapping = {1: "A status", 2: "B status", 3: "C status", 4: "D status"}
         # Map the OBS_VALUE to the corresponding status
