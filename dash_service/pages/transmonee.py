@@ -1278,7 +1278,7 @@ def get_base_layout(**kwargs):
                                         id="crm-dropdown",
                                         options=all_crm_dropdown_options,
                                         value="all",  # Default value
-                                        placeholder="Select a domain or subdomain"
+                                        placeholder="Select a domain or sub-domain"
                                     ),
                                 ],
                                 width=12, sm=12, md=4, 
@@ -1729,7 +1729,7 @@ def get_base_layout(**kwargs):
                         dbc.Row(
                             html.H5(
                                 id="crc-header",
-                                children="Convention on the Rights of Child Recommendations - ",
+                                children="Committee on the Rights of the Child Recommendations - ",
                                 style={
                                     "color": domain_colour,
                                     "marginTop": "10px",
@@ -1843,7 +1843,7 @@ def make_card(
 
 def available_crc_years(country, indicator):
     if indicator is None:
-        return {"label": 'Select subdomain', "value": None}, None
+        return {"label": 'Select sub-domain', "value": None}, None
     domain, _, subdomain = update_domain_and_subdomain_values(indicator)
     subdomain = merged_page_config[domain]['SUBDOMAINS'][subdomain].get("NAME")
 
@@ -1944,7 +1944,7 @@ def generate_accordion_items(recommendations):
 # Function to filter CRC_df based on country, subdomain, and bottleneck type
 def filter_crc_data(year, country, indicator, text_style):
     if indicator is None:
-        return 'Convention on the Rights of Child Recommendations - Select indicator', {**text_style, 'color': 'black'}, []
+        return 'Committee on the Rights of the Child Recommendations - Select indicator', {**text_style, 'color': 'black'}, []
     
     domain, subdomain_name, subdomain_code = update_domain_and_subdomain_values(indicator)
     domain_colour = merged_page_config[domain]['domain_colour']
@@ -1952,9 +1952,9 @@ def filter_crc_data(year, country, indicator, text_style):
     if subdomain_name is None:
         # Handle the case where the subdomain code doesn't match any subdomain
         return (
-            "Convention on the Rights of Child Recommendations - Select indicator",
+            "Committee on the Rights of the Child Recommendations - Select indicator",
             {**text_style, 'color': 'black'},
-            f"No related recommendations for this {'subdomain' if country == 'all_countries' else 'country and subdomain'}.",
+            f"No related recommendations for this {'sub-domain' if country == 'all_countries' else 'country and sub-domain'}.",
         )
 
     # Adjusting the filter condition for cross-cutting subdomains
@@ -1995,10 +1995,10 @@ def filter_crc_data(year, country, indicator, text_style):
         ]
         all_recommendations = format_recommendations_by_bottleneck(df, country, year)
 
-    header_text = f"Convention on the Rights of Child Recommendations - {subdomain_name}"
+    header_text = f"Committee on the Rights of the Child Recommendations - {subdomain_name}"
     # Check if there are no recommendations
     if not any(all_recommendations.values()):
-        return header_text, {**text_style}, f"No related recommendations for this {'subdomain' if country == 'all_countries' else 'country and subdomain'}."
+        return header_text, {**text_style}, f"No related recommendations for this {'sub-domain' if country == 'all_countries' else 'country and sub-domain'}."
         
     accordion_items = generate_accordion_items(all_recommendations)
     return header_text, {**text_style, 'color': domain_colour}, dbc.Accordion(accordion_items, active_item="-1")
