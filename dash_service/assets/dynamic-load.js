@@ -102,7 +102,7 @@ if (browserOk) {
     }
 
     function fix_drupal_css() {
-        var el = document.querySelector("#block-mainpagecontent > article > div.main-content-cntr.selectric-small > div > div > div > section > div > div.field.paragraph.field_component_sec_blocks.odd-t.entity_reference_revisions > div > div > div > div > div");
+        var el = document.querySelector("#block-mainpagecontent > article > div.main-content-cntr.selectric-small > div > div.field.node.field_page_content_blocks.section-cntr.odd-t.entity_reference_revisions > div > section > div > div > div.field_component_sec_blocks-item.even > div > div > div > div");
         if (el) {
             el.classList.remove("custom-embe", "embed-large");
         }
