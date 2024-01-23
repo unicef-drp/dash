@@ -1425,20 +1425,16 @@ def get_base_layout(**kwargs):
                                             [
                                                 dbc.Col(
                                                     [
-                                                        dcc.Loading(
+                                                        html.Div(
                                                             [
-                                                                html.Div(
-                                                                    [
-                                                                        dbc.ButtonGroup(
-                                                                            id={"type": "button_group", "index": "AIO_AREA"},
-                                                                            vertical=True,
-                                                                            style={"marginBottom": "20px", "flexGrow": "1"},
-                                                                            class_name="theme_buttons",
-                                                                        ),
-                                                                    ],
-                                                                    style={"maxHeight": "500px", "overflowY": "scroll", "width": "95%", "display": "flex", "flex-direction": "column"},
+                                                                dbc.ButtonGroup(
+                                                                    id={"type": "button_group", "index": "AIO_AREA"},
+                                                                    vertical=True,
+                                                                    style={"marginBottom": "20px", "flexGrow": "1"},
+                                                                    class_name="theme_buttons",
                                                                 ),
                                                             ],
+                                                            style={"maxHeight": "500px", "overflowY": "scroll", "width": "95%", "display": "flex", "flex-direction": "column"},
                                                         ),
                                                     ],
                                                     id='indicator_buttons_div',

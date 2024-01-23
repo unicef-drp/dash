@@ -252,7 +252,8 @@ def set_active_subdomain_button(_, buttons_id):
 @callback(
     Output({"type": "button_group", "index": "AIO_AREA"}, "children"),
     [Input({"type": "subdomain_button", "index": ALL}, "active")],
-    [State({"type": "subdomain_button", "index": ALL}, "id")]
+    [State({"type": "subdomain_button", "index": ALL}, "id")],
+    prevent_initial_call=True,
 )
 def apply_create_indicator_buttons(active_button, subdomain_buttons):
     return create_indicator_buttons(active_button, subdomain_buttons)
