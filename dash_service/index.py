@@ -15,7 +15,7 @@ renderers = (
     ("", empty_renderer.layout),
     ("ds", dashboard.layout),
     ("de", data_explorer.layout),
-    ("im", empty_renderer.layout),
+    ("tm", empty_renderer.layout),
 )
 
 # keyword argument for a Dash component (ie a Dash Component or a string).
