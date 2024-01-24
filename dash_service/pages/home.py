@@ -50,7 +50,6 @@ def layout(page_slug=None, **query_parmas):
             html.Br(),
             dcc.Store(id="store"),
             dcc.Store(id="data-store"),
-            dcc.Store(id='url-triggered-domain-update', data={'url_triggered': True}),
             dcc.Store(id='current-indicator-store', storage_type='memory'),
             dcc.Store(id='initial-load', data={'is_first_load': True}),
             dbc.Container(
@@ -278,17 +277,7 @@ def set_active_subdomain_button(button_clicks, buttons_id):
     # If no button was clicked, do not update the active state
     print("no_update")
     return dash.no_update
-
-
-
-@callback(
-    Output('url-triggered-domain-update', 'data'),
-    Input('url', 'pathname'),
-    prevent_initial_call=True
-)
-def update_url_triggered_flag(pathname):
-    return {'url_triggered': True}
-    
+  
 @callback(
     Output('initial-load', 'data'),
     Input('url', 'pathname'),
@@ -307,7 +296,7 @@ def update_domain_dropdown_on_initial_load(pathname, load_data):
     if load_data['is_first_load']:
         print("First load")
         print(pathname)
-        subdomain_code = pathname.strip('/')
+        subdomain_code = pathname.strip('/transmonee-dashboard/')
         if not subdomain_code:
             subdomain_code = 'DEM'  # Set 'DEM' by default if subdomain_code is empty
         domain_value = update_domain_with_url(subdomain_code)  # Map subdomain to domain
@@ -325,12 +314,12 @@ def update_url(active_buttons, crm_view, buttons_id):
     if crm_view:
         active_button_id = [button['index'] for button, is_active in zip(buttons_id, active_buttons) if is_active]
         if active_button_id:
-            new_url = f'/{active_button_id[0]}'
+            new_url = f'/transmonee-dashboard/{active_button_id[0]}'
             print(f"active button: {new_url.lstrip('/')}")
             return new_url
         else:
             return dash.no_update
-    return "/"
+    return "/transmonee-dashboard/"
 
 @callback(
     Output({"type": "button_group", "index": "AIO_AREA"}, "children"),
