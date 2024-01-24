@@ -758,7 +758,24 @@ def update_domain_and_subdomain_values(selected_indicator_code):
 
     return None, None, None  # Return None for all if no match is found
 
+def update_domain_with_url(subdomain_code):
+    """
+    Finds and returns the domain value corresponding to a given subdomain code in the format "{domain_name}|{page_path}".
 
+    Args:
+    subdomain_code (str): The subdomain code to search for.
+
+    Returns:
+    str or None: The matching domain value in the specified format, or None if no match is found.
+    """
+    for domain_page_path, domain_info in merged_page_config.items():
+        if subdomain_code in domain_info['SUBDOMAINS']:
+            domain_name = domain_info['domain_name']  # Assuming this key holds the domain name
+            domain_value = f"{domain_name}|{domain_page_path}"
+            print(f"domain value {domain_value}")
+            return domain_value  # Return the domain value in the specified format
+
+    return None  # Return None if no match is found
 
 def get_subdomain_name_by_code(subdomain_code):
     # Iterate over all subdomain items in the data_dict['subdomains'] dictionary
@@ -2384,37 +2401,39 @@ def get_filters(years_slider, countries, country_group):
     )
     return (filter_dict, filter_countries, selected_years, country_text)
 
-def create_subdomain_buttons(domain_dropdown_value):
+def create_subdomain_buttons(domain_dropdown_value, initial_load, url_pathname):
     buttons = []
     if domain_dropdown_value:
         _, domain_page_path = domain_dropdown_value.split("|")
         domain_info = merged_page_config.get(domain_page_path)
 
+        # Extract and strip the subdomain code from the URL
+        url_subdomain_code = url_pathname.strip('/') if url_pathname else ''
+
         if domain_info:
             page_prefix = domain_info.get('page_prefix')
 
-            # Initialize a flag to track the first button
-            is_first_button = True
-
             for subdomain_code, subdomain_info in domain_info['SUBDOMAINS'].items():
-                button_id = {"type": f"subdomain_button", "index": subdomain_code}
+                is_active = False
+                if initial_load and url_subdomain_code:
+                    is_active = (subdomain_code == url_subdomain_code)
+                else:
+                    # Set the first button as active if it's not the initial load
+                    is_first_button = subdomain_code == next(iter(domain_info['SUBDOMAINS']))
+                    is_active = is_first_button
+
+                button_id = {"type": "subdomain_button", "index": subdomain_code}
                 button = dbc.Button(
                     subdomain_info["NAME"],
                     id=button_id,
                     color=f"{page_prefix}-sub",
                     className="theme mx-1",
-                    active=is_first_button  # Set only the first button as active
+                    active=is_active
                 )
 
-                # Append the button to the list
                 buttons.append(button)
 
-                # After the first button, set is_first_button to False
-                is_first_button = False
-
     return buttons
-
-
 
 def create_indicator_buttons(subdomain_button_active, subdomain_button_ids):
     # Initialize variables

@@ -6676,6 +6676,32 @@
             ]
         }
     },
+    "EC_GDI": {
+        "TOTAL": {
+            "SEX": [
+                "_T"
+            ]
+        },
+        "SEX": {
+            "SEX": [
+                "M",
+                "F"
+            ]
+        }
+    },
+    "EC_GII": {
+        "TOTAL": {
+            "SEX": [
+                "_T"
+            ]
+        },
+        "SEX": {
+            "SEX": [
+                "M",
+                "F"
+            ]
+        }
+    },
     "PP_SG_NHR_STATUS": {
         "DTYPE": "str",
         "NOMINAL": true
