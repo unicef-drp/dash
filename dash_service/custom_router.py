@@ -61,7 +61,7 @@ class CustomRouter:
             kwargs = MultiDict(qparams)
             kwargs["hash"] = url_hash
 
-            if param_prj == "tm":
+            if param_prj == "im":
                 if param_page == "":
                     layout_to_use = home.layout()
                 else:
