@@ -2408,7 +2408,7 @@ def create_subdomain_buttons(domain_dropdown_value, initial_load, url_pathname):
         domain_info = merged_page_config.get(domain_page_path)
 
         # Extract and strip the subdomain code from the URL
-        url_subdomain_code = url_pathname.strip('/') if url_pathname else ''
+        url_subdomain_code = url_pathname.strip('/transmonee-dashboard/') if url_pathname else ''
 
         if domain_info:
             page_prefix = domain_info.get('page_prefix')
