@@ -110,20 +110,20 @@ def reroute_brazil(page):
 def reroute_rosa(page):
     return redirect(f"/?prj=rosa&page={page}")
 
-@server.route("/transmonee-dashboard")
-@server.route("/transmonee-dashboard/<subdomain>?prj=im")
-def reroute_transmonee(subdomain=None):
-    # Include the subdomain and "?prj=tm" in the redirection URL
-    redirect_url = f"/{subdomain}?prj=im" if subdomain else "/?prj=im"
-    return redirect(redirect_url)
+@server.route("/transmonee/<path:subdomain>")
+def reroute_transmonee(subdomain):
+    return redirect(f"/{subdomain}?prj=tm")
 
-#removing for tests
-'''
+@server.route("/transmonee/?prj=tm/<path:subdomain>")
+def reroute_transmonee(subdomain):
+    return redirect(f"/{subdomain}?prj=tm")
+
 @server.route("/transmonee")
 def reroute_transmonee_root():
     return redirect(f"/?prj=tm")
 
-
+#removing for tests
+''''
 @server.route("/transmonee/<path:page>")
 def reroute_transmonee(page):
     return redirect(f"/{page}?prj=tm")
