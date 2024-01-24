@@ -110,11 +110,11 @@ def reroute_brazil(page):
 def reroute_rosa(page):
     return redirect(f"/?prj=rosa&page={page}")
 
-@server.route("/transmonee")
-@server.route("/transmonee/<subdomain>?prj=tm")
+@server.route("/transmonee-dashboard")
+@server.route("/transmonee-dashboard/<subdomain>?prj=im")
 def reroute_transmonee(subdomain=None):
     # Include the subdomain and "?prj=tm" in the redirection URL
-    redirect_url = f"/{subdomain}?prj=tm" if subdomain else "/?prj=tm"
+    redirect_url = f"/{subdomain}?prj=im" if subdomain else "/?prj=im"
     return redirect(redirect_url)
 
 #removing for tests
