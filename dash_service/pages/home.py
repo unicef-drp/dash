@@ -241,11 +241,11 @@ def apply_update_indicator_dropdown_class(indicator):
 @callback(
     Output("themes", "children"),
     [Input("domain-dropdown", "value"),
-     Input("url", "pathname")],
+     Input("url", "search")],
     [State("initial-load", "data")],
     prevent_initial_call=True
 )
-def apply_create_subdomain_buttons(domain_dropdown_value, url_pathname, initial_load_data):
+def apply_create_subdomain_buttons(domain_dropdown_value, url_search, initial_load_data):
     ctx = callback_context
     trigger_id = ctx.triggered[0]['prop_id']
 
@@ -253,7 +253,7 @@ def apply_create_subdomain_buttons(domain_dropdown_value, url_pathname, initial_
     initial_load = initial_load_data.get('is_first_load', True)
     if initial_load or "domain-dropdown.value" in trigger_id:
         # Create and return subdomain buttons
-        return create_subdomain_buttons(domain_dropdown_value, initial_load, url_pathname)
+        return create_subdomain_buttons(domain_dropdown_value, initial_load, url_search)
     
     # If not triggered by the initial load or domain-dropdown change, do not update
     return dash.no_update
@@ -280,23 +280,23 @@ def set_active_subdomain_button(button_clicks, buttons_id):
   
 @callback(
     Output('initial-load', 'data'),
-    Input('url', 'pathname'),
+    Input('url', 'search'),
     prevent_initial_call=True
 )
-def set_initial_load_flag(pathname):
+def set_initial_load_flag(search):
     return {'is_first_load': False}
 
 @callback(
     Output("domain-dropdown", "value"),
-    Input('url', 'pathname'),
+    Input('url', 'search'),
     Input('initial-load', 'data'),
     #prevent_initial_call=True
 )
-def update_domain_dropdown_on_initial_load(pathname, load_data):
+def update_domain_dropdown_on_initial_load(search, load_data):
     if load_data['is_first_load']:
         print("First load")
-        print(pathname)
-        subdomain_code = pathname.strip('/transmonee-dashboard/')
+        print(search)
+        subdomain_code = search.strip('?prj=tm&page=')
         if not subdomain_code:
             subdomain_code = 'DEM'  # Set 'DEM' by default if subdomain_code is empty
         domain_value = update_domain_with_url(subdomain_code)  # Map subdomain to domain
@@ -305,7 +305,7 @@ def update_domain_dropdown_on_initial_load(pathname, load_data):
 
 # Callback to update the URL based on the active button
 @callback(
-    Output('url', 'pathname'),
+    Output('url', 'search'),
     Input({"type": "subdomain_button", "index": ALL}, "active"),
     Input({'type': "nav_buttons", 'index': "crm_view"}, 'active'),
     State({"type": "subdomain_button", "index": ALL}, "id")
@@ -314,12 +314,12 @@ def update_url(active_buttons, crm_view, buttons_id):
     if crm_view:
         active_button_id = [button['index'] for button, is_active in zip(buttons_id, active_buttons) if is_active]
         if active_button_id:
-            new_url = f'/transmonee-dashboard/{active_button_id[0]}'
-            print(f"active button: {new_url.lstrip('/')}")
-            return new_url
+            new_search = f'?prj=tm&page={active_button_id[0]}'
+            print(f"active button: {new_search.lstrip('?prj=tm&page=')}")
+            return new_search
         else:
             return dash.no_update
-    return "/transmonee-dashboard/"
+    return "?prj=tm"
 
 @callback(
     Output({"type": "button_group", "index": "AIO_AREA"}, "children"),

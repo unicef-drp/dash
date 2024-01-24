@@ -116,7 +116,7 @@ def reroute_transmonee_root():
 
 @server.route("/transmonee/<path:page>")
 def reroute_transmonee(page):
-    return redirect(f"/{page}?prj=tm")
+    return redirect(f"/?prj=tm&page={page}")
 
 
 app = Dash(
