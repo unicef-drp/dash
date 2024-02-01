@@ -149,6 +149,14 @@
         "DTYPE": "str",
         "NOMINAL": true
     },
+    "CR_UN_CHLD_ARMED": {
+        "DTYPE": "str",
+        "NOMINAL": true
+    },
+    "CR_UN_CHLD_COMM": {
+        "DTYPE": "str",
+        "NOMINAL": true
+    },
     "CR_UN_RIGHTS_DISAB": {
         "DTYPE": "str",
         "NOMINAL": true
@@ -8538,9 +8546,8 @@
     "PV_AROPE": {
         "AGE": {
             "AGE": [
-                "_T",
-                "Y0T15",
-                "Y16T24",
+                "Y0T18",
+                "Y18T24",
                 "Y25T54",
                 "Y_GE55"
             ],

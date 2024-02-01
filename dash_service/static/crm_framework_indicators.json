@@ -164,6 +164,18 @@
                 {
                     "Indicator Name": "Existence of independent national human rights institutions in compliance with the Paris Principles (by status level) - SDG 16.a.1",
                     "Code": "PP_SG_NHR_STATUS"
+                },
+                {
+                    "Indicator Name": "Status of ratification of the CRC Optional Protocol on the Sale of Children, Child Prostitution and Child Pornography",
+                    "Code": "CR_UN_CHLD_SALE"
+                },
+                {
+                    "Indicator Name": "Status of ratification of the CRC Optional Protocol on the Involvement of Children in Armed Conflict",
+                    "Code": "CR_UN_CHLD_ARMED"
+                },
+                {
+                    "Indicator Name": "Status of ratification of the CRC Optional Protocol on a Communications Procedure",
+                    "Code": "CR_UN_CHLD_COMM"
                 }
             ]
         },
