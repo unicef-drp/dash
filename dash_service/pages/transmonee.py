@@ -153,7 +153,7 @@ dimension_names = {
     "WEALTH_QUINTILE": "Wealth_name",
 }
 
-years = list(range(2000, 2024))
+years = list(range(2000, 2025))
 
 # a key:value dictionary of countries where the 'key' is the country name as displayed in the selection
 # tree whereas the 'value' is the country name as returned by the sdmx list: https://sdmx.data.unicef.org/ws/public/sdmxapi/rest/codelist/UNICEF/CL_COUNTRY/1.0
@@ -772,7 +772,6 @@ def update_domain_with_url(subdomain_code):
         if subdomain_code in domain_info['SUBDOMAINS']:
             domain_name = domain_info['domain_name']  # Assuming this key holds the domain name
             domain_value = f"{domain_name}|{domain_page_path}"
-            print(f"domain value {domain_value}")
             return domain_value  # Return the domain value in the specified format
 
     return None  # Return None if no match is found
@@ -981,7 +980,7 @@ def get_data(
     )
 
     start_period = years[0] if years else 2000
-    end_period = years[-1] if years else 2023
+    end_period = years[-1] if years else 2024
 
     # Get data using the API access
     data = api_access.get_data(
@@ -2130,9 +2129,6 @@ def indicator_card(
                 (numerator_pairs.OBS_VALUE == len(indicators)).to_numpy().sum()
             )
             sources = numerator_pairs.index.tolist()
-            numerator_pairs = numerator_pairs[
-                numerator_pairs.OBS_VALUE == len(indicators)
-            ]
 
     else:
         indicator_sum = numerator_pairs["OBS_VALUE"].to_numpy().sum()
@@ -2205,6 +2201,13 @@ def indicator_card(
 
     if base_indicator == 'PP_SG_NHR_STATUS':
         status_mapping = {1: "A status", 2: "B status", 3: "C status", 4: "D status"}
+        # Map the OBS_VALUE to the corresponding status
+        numerator_pairs["OBS_VALUE"] = numerator_pairs["OBS_VALUE"].map(status_mapping)
+    
+    if base_indicator in ['CR_UN_CHLD_SALE','CR_UN_CHLD_ARMED','CR_UN_CHLD_COMM', 'CR_SG_STT_FPOS',
+                          'CR_SG_STT_NSDSFND', 'CR_SG_STT_NSDSIMPL', 'CR_SG_STT_NSDSFDGVT', 'CR_SG_STT_NSDSFDDNR',
+                           'CR_SG_STT_NSDSFDOTHR', 'CR_SG_REG_CENSUSN', 'PP_SG_REG_BRTH90N', 'PP_SG_REG_DETH75N']:
+        status_mapping = {1: "Yes", 0: "No"}
         # Map the OBS_VALUE to the corresponding status
         numerator_pairs["OBS_VALUE"] = numerator_pairs["OBS_VALUE"].map(status_mapping)
 
@@ -2335,8 +2338,8 @@ graphs_dict = {
             color="OBS_VALUE",
             mapbox_style="carto-positron",
             geojson=geo_json_countries,
-            zoom=2.5,
-            center={"lat": 51.9194, "lon": 19.040236},
+            zoom=2.2,
+            center={"lat": 51.5194, "lon": 14.0},
             opacity=0.6,
             custom_data=[
                 "OBS_VALUE",
