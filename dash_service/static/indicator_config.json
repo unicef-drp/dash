@@ -43,6 +43,35 @@
             ]
         }
     },
+    "PP_CHLD_PLACE_PLAY": {
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ],
+            "WEALTH_QUINTILE": [
+                "_T"
+            ]
+        },
+        "TOTAL": {
+            "SEX": [
+                "_T"
+            ],
+            "WEALTH_QUINTILE": [
+                "_T"
+            ]
+        },
+        "WEALTH_QUINTILE": {
+            "SEX": [
+                "_T"
+            ],
+            "WEALTH_QUINTILE": [
+                "Q1",
+                "Q3",
+                "Q5"
+            ]
+        }
+    },
     "CME_TMY0T4": {
         "SEX": {
             "SEX": [
@@ -161,15 +190,34 @@
         "DTYPE": "str",
         "NOMINAL": true
     },
+    "CR_ENOC_MEMBER": {
+        "DTYPE": "str",
+        "NOMINAL": true
+    },
     "CR_VC_VOV_GDSD": {
         "SEX": {
             "SEX": [
                 "F",
                 "M"
+            ],
+            "RESIDENCE": [
+                "_T"
+            ]
+        },
+        "RESIDENCE": {
+            "SEX": [
+                "_T"
+            ],
+            "RESIDENCE": [
+                "U",
+                "R"
             ]
         },
         "TOTAL": {
             "SEX": [
+                "_T"
+            ],
+            "RESIDENCE": [
                 "_T"
             ]
         }
@@ -6664,6 +6712,44 @@
         "TOTAL": {
             "AGE": [
                 "Y15T24"
+            ],
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
+    "NT_COSI_OVERWEIGHT": {
+        "SEX": {
+            "AGE": [
+                "_T"
+            ],
+            "SEX": [
+                "F",
+                "M"
+            ]
+        },
+        "TOTAL": {
+            "AGE": [
+                "_T"
+            ],
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
+    "NT_COSI_OBESITY": {
+        "SEX": {
+            "AGE": [
+                "_T"
+            ],
+            "SEX": [
+                "F",
+                "M"
+            ]
+        },
+        "TOTAL": {
+            "AGE": [
+                "_T"
             ],
             "SEX": [
                 "_T"
