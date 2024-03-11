@@ -93,7 +93,7 @@ graphs_dict = {
             mapbox_style="carto-positron",
             geojson=geo_json_countries,
             zoom=2.5,
-            center={"lat": 51.9194, "lon": 19.040236},
+            center={"lat": 51.9194, "lon": 35.0},
             opacity=0.6,
             custom_data=[
                 "OBS_VALUE",
