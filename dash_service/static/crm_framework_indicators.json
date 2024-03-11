@@ -64,7 +64,7 @@
                     "Code": "MT_SDG_SUICIDE"
                 },
                 {
-                    "Indicator Name": "Percentage of 15-year-old students who report doing the WHO-recommended duration of daily exercise",
+                    "Indicator Name": "Percentage of 11-, 13- and 15-year-old school children who report doing the WHO-recommended duration of daily exercise",
                     "Code": "HT_CHLD_DAILY_EXER"
                 }
             ]
@@ -326,15 +326,15 @@
             "code": "ECD",
             "indicators": [
                 {
-                    "Indicator Name": "Percentage of children (36-59 months) with whom any adult household member has engaged in 4 or more activities to provide early stimulation and responsive care in the last 3 days",
+                    "Indicator Name": "Percentage of children (24-59 months) with whom any adult household member has engaged in 4 or more activities to provide early stimulation and responsive care in the last 3 days",
                     "Code": "ECD_CHLD_24-59M_ADLT_SRC"
                 },
                 {
-                    "Indicator Name": "Percentage of children (36-59 months) whose father has engaged in 4 or more activities to provide early stimulation and responsive care in the last 3 days",
+                    "Indicator Name": "Percentage of children (24-59 months) whose father has engaged in 4 or more activities to provide early stimulation and responsive care in the last 3 days",
                     "Code": "ECD_CHLD_24-59M_FHR-SPT-LNG"
                 },
                 {
-                    "Indicator Name": "4.2.1. Percentage of children (36-59 months) developmentally on track in at least 3 of the 4 following domains: literacy-numeracy, physical, social-emotional and learning",
+                    "Indicator Name": "Percentage of children (36-59 months) developmentally on track in at least 3 of the 4 following domains: literacy-numeracy, physical, social-emotional and learning - SDG 4.2.1",
                     "Code": "ECD_CHLD_36-59M_LMPSL"
                 },
                 {

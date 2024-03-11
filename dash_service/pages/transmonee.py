@@ -1057,6 +1057,18 @@ def get_data(
 
     data = data.apply(create_labels, axis="columns")
 
+    if indicators[0] == 'IM_MCV2':
+        data['OBS_FOOTNOTE'] = data['Age_name']
+        data['Age_name'] = 'Total'
+        data['AGE'] = '_T'
+
+        if latest_data:
+            # Group by 'REF_AREA', find the max 'TIME_PERIOD' for each group
+            recent_obs = data.groupby('REF_AREA')['TIME_PERIOD'].max().reset_index()
+
+            # Merge the recent observations with the original DataFrame to filter the most recent for each 'REF_AREA'
+            data = pd.merge(data, recent_obs, on=['REF_AREA', 'TIME_PERIOD'])
+
     return data
 
 # path to excel data dictionary
@@ -2903,6 +2915,9 @@ def aio_area_figure(
     if base_indicator in ['JJ_CHLD_DISAB_COMPLAINT_HHRR', 'PV_SI_COV_DISAB', 'HT_REG_CHLD_DISAB_PROP', 'HT_NEW_REG_CHLD_DISAB_PROP', 
             'PT_CHLD_DISAB_INRESIDENTIAL_PROP', 'PT_CHLD_DISAB_INFAMILY_PROP', 'PT_CHLD_DISAB_INFOSTER_PROP', 'PV_SI_COV_DISAB']:
         graph_info = "Note: the definition of disability may differ across countries and indicators."
+    
+    if base_indicator == 'IM_MCV2':
+        graph_info = "Note: the reporting age for this indicator differs by country; see footnote in tooltip for reporting age."
 
     if base_indicator in ['HT_SH_STA_ANEM', 'HT_ANEM_U5']:
         indicator_link =  html.A(
