@@ -2926,6 +2926,46 @@ def aio_area_figure(
                                 target="_blank",
                                 style={"color": '#374EA2'},
                                 className= "indicator-link")
+        
+    if base_indicator in ['IM_MCV2', 'IM_DTP3', 'IM_PCV3', 'IM_HPV']:
+        indicator_link =  html.A(
+                                "Click here to explore UNICEF's Immunization Regional Snapshots.",
+                                href="https://data.unicef.org/resources/regional-immunization-snapshots/",
+                                target="_blank",
+                                style={"color": '#374EA2'},
+                                className= "indicator-link")
+    
+    if base_indicator in ['NT_BW_LBW']:
+        indicator_link =  html.A(
+                                "Click here to learn more about low birthweight prevalence around the world.",
+                                href="https://data.unicef.org/resources/low-birthweight-prevalence-interactive-dashboard/",
+                                target="_blank",
+                                style={"color": '#374EA2'},
+                                className= "indicator-link")
+    
+    if base_indicator in ['CME_MRM0','CME_MRY0','CME_MRY0T4','HT_ADOL_MT', 'CME_SBR']:
+        indicator_link =  html.A(
+                                "Click here to learn more about child mortality rates around the world.",
+                                href="https://childmortality.org/",
+                                target="_blank",
+                                style={"color": '#374EA2'},
+                                className= "indicator-link")
+        
+    if base_indicator in ['NT_BF_EXBF','NT_BF_EIBF', 'MNCH_SAB']:
+        indicator_link =  html.A(
+                                "Click here to explore UNICEF's child health and well-being dashboard.",
+                                href="https://data.unicef.org/resources/child-health-and-well-being-dashboard/",
+                                target="_blank",
+                                style={"color": '#374EA2'},
+                                className= "indicator-link")
+    
+    if base_indicator in ['NT_ANT_WHZ_NE2','NT_ANT_HAZ_NE2','NT_ANT_WHZ_PO2']:
+        indicator_link =  html.A(
+                                "Click here to explore UNICEF-WHO-World Bank: Joint Child Malnutrition Estimates 2023.",
+                                href="https://data.unicef.org/resources/unicef-who-world-bank-joint-child-malnutrition-estimates-2023-edition-interactive-dashboard-2/",
+                                target="_blank",
+                                style={"color": '#374EA2'},
+                                className= "indicator-link")
 
     if base_indicator in ['PT_F_20-24_MRD_U18', 'PT_M_20-24_MRD_U18', 'PT_F_15-19_MRD', 'PT_M_15-19_MRD']:
         indicator_link =  html.A(
@@ -2933,7 +2973,40 @@ def aio_area_figure(
                                 href="https://childmarriagedata.org/",
                                 style={"color": '#374EA2'},
                                 target="_blank",
-                                className= "indicator-link")        
+                                className= "indicator-link")
+
+    if base_indicator in ['FT_SP_DYN_ADKL','HT_ADOL_MT','MT_SDG_SUICIDE','HT_CHLD_DAILY_EXER']:
+        indicator_link =  html.A(
+                                "Click here to explore UNICEF's country profiles for adolescent health.",
+                                href="https://data.unicef.org/resources/adolescent-health-dashboards-country-profiles/",
+                                style={"color": '#374EA2'},
+                                target="_blank",
+                                className= "indicator-link")    
+
+    if base_indicator in ['HVA_EPI_LHIV_0-19','HVA_EPI_INF_RT_0-14','HVA_EPI_DTH_ANN_0-19','HVA_PMTCT_MTCT','HVA_PMTCT_STAT_CVG','HVA_PED_ART_CVG']:
+        indicator_link =  html.A(
+                                "Click here to explore more UNICEF HIV estimates for children.",
+                                href="https://data.unicef.org/resources/hiv-estimates-for-children-dashboard/",
+                                style={"color": '#374EA2'},
+                                target="_blank",
+                                className= "indicator-link")         
+        
+    if indicator in ['ECD_CHLD_36-59M_LMPSL','CME_MRM0-ECD','NT_BF_EXBF-ECD','ECD_CHLD_24-59M_ADLT_SRC','EDUNF_NERA_L1_UNDER1-ECD','ECD_IN_CHILDCARE','ECD_EARLY_EDU-ECD']:
+        indicator_link =  html.A(
+                                "Click here to explore UNICEF's country profiles for early childhood development.",
+                                href="https://nurturing-care.org/resources/country-profiles/",
+                                style={"color": '#374EA2'},
+                                target="_blank",
+                                className= "indicator-link")
+
+    if indicator in ['EDUNF_CR_L1','EDUNF_CR_L2','EDUNF_CR_L3','EDUNF_ROFST_L1_UNDER1','EDUNF_ROFST_L1','EDUNF_ROFST_L2','EDUNF_ROFST_L3','EDUNF_NERA_L1_UNDER1','ECD_EARLY_EDU']:
+        indicator_link =  html.A(
+                                "Click here to explore UNICEF's education pathway analysis.",
+                                href="https://data.unicef.org/resources/how-are-children-progressing-through-school/",
+                                style={"color": '#374EA2'},
+                                target="_blank",
+                                className= "indicator-link")
+        
 
     if base_indicator == 'ECD_CHLD_36-59M_LMPSL' and 'UZB' in data['REF_AREA'].values:
         graph_info = "This indicator has been calculated for Uzbekistan using data for children aged 24-59 months. "
