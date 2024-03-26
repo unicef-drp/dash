@@ -673,7 +673,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'min_max': False,
                         'yaxis': number_children,
                         'button_name': 'Children living with HIV'},
-                        {'name': 'Estimated incidence rate among children (0-14 years) - SDG 3.3.1',
+                        {'name': 'Estimated HIV incidence rate among children (0-14 years) - SDG 3.3.1',
                         'indicator': 'HVA_EPI_INF_RT_0-14',
                         'suffix': min_max_card_suffix,
                         'min_max': True,
