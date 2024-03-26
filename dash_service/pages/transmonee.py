@@ -57,7 +57,7 @@ EMPTY_CHART = {
         "yaxis": {"visible": False},
         "annotations": [
             {
-                "text": "No indicator chosen or no data is available for the selected filters.",
+                "text": "No data is available for the selected filters or the database is temporarily unavailable.",
                 "xref": "paper",
                 "yref": "paper",
                 "showarrow": False,
@@ -1145,7 +1145,7 @@ def get_base_layout(**kwargs):
             dbc.Row(
                 children=[
                     dbc.Col(
-                        html.Img(id="unicef-icon", src=unicef_icon_file_path),
+                        html.Img(id="unicef-icon", src=unicef_icon_file_path, alt="UNICEF logo"),
                         lg=2, md=4, sm=6, xs=12,
                         align="center",
                     ),
@@ -1193,6 +1193,7 @@ def get_base_layout(**kwargs):
                                                         "Select ECA CRM Domain:", 
                                                         style={"margin-bottom": "10px", "display": "inline-block", "margin-right": "10px"}
                                                     ),
+                                                    html.Label('Select ECA CRM Domain', htmlFor='domain-dropdown'),
                                                     dcc.Dropdown(
                                                         id="domain-dropdown",
                                                         options=domain_dropdown_options,

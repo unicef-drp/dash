@@ -1,1 +1,815 @@
-{"domains": {"Child Rights Landscape and Governance": ["Demographics", "Political economy", "Child rights governance", "Public spending on children", "Data on children", "Right to remedy"], "Cross-Cutting": ["Gender", "Disability", "Early childhood development", "Environment and climate", "Disaster, conflict and displacement"], "Cross-cutting": ["Disaster, conflict and displacement"], "Education and Leisure": ["Education system", "Education access and participation", "Learning quality and skills", "Leisure and culture"], "Education, Leisure, and Culture": ["Education access and participation"], "Family Environment and Protection": ["Violence against children and women", "Children in alternative care", "Justice for children", "Child marriage and other harmful practices", "Child exploitation"], "Health and Nutrition": ["Health system", "Maternal, newborn and child health", "Immunization", "Nutrition", "Adolescent physical, mental, and reproductive health", "HIV/AIDS"], "Participation and Civil Rights": ["Birth registration and identity", "Information, internet and protection of privacy"], "Poverty and Social Protection": ["Social protection system", "Child poverty and material deprivation", "Water, sanitation and hygiene"]}, "subdomains": {"Adolescent physical, mental, and reproductive health": [{"Code": "FT_SP_DYN_ADKL", "Indicator Name": "3.7.2 Adolescent birth rate (per 1,000 women aged 15-19 years)"}, {"Code": "HT_ADOL_MT", "Indicator Name": "Adolescent (aged 10-19 years) mortality rate"}, {"Code": "MT_SDG_SUICIDE", "Indicator Name": "Suicide mortality rate (deaths per 100,000 population)"}, {"Code": "HT_CHLD_DAILY_EXER", "Indicator Name": "Children (11-, 13- and 15-year-olds) who report doing the WHO-recommended daily exercise (%)"}], "Birth registration and identity": [{"Code": "PP_SG_REG_BRTH90N", "Indicator Name": "17.19.2. Countries with birth registration data that are at least 90 percent complete"}, {"Code": "PP_SG_REG_DETH75N", "Indicator Name": "17.19.2. Countries with death registration data that are at least 75 percent complete"}, {"Code": "PT_CHLD_Y0T4_REG", "Indicator Name": "16.9.1. Proportion of children whose births have been registered with a civil authority (%)"}], "Child exploitation": [{"Code": "PT_CHLD_5-17_LBR_ECON-HC", "Indicator Name": "8.7.1. Percentage of children aged 5-17 years engaged in child labour (economic activities and household chores)"}, {"Code": "PT_CHLD_5-17_LBR_ECON", "Indicator Name": "Percentage of children aged 5-17 years engaged in child labour (economic activities)"}], "Child marriage and other harmful practices": [{"Code": "PT_F_15-19_MRD", "Indicator Name": "Percentage of girls aged 15-19 years who are currently married or in union"}, {"Code": "PT_M_15-19_MRD", "Indicator Name": "Percentage of boys aged 15-19 years who are currently married or in union"}, {"Code": "PT_F_20-24_MRD_U18", "Indicator Name": "5.3.1. Percentage of women aged 20-24 years married or in union before age 18"}, {"Code": "PT_M_20-24_MRD_U18", "Indicator Name": "Percentage of men aged 20-24 years married or in union before age 18"}], "Child poverty and material deprivation": [{"Code": "PV_SDG_SI_POV_NAHC", "Indicator Name": "1.2.1. Proportion of population living below the national poverty line (%)"}, {"Code": "SI_POV_UMIC", "Indicator Name": "Poverty headcount ratio at $6.85 a day (2017 PPP) (% of population)"}, {"Code": "PV_AROPE", "Indicator Name": "People at risk of poverty or social exclusion (%)"}, {"Code": "PV_AROPRT", "Indicator Name": "At-risk-of-poverty rate by threshold: 60% of national median equivalized disposable income after social transfers (%)"}, {"Code": "PV_SEV_MAT_SOC_DPRT_T", "Indicator Name": "Severe material and social deprivation rate"}, {"Code": "PV_LOW_WORK", "Indicator Name": "People living in households with very low work intensity"}, {"Code": "PV_INABLE_PROTEIN", "Indicator Name": "Share of households with dependent children with inability to afford a meal with meat, chicken, fish (or vegetarian equivalent) every second day (%)"}], "Child rights governance": [{"Code": "PP_SG_NHR_IMPLN", "Indicator Name": "16.a.1. Countries with National Human Rights Institutions in compliance with the Paris Principles (A status)"}], "Children in alternative care": [{"Code": "PT_CHLD_INFORMALCARE_RATE", "Indicator Name": "Rate of children in formal alternative care at the end of the year (per 100,000)"}, {"Code": "PT_CHLD_INRESIDENTIAL_RATE_B", "Indicator Name": "Rate of children in formal residential care at the end of the year (per 100,000)"}, {"Code": "PT_CHLD_INCARE_FOSTER_RATE", "Indicator Name": "Rate of children in formal family-based care at the end of the year (per 100,000)"}, {"Code": "PT_CHLD_ADOPTION_RATE", "Indicator Name": "Rate of formal adoption of children during the year (per 100,000)"}, {"Code": "PT_CHLD_DISAB_INRESIDENTIAL_PROP", "Indicator Name": "Proportion of children with disabilities in formal residential care at the end of the year (%)"}, {"Code": "PT_CHLD_DISAB_INFOSTER_PROP", "Indicator Name": "Proportion of children with disabilities in formal foster care of the total number of children in formal family-based care at the end of the year (%)"}, {"Code": "PT_CHLD_DISAB_INFAMILY_PROP", "Indicator Name": "Proportion of children with disabilities in formal family-based care at the end of the year (%)"}], "Data on children": [{"Code": "CR_IQ_SCI_OVRL", "Indicator Name": "Statistical Capacity Score"}, {"Code": "CR_SG_REG_CENSUSN", "Indicator Name": "17.19.2. Countries that have conducted at least one population and housing census in the last 10 years"}, {"Code": "CR_SG_STT_NSDSFND", "Indicator Name": "17.18.3. Countries with national statistical plans that are fully funded"}, {"Code": "CR_SG_STT_NSDSIMPL", "Indicator Name": "17.18.3. Countries with national statistical plans that are under implementation"}, {"Code": "CR_SG_STT_NSDSFDGVT", "Indicator Name": "17.18.3. Countries with national statistical plans with funding from government"}, {"Code": "CR_SG_STT_NSDSFDDNR", "Indicator Name": "17.18.3. Countries with national statistical plans with funding from donors"}, {"Code": "CR_SG_STT_NSDSFDOTHR", "Indicator Name": "17.18.3. Countries with national statistical plans with funding from others"}, {"Code": "CR_SG_STT_FPOS", "Indicator Name": "17.18.2. Countries with national statistical legislation exists that complies with the Fundamental Principles of Official Statistics"}], "Demographics": [{"Code": "DM_CHLD_POP", "Indicator Name": "Child population"}, {"Code": "DM_CHLD_POP_PT", "Indicator Name": "Percentage of children as a share of the total population"}, {"Code": "DM_FRATE_TOT", "Indicator Name": "Total fertility rate (average live births per woman aged 15-49)"}, {"Code": "DM_BRTS", "Indicator Name": "Number of births (in thousands)"}, {"Code": "DM_POP_NETM", "Indicator Name": "Net migration"}], "Disability": [{"Code": "HT_REG_CHLD_DISAB_PROP", "Indicator Name": "Proportion of children registered as having disabilities (at the end of the year)"}, {"Code": "HT_NEW_REG_CHLD_DISAB_PROP", "Indicator Name": "Proportion of children newly registered as having disabilities (during the year)"}], "Disaster, conflict and displacement": [{"Code": "CR_VC_DSR_MTMP", "Indicator Name": "11.5.1. Number of deaths and missing persons attributed to disasters (per 100,000 population)"}, {"Code": "CR_VC_DSR_DAFF", "Indicator Name": "11.5.1. Number of directly affected persons attributed to disasters (per 100,000 population)"}, {"Code": "CR_SG_DSR_LGRGSR", "Indicator Name": "1.5.3. Score of adoption and implementation of national DRR strategies in line with the Sendai Framework"}, {"Code": "DM_ASYL_FRST", "Indicator Name": "First time asylum applicants (persons)"}, {"Code": "DM_ASYL_UASC", "Indicator Name": "Asylum applicants considered to be unaccompanied minors (persons)"}, {"Code": "CR_INFORM", "Indicator Name": "INFORM Risk Index (scale 0-10)"}], "Early childhood development": [{"Code": "ECD_CHLD_36-59M_ADLT_SRC", "Indicator Name": "Percentage of children with whom any adult household member has engaged in 4 or more activities to provide early stimulation and responsive care in the last 3 days\u00a0(3-4 years)"}, {"Code": "ECD_CHLD_36-59M_FHR-SPT-LNG", "Indicator Name": "Percentage of children whose father has engaged in 4 or more activities to provide early stimulation and responsive care in the last 3 days (3-4 years)"}, {"Code": "ECD_CHLD_36-59M_LMPSL", "Indicator Name": "4.2.1. Percentage of children developmentally on track in at least 3 of the 4 following domains: literacy-numeracy, physical, social-emotional and learning (3-4 years)"}, {"Code": "ECD_EARLY_EDU", "Indicator Name": "Pupils from age 3 to the starting age of compulsory education at primary level"}, {"Code": "ECD_IN_CHILDCARE", "Indicator Name": "Children aged less than 3 years in formal childcare"}], "Education access and participation": [{"Code": "EDUNF_NERA_L1_UNDER1", "Indicator Name": "4.2.2. Participation in organized learning (adjusted net enrolment rate, one year before official primary entry age - administrative data)"}, {"Code": "EDUNF_ROFST_L1", "Indicator Name": "Out-of-school rate for children of primary school age (%)"}, {"Code": "EDUNF_ROFST_L2", "Indicator Name": "Out-of-school rate for adolescents of lower secondary school age (%)"}, {"Code": "EDUNF_ROFST_L3", "Indicator Name": "Out-of-school rate for youth of upper secondary school age (%)"}, {"Code": "EDUNF_ROFST_L1_UNDER1", "Indicator Name": "Out-of-school rate for children one year younger than the official entry age to primary education (%)"}, {"Code": "EDUNF_CR_L1", "Indicator Name": "4.1.2. Completion rate - Primary education (%)"}, {"Code": "EDUNF_CR_L2", "Indicator Name": "4.1.2. Completion rate - Lower secondary education (%)"}, {"Code": "EDUNF_CR_L3", "Indicator Name": "4.1.2. Completion rate - Upper secondary education (%)"}, {"Code": "EDU_SE_AGP_CPRA_L3", "Indicator Name": "4.5.1. Adjusted gender parity index for upper secondary education completion rate"}, {"Code": "EDAT_LFSE_14", "Indicator Name": "Proportion of early leavers from education and training, aged 18-24 years (%)"}, {"Code": "EDU_SDG_PRYA", "Indicator Name": "4.3.1. Participation rate of youth and adults in formal and non-formal education and training for the previous 12 months (%)"}, {"Code": "EDU_SDG_SCH_L1", "Indicator Name": "4.a.1. Proportion of schools with access to adapted infrastructure and materials for students with disabilities - primary (%)"}, {"Code": "EDU_SDG_SCH_L2", "Indicator Name": "4.a.1. Proportion of schools with access to adapted infrastructure and materials for students with disabilities - lower secondary (%)"}, {"Code": "EDU_SDG_SCH_L3", "Indicator Name": "4.a.1. Proportion of schools with access to adapted infrastructure and materials for students with disabilities - upper secondary (%)"}, {"Code": "EDU_SE_TOT_GPI_L2_REA", "Indicator Name": "4.5.1. Adjusted gender parity index for students at the end of lower secondary education achieving a minimum proficiency level in reading"}, {"Code": "EDU_SE_TOT_GPI_L2_MAT", "Indicator Name": "4.5.1. Adjusted gender parity index for students at the end of lower secondary education achieving a minimum proficiency level in mathematics"}], "Education system": [{"Code": "EDU_FIN_EXP_L02", "Indicator Name": "Expenditure on pre-primary as a percentage of government expenditure on education"}, {"Code": "EDU_FIN_EXP_L1", "Indicator Name": "Expenditure on primary as a percentage of government expenditure on education"}, {"Code": "EDU_SDG_COMP_EDU_L02", "Indicator Name": "Number of years of compulsory pre-primary education guaranteed in legal framework"}, {"Code": "EDU_SDG_FREE_EDU_L02", "Indicator Name": "Number of years of free pre-primary education guaranteed in legal framework"}, {"Code": "EDUNF_ADMIN_L1_GLAST_REA", "Indicator Name": "Administration of nationally-representative learning assessment in reading (end of primary education)"}, {"Code": "EDUNF_ADMIN_L1_GLAST_MAT", "Indicator Name": "Administration of nationally-representative learning assessment in math (end of primary education)"}, {"Code": "EDUNF_ADMIN_L2_REA", "Indicator Name": "Administration of nationally-representative learning assessment in reading (end of lower secondary education)"}, {"Code": "EDUNF_ADMIN_L2_MAT", "Indicator Name": "Administration of nationally-representative learning assessment in math (end of lower secondary education)"}], "Environment and climate": [{"Code": "CR_EG_EGY_CLEAN", "Indicator Name": "7.1.2. Proportion of population with primary reliance on clean fuels and technology (%)"}, {"Code": "CR_CCRI", "Indicator Name": "Children's Climate Risk Index (CCRI)"}, {"Code": "CR_CCRI_EXP_CESS", "Indicator Name": "CCRI Pillar 1: Children's exposure to climate and environmental hazards, shocks and stresses"}, {"Code": "CR_CCRI_VUL_ES", "Indicator Name": "CCRI Pillar 2: Children's vulnerability to climate and environmental hazards, shocks and stresses"}, {"Code": "CR_SH_AAP_ASMORT", "Indicator Name": "3.9.1. Age-standardized mortality rate attributed to ambient air pollution (deaths per 100,000 population)"}, {"Code": "CR_SH_HAP_ASMORT", "Indicator Name": "3.9.1. Age-standardized mortality rate attributed to household air pollution (deaths per 100,000 population)"}, {"Code": "CR_SH_STA_ASAIRP", "Indicator Name": "3.9.1. Age-standardized mortality rate attributed to household and ambient air pollution (deaths per 100,000 population)"}, {"Code": "HT_SDG_PM25", "Indicator Name": "11.6.2 Annual mean concentration of particles PM2.5 (ug/m3)"}], "Gender": [{"Code": "EC_GII", "Indicator Name": "Gender Inequality Index (GII)"}, {"Code": "EC_GDI", "Indicator Name": "Gender Development Index (GDI)"}], "HIV/AIDS": [{"Code": "HVA_EPI_LHIV_0-19", "Indicator Name": "Estimated number of children (aged 0-19 years) living with HIV"}, {"Code": "HVA_PED_ART_CVG", "Indicator Name": "Percentage of children (aged 0-14 years) living with HIV and receiving antiretroviral therapy (ART)"}, {"Code": "HVA_EPI_INF_RT_0-14", "Indicator Name": "3.3.1. Estimated incidence rate (new HIV infection per 1,000 uninfected population, children aged 0-14 years)"}, {"Code": "HVA_EPI_DTH_ANN_0-19", "Indicator Name": "Estimated number of annual AIDS-related deaths (children aged 0-19 years)"}, {"Code": "HVA_PMTCT_MTCT", "Indicator Name": "Mother-to-child HIV transmission rate"}, {"Code": "HVA_PMTCT_STAT_CVG", "Indicator Name": "Percentage of pregnant women presenting at antenatal clinics (ANC) who were tested for HIV or already knew their HIV positive status"}], "Health system": [{"Code": "HT_UHC_IDX", "Indicator Name": "3.8.1 UHC Service Coverage Index"}, {"Code": "HT_SH_XPD_OOPC_CH_ZS", "Indicator Name": "Out-of-pocket expenditure (OOP), as % of current health expenditure"}, {"Code": "HT_SH_XPD_GHED_CH_ZS", "Indicator Name": "Domestic general government health expenditure (% of current health expenditure)"}, {"Code": "HT_SH_XPD_GHED_GE_ZS", "Indicator Name": "Domestic general government health expenditure (% of general government expenditure)"}, {"Code": "HT_SH_XPD_GHED_PP_CD", "Indicator Name": "Domestic general government health expenditure per capita, PPP (current international $)"}, {"Code": "HT_INS_COV", "Indicator Name": "Total population covered by public and primary private health insurance (%)"}], "Immunization": [{"Code": "IM_MCV2", "Indicator Name": "3.b.1 Percentage of children who received the 2nd dose of measles-containing vaccine (MCV2), as per administered in the national schedule"}, {"Code": "IM_DTP3", "Indicator Name": "3.b.1 Percentage of surviving infants who received the third dose of DTP-containing vaccine (DTP3)"}, {"Code": "IM_PCV3", "Indicator Name": "3.b.1 Percentage of surviving infants who received the third dose of pneumococcal conjugate-containing vaccine (PCV3)"}, {"Code": "IM_HPV", "Indicator Name": "3.b.1 Percentage of females who received the last dose of human papillomavirus (HPV) vaccine per national schedule"}], "Information, internet and protection of privacy": [{"Code": "PP_SE_ADT_ACTS_PRGM", "Indicator Name": "4.4.1. Proportion of youth and adults with ICT skill: writing a computer program using a specialized programming language"}, {"Code": "PP_SE_ADT_ACTS_ATCH", "Indicator Name": "4.4.1. Proportion of youth and adults with ICT skill: sending e-mails with attached files"}, {"Code": "PP_SE_ADT_ACTS_SFWR", "Indicator Name": "4.4.1. Proportion of youth and adults with ICT skill: finding, downloading, installing and configuring software"}, {"Code": "PP_IT_USE_ii99", "Indicator Name": "17.8.1. Internet users per 100 inhabitants"}, {"Code": "ICT_PERSONAL_DATA", "Indicator Name": "Percentage of population who used the internet in the last 3 months and managed access to their personal data"}, {"Code": "ICT_SECURITY_CONCERN", "Indicator Name": "Percentage of population who limited their personal internet activities in the last 12 months due to security concerns"}], "Justice for children": [{"Code": "JJ_CHLD_DETENTION_RATE", "Indicator Name": "Rate of children in detention at the end of the year (per 100,000)"}, {"Code": "JJ_CHLD_PRE_SENTENCE_DETENTION_RATE", "Indicator Name": "Rate of children in detention at the end of the year, by type: Pre-sentence detention (per 100,000)"}, {"Code": "JJ_CHLD_POST_SENTENCE_DETENTION_RATE", "Indicator Name": "Rate of children in detention at the end of the year, by type: Post-sentence detention (per 100,000)"}, {"Code": "JJ_CHLD_ENTER_PRE_SENTENCE_DETENTION_RATE", "Indicator Name": "Rate of children detained during the year, by type: Pre-sentence detention (per 100,000)"}, {"Code": "JJ_VC_PRS_UNSNT", "Indicator Name": "16.3.2. Unsentenced detainees as a proportion of overall prison population (%)"}, {"Code": "JJ_CHLD_CUSTODIAL_SENTENCE_PROP", "Indicator Name": "Percentage of children sentenced to custodial sentences during the year"}, {"Code": "JJ_CHLD_ALTERNATIVE_SENTENCE_PROP", "Indicator Name": "Percentage of children sentenced with alternative measures during the year"}, {"Code": "JJ_CHLD_VICTIM_CRIME_RATE", "Indicator Name": "Rate of child victims of crime registered by the police during the year (per 100,000)"}, {"Code": "JJ_CHLD_WITNESS_CRIME_RATE", "Indicator Name": "Rate of child witnesses of crime registered by the police during the year (per 100,000)"}], "Learning quality and skills": [{"Code": "EDU_PISA_LOW_ACHIEVE_MAT", "Indicator Name": "Low achieving 15-year-olds in mathematics (%)"}, {"Code": "EDU_PISA_LOW_ACHIEVE_REA", "Indicator Name": "Low achieving 15-year-olds in reading (%)"}, {"Code": "EDU_PISA_LOW_ACHIEVE_SCI", "Indicator Name": "Low achieving 15-year-olds in science (%)"}, {"Code": "EDU_SDG_STU_L2_GLAST_REA", "Indicator Name": "4.1.1. Proportion of children at the end of lower secondary education reaching minimum proficiency in reading"}, {"Code": "EDU_SDG_STU_L2_GLAST_MAT", "Indicator Name": "4.1.1. Proportion of children at the end of lower secondary education reaching minimum proficiency in math"}, {"Code": "EDU_SDG_YOUTH_NEET", "Indicator Name": "8.6.1. Proportion of youth (aged 15-24 years) not in education, employment or training (%)"}], "Leisure and culture": [{"Code": "PP_ADOL_INET", "Indicator Name": "Adolescents (15-year-olds) who use the internet and social networks, before or after school (%)"}, {"Code": "PP_ADOL_TVGM", "Indicator Name": "Adolescents (15-year-olds) who watch TV or play video games, before or after school (%)"}], "Maternal, newborn and child health": [{"Code": "CME_SBR", "Indicator Name": "Stillbirth rate (per 1,000 total births)"}, {"Code": "CME_MRM0", "Indicator Name": "3.2.2. Neonatal mortality rate (per 1,000 live births)"}, {"Code": "CME_MRY0", "Indicator Name": "Infant mortality rate (per 1,000 live births)"}, {"Code": "CME_MRY0T4", "Indicator Name": "3.2.1. Under-five mortality rate (per 1,000 live births)"}, {"Code": "MNCH_CSEC", "Indicator Name": "C-section rate - percentage of deliveries by caesarean section"}, {"Code": "MNCH_SAB", "Indicator Name": "3.1.2. Proportion of births attended by skilled health personnel (%)"}, {"Code": "NT_BW_LBW", "Indicator Name": "Prevalence of low birth weight among newborns (%)"}], "Nutrition": [{"Code": "NT_BF_EIBF", "Indicator Name": "Percentage of most recent live-born children to women with a live birth in the last 2 years who were put to the breast within one hour of birth"}, {"Code": "NT_BF_EXBF", "Indicator Name": "Percentage of infants under 6 months of age who are exclusively breastfed"}, {"Code": "NT_CF_MAD", "Indicator Name": "Minimum Acceptable Diet (6-23 months)"}, {"Code": "HT_SH_STA_ANEM", "Indicator Name": "2.2.3. Proportion of women aged 15-49 years with anaemia (%)"}, {"Code": "NT_ANT_WHZ_NE2", "Indicator Name": "2.2.2 Prevalence of wasting (weight for height <-2 standard deviation (moderate and severe) from the median of the World Health Organization (WHO) Child Growth Standards) among children under 5 years of age"}, {"Code": "NT_ANT_WHZ_PO2", "Indicator Name": "2.2.2. Percentage of children under age 5 who are above two standard deviations (moderate and severe) of the median weight for height of the WHO standard - overweight prevalence"}, {"Code": "NT_ANT_HAZ_NE2", "Indicator Name": "2.2.1. Percentage of children under age 5 who fall below minus two standard deviations (moderate and severe) of the median height for age of the WHO standard - stunting prevalence"}, {"Code": "NT_CF_ISSSF_FL", "Indicator Name": "Introduction to solid, semi-solid foods (6-8 months)"}, {"Code": "NT_CHLD_OBESITY", "Indicator Name": "Prevalence of obesity among children and adolescents aged 5-19 years, BMI > +2 standard deviations above the median (crude estimate) (%)"}, {"Code": "HT_ANEM_U5", "Indicator Name": "Prevalence of anaemia in children aged 6\u201359 months (%)"}], "Political economy": [{"Code": "EC_NY_GNP_PCAP_CD", "Indicator Name": "GNI per capita, Atlas method (current US$)"}, {"Code": "EC_TEC_GRL_GOV_EXP", "Indicator Name": "Total general government expenditure (% of GDP)"}, {"Code": "EC_EAP_RT", "Indicator Name": "Labour force participation rate (%)"}, {"Code": "EC_SL_UEM_TOTL_ZS", "Indicator Name": "8.5.2. Unemployment, modelled ILO estimate (% of total labor force)"}, {"Code": "PV_GINI_COEF", "Indicator Name": "Gini coefficient of equivalised disposable income"}, {"Code": "EC_HDI", "Indicator Name": "Human Development Index (HDI)"}, {"Code": "EC_NY_GDP_PCAP_PP_CD", "Indicator Name": "GDP per capita, PPP (current international $)"}], "Public spending on children": [{"Code": "EDU_FIN_EXP_PT_GDP", "Indicator Name": "Government expenditure on education (% of GDP)"}, {"Code": "EC_SP_GOV_EXP_GDP", "Indicator Name": "General government expenditure by function: Social protection (% of GDP)"}, {"Code": "EC_EXP_FAM_CHLD_EXP", "Indicator Name": "Expenditure on family-children benefits (% of expenditure on social benefits)"}, {"Code": "HT_SH_XPD_CHEX_GD_ZS", "Indicator Name": "Current health expenditure (% of GDP)"}, {"Code": "HT_SH_XPD_GHED_GD_ZS", "Indicator Name": "Domestic general government health expenditure (% of GDP)"}], "Right to remedy": [{"Code": "JJ_CHLD_COMPLAINT_HHRR", "Indicator Name": "Number of children aged 0-17 who brought or on whose behalf a complaint was brought by an adult to independent human rights mechanisms, during the year"}, {"Code": "JJ_CHLD_DISAB_COMPLAINT_HHRR", "Indicator Name": "Number of children with disabilities aged 0-17 who brought or on whose behalf a complaint was brought by an adult to independent human rights mechanisms, during the year"}], "Social protection system": [{"Code": "PV_SI_COV_BENFTS", "Indicator Name": "1.3.1. Proportion of population covered by at least one social protection benefit (%)"}, {"Code": "PV_SI_COV_VULN", "Indicator Name": "1.3.1. Proportion of vulnerable population receiving social assistance cash benefit (%)"}, {"Code": "PV_SI_COV_DISAB", "Indicator Name": "1.3.1. Proportion of population with severe disabilities receiving disability cash benefit (%)"}, {"Code": "PV_SI_COV_POOR", "Indicator Name": "1.3.1. Proportion of poor population receiving social assistance cash benefit (%)"}, {"Code": "PV_SI_COV_MATNL", "Indicator Name": "1.3.1. Proportion of mothers with newborns receiving maternity cash benefit (%)"}, {"Code": "PV_SI_COV_CHLD", "Indicator Name": "1.3.1. Proportion of children/households receiving child/family cash benefit (%)"}, {"Code": "PV_SI_COV_UEMP", "Indicator Name": "1.3.1. Proportion of unemployed persons receiving unemployment cash benefit (%)"}], "Violence against children and women": [{"Code": "PT_F_GE15_PS-SX-EM_V_PTNR_12MNTH", "Indicator Name": "5.2.1. Percentage of ever-partnered women and girls (aged 15 years and older) subjected to physical, sexual or psychological violence by a current or former intimate partner in the previous 12 months"}, {"Code": "PT_ST_13-15_BUL_30-DYS", "Indicator Name": "Percentage of students who reported being bullied on 1 or more days in the past 30 days"}, {"Code": "PT_ADLT_PS_NEC", "Indicator Name": "Percentage of adults who think that physical punishment is necessary to raise/educate children"}, {"Code": "PT_CHLD_1-14_PS-PSY-V_CGVR", "Indicator Name": "16.2.1. Percentage of children who experienced any physical punishment and/or psychological aggression by caregivers"}, {"Code": "PT_F_18-29_SX-V_AGE-18", "Indicator Name": "16.2.3. Percentage of women (aged 18-29 years) who experienced sexual violence by age 18 years"}, {"Code": "PT_CHLD_VIOLENCE_WELFARE", "Indicator Name": "Total number of child victims of violence aged 0-17 registered by child/social welfare authorities, during the year"}], "Water, sanitation and hygiene": [{"Code": "WS_PPL_W-SM", "Indicator Name": "6.1.1. Proportion of population using safely managed drinking water services"}, {"Code": "WS_PPL_S-SM", "Indicator Name": "6.1.2. Proportion of population using safely managed sanitation services"}, {"Code": "HT_NO_BTH_SHW_FLSH", "Indicator Name": "Proportion of population having neither a bath, nor a shower, nor indoor flushing toilet in their household"}]}}
+{
+    "domains": {
+        "Child Rights Landscape and Governance": [
+            "Demographics",
+            "Political economy",
+            "Child rights governance",
+            "Public spending on children",
+            "Data on children",
+            "Right to remedy"
+        ],
+        "Cross-Cutting": [
+            "Gender",
+            "Disability",
+            "Early childhood development",
+            "Environment and climate",
+            "Disaster, conflict and displacement"
+        ],
+        "Cross-cutting": [
+            "Disaster, conflict and displacement"
+        ],
+        "Education and Leisure": [
+            "Education system",
+            "Education access and participation",
+            "Learning quality and skills",
+            "Leisure and culture"
+        ],
+        "Education, Leisure, and Culture": [
+            "Education access and participation"
+        ],
+        "Family Environment and Protection": [
+            "Violence against children and women",
+            "Children in alternative care",
+            "Justice for children",
+            "Child marriage and other harmful practices",
+            "Child exploitation"
+        ],
+        "Health and Nutrition": [
+            "Health system",
+            "Maternal, newborn and child health",
+            "Immunization",
+            "Nutrition",
+            "Adolescent physical, mental, and reproductive health",
+            "HIV/AIDS"
+        ],
+        "Participation and Civil Rights": [
+            "Birth registration and identity",
+            "Information, internet and protection of privacy"
+        ],
+        "Poverty and Social Protection": [
+            "Social protection system",
+            "Child poverty and material deprivation",
+            "Water, sanitation and hygiene"
+        ]
+    },
+    "subdomains": {
+        "Adolescent physical, mental, and reproductive health": [
+            {
+                "Code": "FT_SP_DYN_ADKL",
+                "Indicator Name": "3.7.2 Adolescent birth rate (per 1,000 women aged 15-19 years)"
+            },
+            {
+                "Code": "HT_ADOL_MT",
+                "Indicator Name": "Adolescent (aged 10-19 years) mortality rate"
+            },
+            {
+                "Code": "MT_SDG_SUICIDE",
+                "Indicator Name": "Suicide mortality rate (deaths per 100,000 population)"
+            },
+            {
+                "Code": "HT_CHLD_DAILY_EXER",
+                "Indicator Name": "Children (11-, 13- and 15-year-olds) who report doing the WHO-recommended daily exercise (%)"
+            }
+        ],
+        "Birth registration and identity": [
+            {
+                "Code": "PP_SG_REG_BRTH90N",
+                "Indicator Name": "17.19.2. Countries with birth registration data that are at least 90 percent complete"
+            },
+            {
+                "Code": "PP_SG_REG_DETH75N",
+                "Indicator Name": "17.19.2. Countries with death registration data that are at least 75 percent complete"
+            },
+            {
+                "Code": "PT_CHLD_Y0T4_REG",
+                "Indicator Name": "16.9.1. Proportion of children whose births have been registered with a civil authority (%)"
+            }
+        ],
+        "Child exploitation": [
+            {
+                "Code": "PT_CHLD_5-17_LBR_ECON-HC",
+                "Indicator Name": "8.7.1. Percentage of children aged 5-17 years engaged in child labour (economic activities and household chores)"
+            },
+            {
+                "Code": "PT_CHLD_5-17_LBR_ECON",
+                "Indicator Name": "Percentage of children aged 5-17 years engaged in child labour (economic activities)"
+            }
+        ],
+        "Child marriage and other harmful practices": [
+            {
+                "Code": "PT_F_15-19_MRD",
+                "Indicator Name": "Percentage of girls aged 15-19 years who are currently married or in union"
+            },
+            {
+                "Code": "PT_M_15-19_MRD",
+                "Indicator Name": "Percentage of boys aged 15-19 years who are currently married or in union"
+            },
+            {
+                "Code": "PT_F_20-24_MRD_U18",
+                "Indicator Name": "5.3.1. Percentage of women aged 20-24 years married or in union before age 18"
+            },
+            {
+                "Code": "PT_M_20-24_MRD_U18",
+                "Indicator Name": "Percentage of men aged 20-24 years married or in union before age 18"
+            }
+        ],
+        "Child poverty and material deprivation": [
+            {
+                "Code": "PV_SDG_SI_POV_NAHC",
+                "Indicator Name": "1.2.1. Proportion of population living below the national poverty line (%)"
+            },
+            {
+                "Code": "SI_POV_UMIC",
+                "Indicator Name": "Poverty headcount ratio at $6.85 a day (2017 PPP) (% of population)"
+            },
+            {
+                "Code": "PV_AROPE",
+                "Indicator Name": "People at risk of poverty or social exclusion (%)"
+            },
+            {
+                "Code": "PV_AROPRT",
+                "Indicator Name": "At-risk-of-poverty rate by threshold: 60% of national median equivalized disposable income after social transfers (%)"
+            },
+            {
+                "Code": "PV_SEV_MAT_SOC_DPRT_T",
+                "Indicator Name": "Severe material and social deprivation rate"
+            },
+            {
+                "Code": "PV_LOW_WORK",
+                "Indicator Name": "People living in households with very low work intensity"
+            },
+            {
+                "Code": "PV_INABLE_PROTEIN",
+                "Indicator Name": "Share of households with dependent children with inability to afford a meal with meat, chicken, fish (or vegetarian equivalent) every second day (%)"
+            }
+        ],
+        "Child rights governance": [
+            {
+                "Code": "PP_SG_NHR_IMPLN",
+                "Indicator Name": "16.a.1. Countries with National Human Rights Institutions in compliance with the Paris Principles (A status)"
+            }
+        ],
+        "Children in alternative care": [
+            {
+                "Code": "PT_CHLD_INFORMALCARE_RATE",
+                "Indicator Name": "Rate of children in formal alternative care at the end of the year (per 100,000)"
+            },
+            {
+                "Code": "PT_CHLD_INRESIDENTIAL_RATE_B",
+                "Indicator Name": "Rate of children in formal residential care at the end of the year (per 100,000)"
+            },
+            {
+                "Code": "PT_CHLD_INCARE_FOSTER_RATE",
+                "Indicator Name": "Rate of children in formal family-based care at the end of the year (per 100,000)"
+            },
+            {
+                "Code": "PT_CHLD_ADOPTION_RATE",
+                "Indicator Name": "Rate of formal adoption of children during the year (per 100,000)"
+            },
+            {
+                "Code": "PT_CHLD_DISAB_INRESIDENTIAL_PROP",
+                "Indicator Name": "Proportion of children with disabilities in formal residential care at the end of the year (%)"
+            },
+            {
+                "Code": "PT_CHLD_DISAB_INFOSTER_PROP",
+                "Indicator Name": "Proportion of children with disabilities in formal foster care of the total number of children in formal family-based care at the end of the year (%)"
+            },
+            {
+                "Code": "PT_CHLD_DISAB_INFAMILY_PROP",
+                "Indicator Name": "Proportion of children with disabilities in formal family-based care at the end of the year (%)"
+            }
+        ],
+        "Data on children": [
+            {
+                "Code": "CR_IQ_SCI_OVRL",
+                "Indicator Name": "Statistical Capacity Score"
+            },
+            {
+                "Code": "CR_SG_REG_CENSUSN",
+                "Indicator Name": "17.19.2. Countries that have conducted at least one population and housing census in the last 10 years"
+            },
+            {
+                "Code": "CR_SG_STT_NSDSFND",
+                "Indicator Name": "17.18.3. Countries with national statistical plans that are fully funded"
+            },
+            {
+                "Code": "CR_SG_STT_NSDSIMPL",
+                "Indicator Name": "17.18.3. Countries with national statistical plans that are under implementation"
+            },
+            {
+                "Code": "CR_SG_STT_NSDSFDGVT",
+                "Indicator Name": "17.18.3. Countries with national statistical plans with funding from government"
+            },
+            {
+                "Code": "CR_SG_STT_NSDSFDDNR",
+                "Indicator Name": "17.18.3. Countries with national statistical plans with funding from donors"
+            },
+            {
+                "Code": "CR_SG_STT_NSDSFDOTHR",
+                "Indicator Name": "17.18.3. Countries with national statistical plans with funding from others"
+            },
+            {
+                "Code": "CR_SG_STT_FPOS",
+                "Indicator Name": "17.18.2. Countries with national statistical legislation exists that complies with the Fundamental Principles of Official Statistics"
+            }
+        ],
+        "Demographics": [
+            {
+                "Code": "DM_CHLD_POP",
+                "Indicator Name": "Child population"
+            },
+            {
+                "Code": "DM_CHLD_POP_PT",
+                "Indicator Name": "Percentage of children as a share of the total population"
+            },
+            {
+                "Code": "DM_FRATE_TOT",
+                "Indicator Name": "Total fertility rate (average live births per woman aged 15-49)"
+            },
+            {
+                "Code": "DM_BRTS",
+                "Indicator Name": "Number of births (in thousands)"
+            },
+            {
+                "Code": "DM_POP_NETM",
+                "Indicator Name": "Net migration"
+            }
+        ],
+        "Disability": [
+            {
+                "Code": "HT_REG_CHLD_DISAB_PROP",
+                "Indicator Name": "Proportion of children registered as having disabilities (at the end of the year)"
+            },
+            {
+                "Code": "HT_NEW_REG_CHLD_DISAB_PROP",
+                "Indicator Name": "Proportion of children newly registered as having disabilities (during the year)"
+            }
+        ],
+        "Disaster, conflict and displacement": [
+            {
+                "Code": "CR_VC_DSR_MTMP",
+                "Indicator Name": "11.5.1. Number of deaths and missing persons attributed to disasters (per 100,000 population)"
+            },
+            {
+                "Code": "CR_VC_DSR_DAFF",
+                "Indicator Name": "11.5.1. Number of directly affected persons attributed to disasters (per 100,000 population)"
+            },
+            {
+                "Code": "CR_SG_DSR_LGRGSR",
+                "Indicator Name": "1.5.3. Score of adoption and implementation of national DRR strategies in line with the Sendai Framework"
+            },
+            {
+                "Code": "DM_ASYL_FRST",
+                "Indicator Name": "First time asylum applicants (persons)"
+            },
+            {
+                "Code": "DM_ASYL_UASC",
+                "Indicator Name": "Asylum applicants considered to be unaccompanied minors (persons)"
+            },
+            {
+                "Code": "CR_INFORM",
+                "Indicator Name": "INFORM Risk Index (scale 0-10)"
+            }
+        ],
+        "Early childhood development": [
+            {
+                "Code": "ECD_CHLD_36-59M_ADLT_SRC",
+                "Indicator Name": "Percentage of children with whom any adult household member has engaged in 4 or more activities to provide early stimulation and responsive care in the last 3 days\u00a0(3-4 years)"
+            },
+            {
+                "Code": "ECD_CHLD_36-59M_FHR-SPT-LNG",
+                "Indicator Name": "Percentage of children whose father has engaged in 4 or more activities to provide early stimulation and responsive care in the last 3 days (3-4 years)"
+            },
+            {
+                "Code": "ECD_CHLD_36-59M_LMPSL",
+                "Indicator Name": "4.2.1. Percentage of children developmentally on track in at least 3 of the 4 following domains: literacy-numeracy, physical, social-emotional and learning (3-4 years)"
+            },
+            {
+                "Code": "ECD_EARLY_EDU",
+                "Indicator Name": "Pupils from age 3 to the starting age of compulsory education at primary level"
+            },
+            {
+                "Code": "ECD_IN_CHILDCARE",
+                "Indicator Name": "Children aged less than 3 years in formal childcare"
+            }
+        ],
+        "Education access and participation": [
+            {
+                "Code": "EDUNF_NERA_L1_UNDER1",
+                "Indicator Name": "4.2.2. Participation in organized learning (adjusted net enrolment rate, one year before official primary entry age - administrative data)"
+            },
+            {
+                "Code": "EDUNF_ROFST_L1",
+                "Indicator Name": "Out-of-school rate for children of primary school age (%)"
+            },
+            {
+                "Code": "EDUNF_ROFST_L2",
+                "Indicator Name": "Out-of-school rate for adolescents of lower secondary school age (%)"
+            },
+            {
+                "Code": "EDUNF_ROFST_L3",
+                "Indicator Name": "Out-of-school rate for youth of upper secondary school age (%)"
+            },
+            {
+                "Code": "EDUNF_ROFST_L1_UNDER1",
+                "Indicator Name": "Out-of-school rate for children one year younger than the official entry age to primary education (%)"
+            },
+            {
+                "Code": "EDUNF_CR_L1",
+                "Indicator Name": "4.1.2. Completion rate - Primary education (%)"
+            },
+            {
+                "Code": "EDUNF_CR_L2",
+                "Indicator Name": "4.1.2. Completion rate - Lower secondary education (%)"
+            },
+            {
+                "Code": "EDUNF_CR_L3",
+                "Indicator Name": "4.1.2. Completion rate - Upper secondary education (%)"
+            },
+            {
+                "Code": "EDU_SE_AGP_CPRA_L3",
+                "Indicator Name": "4.5.1. Adjusted gender parity index for upper secondary education completion rate"
+            },
+            {
+                "Code": "EDAT_LFSE_14",
+                "Indicator Name": "Proportion of early leavers from education and training, aged 18-24 years (%)"
+            },
+            {
+                "Code": "EDU_SDG_PRYA",
+                "Indicator Name": "4.3.1. Participation rate of youth and adults in formal and non-formal education and training for the previous 12 months (%)"
+            },
+            {
+                "Code": "EDU_SDG_SCH_L1",
+                "Indicator Name": "4.a.1. Proportion of schools with access to adapted infrastructure and materials for students with disabilities - primary (%)"
+            },
+            {
+                "Code": "EDU_SDG_SCH_L2",
+                "Indicator Name": "4.a.1. Proportion of schools with access to adapted infrastructure and materials for students with disabilities - lower secondary (%)"
+            },
+            {
+                "Code": "EDU_SDG_SCH_L3",
+                "Indicator Name": "4.a.1. Proportion of schools with access to adapted infrastructure and materials for students with disabilities - upper secondary (%)"
+            },
+            {
+                "Code": "EDU_SE_TOT_GPI_L2_REA",
+                "Indicator Name": "4.5.1. Adjusted gender parity index for students at the end of lower secondary education achieving a minimum proficiency level in reading"
+            },
+            {
+                "Code": "EDU_SE_TOT_GPI_L2_MAT",
+                "Indicator Name": "4.5.1. Adjusted gender parity index for students at the end of lower secondary education achieving a minimum proficiency level in mathematics"
+            }
+        ],
+        "Education system": [
+            {
+                "Code": "EDU_FIN_EXP_L02",
+                "Indicator Name": "Expenditure on pre-primary as a percentage of government expenditure on education"
+            },
+            {
+                "Code": "EDU_FIN_EXP_L1",
+                "Indicator Name": "Expenditure on primary as a percentage of government expenditure on education"
+            },
+            {
+                "Code": "EDU_SDG_COMP_EDU_L02",
+                "Indicator Name": "Number of years of compulsory pre-primary education guaranteed in legal framework"
+            },
+            {
+                "Code": "EDU_SDG_FREE_EDU_L02",
+                "Indicator Name": "Number of years of free pre-primary education guaranteed in legal framework"
+            },
+            {
+                "Code": "EDUNF_ADMIN_L1_GLAST_REA",
+                "Indicator Name": "Administration of nationally-representative learning assessment in reading (end of primary education)"
+            },
+            {
+                "Code": "EDUNF_ADMIN_L1_GLAST_MAT",
+                "Indicator Name": "Administration of nationally-representative learning assessment in math (end of primary education)"
+            },
+            {
+                "Code": "EDUNF_ADMIN_L2_REA",
+                "Indicator Name": "Administration of nationally-representative learning assessment in reading (end of lower secondary education)"
+            },
+            {
+                "Code": "EDUNF_ADMIN_L2_MAT",
+                "Indicator Name": "Administration of nationally-representative learning assessment in math (end of lower secondary education)"
+            }
+        ],
+        "Environment and climate": [
+            {
+                "Code": "CR_EG_EGY_CLEAN",
+                "Indicator Name": "7.1.2. Proportion of population with primary reliance on clean fuels and technology (%)"
+            },
+            {
+                "Code": "CR_CCRI",
+                "Indicator Name": "Children's Climate Risk Index (CCRI)"
+            },
+            {
+                "Code": "CR_CCRI_EXP_CESS",
+                "Indicator Name": "CCRI Pillar 1: Children's exposure to climate and environmental hazards, shocks and stresses"
+            },
+            {
+                "Code": "CR_CCRI_VUL_ES",
+                "Indicator Name": "CCRI Pillar 2: Children's vulnerability to climate and environmental hazards, shocks and stresses"
+            },
+            {
+                "Code": "CR_SH_AAP_ASMORT",
+                "Indicator Name": "3.9.1. Age-standardized mortality rate attributed to ambient air pollution (deaths per 100,000 population)"
+            },
+            {
+                "Code": "CR_SH_HAP_ASMORT",
+                "Indicator Name": "3.9.1. Age-standardized mortality rate attributed to household air pollution (deaths per 100,000 population)"
+            },
+            {
+                "Code": "CR_SH_STA_ASAIRP",
+                "Indicator Name": "3.9.1. Age-standardized mortality rate attributed to household and ambient air pollution (deaths per 100,000 population)"
+            },
+            {
+                "Code": "HT_SDG_PM25",
+                "Indicator Name": "11.6.2 Annual mean concentration of particles PM2.5 (ug/m3)"
+            }
+        ],
+        "Gender": [
+            {
+                "Code": "EC_GII",
+                "Indicator Name": "Gender Inequality Index (GII)"
+            },
+            {
+                "Code": "EC_GDI",
+                "Indicator Name": "Gender Development Index (GDI)"
+            }
+        ],
+        "HIV/AIDS": [
+            {
+                "Code": "HVA_EPI_LHIV_0-19",
+                "Indicator Name": "Estimated number of children (aged 0-19 years) living with HIV"
+            },
+            {
+                "Code": "HVA_PED_ART_CVG",
+                "Indicator Name": "Percentage of children (aged 0-14 years) living with HIV and receiving antiretroviral therapy (ART)"
+            },
+            {
+                "Code": "HVA_EPI_INF_RT_0-14",
+                "Indicator Name": "3.3.1. Estimated HIV incidence rate (new HIV infection per 1,000 uninfected population, children aged 0-14 years)"
+            },
+            {
+                "Code": "HVA_EPI_DTH_ANN_0-19",
+                "Indicator Name": "Estimated number of annual AIDS-related deaths (children aged 0-19 years)"
+            },
+            {
+                "Code": "HVA_PMTCT_MTCT",
+                "Indicator Name": "Mother-to-child HIV transmission rate"
+            },
+            {
+                "Code": "HVA_PMTCT_STAT_CVG",
+                "Indicator Name": "Percentage of pregnant women presenting at antenatal clinics (ANC) who were tested for HIV or already knew their HIV positive status"
+            }
+        ],
+        "Health system": [
+            {
+                "Code": "HT_UHC_IDX",
+                "Indicator Name": "3.8.1 UHC Service Coverage Index"
+            },
+            {
+                "Code": "HT_SH_XPD_OOPC_CH_ZS",
+                "Indicator Name": "Out-of-pocket expenditure (OOP), as % of current health expenditure"
+            },
+            {
+                "Code": "HT_SH_XPD_GHED_CH_ZS",
+                "Indicator Name": "Domestic general government health expenditure (% of current health expenditure)"
+            },
+            {
+                "Code": "HT_SH_XPD_GHED_GE_ZS",
+                "Indicator Name": "Domestic general government health expenditure (% of general government expenditure)"
+            },
+            {
+                "Code": "HT_SH_XPD_GHED_PP_CD",
+                "Indicator Name": "Domestic general government health expenditure per capita, PPP (current international $)"
+            },
+            {
+                "Code": "HT_INS_COV",
+                "Indicator Name": "Total population covered by public and primary private health insurance (%)"
+            }
+        ],
+        "Immunization": [
+            {
+                "Code": "IM_MCV2",
+                "Indicator Name": "3.b.1 Percentage of children who received the 2nd dose of measles-containing vaccine (MCV2), as per administered in the national schedule"
+            },
+            {
+                "Code": "IM_DTP3",
+                "Indicator Name": "3.b.1 Percentage of surviving infants who received the third dose of DTP-containing vaccine (DTP3)"
+            },
+            {
+                "Code": "IM_PCV3",
+                "Indicator Name": "3.b.1 Percentage of surviving infants who received the third dose of pneumococcal conjugate-containing vaccine (PCV3)"
+            },
+            {
+                "Code": "IM_HPV",
+                "Indicator Name": "3.b.1 Percentage of females who received the last dose of human papillomavirus (HPV) vaccine per national schedule"
+            }
+        ],
+        "Information, internet and protection of privacy": [
+            {
+                "Code": "PP_SE_ADT_ACTS_PRGM",
+                "Indicator Name": "4.4.1. Proportion of youth and adults with ICT skill: writing a computer program using a specialized programming language"
+            },
+            {
+                "Code": "PP_SE_ADT_ACTS_ATCH",
+                "Indicator Name": "4.4.1. Proportion of youth and adults with ICT skill: sending e-mails with attached files"
+            },
+            {
+                "Code": "PP_SE_ADT_ACTS_SFWR",
+                "Indicator Name": "4.4.1. Proportion of youth and adults with ICT skill: finding, downloading, installing and configuring software"
+            },
+            {
+                "Code": "PP_IT_USE_ii99",
+                "Indicator Name": "17.8.1. Internet users per 100 inhabitants"
+            },
+            {
+                "Code": "ICT_PERSONAL_DATA",
+                "Indicator Name": "Percentage of population who used the internet in the last 3 months and managed access to their personal data"
+            },
+            {
+                "Code": "ICT_SECURITY_CONCERN",
+                "Indicator Name": "Percentage of population who limited their personal internet activities in the last 12 months due to security concerns"
+            }
+        ],
+        "Justice for children": [
+            {
+                "Code": "JJ_CHLD_DETENTION_RATE",
+                "Indicator Name": "Rate of children in detention at the end of the year (per 100,000)"
+            },
+            {
+                "Code": "JJ_CHLD_PRE_SENTENCE_DETENTION_RATE",
+                "Indicator Name": "Rate of children in detention at the end of the year, by type: Pre-sentence detention (per 100,000)"
+            },
+            {
+                "Code": "JJ_CHLD_POST_SENTENCE_DETENTION_RATE",
+                "Indicator Name": "Rate of children in detention at the end of the year, by type: Post-sentence detention (per 100,000)"
+            },
+            {
+                "Code": "JJ_CHLD_ENTER_PRE_SENTENCE_DETENTION_RATE",
+                "Indicator Name": "Rate of children detained during the year, by type: Pre-sentence detention (per 100,000)"
+            },
+            {
+                "Code": "JJ_VC_PRS_UNSNT",
+                "Indicator Name": "16.3.2. Unsentenced detainees as a proportion of overall prison population (%)"
+            },
+            {
+                "Code": "JJ_CHLD_CUSTODIAL_SENTENCE_PROP",
+                "Indicator Name": "Percentage of children sentenced to custodial sentences during the year"
+            },
+            {
+                "Code": "JJ_CHLD_ALTERNATIVE_SENTENCE_PROP",
+                "Indicator Name": "Percentage of children sentenced with alternative measures during the year"
+            },
+            {
+                "Code": "JJ_CHLD_VICTIM_CRIME_RATE",
+                "Indicator Name": "Rate of child victims of crime registered by the police during the year (per 100,000)"
+            },
+            {
+                "Code": "JJ_CHLD_WITNESS_CRIME_RATE",
+                "Indicator Name": "Rate of child witnesses of crime registered by the police during the year (per 100,000)"
+            }
+        ],
+        "Learning quality and skills": [
+            {
+                "Code": "EDU_PISA_LOW_ACHIEVE_MAT",
+                "Indicator Name": "Low achieving 15-year-olds in mathematics (%)"
+            },
+            {
+                "Code": "EDU_PISA_LOW_ACHIEVE_REA",
+                "Indicator Name": "Low achieving 15-year-olds in reading (%)"
+            },
+            {
+                "Code": "EDU_PISA_LOW_ACHIEVE_SCI",
+                "Indicator Name": "Low achieving 15-year-olds in science (%)"
+            },
+            {
+                "Code": "EDU_SDG_STU_L2_GLAST_REA",
+                "Indicator Name": "4.1.1. Proportion of children at the end of lower secondary education reaching minimum proficiency in reading"
+            },
+            {
+                "Code": "EDU_SDG_STU_L2_GLAST_MAT",
+                "Indicator Name": "4.1.1. Proportion of children at the end of lower secondary education reaching minimum proficiency in math"
+            },
+            {
+                "Code": "EDU_SDG_YOUTH_NEET",
+                "Indicator Name": "8.6.1. Proportion of youth (aged 15-24 years) not in education, employment or training (%)"
+            }
+        ],
+        "Leisure and culture": [
+            {
+                "Code": "PP_ADOL_INET",
+                "Indicator Name": "Adolescents (15-year-olds) who use the internet and social networks, before or after school (%)"
+            },
+            {
+                "Code": "PP_ADOL_TVGM",
+                "Indicator Name": "Adolescents (15-year-olds) who watch TV or play video games, before or after school (%)"
+            }
+        ],
+        "Maternal, newborn and child health": [
+            {
+                "Code": "CME_SBR",
+                "Indicator Name": "Stillbirth rate (per 1,000 total births)"
+            },
+            {
+                "Code": "CME_MRM0",
+                "Indicator Name": "3.2.2. Neonatal mortality rate (per 1,000 live births)"
+            },
+            {
+                "Code": "CME_MRY0",
+                "Indicator Name": "Infant mortality rate (per 1,000 live births)"
+            },
+            {
+                "Code": "CME_MRY0T4",
+                "Indicator Name": "3.2.1. Under-five mortality rate (per 1,000 live births)"
+            },
+            {
+                "Code": "MNCH_CSEC",
+                "Indicator Name": "C-section rate - percentage of deliveries by caesarean section"
+            },
+            {
+                "Code": "MNCH_SAB",
+                "Indicator Name": "3.1.2. Proportion of births attended by skilled health personnel (%)"
+            },
+            {
+                "Code": "NT_BW_LBW",
+                "Indicator Name": "Prevalence of low birth weight among newborns (%)"
+            }
+        ],
+        "Nutrition": [
+            {
+                "Code": "NT_BF_EIBF",
+                "Indicator Name": "Percentage of most recent live-born children to women with a live birth in the last 2 years who were put to the breast within one hour of birth"
+            },
+            {
+                "Code": "NT_BF_EXBF",
+                "Indicator Name": "Percentage of infants under 6 months of age who are exclusively breastfed"
+            },
+            {
+                "Code": "NT_CF_MAD",
+                "Indicator Name": "Minimum Acceptable Diet (6-23 months)"
+            },
+            {
+                "Code": "HT_SH_STA_ANEM",
+                "Indicator Name": "2.2.3. Proportion of women aged 15-49 years with anaemia (%)"
+            },
+            {
+                "Code": "NT_ANT_WHZ_NE2",
+                "Indicator Name": "2.2.2 Prevalence of wasting (weight for height <-2 standard deviation (moderate and severe) from the median of the World Health Organization (WHO) Child Growth Standards) among children under 5 years of age"
+            },
+            {
+                "Code": "NT_ANT_WHZ_PO2",
+                "Indicator Name": "2.2.2. Percentage of children under age 5 who are above two standard deviations (moderate and severe) of the median weight for height of the WHO standard - overweight prevalence"
+            },
+            {
+                "Code": "NT_ANT_HAZ_NE2",
+                "Indicator Name": "2.2.1. Percentage of children under age 5 who fall below minus two standard deviations (moderate and severe) of the median height for age of the WHO standard - stunting prevalence"
+            },
+            {
+                "Code": "NT_CF_ISSSF_FL",
+                "Indicator Name": "Introduction to solid, semi-solid foods (6-8 months)"
+            },
+            {
+                "Code": "NT_CHLD_OBESITY",
+                "Indicator Name": "Prevalence of obesity among children and adolescents aged 5-19 years, BMI > +2 standard deviations above the median (crude estimate) (%)"
+            },
+            {
+                "Code": "HT_ANEM_U5",
+                "Indicator Name": "Prevalence of anaemia in children aged 6\u201359 months (%)"
+            }
+        ],
+        "Political economy": [
+            {
+                "Code": "EC_NY_GNP_PCAP_CD",
+                "Indicator Name": "GNI per capita, Atlas method (current US$)"
+            },
+            {
+                "Code": "EC_TEC_GRL_GOV_EXP",
+                "Indicator Name": "Total general government expenditure (% of GDP)"
+            },
+            {
+                "Code": "EC_EAP_RT",
+                "Indicator Name": "Labour force participation rate (%)"
+            },
+            {
+                "Code": "EC_SL_UEM_TOTL_ZS",
+                "Indicator Name": "8.5.2. Unemployment, modelled ILO estimate (% of total labor force)"
+            },
+            {
+                "Code": "PV_GINI_COEF",
+                "Indicator Name": "Gini coefficient of equivalised disposable income"
+            },
+            {
+                "Code": "EC_HDI",
+                "Indicator Name": "Human Development Index (HDI)"
+            },
+            {
+                "Code": "EC_NY_GDP_PCAP_PP_CD",
+                "Indicator Name": "GDP per capita, PPP (current international $)"
+            }
+        ],
+        "Public spending on children": [
+            {
+                "Code": "EDU_FIN_EXP_PT_GDP",
+                "Indicator Name": "Government expenditure on education (% of GDP)"
+            },
+            {
+                "Code": "EC_SP_GOV_EXP_GDP",
+                "Indicator Name": "General government expenditure by function: Social protection (% of GDP)"
+            },
+            {
+                "Code": "EC_EXP_FAM_CHLD_EXP",
+                "Indicator Name": "Expenditure on family-children benefits (% of expenditure on social benefits)"
+            },
+            {
+                "Code": "HT_SH_XPD_CHEX_GD_ZS",
+                "Indicator Name": "Current health expenditure (% of GDP)"
+            },
+            {
+                "Code": "HT_SH_XPD_GHED_GD_ZS",
+                "Indicator Name": "Domestic general government health expenditure (% of GDP)"
+            }
+        ],
+        "Right to remedy": [
+            {
+                "Code": "JJ_CHLD_COMPLAINT_HHRR",
+                "Indicator Name": "Number of children aged 0-17 who brought or on whose behalf a complaint was brought by an adult to independent human rights mechanisms, during the year"
+            },
+            {
+                "Code": "JJ_CHLD_DISAB_COMPLAINT_HHRR",
+                "Indicator Name": "Number of children with disabilities aged 0-17 who brought or on whose behalf a complaint was brought by an adult to independent human rights mechanisms, during the year"
+            }
+        ],
+        "Social protection system": [
+            {
+                "Code": "PV_SI_COV_BENFTS",
+                "Indicator Name": "1.3.1. Proportion of population covered by at least one social protection benefit (%)"
+            },
+            {
+                "Code": "PV_SI_COV_VULN",
+                "Indicator Name": "1.3.1. Proportion of vulnerable population receiving social assistance cash benefit (%)"
+            },
+            {
+                "Code": "PV_SI_COV_DISAB",
+                "Indicator Name": "1.3.1. Proportion of population with severe disabilities receiving disability cash benefit (%)"
+            },
+            {
+                "Code": "PV_SI_COV_POOR",
+                "Indicator Name": "1.3.1. Proportion of poor population receiving social assistance cash benefit (%)"
+            },
+            {
+                "Code": "PV_SI_COV_MATNL",
+                "Indicator Name": "1.3.1. Proportion of mothers with newborns receiving maternity cash benefit (%)"
+            },
+            {
+                "Code": "PV_SI_COV_CHLD",
+                "Indicator Name": "1.3.1. Proportion of children/households receiving child/family cash benefit (%)"
+            },
+            {
+                "Code": "PV_SI_COV_UEMP",
+                "Indicator Name": "1.3.1. Proportion of unemployed persons receiving unemployment cash benefit (%)"
+            }
+        ],
+        "Violence against children and women": [
+            {
+                "Code": "PT_F_GE15_PS-SX-EM_V_PTNR_12MNTH",
+                "Indicator Name": "5.2.1. Percentage of ever-partnered women and girls (aged 15 years and older) subjected to physical, sexual or psychological violence by a current or former intimate partner in the previous 12 months"
+            },
+            {
+                "Code": "PT_ST_13-15_BUL_30-DYS",
+                "Indicator Name": "Percentage of students who reported being bullied on 1 or more days in the past 30 days"
+            },
+            {
+                "Code": "PT_ADLT_PS_NEC",
+                "Indicator Name": "Percentage of adults who think that physical punishment is necessary to raise/educate children"
+            },
+            {
+                "Code": "PT_CHLD_1-14_PS-PSY-V_CGVR",
+                "Indicator Name": "16.2.1. Percentage of children who experienced any physical punishment and/or psychological aggression by caregivers"
+            },
+            {
+                "Code": "PT_F_18-29_SX-V_AGE-18",
+                "Indicator Name": "16.2.3. Percentage of women (aged 18-29 years) who experienced sexual violence by age 18 years"
+            },
+            {
+                "Code": "PT_CHLD_VIOLENCE_WELFARE",
+                "Indicator Name": "Total number of child victims of violence aged 0-17 registered by child/social welfare authorities, during the year"
+            }
+        ],
+        "Water, sanitation and hygiene": [
+            {
+                "Code": "WS_PPL_W-SM",
+                "Indicator Name": "6.1.1. Proportion of population using safely managed drinking water services"
+            },
+            {
+                "Code": "WS_PPL_S-SM",
+                "Indicator Name": "6.1.2. Proportion of population using safely managed sanitation services"
+            },
+            {
+                "Code": "HT_NO_BTH_SHW_FLSH",
+                "Indicator Name": "Proportion of population having neither a bath, nor a shower, nor indoor flushing toilet in their household"
+            }
+        ]
+    }
+}
