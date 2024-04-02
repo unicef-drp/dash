@@ -68,6 +68,38 @@ EMPTY_CHART = {
 }
 
 
+help_text = html.Div([
+        html.Strong("How to use dashboard:"),
+        html.P([
+            "- Choose between two primary views for data exploration. ",
+            html.Strong("'Explore using the Europe and Central Asia Child Rights Monitoring Framework'"),
+            " allows you to select a domain and view indicators within each of its sub-domains, providing a structured approach aligned with child rights priorities. Alternatively, ",
+            html.Strong("'Search by Indicator'"),
+            " lets you select specific indicators from a dropdown menu and filter by SDG indicators and/or by specific domains or sub-domains."
+        ]),
+        html.P([
+            "- At the bottom of the page, there are ",
+            html.Strong("Committee on the Rights of the Child Recommendations"),
+            " which are related to each sub-domain. These recommendations have been organized by three different types of bottlenecks and can be filtered by country and year of report."
+        ]),
+        html.P([
+            "- Visualize data with bar charts and regional maps displaying the latest data for each country, or use line graphs to track historical trends."
+        ]),
+        html.P([
+            "- Enhance your analysis with filters for year range, country group, or individual countries. When disaggregated data is available, these options will appear on the chart."
+        ]),
+        html.P([
+            "- Hover over information icons to view definitions of indicators and sub-domains."
+        ]),
+        html.P([
+            "- To learn more about data availability for each indicator, hover over the ",
+            html.Strong("'Countries with data'"),
+            " and ",
+            html.Strong("'Countries without data'"), 
+            " buttons to see which countries have data within the selected year range."
+        ]),
+    ])
+
 # TODO: Move all of these to env/setting vars from production
 
 
@@ -1169,13 +1201,64 @@ def get_base_layout(**kwargs):
                                 id={"type": "nav_buttons", "index": "indicator_view"}, 
                                 className="nav-btn mb-2"
                                 ),
+                            html.Div(
+                                [
+                                html.P(
+                                        "How to use dashboard",
+                                        style={
+                                            "display": "inline-block",
+                                            "textAlign": "center",
+                                            "position": "relative",
+                                            "color":"white",
+                                            "marginTop":"0px",
+                                            "marginBottom":"0px"
+                                        },
+                                    ),
+                                html.I(
+                                        id="help-button",
+                                        className="fas fa-question-circle",
+                                        style={
+                                            "display": "flex",
+                                            "alignContent": "center",
+                                            "flexWrap": "wrap",
+                                            "paddingLeft": "5px",
+                                            "color":"white"
+                                        },
+                                    ),
+                                dbc.Popover(
+                                        [
+                                            dbc.PopoverBody(
+                                                help_text,
+                                                id="help-popover",
+                                            )
+                                        ],
+                                        target="help-button",
+                                        trigger="hover",
+                                        className="custom-popover",
+                                        style={
+                                            "overflowY": "auto",
+                                            "whiteSpace": "pre-wrap",
+                                            "opacity": 1,
+                                            "max-width":"600px"
+                                        },
+                                        delay={
+                                            "hide": 0,
+                                            "show": 0,
+                                        },
+                                    ),
+                                ],
+                                style={
+                                    "display": "inline-flex",
+                                    "marginTop":"10px",
+                                },
+                            ),                             
                         ], style={"display": "flex", "flexDirection": "column", "alignItems": "center"}),
                         lg=4, md=12, align="center",
                     ),
                 ],
                 justify="between",
                 align="center",
-                style={"background-color": '#00acef', "paddingBottom": 15, "minHeight": 200},
+                style={"background-color": '#00acef', "minHeight": 200},
             ),
             html.Br(),
             dbc.Row(
@@ -1189,11 +1272,12 @@ def get_base_layout(**kwargs):
                                             # "Select ECA CRM Domain" text and Dropdown
                                             html.Div(
                                                 [
-                                                    html.P(
-                                                        "Select ECA CRM Domain:", 
-                                                        style={"margin-bottom": "10px", "display": "inline-block", "margin-right": "10px"}
-                                                    ),
-                                                    html.Label('Select ECA CRM Domain', htmlFor='domain-dropdown'),
+                                                    #html.P(
+                                                        #"Select ECA CRM Domain:", 
+                                                        #style={"margin-bottom": "10px", "display": "inline-block", "margin-right": "10px"}
+                                                    #),
+                                                    html.Label('Select ECA CRM Domain:', htmlFor='domain-dropdown', 
+                                                               style={"display": "inline-block", "margin-right": "10px"}),
                                                     dcc.Dropdown(
                                                         id="domain-dropdown",
                                                         options=domain_dropdown_options,
@@ -1212,8 +1296,8 @@ def get_base_layout(**kwargs):
                                             html.Div(
                                                 [
                                                     html.Img(id="wheel-icon",src=wheel_icon_path, style={"margin-right": "5px", "margin-left": "15px", "height":"45px"}),
-                                                    html.A("Learn more about ECA CRM Framework",
-                                                        href="https://www.unicef.org/eca/europe-and-central-asia-child-rights-monitoring-framework",
+                                                    html.A("Learn about ECA CRM Framework",
+                                                        href="https://www.transmonee.org/child-rights-monitoring-framework",
                                                         target="_blank",
                                                         className= "tm-link",
                                                         style={"color": '#374EA2'}
@@ -1288,6 +1372,7 @@ def get_base_layout(**kwargs):
                                                             "overflowY": "auto",
                                                             "whiteSpace": "pre-wrap",
                                                             "opacity": 1,
+                                                            "minWidth":"200px"
                                                         },
                                                         delay={
                                                             "hide": 0,
