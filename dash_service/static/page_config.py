@@ -114,6 +114,8 @@ graphs_dict = {
 
 min_max_card_suffix = "min - max values"
 number_children = "Number of children"
+number_adolescents = "Number of adolescents"
+number_underfive = "Number of children under 5 years"
 percentage_children = "Percentage of children"
 number_people = "Number of people"
 percentage_people = "Percentage of people"
@@ -1322,7 +1324,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'min_max': True,
                         'yaxis': 'Percentage of population',
                         'button_name': 'Population living below the national poverty line (SDG 1.2.1)'},
-                        {'name': 'People at risk of poverty or social exclusion',
+                        {'name': 'Percentage of people at risk of poverty or social exclusion',
                         'indicator': 'PV_AROPE',
                         'suffix': min_max_card_suffix,
                         'min_max': True,
@@ -1334,7 +1336,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'min_max': True,
                         'yaxis': 'Severe material and social deprivation rate',
                         'button_name': 'Severe material and social deprivation rate'},
-                        {'name': 'At-risk-of-poverty rate by threshold: 60% of national median equivalized disposable income after social transfers',
+                        {'name': 'At-risk-of-poverty rate',
                         'indicator': 'PV_AROPRT',
                         'suffix': min_max_card_suffix,
                         'min_max': True,
@@ -1561,7 +1563,13 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'default_graph': 'bar',
                         'default': 'HT_REG_CHLD_DISAB_PROP'}},
                     'ECD': {'NAME': 'Early childhood development',
-                        'CARDS': [{'name': '4.2.1. Percentage of children (36-59 months) developmentally on track in at least 3 of the 4 following domains: literacy-numeracy, physical, social-emotional and learning',
+                        'CARDS': [{'name': 'Under-five population',
+                        'indicator': 'DM_UFIVE_POP',
+                        'suffix': 'children',
+                        'min_max': False,
+                        'yaxis': number_underfive,
+                        'button_name': 'Under-five population'},
+                        {'name': '4.2.1. Percentage of children (36-59 months) developmentally on track in at least 3 of the 4 following domains: literacy-numeracy, physical, social-emotional and learning',
                         'indicator': 'ECD_CHLD_36-59M_LMPSL',
                         'suffix': min_max_card_suffix,
                         'min_max': True,
@@ -1604,7 +1612,8 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'yaxis': percentage_children,
                         'button_name': 'Pupils from age 3 to the starting age of compulsory education at primary level'}],
                         'AIO_AREA': {
-                        'indicators': ['ECD_CHLD_36-59M_LMPSL',
+                        'indicators': ['DM_UFIVE_POP',
+                        'ECD_CHLD_36-59M_LMPSL',
                         'CME_MRM0-ECD',
                         'NT_BF_EXBF-ECD',
                         'ECD_CHLD_24-59M_ADLT_SRC',
@@ -1614,7 +1623,13 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'default_graph': 'bar',
                         'default': 'ECD_CHLD_36-59M_LMPSL'}},
                     'ODA': {'NAME': 'Adolescents',
-                        'CARDS': [{'name': 'Adolescent birth rate - SDG 3.7.2 (adolescents sub-domain)',
+                        'CARDS': [{'name': 'Adolescent population (10-19 years)',
+                        'indicator': 'DM_ADOL_POP',
+                        'suffix': 'adolescents',
+                        'min_max': False,
+                        'yaxis': number_adolescents,
+                        'button_name': 'Adolescent population'},
+                        {'name': 'Adolescent birth rate - SDG 3.7.2 (adolescents sub-domain)',
                         'indicator': 'FT_SP_DYN_ADKL-ADO',
                         'suffix': min_max_card_suffix,
                         'min_max': True,
@@ -1663,7 +1678,8 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'yaxis': 'Percentage of population',
                         'button_name': 'Privacy and protection of personal data'}],
                         'AIO_AREA': {
-                        'indicators': ['FT_SP_DYN_ADKL-ADO',
+                        'indicators': ['DM_ADOL_POP',
+                        'FT_SP_DYN_ADKL-ADO',
                         'MT_SDG_SUICIDE-ADO',
                         'EDU_SDG_YOUTH_NEET-ADO',
                         'EDU_SDG_STU_L2_GLAST_MAT-ADO',
