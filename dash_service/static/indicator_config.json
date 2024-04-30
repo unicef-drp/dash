@@ -261,6 +261,19 @@
             ]
         }
     },
+    "DM_UFIVE_POP": {
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ]
+        },
+        "TOTAL": {
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
     "DM_ADOL_YOUTH_POP": {
         "AGE": {
             "AGE": [
