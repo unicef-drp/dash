@@ -1426,7 +1426,7 @@ def get_base_layout(**kwargs):
                     html.Br(),
                     dbc.Row(
                         [
-                            dbc.Col(width=1),
+                            dbc.Col(width=0.5),
                             dbc.Col(
                                 [
                                     dbc.Row(
@@ -1517,7 +1517,7 @@ def get_base_layout(**kwargs):
                                 style={"display":"flex", "justify-content":"center"},
                                 lg=10, md=10, sm=12, xs=12
                             ),
-                            dbc.Col(width=1),
+                            dbc.Col(width=0.5),
                         ],
                         style={"border": "1px solid #ddd", "margin": "auto", "padding": "15px 0px"},
                         align="center",
