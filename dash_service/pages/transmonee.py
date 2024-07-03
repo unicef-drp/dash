@@ -1214,7 +1214,11 @@ def get_base_layout(**kwargs):
                                             "display": "inline-block",
                                             "textAlign": "center",
                                             "position": "relative",
-                                            "color":"white",
+                                            "color":"#562061",
+                                            "font-size": "16px",
+                                            "font-weight": "bold",
+                                            "text-decoration":"underline",
+                                            "text-decoration-color":"#562061",
                                             "marginTop":"0px",
                                             "marginBottom":"0px"
                                         },
@@ -1227,7 +1231,7 @@ def get_base_layout(**kwargs):
                                             "alignContent": "center",
                                             "flexWrap": "wrap",
                                             "paddingLeft": "5px",
-                                            "color":"white"
+                                            "color":"#562061"
                                         },
                                     ),
                                 dbc.Popover(
@@ -2386,6 +2390,7 @@ graphs_dict = {
             y="OBS_VALUE",
             barmode="group",
             text="OBS_VALUE",
+            category_orders={'Country_name': all_countries},
             custom_data=[
                 "OBS_VALUE",
                 "Country_name",
@@ -2963,6 +2968,10 @@ def aio_area_figure(
     )
     chart_title = "<br>".join(chart_title)
 
+    # Define the desired order of countries
+    sorted_data = data.sort_values(by=['OBS_VALUE', 'Country_name'], ascending=[False, True])
+    country_order = sorted_data['Country_name'].tolist()
+
     # set the layout to center the chart title and change its font size and color
     layout = go.Layout(
         title=chart_title,
@@ -2970,7 +2979,8 @@ def aio_area_figure(
         font=dict(family="Verdana", size=11),
         legend=dict(x=1, y=0.5),
         xaxis={
-            "categoryorder": "total descending",
+            "categoryorder": "array",
+            "categoryarray": country_order,
             "tickangle": -45,
             "tickmode": "linear",
             "tickfont_size": 11,
@@ -3157,7 +3167,6 @@ def aio_area_figure(
             graph_info =  graph_info + "Zero values not showing on graph; see 'Countries with data' for more information."
     
     if fig_type == "bar" and not dimension:
-        print(data.UNIT_MEASURE.values)
         # Calculate the average of the 'Value' column
         average_value = data["OBS_VALUE"].mean()
 
