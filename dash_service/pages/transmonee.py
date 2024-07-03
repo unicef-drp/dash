@@ -1894,23 +1894,20 @@ def get_base_layout(**kwargs):
                                                 "color": '#374EA2',
                                                 "margin-left": "20px",
                                                 "margin-right": "5px",
-                                                "display":"none",
                                             },
                                         ),
                                         html.A(
                                             "Explore CRC Recommendations Dashboard",
-                                            href="https://public.tableau.com/app/profile/ecaro.data/viz/RecommendationsoftheCommitteeontheRightsoftheChild/Overview",
+                                            href="https://www.transmonee.org/recommendations-committee-rights-child",
                                             target="_blank",
                                             className="tm-link",
                                             style={
                                                 "color": '#374EA2',
                                                 "text-decoration": "underline",
-                                                "display":"none",
                                             },
                                         ),
                                     ],
                                     className="crc-link",
-                                    style={"display": "none"},
                                 ),
                             ],
                         ),
@@ -2916,7 +2913,7 @@ def aio_area_figure(
     df_indicator_sources = df_sources[df_sources["Code"] == base_indicator]
     unique_indicator_sources = df_indicator_sources["Source_Full"].unique()
 
-    if data["CODE"].isin(["DM_CHLD_POP", "DM_CHLD_POP_PT", "DM_FRATE_COMP"]).any():
+    if data["CODE"].isin(["DM_CHLD_POP", "DM_CHLD_POP_PT", "DM_FRATE_COMP","DM_ADOL_POP", "DM_UFIVE_POP"]).any():
         source = "Multiple Sources"
     elif len(unique_indicator_sources) > 0:
         source = "; ".join(list(unique_indicator_sources))
@@ -2926,8 +2923,8 @@ def aio_area_figure(
     source_link = (
         df_indicator_sources["Source_Link"].unique()[0]
         if len(unique_indicator_sources) > 0
-        and not data["CODE"].isin(["DM_CHLD_POP", "DM_CHLD_POP_PT", "DM_FRATE_COMP"]).any()
-        else ""
+        and not data["CODE"].isin(["DM_CHLD_POP", "DM_CHLD_POP_PT", , "DM_FRATE_COMP", "DM_ADOL_POP", "DM_UFIVE_POP"]).any()
+        else "https://ec.europa.eu/eurostat/cache/metadata/en/demo_pop_esms.htm"
     )
 
     options["labels"] = DEFAULT_LABELS.copy()
