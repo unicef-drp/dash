@@ -92,6 +92,11 @@ help_text = html.Div([
             "- Hover over information icons to view definitions of indicators and sub-domains."
         ]),
         html.P([
+            "- To download the data displayed in the chart in Excel format, click on the ",
+            html.Strong("'Download data'"),
+            " button below the chart. To download the chart as in PNG format, hover over the top right corner of the chart and click on the camera icon."
+        ]),
+        html.P([
             "- To learn more about data availability for each indicator, hover over the ",
             html.Strong("'Countries with data'"),
             " and ",
@@ -1793,15 +1798,34 @@ def get_base_layout(**kwargs):
                                                         ),
                                                         dbc.Col(
                                                             [
-                                                                dbc.Col(
+                                                                dbc.Row(
+                                                                    [
+                                                                        dbc.Col(
+                                                                            dbc.Checkbox(
+                                                                                id='show-average-checkbox',
+                                                                                className='custom-checkbox',
+                                                                                value=True,
+                                                                            ),
+                                                                            style={"padding":"0px"},
+                                                                            width='auto'
+                                                                        ),
+                                                                        dbc.Col(
+                                                                            html.Label('Show average line', htmlFor='show-average-checkbox', style={'margin-top':'3px'}),
+                                                                            style={"padding":"0px"},
+                                                                            width='auto'
+                                                                        ),
+                                                                    ],
+                                                                    style={"display":"flex", "justifyContent":"center", "marginTop":"25px"},
+                                                                ),
+                                                                dbc.Row(
                                                                     [
                                                                         html.Button(
                                                                             [
                                                                                 html.I(className="fas fa-download", style={'color':'#00acef'}),  # Font Awesome download icon
-                                                                                " Download data"  
+                                                                                " Download data"
                                                                             ],
                                                                             id="download_btn",
-                                                                            className="download_btn custom-download-button", 
+                                                                            className="download_btn custom-download-button",
                                                                         ),
                                                                         dcc.Download(id="download-csv-info"),
                                                                         dbc.Tooltip(
@@ -1810,10 +1834,11 @@ def get_base_layout(**kwargs):
                                                                             placement="bottom",
                                                                         ),
                                                                     ],
-                                                                ),                                                                                                                                                                                                                                                                                                  
+                                                                    align="center",
+                                                                ),
                                                             ],
-                                                        width=12, md=2
-                                                        ),                   
+                                                            width=12, md=2
+                                                       , )               
                                                     ],
                                                 ),   
                                             ],
@@ -2679,6 +2704,7 @@ def aio_area_figure(
     years_slider,
     countries,
     country_group,
+    average_line,
     selected_type,
 ):
     
@@ -3142,7 +3168,6 @@ def aio_area_figure(
 
     # removing zero values from bar chart as they cause a bug where countries without data display on chart
     fig_data = data[data['OBS_VALUE'] != 0] if fig_type == "bar" else data
-    print(fig_data)
 
     if fig_type == "count_bar":
         # change to fig type to generate px.bar
@@ -3157,7 +3182,7 @@ def aio_area_figure(
     if fig_type == "bar" and not dimension and "YES_NO" not in fig_data.UNIT_MEASURE.values and base_indicator != 'PP_SG_NHR_STATUS':
         fig.update_traces(marker_color=domain_colour)
         fig.update_layout(showlegend=False)
-        if all(unit not in fig_data.UNIT_MEASURE.values for unit in ["PS", "NUMBER"]):
+        if average_line and all(unit not in fig_data.UNIT_MEASURE.values for unit in ["PS", "NUMBER"]):
             annotation_text = f"Average: {average_value}% " if any(unit in fig_data.UNIT_MEASURE.values for unit in ["PCNT", "GOV_EXP_EDU"]) else f"Average: {average_value}"
             fig.add_hline(
                 y=average_value, 
