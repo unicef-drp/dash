@@ -265,7 +265,7 @@
                 },
                 {
                     "Indicator Name": "Total fertility rate",
-                    "Code": "DM_FRATE_TOT"
+                    "Code": "DM_FRATE_COMP"
                 },
                 {
                     "Indicator Name": "Number of births",

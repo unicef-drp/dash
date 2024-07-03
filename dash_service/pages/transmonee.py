@@ -187,6 +187,10 @@ dimension_names = {
 
 years = list(range(2000, 2025))
 
+# some indexes have been listed as ratios in SDG database so we need to specify not to round these indicators
+codes_3_decimals = ['HVA_EPI_INF_RT_0-14', 'EDU_SE_TOT_GPI_L2_MAT', 'EDU_SE_TOT_GPI_L2_REA', 'EDU_SE_AGP_CPRA_L3']
+codes_1_decimal = ['DM_FRATE_COMP', 'PV_GINI_COEF']
+
 # a key:value dictionary of countries where the 'key' is the country name as displayed in the selection
 # tree whereas the 'value' is the country name as returned by the sdmx list: https://sdmx.data.unicef.org/ws/public/sdmxapi/rest/codelist/UNICEF/CL_COUNTRY/1.0
 countries_iso3_dict = {
@@ -1060,10 +1064,6 @@ def get_data(
     data["OBS_FOOTNOTE"] = data.OBS_FOOTNOTE.str.wrap(70).str.replace("\n", "<br>")
     data["DATA_SOURCE"] = data.DATA_SOURCE.str.wrap(70).str.replace("\n", "<br>")
 
-    # some indexes have been listed as ratios in SDG database so we need to specify not to round these indicators
-    codes_3_decimals = ['HVA_EPI_INF_RT_0-14', 'EDU_SE_TOT_GPI_L2_MAT', 'EDU_SE_TOT_GPI_L2_REA', 'EDU_SE_AGP_CPRA_L3']
-    codes_1_decimal = ['DM_FRATE_TOT', 'PV_GINI_COEF']
-
     if "IDX" in data.UNIT_MEASURE.values or any(code in data.CODE.values for code in codes_3_decimals):
         data.OBS_VALUE = data.OBS_VALUE.round(3)
     elif any(code in data.CODE.values for code in codes_1_decimal):
@@ -1497,7 +1497,7 @@ def get_base_layout(**kwargs):
                                             ),
                                             dbc.Col(
                                                 html.Div([
-                                                    html.P("Chart type:", style={"margin-bottom": "10px", "margin-top": "5px"}),
+                                                    html.P("View:", style={"margin-bottom": "10px", "margin-top": "5px"}),
                                                     dbc.RadioItems(
                                                         id={
                                                             "type": "area_types",
@@ -2634,20 +2634,24 @@ def fig_options(indicator):
     # Use base_indicator for the rest of the function
     indicator_config = indicators_config.get(indicator, {})
 
+
     # Check if the indicator has is string type and give only bar and map as options
     if indicator_config and nominal_data(indicator_config):
         area_types = [
-            {"label": "Bar", "value": "count_bar"},
-            {"label": "Map", "value": "map"},
+            {"label": "Latest data", "value": "count_bar"},
+            {"label": "Map of data", "value": "map"},
         ]
         default_graph = "map"
     else:
         area_types = [
-            {"label": "Bar", "value": "bar"},
-            {"label": "Line", "value": "line"},
-            {"label": "Map", "value": "map"},
+            {"label": "Latest data", "value": "bar"},
+            {"label": "Trend data", "value": "line"},
+            {"label": "Map of data", "value": "map"},
         ]
-        default_graph = "bar"
+        if indicator == 'DM_POP_NETM':
+            default_graph = "map"
+        else:
+            default_graph = "bar"
 
     return area_types, default_graph
 
@@ -2872,6 +2876,8 @@ def aio_area_figure(
             "",
         )
 
+    data['type'] = 'country'
+
     # indicator card
     card_key = indicator
 
@@ -2910,7 +2916,7 @@ def aio_area_figure(
     df_indicator_sources = df_sources[df_sources["Code"] == base_indicator]
     unique_indicator_sources = df_indicator_sources["Source_Full"].unique()
 
-    if data["CODE"].isin(["DM_CHLD_POP", "DM_CHLD_POP_PT"]).any():
+    if data["CODE"].isin(["DM_CHLD_POP", "DM_CHLD_POP_PT", "DM_FRATE_COMP"]).any():
         source = "Multiple Sources"
     elif len(unique_indicator_sources) > 0:
         source = "; ".join(list(unique_indicator_sources))
@@ -2920,7 +2926,7 @@ def aio_area_figure(
     source_link = (
         df_indicator_sources["Source_Link"].unique()[0]
         if len(unique_indicator_sources) > 0
-        and not data["CODE"].isin(["DM_CHLD_POP", "DM_CHLD_POP_PT"]).any()
+        and not data["CODE"].isin(["DM_CHLD_POP", "DM_CHLD_POP_PT", "DM_FRATE_COMP"]).any()
         else ""
     )
 
@@ -3126,9 +3132,25 @@ def aio_area_figure(
             options["text_auto"] = False
         if (data['OBS_VALUE'] == 0).any():
             graph_info =  graph_info + "Zero values not showing on graph; see 'Countries with data' for more information."
+    
+    if fig_type == "bar" and not dimension and "PS" not in data.UNIT_MEASURE.values:
+        # Calculate the average of the 'Value' column
+        average_value = data["OBS_VALUE"].mean()
+
+        if "IDX" in data.UNIT_MEASURE.values or any(code in data.CODE.values for code in codes_3_decimals):
+            average_value = round(average_value, 3)
+        #elif any(code in data.CODE.values for code in codes_1_decimal):
+            #average_value = round(average_value, 1)
+        else:
+            average_value = round(average_value, 1)
+        
+            # Convert to int if there are no decimals
+        #if average_value == round(average_value):
+         #   average_value = int(average_value)
 
     # removing zero values from bar chart as they cause a bug where countries without data display on chart
     fig_data = data[data['OBS_VALUE'] != 0] if fig_type == "bar" else data
+    print(fig_data)
 
     if fig_type == "count_bar":
         # change to fig type to generate px.bar
@@ -3140,9 +3162,19 @@ def aio_area_figure(
     fig.update_layout(yaxis_title=y_axis_title)
     # remove x-axis title but keep space below
     fig.update_layout(xaxis_title="")
-    if fig_type == "bar" and not dimension and "YES_NO" not in data.UNIT_MEASURE.values and base_indicator != 'PP_SG_NHR_STATUS':
+    if fig_type == "bar" and not dimension and "YES_NO" not in fig_data.UNIT_MEASURE.values and base_indicator != 'PP_SG_NHR_STATUS':
         fig.update_traces(marker_color=domain_colour)
         fig.update_layout(showlegend=False)
+        if "PS" not in fig_data.UNIT_MEASURE.values:
+            annotation_text = f"Average: {average_value}% " if any(unit in fig_data.UNIT_MEASURE.values for unit in ["PCNT", "GOV_EXP_EDU"]) else f"Average: {average_value}"
+            fig.add_hline(
+                y=average_value, 
+                line_color="#1cabe2", 
+                line_width=2, 
+                line_dash="dot",
+                annotation_text=annotation_text, 
+                annotation_position="top right"
+            )
     if fig_type == "line":
         fig.update_traces(**traces)
         # adding invisible line at zero to make sure the y-axis starts at zero
@@ -3150,8 +3182,8 @@ def aio_area_figure(
 
     fig.update_traces(hovertemplate=hovertext)
 
-    if fig_type == "bar" and "YES_NO" in data.UNIT_MEASURE.values:
-        dfs = data.groupby("Status").count()
+    if fig_type == "bar" and "YES_NO" in fig_data.UNIT_MEASURE.values:
+        dfs = fig_data.groupby("Status").count()
         fig.add_trace(
             go.Scatter(
                 x=dfs.index,
