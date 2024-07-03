@@ -1497,7 +1497,7 @@ def get_base_layout(**kwargs):
                                             ),
                                             dbc.Col(
                                                 html.Div([
-                                                    html.P("Chart type:", style={"margin-bottom": "10px", "margin-top": "5px"}),
+                                                    html.P("View:", style={"margin-bottom": "10px", "margin-top": "5px"}),
                                                     dbc.RadioItems(
                                                         id={
                                                             "type": "area_types",
@@ -2634,15 +2634,15 @@ def fig_options(indicator):
     # Check if the indicator has is string type and give only bar and map as options
     if indicator_config and nominal_data(indicator_config):
         area_types = [
-            {"label": "Bar", "value": "count_bar"},
-            {"label": "Map", "value": "map"},
+            {"label": "Latest data", "value": "count_bar"},
+            {"label": "Map of data", "value": "map"},
         ]
         default_graph = "map"
     else:
         area_types = [
-            {"label": "Bar", "value": "bar"},
-            {"label": "Line", "value": "line"},
-            {"label": "Map", "value": "map"},
+            {"label": "Latest data", "value": "bar"},
+            {"label": "Trend data", "value": "line"},
+            {"label": "Map of data", "value": "map"},
         ]
         default_graph = "bar"
 
