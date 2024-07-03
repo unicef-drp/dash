@@ -8,7 +8,7 @@
     "DM_CHLD_YOUNG_COMP_POP": "Compiled child, young people and total population, 0-17 and 18-24 years (1989-present)",
     "DM_CHLD_YOUNG_POP": "Child and young people population, 0-17 and 18-24 years, at the beginning of the year",
     "DM_CHLD_POP_PT": "Children as a percentage of the total population compiled from multiple sources. Figures for male and female represent the share of the male and female population respectively. Data comes from Eurostat, UN DESA or in some cases it has been directly submitted by the NSO (for Belarus, Georgia and Tajikistan).",
-    "DM_FRATE_TOT": "Average number of live births a hypothetical cohort of women (aged 15-49 years) would have at the end of their reproductive period if they were subject during their whole lives to the fertility rates of a given period and if they were not subject to mortality",
+    "DM_FRATE_COMP": "Total fertility rate is computed by adding the age specific fertility rates for women in a given year. It can be interpreted as the mean number of children that would be born alive to a woman during her lifetime if she were to pass through her childbearing years conforming to the fertility rates by age of a given year, and surviving. Data is compiled from multiple sources (Eurostat & UN DESA).",
     "DM_BRTS": "Number of births (in thousands)",
     "DM_SP_POP_BRTH_MF": "Sex ratio at birth refers to male births per female births. The data are for 5 year averages.",
     "DM_LIFE_EXP": "Average number of years newborn children would live if subject to the mortality risks prevailing for the cross section of population at the time of their birth",

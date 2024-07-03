@@ -223,7 +223,7 @@
                 "Indicator Name": "Percentage of children as a share of the total population"
             },
             {
-                "Code": "DM_FRATE_TOT",
+                "Code": "DM_FRATE_COMP",
                 "Indicator Name": "Total fertility rate (average live births per woman aged 15-49)"
             },
             {

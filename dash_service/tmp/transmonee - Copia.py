@@ -727,7 +727,7 @@ def get_data(
 
     if "IDX" in data.UNIT_MEASURE.values or "HVA_EPI_INF_RT_0-14" in data.CODE.values:
         data.OBS_VALUE = data.OBS_VALUE.round(3)
-    elif "DM_FRATE_TOT" in data.CODE.values:
+    elif "DM_FRATE_COMP" in data.CODE.values:
         data.OBS_VALUE = data.OBS_VALUE.round(1)
     else:
         data.OBS_VALUE = data.OBS_VALUE.round(1)
