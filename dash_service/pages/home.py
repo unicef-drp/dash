@@ -360,6 +360,7 @@ def set_active_nav_button(_, buttons_id):
         Input("year_slider", "value"),
         Input("country-filter", "value"),
         Input("country-group", "value"),
+        Input("show-average-checkbox", "value"),
     ],
         State({"type": "area_types", "index": "AIO_AREA"}, "value"),
     prevent_initial_call=True,
@@ -370,6 +371,7 @@ def apply_aio_area_figure(
     years_slider,
     countries,
     country_group,
+    average_line,
     selected_type,
 ):
     return aio_area_figure(
@@ -378,5 +380,6 @@ def apply_aio_area_figure(
         years_slider,
         countries,
         country_group,
+        average_line,
         selected_type,
     )
