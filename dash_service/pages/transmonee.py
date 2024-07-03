@@ -3130,20 +3130,15 @@ def aio_area_figure(
         if (data['OBS_VALUE'] == 0).any():
             graph_info =  graph_info + "Zero values not showing on graph; see 'Countries with data' for more information."
     
-    if fig_type == "bar" and not dimension and "PS" not in data.UNIT_MEASURE.values:
+    if fig_type == "bar" and not dimension:
+        print(data.UNIT_MEASURE.values)
         # Calculate the average of the 'Value' column
         average_value = data["OBS_VALUE"].mean()
 
         if "IDX" in data.UNIT_MEASURE.values or any(code in data.CODE.values for code in codes_3_decimals):
             average_value = round(average_value, 3)
-        #elif any(code in data.CODE.values for code in codes_1_decimal):
-            #average_value = round(average_value, 1)
         else:
             average_value = round(average_value, 1)
-        
-            # Convert to int if there are no decimals
-        #if average_value == round(average_value):
-         #   average_value = int(average_value)
 
     # removing zero values from bar chart as they cause a bug where countries without data display on chart
     fig_data = data[data['OBS_VALUE'] != 0] if fig_type == "bar" else data
@@ -3162,7 +3157,7 @@ def aio_area_figure(
     if fig_type == "bar" and not dimension and "YES_NO" not in fig_data.UNIT_MEASURE.values and base_indicator != 'PP_SG_NHR_STATUS':
         fig.update_traces(marker_color=domain_colour)
         fig.update_layout(showlegend=False)
-        if "PS" not in fig_data.UNIT_MEASURE.values:
+        if all(unit not in fig_data.UNIT_MEASURE.values for unit in ["PS", "NUMBER"]):
             annotation_text = f"Average: {average_value}% " if any(unit in fig_data.UNIT_MEASURE.values for unit in ["PCNT", "GOV_EXP_EDU"]) else f"Average: {average_value}"
             fig.add_hline(
                 y=average_value, 
