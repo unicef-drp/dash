@@ -836,6 +836,10 @@
             "SEX": [
                 "_T"
             ],
+            "AGE": [
+                "M24T59",
+                "M36T59"
+            ],
             "WEALTH_QUINTILE": [
                 "_T"
             ]
@@ -848,6 +852,10 @@
                 "F",
                 "M"
             ],
+            "AGE": [
+                "M24T59",
+                "M36T59"
+            ],
             "WEALTH_QUINTILE": [
                 "_T"
             ]
@@ -859,6 +867,10 @@
             "SEX": [
                 "_T"
             ],
+            "AGE": [
+                "M24T59",
+                "M36T59"
+            ],
             "WEALTH_QUINTILE": [
                 "_T"
             ]
@@ -869,6 +881,10 @@
             ],
             "SEX": [
                 "_T"
+            ],
+            "AGE": [
+                "M24T59",
+                "M36T59"
             ],
             "WEALTH_QUINTILE": [
                 "Q1",
