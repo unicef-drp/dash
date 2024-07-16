@@ -3141,10 +3141,10 @@ def aio_area_figure(
 
     if base_indicator == 'PP_SG_NHR_STATUS':
         data.sort_values("OBS_VALUE", ascending=True, inplace=True)
-        status_mapping = {0: "No status", 1: "B status", 2: "A status"}
+        status_mapping = {0: "No status", 1: "Status B", 2: "Status A"}
         # Map the OBS_VALUE to the corresponding status
         data['Status'] = data['OBS_VALUE'].map(status_mapping)
-        graph_info = "A status: compliant with Paris Principles, B status: not fully compliant with Paris Principles."
+        graph_info = "Status A: compliant with Paris Principles, Status B: parially compliant with Paris Principles."
 
     # rename figure_type 'map': 'choropleth' (plotly express)
     if fig_type == "map":
@@ -3153,7 +3153,7 @@ def aio_area_figure(
         fig_type = "choropleth_mapbox"
         if "YES_NO" in data.UNIT_MEASURE.values or base_indicator == 'PP_SG_NHR_STATUS':
             options["color"] = "Status"
-            options["color_discrete_map"] = {"Yes": "#1CABE2", "No": "#fcba03", "A status": "#3e7c49", "B status": "#e5ae4c", "No status": "#861c3f"}
+            options["color_discrete_map"] = {"Yes": "#1CABE2", "No": "#fcba03", "Status A": "#3e7c49", "Status B": "#e5ae4c", "No status": "#861c3f"}
         else:
             options["color"] = "OBS_VALUE"
             options["color_continuous_scale"] = map_colour
