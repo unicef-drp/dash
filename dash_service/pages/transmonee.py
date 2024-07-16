@@ -2324,7 +2324,7 @@ def indicator_card(
         indicator_header = f"<{indicator_header}"
 
     if base_indicator == 'PP_SG_NHR_STATUS':
-        status_mapping = {1: "A status", 2: "B status", 3: "C status", 4: "D status"}
+        status_mapping = {0: "No status", 1: "B status", 2: "A status"}
         # Map the OBS_VALUE to the corresponding status
         numerator_pairs["OBS_VALUE"] = numerator_pairs["OBS_VALUE"].map(status_mapping)
     
@@ -2415,7 +2415,7 @@ graphs_dict = {
         "options": dict(
             x="Status",
             color="Status",
-            color_discrete_map={"Yes": "#1CABE2", "No": "#fcba03", "A status": "#3e7c49", "B status": "#e5ae4c", "C status": "#ec5e24", "D status": "#861c3f"},
+            color_discrete_map={"Yes": "#1CABE2", "No": "#fcba03", "A status": "#3e7c49", "B status": "#e5ae4c", "No status": "#861c3f"},
             custom_data=[
                 "OBS_VALUE",
                 "Country_name",
@@ -3141,10 +3141,10 @@ def aio_area_figure(
 
     if base_indicator == 'PP_SG_NHR_STATUS':
         data.sort_values("OBS_VALUE", ascending=True, inplace=True)
-        status_mapping = {1: "A status", 2: "B status", 3: "C status", 4: "D status"}
+        status_mapping = {0: "No status", 1: "B status", 2: "A status"}
         # Map the OBS_VALUE to the corresponding status
         data['Status'] = data['OBS_VALUE'].map(status_mapping)
-        graph_info = "A status: compliant with Paris Principles, B status: not fully compliant with Paris Principles, C status: no status, D status: no application for accreditation. "
+        graph_info = "A status: compliant with Paris Principles, B status: not fully compliant with Paris Principles."
 
     # rename figure_type 'map': 'choropleth' (plotly express)
     if fig_type == "map":
@@ -3153,7 +3153,7 @@ def aio_area_figure(
         fig_type = "choropleth_mapbox"
         if "YES_NO" in data.UNIT_MEASURE.values or base_indicator == 'PP_SG_NHR_STATUS':
             options["color"] = "Status"
-            options["color_discrete_map"] = {"Yes": "#1CABE2", "No": "#fcba03", "A status": "#3e7c49", "B status": "#e5ae4c", "C status": "#ec5e24", "D status": "#861c3f"}
+            options["color_discrete_map"] = {"Yes": "#1CABE2", "No": "#fcba03", "A status": "#3e7c49", "B status": "#e5ae4c", "No status": "#861c3f"}
         else:
             options["color"] = "OBS_VALUE"
             options["color_continuous_scale"] = map_colour
@@ -3163,7 +3163,7 @@ def aio_area_figure(
         # turn off number formatting of data labels under 100
         if max(data.OBS_VALUE) <= 100:
             options["text_auto"] = False
-        if (data['OBS_VALUE'] == 0).any():
+        if (data['OBS_VALUE'] == 0).any() and base_indicator != 'PP_SG_NHR_STATUS':
             graph_info =  graph_info + "Zero values not showing on graph; see 'Countries with data' for more information."
     
     if fig_type == "bar" and not dimension:
@@ -3176,7 +3176,7 @@ def aio_area_figure(
             average_value = round(average_value, 1)
 
     # removing zero values from bar chart as they cause a bug where countries without data display on chart
-    fig_data = data[data['OBS_VALUE'] != 0] if fig_type == "bar" else data
+    fig_data = data[data['OBS_VALUE'] != 0] if fig_type == "bar" and base_indicator != 'PP_SG_NHR_STATUS' else data
 
     if fig_type == "count_bar":
         # change to fig type to generate px.bar
