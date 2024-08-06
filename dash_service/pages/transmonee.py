@@ -1584,6 +1584,16 @@ def get_base_layout(**kwargs):
                                                                                 width="auto",
                                                                                 className="radio-items-col",
                                                                             ),
+                                                                            dbc.Col(
+                                                                                html.Div([
+                                                                                    html.P("Select country to highlight:", style={"margin-bottom": "10px", "margin-top": "5px", "margin-right": "5px"}),
+                                                                                    dcc.Dropdown(
+                                                                                        id="highlighted_country"
+                                                                                            ),
+                                                                                        ], style={"display": "none"}),
+                                                                                id = "highlight_option",
+                                                                                width="auto",
+                                                                            ),                                                                            
                                                                         ],
                                                                     )
                                                                 ],
@@ -2449,11 +2459,13 @@ graphs_dict = {
             render_mode="svg",
             height=500,
         ),
-        "trace_options": dict(mode="markers+lines", line=dict(width=0.8)),
+        "trace_options": dict(mode="markers+lines", line=dict(width=1.5), marker=dict(size=4)),
         "layout_options": dict(
             xaxis_title={"standoff": 10},
             margin_t=40,
             margin_b=0,
+            xaxis=dict(showgrid=False),
+            yaxis=dict(showgrid=False), 
         ),
     },
     "map": {
@@ -2630,6 +2642,9 @@ def breakdown_options(indicator, fig_type):
     if indicator is None:
         return []
     
+    if fig_type != "bar":
+        return []
+    
     # extract indicator code if it has a cross-cutting suffix
     indicator = get_base_indicator(indicator)
 
@@ -2703,6 +2718,48 @@ def default_compare(compare_options, selected_type, indicator):
         return compare_options[0]["value"]
 
 
+def highlight_option(fig_type, indicator, years_slider, countries, country_group, compare):
+    if fig_type == "line" and indicator:
+        filters, country_selector, selected_years, country_text = get_filters(
+                years_slider,
+                countries,
+                country_group,
+            )
+        
+        base_indicator = get_base_indicator(indicator)
+        
+        # make API request to retrieve data
+        data = get_data(
+            [base_indicator],
+            filters["years"],
+            filters["countries"],
+            compare,
+            latest_data=False,
+        )
+
+        # Extract unique country names from the dataframe
+        available_countries = sorted(data['Country_name'].unique())
+
+        return html.Div([
+                        html.P("Select country to highlight:", style={"margin-bottom": "10px", "margin-top": "5px", "margin-right": "5px"}),
+                            dcc.Dropdown(
+                                id="highlighted_country",
+                                options=[{"label": "Select all", "value": "all_values"}] + [{"label": country, "value": country} for country in available_countries],
+                                value=available_countries[0],
+                                placeholder="Select country",
+                                multi=False,
+                                clearable=False,
+                                style={"width": "200px"},
+                                    ),
+                                ], style={"display": "flex", "align-items": "center"})
+    else:
+        return html.Div([
+                        html.P("Select country to highlight:", style={"margin-bottom": "10px", "margin-top": "5px", "margin-right": "5px"}),
+                        dcc.Dropdown(
+                            id="highlighted_country"
+                                ),
+                            ], style={"display": "none"})
+
 def aio_area_figure(
     indicator,
     compare,
@@ -2710,6 +2767,7 @@ def aio_area_figure(
     countries,
     country_group,
     average_line,
+    highlighted_country,
     selected_type,
 ):
     
@@ -2989,8 +3047,9 @@ def aio_area_figure(
     if layout_opt:
         layout.update(layout_opt)
 
-    # Add this code to avoid having decimal year on the x-axis for time series charts
+    
     if fig_type == "line":
+        # Add this code to avoid having decimal year on the x-axis for time series charts
         data.sort_values(by=["TIME_PERIOD", "Country_name"], inplace=True)
         layout["xaxis"] = dict(
             tickmode="linear",
@@ -3159,6 +3218,15 @@ def aio_area_figure(
             options["color_continuous_scale"] = map_colour
             options["range_color"] = [data.OBS_VALUE.min(), data.OBS_VALUE.max()]
 
+    if fig_type == "line":
+        if highlighted_country != "all_values":
+        # Set lines for all other countries to grey
+            options["color_discrete_map"] = {country: "#D3D3D3" for country in data['Country_name'].unique()}
+        else:
+            options["color"] = "Country_name"
+            options["color_discrete_map"] = {}
+            options["color_discrete_sequence"] = px.colors.qualitative.Dark24
+
     if fig_type == "bar":
         # turn off number formatting of data labels under 100
         if max(data.OBS_VALUE) <= 100:
@@ -3205,6 +3273,51 @@ def aio_area_figure(
         fig.update_traces(**traces)
         # adding invisible line at zero to make sure the y-axis starts at zero
         fig.add_hline(y=-0.3, line_color="rgba(0,0,0,0)")
+
+        if highlighted_country != "all_values":
+            print(f"highlighted_country: {highlighted_country}")
+            fig.update_layout(showlegend=False)
+
+            # Add the line for the highlighted separately
+            fig.add_scatter(
+                x=data[data['Country_name'] == highlighted_country]['TIME_PERIOD'],
+                y=data[data['Country_name'] == highlighted_country]['OBS_VALUE'],
+                mode='lines',
+                line_shape="spline",
+                line=dict(width=4, color="#1CABE2"),
+            )
+
+            # Add markers for the highlighted country on top of the line
+            fig.add_scatter(
+                x=data[data['Country_name'] == highlighted_country]['TIME_PERIOD'],
+                y=data[data['Country_name'] == highlighted_country]['OBS_VALUE'],
+                mode='markers',
+                marker=dict(size=8, color="#1CABE2", opacity=0.8),
+                name=highlighted_country,
+                customdata=data[data['Country_name'] == highlighted_country][["OBS_VALUE", "Country_name", "TIME_PERIOD", "OBS_FOOTNOTE", "DATA_SOURCE"]],
+                hovertemplate=(
+                    "Time Period: %{x}<br>"
+                    "Value: %{customdata[0]}<br>"
+                    "Country: %{customdata[1]}<br>"
+                    "Footnote: %{customdata[3]}<br>"
+                    "Source: %{customdata[4]}<br>"
+                    "<extra></extra>"
+                )
+            )
+            # Add annotation at the end of the highlighted country's line
+            last_time_period = data[data['Country_name'] == highlighted_country]['TIME_PERIOD'].iloc[-1]
+            last_value = data[data['Country_name'] == highlighted_country]['OBS_VALUE'].iloc[-1]
+
+            fig.add_annotation(
+                x=last_time_period + 0.5,
+                y=last_value + (last_value * 0.05),
+                text=highlighted_country,
+                showarrow=False,
+                font=dict(size=12, color="#1CABE2"),
+                xanchor="left",
+                yanchor="middle",
+                align="left"
+            )
 
     fig.update_traces(hovertemplate=hovertext)
 
