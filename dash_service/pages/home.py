@@ -35,6 +35,7 @@ from dash_service.pages.transmonee import (
     create_subdomain_buttons,
     create_indicator_buttons,
     update_domain_with_url,
+    highlight_option
 )
 
 from dash_service.static.page_config import (
@@ -105,6 +106,21 @@ def set_fig_options(indicator):
 def set_breakdown_options(indicator, fig_type):
     return breakdown_options(indicator, fig_type)
 
+
+@callback(
+    Output("highlight_option", "children"),
+    [
+        Input({"type": "area_types", "index": "AIO_AREA"}, "value"),
+        Input('current-indicator-store', 'data'),
+        Input("year_slider", "value"),
+        Input("country-filter", "value"),
+        Input("country-group", "value"),
+        Input({"type": "area_breakdowns", "index": "AIO_AREA"}, "value"),
+    ],
+    prevent_initial_call=True,
+)
+def set_highlight_options(fig_type, indicator, years_slider, countries, country_group, compare):
+    return highlight_option(fig_type, indicator, years_slider, countries, country_group, compare)
 
 @callback(
     Output({"type": "area_breakdowns", "index": "AIO_AREA"}, "value"),
@@ -361,6 +377,8 @@ def set_active_nav_button(_, buttons_id):
         Input("country-filter", "value"),
         Input("country-group", "value"),
         Input("show-average-checkbox", "value"),
+        Input("highlighted_country", "value"),
+
     ],
         State({"type": "area_types", "index": "AIO_AREA"}, "value"),
     prevent_initial_call=True,
@@ -372,6 +390,7 @@ def apply_aio_area_figure(
     countries,
     country_group,
     average_line,
+    highlighted_country,
     selected_type,
 ):
     return aio_area_figure(
@@ -381,5 +400,6 @@ def apply_aio_area_figure(
         countries,
         country_group,
         average_line,
+        highlighted_country,
         selected_type,
     )
