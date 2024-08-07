@@ -1020,7 +1020,7 @@ def get_data(
         ["+".join(keys[param]) + "." if keys[param] else "." for param in keys]
     )
 
-    start_period = years[0] if years else 2000
+    start_period = years[0] if years else 2010
     end_period = years[-1] if years else 2024
 
     # Get data using the API access
@@ -1444,7 +1444,7 @@ def get_base_layout(**kwargs):
                                                 html.Div([
                                                     html.P("Years:", style={"margin-bottom": "10px", "margin-top": "5px"}),
                                                     dbc.DropdownMenu(
-                                                        label=f"{years[0]} - {years[-1]}",
+                                                        label="2000 - 2024",
                                                         id="collapse-years-button",
                                                         className="m-2",
                                                         color="secondary",
@@ -1452,11 +1452,11 @@ def get_base_layout(**kwargs):
                                                             dbc.Card(
                                                                 dcc.RangeSlider(
                                                                     id="year_slider",
-                                                                    min=0,
-                                                                    max=len(years) - 1,
+                                                                    min=2000,
+                                                                    max=2024,
                                                                     step=1,
-                                                                    marks={index: str(year) for index, year in enumerate(years) if index % 2 == 0},
-                                                                    value=[0, len(years) - 1],
+                                                                    marks={year: str(year) for year in range(2000, 2025) if year % 2 == 0},
+                                                                    value=[2010, 2024],
                                                                 ),
                                                                 style={"maxHeight": "250px", "minWidth": "500px"},
                                                                 className="overflow-auto",
@@ -1506,7 +1506,7 @@ def get_base_layout(**kwargs):
                                             ),
                                             dbc.Col(
                                                 html.Div([
-                                                    html.P("View:", style={"margin-bottom": "10px", "margin-top": "5px"}),
+                                                    html.P("Choose chart type:", style={"margin-bottom": "10px", "margin-top": "5px"}),
                                                     dbc.RadioItems(
                                                         id={
                                                             "type": "area_types",
@@ -2528,7 +2528,7 @@ def get_filters(years_slider, countries, country_group):
     filter_countries = countries
     country_text = f"{len(filter_countries)}"
     # need to include the last selected year as it was exluded in the previous method
-    selected_years = years[years_slider[0] : years_slider[1] + 1]
+    selected_years = list(range(years_slider[0], years_slider[1] + 1))
 
     # Use the dictionary to return the values of the selected countries based on the SDMX ISO3 codes
     countries_selected_codes = [
@@ -2733,7 +2733,8 @@ def highlight_option(fig_type, indicator, years_slider, countries, country_group
             [base_indicator],
             filters["years"],
             filters["countries"],
-            compare,
+            "TOTAL",
+            {},
             latest_data=False,
         )
 
