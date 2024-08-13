@@ -35,7 +35,8 @@ from dash_service.pages.transmonee import (
     create_subdomain_buttons,
     create_indicator_buttons,
     update_domain_with_url,
-    highlight_option
+    highlight_option,
+    average_option,
 )
 
 from dash_service.static.page_config import (
@@ -199,6 +200,16 @@ def update_current_indicator(dropdown_value, active_indicator_buttons, crm_view_
         if active_index is not None:
             return indicator_button_ids[active_index]['index']
     return dropdown_value  # Otherwise, return the dropdown value
+
+@callback(
+        Output('average_option', 'style'),
+    [
+    Input({"type": "area_breakdowns", "index": "AIO_AREA"}, "value"),
+    Input({"type": "area_types", "index": "AIO_AREA"}, "value"),
+    ]
+)
+def show_average_option(compare, selected_type):
+    return average_option(compare, selected_type)
 
 @callback(
     [

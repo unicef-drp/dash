@@ -1571,30 +1571,51 @@ def get_base_layout(**kwargs):
                                                                 [
                                                                     dbc.Row(
                                                                         [
+                                                                            # Checkbox and Label
+                                                                            dbc.Col(
+                                                                                [
+                                                                                dbc.Checkbox(
+                                                                                    id='show-average-checkbox',
+                                                                                    className='custom-checkbox',
+                                                                                    value=True,
+                                                                                ),
+                                                                                html.Label(
+                                                                                    'Show average line', 
+                                                                                    htmlFor='show-average-checkbox', 
+                                                                                    style={'margin-top':'3px', 'margin-left': '5px'}
+                                                                                ),
+                                                                            ],
+                                                                                id='average_option',
+                                                                                style={'display':'none'},
+                                                                                width='auto'
+                                                                            ),
+                                                                            # Radio Items
                                                                             dbc.Col(
                                                                                 dbc.RadioItems(
                                                                                     id={
                                                                                         "type": "area_breakdowns",
                                                                                         "index": "AIO_AREA",
                                                                                     },
-                                                                                    value = "TOTAL",
+                                                                                    value="TOTAL",
                                                                                     class_name="force-inline-control responsive-radio-items",
                                                                                     inline=True,
                                                                                 ),
                                                                                 width="auto",
                                                                                 className="radio-items-col",
                                                                             ),
+                                                                            # Dropdown and label
                                                                             dbc.Col(
                                                                                 html.Div([
                                                                                     html.P("Select country to highlight:", style={"margin-bottom": "10px", "margin-top": "5px", "margin-right": "5px"}),
                                                                                     dcc.Dropdown(
                                                                                         id="highlighted_country"
-                                                                                            ),
-                                                                                        ], style={"display": "none"}),
-                                                                                id = "highlight_option",
+                                                                                    ),
+                                                                                ], style={"display": "none"}),
+                                                                                id="highlight_option",
                                                                                 width="auto",
-                                                                            ),                                                                            
+                                                                            ),
                                                                         ],
+                                                                        style={"display": "flex", "align-items": "center"},
                                                                     )
                                                                 ],
                                                                 style={
@@ -1812,25 +1833,6 @@ def get_base_layout(**kwargs):
                                                         ),
                                                         dbc.Col(
                                                             [
-                                                                dbc.Row(
-                                                                    [
-                                                                        dbc.Col(
-                                                                            dbc.Checkbox(
-                                                                                id='show-average-checkbox',
-                                                                                className='custom-checkbox',
-                                                                                value=True,
-                                                                            ),
-                                                                            style={"padding":"0px"},
-                                                                            width='auto'
-                                                                        ),
-                                                                        dbc.Col(
-                                                                            html.Label('Show average line', htmlFor='show-average-checkbox', style={'margin-top':'3px'}),
-                                                                            style={"padding":"0px"},
-                                                                            width='auto'
-                                                                        ),
-                                                                    ],
-                                                                    style={"display":"flex", "justifyContent":"center", "marginTop":"25px"},
-                                                                ),
                                                                 dbc.Row(
                                                                     [
                                                                         html.Button(
@@ -2718,6 +2720,19 @@ def default_compare(compare_options, selected_type, indicator):
         return compare_options[0]["value"]
 
 
+def average_option(compare, selected_type):
+    if selected_type == "bar" and compare == 'TOTAL':
+        return {
+                "padding":"0px", 
+                "display": "flex", 
+                "align-items": "center"
+            }
+    else:
+        return {
+                "display": "none"
+            }
+    
+        
 def highlight_option(fig_type, indicator, years_slider, countries, country_group, compare):
     if fig_type == "line" and indicator:
         filters, country_selector, selected_years, country_text = get_filters(
