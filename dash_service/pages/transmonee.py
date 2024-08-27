@@ -3018,7 +3018,7 @@ def aio_area_figure(
     df_indicator_sources = df_sources[df_sources["Code"] == base_indicator]
     unique_indicator_sources = df_indicator_sources["Source_Full"].unique()
 
-    if data["CODE"].isin(["DM_CHLD_POP", "DM_CHLD_POP_PT", "DM_FRATE_COMP","DM_ADOL_POP", "DM_UFIVE_POP"]).any():
+    if data["CODE"].isin(["DM_CHLD_POP", "DM_CHLD_POP_PT", "DM_FRATE_COMP","DM_ADOL_POP", "DM_UFIVE_POP", "DM_BRTS_COMP"]).any():
         source = "Multiple Sources"
     elif len(unique_indicator_sources) > 0:
         source = "; ".join(list(unique_indicator_sources))
@@ -3028,7 +3028,7 @@ def aio_area_figure(
     source_link = (
         df_indicator_sources["Source_Link"].unique()[0]
         if len(unique_indicator_sources) > 0
-        and not data["CODE"].isin(["DM_CHLD_POP", "DM_CHLD_POP_PT", "DM_FRATE_COMP", "DM_ADOL_POP", "DM_UFIVE_POP"]).any()
+        and not data["CODE"].isin(["DM_CHLD_POP", "DM_CHLD_POP_PT", "DM_FRATE_COMP", "DM_ADOL_POP", "DM_UFIVE_POP", "DM_BRTS_COMP"]).any()
         else "https://ec.europa.eu/eurostat/cache/metadata/en/demo_pop_esms.htm"
     )
 

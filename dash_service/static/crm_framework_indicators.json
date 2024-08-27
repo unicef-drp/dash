@@ -269,7 +269,7 @@
                 },
                 {
                     "Indicator Name": "Number of births",
-                    "Code": "DM_BRTS"
+                    "Code": "DM_BRTS_COMP"
                 },
                 {
                     "Indicator Name": "Net migration",
