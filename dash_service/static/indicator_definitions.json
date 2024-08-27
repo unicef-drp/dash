@@ -9,7 +9,7 @@
     "DM_CHLD_YOUNG_POP": "Child and young people population, 0-17 and 18-24 years, at the beginning of the year",
     "DM_CHLD_POP_PT": "Children as a percentage of the total population compiled from multiple sources. Figures for male and female represent the share of the male and female population respectively. Data comes from Eurostat, UN DESA or in some cases it has been directly submitted by the NSO (for Belarus, Georgia and Tajikistan).",
     "DM_FRATE_COMP": "Total fertility rate is computed by adding the age specific fertility rates for women in a given year. It can be interpreted as the mean number of children that would be born alive to a woman during her lifetime if she were to pass through her childbearing years conforming to the fertility rates by age of a given year, and surviving. Data is compiled from multiple sources (Eurostat & UN DESA).",
-    "DM_BRTS": "Number of births (in thousands)",
+    "DM_BRTS_COMP": "Number of births. Data compiled from multiple sources (Eurostat & UN DESA) according to the country's preference.",
     "DM_SP_POP_BRTH_MF": "Sex ratio at birth refers to male births per female births. The data are for 5 year averages.",
     "DM_LIFE_EXP": "Average number of years newborn children would live if subject to the mortality risks prevailing for the cross section of population at the time of their birth",
     "DM_CHLD_TWO_PRNT": "Children 'living with two parents' are children (0-17 years) in households with two adults reported as \u2018parents\u2019 of the child. \u2018Parents\u2019 generally refer to both biological parents and step- or adoptive-parents. Exact definitions vary slightly across countries.",

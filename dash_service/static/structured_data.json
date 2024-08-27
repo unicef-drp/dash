@@ -227,8 +227,8 @@
                 "Indicator Name": "Total fertility rate (average live births per woman aged 15-49)"
             },
             {
-                "Code": "DM_BRTS",
-                "Indicator Name": "Number of births (in thousands)"
+                "Code": "DM_BRTS_COMP",
+                "Indicator Name": "Number of births"
             },
             {
                 "Code": "DM_POP_NETM",

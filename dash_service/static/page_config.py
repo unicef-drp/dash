@@ -143,7 +143,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         "yaxis": 'Share of the total population',
                         'button_name': 'Children as a percentage of the population'},
                         {'name': 'Number of births',
-                        'indicator': 'DM_BRTS',
+                        'indicator': 'DM_BRTS_COMP',
                         'suffix': 'births',
                         'min_max': False,
                         "yaxis": 'Number of births',
@@ -163,7 +163,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'AIO_AREA': {
                         'indicators': ['DM_CHLD_POP',
                         'DM_CHLD_POP_PT',
-                        'DM_BRTS',
+                        'DM_BRTS_COMP',
                         'DM_FRATE_COMP',
                         'DM_POP_NETM'],
                         'default_graph': 'bar',
