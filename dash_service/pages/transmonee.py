@@ -69,44 +69,49 @@ EMPTY_CHART = {
 
 
 help_text = html.Div([
-        html.Strong("How to use dashboard:"),
+        html.Strong("HOW TO USE DASHBOARD"),
+        html.P([""]),
         html.P([
-            "- Choose between two primary views for data exploration. ",
-            html.Strong("'Explore using the Europe and Central Asia Child Rights Monitoring Framework'"),
+            html.Strong("Views: ", style={'color': '#1CABE2'}),
+            "Choose between two primary views for data exploration. ",
+            html.Strong("'Explore using the ECA Child Rights Monitoring Framework'"),
             " allows you to select a domain and view indicators within each of its sub-domains, providing a structured approach aligned with child rights priorities. Alternatively, ",
             html.Strong("'Search by Indicator'"),
             " lets you select specific indicators from a dropdown menu and filter by SDG indicators and/or by specific domains or sub-domains."
         ]),
         html.P([
-            "- At the bottom of the page, there are ",
+            html.Strong("CRC Recommendations: ", style={'color': '#1CABE2'}),
+            "At the bottom of the page, there are ",
             html.Strong("Committee on the Rights of the Child Recommendations"),
             " which are related to each sub-domain. These recommendations have been organized by three different types of bottlenecks and can be filtered by country and year of report."
         ]),
         html.P([
-            "- Visualize data with bar charts and regional maps displaying the latest data for each country, or use line graphs to track historical trends."
+            html.Strong("Chart types: ", style={'color': '#1CABE2'}),
+            "Visualize data with bar charts and regional maps displaying the latest data for each country, or use line graphs to track historical trends."
         ]),
         html.P([
-            "- Enhance your analysis with filters for year range, country group, or individual countries. When disaggregated data is available, these options will appear on the chart."
+            html.Strong("Filters and disaggregations: ", style={'color': '#1CABE2'}),
+            "Enhance your analysis with filters for year range, country group, or individual countries. When disaggregated data is available, these options will appear on the chart."
         ]),
         html.P([
-            "- Hover over information icons to view definitions of indicators and sub-domains."
+            html.Strong("Definitions: ", style={'color': '#1CABE2'}),
+            "Hover over information icons to view definitions of indicators and sub-domains."
         ]),
         html.P([
-            "- To download the data displayed in the chart in Excel format, click on the ",
+            html.Strong("Download data: ", style={'color': '#1CABE2'}),
+            "To download the data displayed in the chart in Excel format, click on the ",
             html.Strong("'Download data'"),
             " button below the chart. To download the chart as in PNG format, hover over the top right corner of the chart and click on the camera icon."
         ]),
         html.P([
-            "- To learn more about data availability for each indicator, hover over the ",
+            html.Strong("Data availability: ", style={'color': '#1CABE2'}),
+            "To learn more about data availability for each indicator, hover over the ",
             html.Strong("'Countries with data'"),
             " and ",
             html.Strong("'Countries without data'"), 
             " buttons to see which countries have data within the selected year range."
         ]),
     ])
-
-# TODO: Move all of these to env/setting vars from production
-
 
 config_file_path = (
     f"{pathlib.Path(__file__).parent.parent.absolute()}/static/indicator_config.json"
@@ -1196,7 +1201,7 @@ def get_base_layout(**kwargs):
                     dbc.Col(
                         html.Div([
                             dbc.Button(
-                                "Explore using the Europe and Central Asia Child Rights Monitoring Framework",
+                                "Explore using the ECA Child Rights Monitoring Framework",
                                 id={"type": "nav_buttons", "index": "crm_view"},  
                                 className="nav-btn mb-2",
                                 active=True,
@@ -1214,11 +1219,11 @@ def get_base_layout(**kwargs):
                                             "display": "inline-block",
                                             "textAlign": "center",
                                             "position": "relative",
-                                            "color":"#562061",
+                                            "color":"#ffc685",
                                             "font-size": "16px",
                                             "font-weight": "bold",
                                             "text-decoration":"underline",
-                                            "text-decoration-color":"#562061",
+                                            "text-decoration-color":"#ffc685",
                                             "marginTop":"0px",
                                             "marginBottom":"0px"
                                         },
@@ -1231,7 +1236,7 @@ def get_base_layout(**kwargs):
                                             "alignContent": "center",
                                             "flexWrap": "wrap",
                                             "paddingLeft": "5px",
-                                            "color":"#562061"
+                                            "color":"#ffc685"
                                         },
                                     ),
                                 dbc.Popover(
