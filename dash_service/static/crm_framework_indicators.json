@@ -204,10 +204,6 @@
                     "Code": "PT_CHLD_DISAB_INRESIDENTIAL_PROP"
                 },
                 {
-                    "Indicator Name": "Percentage of children with disabilities (0-17 years) in formal foster care of the total number of children in formal family-based care at the end of the year",
-                    "Code": "PT_CHLD_DISAB_INFOSTER_PROP"
-                },
-                {
                     "Indicator Name": "Percentage of children with disabilities (0-17 years) in formal family-based care at the end of the year",
                     "Code": "PT_CHLD_DISAB_INFAMILY_PROP"
                 }
@@ -422,12 +418,12 @@
             "code": "ESY",
             "indicators": [
                 {
-                    "Indicator Name": "Expenditure on pre-primary (% of government expenditure on education)",
-                    "Code": "EDU_FIN_EXP_L02"
+                    "Indicator Name": "Government expenditure on pre-primary education as a percentage of GDP (%)",
+                    "Code": "EDU_EXP_GDP_L02"
                 },
                 {
-                    "Indicator Name": "Expenditure on primary (% of government expenditure on education)",
-                    "Code": "EDU_FIN_EXP_L1"
+                    "Indicator Name": "Government expenditure on primary education as a percentage of GDP (%)",
+                    "Code": "EDU_EXP_GDP_L1"
                 },
                 {
                     "Indicator Name": "Number of years of compulsory pre-primary education guaranteed in legal framework",
@@ -550,12 +546,12 @@
                     "Code": "HT_SH_XPD_OOPC_CH_ZS"
                 },
                 {
-                    "Indicator Name": "Domestic general government health expenditure (% of current health expenditure)",
-                    "Code": "HT_SH_XPD_GHED_CH_ZS"
+                    "Indicator Name": "Percentage of total government spending on health - SDG 1.a.2",
+                    "Code": "EC_EXP_HLTH"
                 },
                 {
-                    "Indicator Name": "Domestic general government health expenditure (% of general government expenditure)",
-                    "Code": "HT_SH_XPD_GHED_GE_ZS"
+                    "Indicator Name": "Domestic general government health expenditure (% of current health expenditure)",
+                    "Code": "HT_SH_XPD_GHED_CH_ZS"
                 },
                 {
                     "Indicator Name": "Domestic general government health expenditure per capita, PPP (current international $)",
@@ -832,8 +828,8 @@
                     "Code": "EDU_FIN_EXP_PT_GDP"
                 },
                 {
-                    "Indicator Name": "General government expenditure by function: Social protection (% of GDP)",
-                    "Code": "EC_SP_GOV_EXP_GDP"
+                    "Indicator Name": "Percentage of total government spending on social protection - SDG 1.a.2",
+                    "Code": "EC_EXP_PROT"
                 },
                 {
                     "Indicator Name": "Expenditure on family-children benefits (% of expenditure on social benefits)",
@@ -844,8 +840,8 @@
                     "Code": "HT_SH_XPD_CHEX_GD_ZS"
                 },
                 {
-                    "Indicator Name": "Domestic general government health expenditure (% of GDP)",
-                    "Code": "HT_SH_XPD_GHED_GD_ZS"
+                    "Indicator Name": "Domestic general government health expenditure as % of GDP",
+                    "Code": "HT_WHO_GGHED_GDP"
                 }
             ]
         },

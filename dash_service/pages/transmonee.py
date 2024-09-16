@@ -67,6 +67,7 @@ EMPTY_CHART = {
     }
 }
 
+average_text = "This option displays the simple (arithmetic) average, dynamically calculated based on the filtered data. As such, it is not always representative of the entire region, as it reflects only the available data. Furthermore, for indicators referring to populations, population-weighted averages are recommended for a more accurate regional overview."
 
 help_text = html.Div([
         html.Strong("HOW TO USE DASHBOARD"),
@@ -157,7 +158,6 @@ custom_names = {
     "ICT_SECURITY_CONCERN": "Percentage of 16-24 year olds who limited their personal internet activities in the last 12 months due to security concerns",
     "ICT_PERSONAL_DATA": "Percentage of 16-24 year olds who used the internet in the last 3 months and managed access to their personal data",
     "MT_SDG_SUICIDE": "Suicide mortality rate for 15-19 year olds (deaths per 100,000 population) - SDG 3.4.2",
-    "EC_SP_GOV_EXP_GDP": "General government expenditure on social protection (% of GDP)",
     # custom plots
     "packed_CRG": "National Human Rights Institutions in compliance with the Paris Principles",
     "packed_EXP": "Expenditure on education levels as a percentage of government expenditure on education",
@@ -1589,6 +1589,36 @@ def get_base_layout(**kwargs):
                                                                                     htmlFor='show-average-checkbox', 
                                                                                     style={'margin-top':'3px', 'margin-left': '5px'}
                                                                                 ),
+                                                                                html.I(
+                                                                                    id="average-icon",
+                                                                                    className="fas fa-info-circle",
+                                                                                    style={
+                                                                                        "display": "flex",
+                                                                                        "alignContent": "center",
+                                                                                        "flexWrap": "wrap",
+                                                                                        "paddingLeft": "5px",
+                                                                                    },
+                                                                                ),
+                                                                                dbc.Popover(
+                                                                                        [
+                                                                                            dbc.PopoverBody(
+                                                                                                average_text,
+                                                                                                id="average-popover",
+                                                                                            )
+                                                                                        ],
+                                                                                        target="average-icon",
+                                                                                        trigger="hover",
+                                                                                        className="custom-popover",
+                                                                                        style={
+                                                                                            "overflowY": "auto",
+                                                                                            "whiteSpace": "pre-wrap",
+                                                                                            "opacity": 1,
+                                                                                        },
+                                                                                        delay={
+                                                                                            "hide": 0,
+                                                                                            "show": 0,
+                                                                                        },
+                                                                                    ),
                                                                             ],
                                                                                 id='average_option',
                                                                                 style={'display':'none'},
@@ -3118,7 +3148,7 @@ def aio_area_figure(
     indicator_link = []
 
     if base_indicator in ['JJ_CHLD_DISAB_COMPLAINT_HHRR', 'PV_SI_COV_DISAB', 'HT_REG_CHLD_DISAB_PROP', 'HT_NEW_REG_CHLD_DISAB_PROP', 
-            'PT_CHLD_DISAB_INRESIDENTIAL_PROP', 'PT_CHLD_DISAB_INFAMILY_PROP', 'PT_CHLD_DISAB_INFOSTER_PROP', 'PV_SI_COV_DISAB']:
+            'PT_CHLD_DISAB_INRESIDENTIAL_PROP', 'PT_CHLD_DISAB_INFAMILY_PROP', 'PV_SI_COV_DISAB']:
         graph_info = "Note: the definition of disability may differ across countries and indicators."
     
     if base_indicator == 'IM_MCV2':
