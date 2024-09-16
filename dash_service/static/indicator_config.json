@@ -6720,6 +6720,13 @@
             ]
         }
     },
+    "PV_SI_COV_POOR": {
+        "TOTAL": {
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
     "PP_SE_ADT_ACTS_SSHT": {
         "SEX": {
             "AGE": [
