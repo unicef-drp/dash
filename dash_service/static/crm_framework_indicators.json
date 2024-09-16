@@ -840,8 +840,8 @@
                     "Code": "HT_SH_XPD_CHEX_GD_ZS"
                 },
                 {
-                    "Indicator Name": "Domestic general government health expenditure as % of GDP",
-                    "Code": "HT_WHO_GGHED_GDP"
+                    "Indicator Name": "Percentage of total government spending on health - SDG 1.a.2",
+                    "Code": "EC_EXP_HLTH"
                 }
             ]
         },
