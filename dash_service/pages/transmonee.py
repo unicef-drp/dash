@@ -1579,27 +1579,30 @@ def get_base_layout(**kwargs):
                                                                             # Checkbox and Label
                                                                             dbc.Col(
                                                                                 [
-                                                                                dbc.Checkbox(
-                                                                                    id='show-average-checkbox',
-                                                                                    className='custom-checkbox',
-                                                                                    value=True,
-                                                                                ),
-                                                                                html.Label(
-                                                                                    'Show average line', 
-                                                                                    htmlFor='show-average-checkbox', 
-                                                                                    style={'margin-top':'3px', 'margin-left': '5px'}
-                                                                                ),
-                                                                                html.I(
-                                                                                    id="average-icon",
-                                                                                    className="fas fa-info-circle",
-                                                                                    style={
-                                                                                        "display": "flex",
-                                                                                        "alignContent": "center",
-                                                                                        "flexWrap": "wrap",
-                                                                                        "paddingLeft": "5px",
-                                                                                    },
-                                                                                ),
-                                                                                dbc.Popover(
+                                                                                    dbc.Checkbox(
+                                                                                        id='show-average-checkbox',
+                                                                                        className='custom-checkbox',
+                                                                                        value=True,
+                                                                                    ),
+                                                                                    html.Label(
+                                                                                        'Show average line',
+                                                                                        htmlFor='show-average-checkbox',
+                                                                                        style={
+                                                                                            'margin-top': '3px',
+                                                                                            'white-space': 'nowrap',  # Prevent text from breaking into multiple lines
+                                                                                        }
+                                                                                    ),
+                                                                                    html.I(
+                                                                                        id="average-icon",
+                                                                                        className="fas fa-info-circle",
+                                                                                        style={
+                                                                                            "display": "flex",
+                                                                                            "alignContent": "center",
+                                                                                            "flexWrap": "wrap",
+                                                                                            "paddingLeft": "5px",
+                                                                                        },
+                                                                                    ),
+                                                                                    dbc.Popover(
                                                                                         [
                                                                                             dbc.PopoverBody(
                                                                                                 average_text,
@@ -1619,10 +1622,11 @@ def get_base_layout(**kwargs):
                                                                                             "show": 0,
                                                                                         },
                                                                                     ),
-                                                                            ],
+                                                                                ],
                                                                                 id='average_option',
-                                                                                style={'display':'none'},
-                                                                                width='auto'
+                                                                                xs=12,  # Full width on small screens
+                                                                                sm='auto',  # Auto width on larger screens
+                                                                                style={'display': 'flex', 'align-items': 'center'},
                                                                             ),
                                                                             # Radio Items
                                                                             dbc.Col(
@@ -1635,22 +1639,38 @@ def get_base_layout(**kwargs):
                                                                                     class_name="force-inline-control responsive-radio-items",
                                                                                     inline=True,
                                                                                 ),
-                                                                                width="auto",
+                                                                                xs=12,  # Full width on small screens
+                                                                                sm='auto',  # Auto width on larger screens
                                                                                 className="radio-items-col",
                                                                             ),
                                                                             # Dropdown and label
                                                                             dbc.Col(
                                                                                 html.Div([
-                                                                                    html.P("Select country to highlight:", style={"margin-bottom": "10px", "margin-top": "5px", "margin-right": "5px"}),
+                                                                                    html.P(
+                                                                                        "Select country to highlight:",
+                                                                                        style={
+                                                                                            "margin-bottom": "10px",
+                                                                                            "margin-top": "5px",
+                                                                                            "margin-right": "5px",
+                                                                                            'white-space': 'nowrap',  # Prevent label wrapping
+                                                                                        }
+                                                                                    ),
                                                                                     dcc.Dropdown(
-                                                                                        id="highlighted_country"
+                                                                                        id="highlighted_countries",
+                                                                                        placeholder="Select a country",
+                                                                                        style={"width": "100%"},
                                                                                     ),
                                                                                 ], style={"display": "none"}),
                                                                                 id="highlight_option",
-                                                                                width="auto",
+                                                                                xs=12,  # Full width on small screens
+                                                                                sm='auto',  # Auto width on larger screens
                                                                             ),
                                                                         ],
-                                                                        style={"display": "flex", "align-items": "center"},
+                                                                        style={
+                                                                            "display": "flex",
+                                                                            "align-items": "center",
+                                                                            "flex-wrap": "wrap",  # Enable wrapping of elements when screen is small
+                                                                        },
                                                                     )
                                                                 ],
                                                                 style={
@@ -2503,6 +2523,7 @@ graphs_dict = {
             margin_b=0,
             xaxis=dict(showgrid=False),
             yaxis=dict(showgrid=False), 
+            showlegend=False, 
         ),
     },
     "map": {
@@ -2673,6 +2694,31 @@ def themes(subdomain_code):
 
     return subdomain_code, description
 
+def manage_highlighted_countries(selected_countries, all_values="all_values"):
+    """
+    Manages the behavior of 'highlighted_countries' dropdown.
+
+    Args:
+        selected_countries (list): List of currently selected countries.
+        all_values (str): The 'all_values' string that indicates all countries are selected.
+
+    Returns:
+        list: Updated list of selected countries.
+    """
+    # If the dropdown is cleared, set to 'all_values'
+    if not selected_countries:
+        return [all_values]
+    
+    # If 'all_values' is the first selection and more than 1 item is selected, remove 'all_values'
+    if selected_countries and selected_countries[0] == all_values and len(selected_countries) > 1:
+        return [country for country in selected_countries if country != all_values]
+    
+    # If more than 1 item is selected and 'all_values' is anywhere in the list, keep only 'all_values'
+    if len(selected_countries) > 1 and all_values in selected_countries:
+        return [all_values]
+    
+    # Return the selected countries as is if no special conditions are met
+    return selected_countries
 
 def breakdown_options(indicator, fig_type):
 
@@ -2757,8 +2803,7 @@ def default_compare(compare_options, selected_type, indicator):
 
 def average_option(compare, selected_type):
     if selected_type == "bar" and compare == 'TOTAL':
-        return {
-                "padding":"0px", 
+        return { 
                 "display": "flex", 
                 "align-items": "center"
             }
@@ -2792,22 +2837,29 @@ def highlight_option(fig_type, indicator, years_slider, countries, country_group
         available_countries = sorted(data['Country_name'].unique())
 
         return html.Div([
-                        html.P("Select country to highlight:", style={"margin-bottom": "10px", "margin-top": "5px", "margin-right": "5px"}),
-                            dcc.Dropdown(
-                                id="highlighted_country",
-                                options=[{"label": "Select all", "value": "all_values"}] + [{"label": country, "value": country} for country in available_countries],
-                                value=available_countries[0],
-                                placeholder="Select country",
-                                multi=False,
-                                clearable=False,
-                                style={"width": "200px"},
-                                    ),
-                                ], style={"display": "flex", "align-items": "center"})
+                        html.P(
+                            "Select countries to highlight:", 
+                            style={"margin-bottom": "10px", "margin-top": "5px", "margin-right": "10px", "white-space": "nowrap"}  # Ensure the text stays on one line
+                        ),
+                        dcc.Dropdown(
+                            id="highlighted_countries",
+                            options=[{"label": "Select all", "value": "all_values"}] + [{"label": country, "value": country} for country in available_countries],
+                            value=available_countries[0],  # Default country selection
+                            placeholder="Select countries",
+                            multi=True,
+                            clearable=False,
+                        ),
+                    ], style={
+                        "display": "flex",  
+                        "align-items": "center",  
+                        "flex-wrap": "wrap", 
+                        "width": "100%",
+                    })
     else:
         return html.Div([
                         html.P("Select country to highlight:", style={"margin-bottom": "10px", "margin-top": "5px", "margin-right": "5px"}),
                         dcc.Dropdown(
-                            id="highlighted_country"
+                            id="highlighted_countries"
                                 ),
                             ], style={"display": "none"})
 
@@ -2818,7 +2870,7 @@ def aio_area_figure(
     countries,
     country_group,
     average_line,
-    highlighted_country,
+    highlighted_countries,
     selected_type,
 ):
     
@@ -3043,6 +3095,10 @@ def aio_area_figure(
             domain_colour,
         )
     )
+
+    # Ensure highlighted_countries is always a list, even if only one country is selected
+    if isinstance(highlighted_countries, str):
+        highlighted_countries = [highlighted_countries]
 
     # lbassil: was UNIT_MEASURE
     name = (
@@ -3269,15 +3325,6 @@ def aio_area_figure(
             options["color_continuous_scale"] = map_colour
             options["range_color"] = [data.OBS_VALUE.min(), data.OBS_VALUE.max()]
 
-    if fig_type == "line":
-        if highlighted_country != "all_values":
-        # Set lines for all other countries to grey
-            options["color_discrete_map"] = {country: "#D3D3D3" for country in data['Country_name'].unique()}
-        else:
-            options["color"] = "Country_name"
-            options["color_discrete_map"] = {}
-            options["color_discrete_sequence"] = px.colors.qualitative.Dark24
-
     if fig_type == "bar":
         # turn off number formatting of data labels under 100
         if max(data.OBS_VALUE) <= 100:
@@ -3296,6 +3343,16 @@ def aio_area_figure(
 
     # removing zero values from bar chart as they cause a bug where countries without data display on chart
     fig_data = data[data['OBS_VALUE'] != 0] if fig_type == "bar" and base_indicator != 'PP_SG_NHR_STATUS' else data
+
+    if fig_type == "line":
+        if "all_values" not in highlighted_countries:
+        # Set lines for all other countries to grey
+            options["color_discrete_map"] = {country: "#D3D3D3" for country in data['Country_name'].unique()}
+            fig_data = fig_data[~fig_data['Country_name'].isin(highlighted_countries)]
+        else:
+            options["color"] = "Country_name"
+            options["color_discrete_map"] = {}
+            options["color_discrete_sequence"] = px.colors.qualitative.Dark24
 
     if fig_type == "count_bar":
         # change to fig type to generate px.bar
@@ -3322,53 +3379,113 @@ def aio_area_figure(
             )
     if fig_type == "line":
         fig.update_traces(**traces)
-        # adding invisible line at zero to make sure the y-axis starts at zero
+        # Adding invisible line at zero to ensure the y-axis starts at zero
         fig.add_hline(y=-0.3, line_color="rgba(0,0,0,0)")
 
-        if highlighted_country != "all_values":
-            print(f"highlighted_country: {highlighted_country}")
-            fig.update_layout(showlegend=False)
+        if isinstance(highlighted_countries, str):
+            highlighted_countries = [highlighted_countries]
 
-            # Add the line for the highlighted separately
-            fig.add_scatter(
-                x=data[data['Country_name'] == highlighted_country]['TIME_PERIOD'],
-                y=data[data['Country_name'] == highlighted_country]['OBS_VALUE'],
-                mode='lines',
-                line_shape="spline",
-                line=dict(width=4, color="#1CABE2"),
-            )
+        if "all_values" not in highlighted_countries:
 
-            # Add markers for the highlighted country on top of the line
-            fig.add_scatter(
-                x=data[data['Country_name'] == highlighted_country]['TIME_PERIOD'],
-                y=data[data['Country_name'] == highlighted_country]['OBS_VALUE'],
-                mode='markers',
-                marker=dict(size=8, color="#1CABE2", opacity=0.8),
-                name=highlighted_country,
-                customdata=data[data['Country_name'] == highlighted_country][["OBS_VALUE", "Country_name", "TIME_PERIOD", "OBS_FOOTNOTE", "DATA_SOURCE"]],
-                hovertemplate=(
-                    "Time Period: %{x}<br>"
-                    "Value: %{customdata[0]}<br>"
-                    "Country: %{customdata[1]}<br>"
-                    "Footnote: %{customdata[3]}<br>"
-                    "Source: %{customdata[4]}<br>"
-                    "<extra></extra>"
-                )
-            )
-            # Add annotation at the end of the highlighted country's line
-            last_time_period = data[data['Country_name'] == highlighted_country]['TIME_PERIOD'].iloc[-1]
-            last_value = data[data['Country_name'] == highlighted_country]['OBS_VALUE'].iloc[-1]
+            # Set legend visibility for non-highlighted countries to False
+            for trace in fig.data:
+                if trace.name not in highlighted_countries:
+                    trace.showlegend = False
+            print("all values not selected")
+            print(f"highlighted_countries: {highlighted_countries}")
 
-            fig.add_annotation(
-                x=last_time_period + 0.5,
-                y=last_value + (last_value * 0.05),
-                text=highlighted_country,
-                showarrow=False,
-                font=dict(size=12, color="#1CABE2"),
-                xanchor="left",
-                yanchor="middle",
-                align="left"
-            )
+            # Define a color palette for multiple countries
+            color_palette = px.colors.qualitative.Dark24
+
+            # Check if more than one country is selected
+            if len(highlighted_countries) > 1:
+                fig.update_layout(showlegend=True)  # Show legend when more than one country is selected
+                for idx, country in enumerate(highlighted_countries):
+                    country_data = data[data['Country_name'] == country]
+
+                    # Only proceed if there's data for the country
+                    if not country_data.empty:
+                        # Add the line for the highlighted country with different colors
+                        fig.add_scatter(
+                            x=country_data['TIME_PERIOD'],
+                            y=country_data['OBS_VALUE'],
+                            mode='lines',
+                            line_shape="spline",
+                            line=dict(width=2, color=color_palette[idx % len(color_palette)]),
+                            name=country,  # Add the country name to the legend
+                            showlegend=True
+                        )
+
+                        # Add markers for the highlighted country
+                        fig.add_scatter(
+                            x=country_data['TIME_PERIOD'],
+                            y=country_data['OBS_VALUE'],
+                            mode='markers',
+                            marker=dict(size=5, color=color_palette[idx % len(color_palette)], opacity=0.8),
+                            name=country,
+                            showlegend=False,
+                            customdata=country_data[["OBS_VALUE", "Country_name", "TIME_PERIOD", "OBS_FOOTNOTE", "DATA_SOURCE"]],
+                            hovertemplate=(
+                                "Time Period: %{x}<br>"
+                                "Value: %{customdata[0]}<br>"
+                                "Country: %{customdata[1]}<br>"
+                                "Footnote: %{customdata[3]}<br>"
+                                "Source: %{customdata[4]}<br>"
+                                "<extra></extra>"
+                            )
+                        )
+
+            else:
+                # For only one country, keep the blue line and add annotation
+                country = highlighted_countries[0]
+                country_data = data[data['Country_name'] == country]
+
+                # Only proceed if there's data for the country
+                if not country_data.empty:
+                    # Add the line for the single highlighted country in blue
+                    fig.add_scatter(
+                        x=country_data['TIME_PERIOD'],
+                        y=country_data['OBS_VALUE'],
+                        mode='lines',
+                        line_shape="spline",
+                        line=dict(width=4, color="#1CABE2"),
+                        name=country  # Add the country name to the legend
+                    )
+
+                    # Add markers for the single highlighted country
+                    fig.add_scatter(
+                        x=country_data['TIME_PERIOD'],
+                        y=country_data['OBS_VALUE'],
+                        mode='markers',
+                        marker=dict(size=8, color="#1CABE2", opacity=0.8),
+                        name=country,
+                        customdata=country_data[["OBS_VALUE", "Country_name", "TIME_PERIOD", "OBS_FOOTNOTE", "DATA_SOURCE"]],
+                        hovertemplate=(
+                            "Time Period: %{x}<br>"
+                            "Value: %{customdata[0]}<br>"
+                            "Country: %{customdata[1]}<br>"
+                            "Footnote: %{customdata[3]}<br>"
+                            "Source: %{customdata[4]}<br>"
+                            "<extra></extra>"
+                        )
+                    )
+
+                    # Add annotation at the end of the highlighted country's line
+                    last_time_period = country_data['TIME_PERIOD'].iloc[-1]
+                    last_value = country_data['OBS_VALUE'].iloc[-1]
+
+                    fig.add_annotation(
+                        x=last_time_period + 0.5,
+                        y=last_value + (last_value * 0.05),
+                        text=country,
+                        showarrow=False,
+                        font=dict(size=12, color="#1CABE2"),
+                        xanchor="left",
+                        yanchor="middle",
+                        align="left"
+                    )
+        else:
+            fig.update_layout(showlegend=True)
 
     fig.update_traces(hovertemplate=hovertext)
 
