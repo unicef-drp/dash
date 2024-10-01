@@ -37,6 +37,7 @@ from dash_service.pages.transmonee import (
     update_domain_with_url,
     highlight_option,
     average_option,
+    manage_highlighted_countries,
 )
 
 from dash_service.static.page_config import (
@@ -367,6 +368,14 @@ def set_active_nav_button(_, buttons_id):
     return active_button(_, buttons_id)
 
 @callback(
+    Output("highlighted_countries", "value"),
+    Input("highlighted_countries", "value"),
+    prevent_initial_call=True,
+)
+def update_highlighted_countries(selected_countries):
+    return manage_highlighted_countries(selected_countries)
+
+@callback(
     [
         Output("collapse-years-button", "label"),
         Output({"type": "area", "index": "AIO_AREA"}, "figure"),
@@ -388,7 +397,7 @@ def set_active_nav_button(_, buttons_id):
         Input("country-filter", "value"),
         Input("country-group", "value"),
         Input("show-average-checkbox", "value"),
-        Input("highlighted_country", "value"),
+        Input("highlighted_countries", "value"),
 
     ],
         State({"type": "area_types", "index": "AIO_AREA"}, "value"),
@@ -401,7 +410,7 @@ def apply_aio_area_figure(
     countries,
     country_group,
     average_line,
-    highlighted_country,
+    highlighted_countries,
     selected_type,
 ):
     return aio_area_figure(
@@ -411,6 +420,6 @@ def apply_aio_area_figure(
         countries,
         country_group,
         average_line,
-        highlighted_country,
+        highlighted_countries,
         selected_type,
     )
