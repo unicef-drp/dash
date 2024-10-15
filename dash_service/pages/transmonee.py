@@ -1713,7 +1713,7 @@ def get_base_layout(**kwargs):
                                                             html.Div(
                                                                     [
                                                                         html.P(
-                                                                            "Source: ",
+                                                                            "Source:  ",
                                                                             style={
                                                                                 "display": "inline-block",
                                                                             },
@@ -2888,7 +2888,7 @@ def aio_area_figure(
                 html.Div(
                     [
                         html.P(
-                            "Source: ",
+                            "Source:  ",
                             style={
                                 "display": "inline-block",
                             },
@@ -2969,7 +2969,7 @@ def aio_area_figure(
                     html.Div(
                         [
                             html.P(
-                                "Source: ",
+                                "Source:  ",
                                 style={
                                     "display": "inline-block",
                                 },
@@ -3025,7 +3025,7 @@ def aio_area_figure(
                 html.Div(
                     [
                         html.P(
-                            "Source: ",
+                            "Source:  ",
                             style={
                                 "display": "inline-block",
                             },
@@ -3345,7 +3345,7 @@ def aio_area_figure(
     fig_data = data[data['OBS_VALUE'] != 0] if fig_type == "bar" and base_indicator != 'PP_SG_NHR_STATUS' else data
 
     if fig_type == "line":
-        if "all_values" not in highlighted_countries:
+        if highlighted_countries and "all_values" not in highlighted_countries:
         # Set lines for all other countries to grey
             options["color_discrete_map"] = {country: "#D3D3D3" for country in data['Country_name'].unique()}
             fig_data = fig_data[~fig_data['Country_name'].isin(highlighted_countries)]
@@ -3385,7 +3385,7 @@ def aio_area_figure(
         if isinstance(highlighted_countries, str):
             highlighted_countries = [highlighted_countries]
 
-        if "all_values" not in highlighted_countries:
+        if highlighted_countries and "all_values" not in highlighted_countries:
 
             # Set legend visibility for non-highlighted countries to False
             for trace in fig.data:
@@ -3521,7 +3521,7 @@ def aio_area_figure(
             html.Div(
                 [
                     html.P(
-                        "Source: ",
+                        "Source:  ",
                         style={
                             "display": "inline-block",
                         },
