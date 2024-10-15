@@ -352,6 +352,70 @@ unicef_country_prog = [
     "Uzbekistan",
 ]
 
+central_asia = [
+    "Kazakhstan",
+    "Kyrgyzstan",
+    "Tajikistan",
+    "Turkmenistan",
+    "Uzbekistan",
+]
+
+western_europe = [
+    "Andorra",
+    "Austria",
+    "Belgium",
+    "Cyprus",
+    "Czech Republic",
+    "Denmark",
+    "Estonia",
+    "Finland",
+    "France",
+    "Germany",
+    "Greece",
+    "Iceland",
+    "Ireland",
+    "Italy",
+    "Latvia",
+    "Liechtenstein",
+    "Lithuania",
+    "Luxembourg",
+    "Malta",
+    "Monaco",
+    "Netherlands",
+    "Norway",
+    "Portugal",
+    "San Marino",
+    "Spain",
+    "Sweden",
+    "Switzerland",
+    "United Kingdom",
+]
+
+eastern_europe = [
+    "Albania",
+    "Armenia",
+    "Azerbaijan",
+    "Belarus",
+    "Bosnia and Herzegovina",
+    "Bulgaria",
+    "Croatia",
+    "Georgia",
+    "Hungary",
+    "Kosovo (UNSCR 1244)",
+    "Montenegro",
+    "North Macedonia",
+    "Poland",
+    "Republic of Moldova",
+    "Romania",
+    "Russian Federation",
+    "Serbia",
+    "Slovakia",
+    "Slovenia",
+    "Türkiye",
+    "Ukraine",
+]
+
+
 eu_countries = [
     "Austria",
     "Belgium",
@@ -666,6 +730,12 @@ def update_country_dropdown(country_group):
             {"label": country, "value": country}
             for country in eu_countries + efta_countries
         ]
+    elif country_group == "central_asia":
+        options = [{"label": country, "value": country} for country in central_asia]
+    elif country_group == "eastern_europe":
+        options = [{"label": country, "value": country} for country in eastern_europe]
+    elif country_group == "western_europe":
+        options = [{"label": country, "value": country} for country in western_europe]
     else:
         options = [{"label": country, "value": country} for country in all_countries]
 
@@ -1484,6 +1554,9 @@ def get_base_layout(**kwargs):
                                                             {"label": "EU countries", "value": "eu"},
                                                             {"label": "EFTA countries", "value": "efta"},
                                                             {"label": "EU + EFTA countries", "value": "eu + efta"},
+                                                            {"label": "Central Asian countries", "value": "central_asia"},
+                                                            {"label": "Eastern European countries", "value": "eastern_europe"},
+                                                            {"label": "Western European countries", "value": "western_europe"},
                                                         ],
                                                         value="all",
                                                         placeholder="Select country group",
@@ -2580,6 +2653,12 @@ def get_filters(years_slider, countries, country_group):
             countries = efta_countries
         elif country_group == "eu + efta":
             countries = eu_countries + efta_countries
+        elif country_group == "central_asia":
+            countries = central_asia
+        elif country_group == "eastern_europe":
+            countries = eastern_europe
+        elif country_group == "western_europe":
+            countries = western_europe
         else:
             countries = all_countries
 
