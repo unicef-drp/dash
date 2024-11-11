@@ -32,7 +32,8 @@
     justify-content: center;
     align-items: center;
     margin-top: 5px;
-    max-width: 350px;
+    max-width: 220px;
+    min-height: 60px;
 }
 
 .theme_buttons .btn-crg-sub.focus,
@@ -100,7 +101,8 @@
     justify-content: center;
     align-items: center;
     margin-top: 5px;
-    max-width: 400px;
+    max-width: 270px;
+    min-height: 60px;
 }
 
 .theme_buttons .btn-han-sub.focus,
@@ -233,7 +235,7 @@
     justify-content: center;
     align-items: center;
     margin-top: 5px;
-    max-width: 350px;
+    max-width: 300px;
 }
 
 .theme_buttons .btn-edu-sub.focus,
@@ -299,7 +301,7 @@
     justify-content: center;
     align-items: center;
     margin-top: 5px;
-    max-width: 350px;
+    max-width: 220px;
 }
 
 .theme_buttons .btn-chp-sub.focus,
@@ -433,7 +435,7 @@
     justify-content: center;
     align-items: center;
     margin-top: 5px;
-    max-width: 350px;
+    max-width: 220px;
 }
 
 .theme_buttons .btn-cci-sub.focus,
@@ -512,7 +514,7 @@
     border-color: #374EA2 !important;
     border-width: 2px !important;
     display: block;
-    width: 350px;
+    width: 250px;
 }
 
 .nav-btn.focus,
