@@ -1402,13 +1402,21 @@ def get_base_layout(**kwargs):
                             dbc.Row(
                                 dbc.Col(
                                     html.Div(
-                                        [
-                                            dbc.ButtonGroup(
-                                                id="themes",
-                                                style={"align-self": "center", "flex-wrap": "wrap"}
-                                            ),
-                                        ],
-                                        style={"display": "flex", "justify-content": "center", "align-items": "center", "flex-wrap": "wrap"}
+                                        dbc.ButtonGroup(
+                                            # Your buttons go here
+                                            id="themes",
+                                            style={
+                                                "align-self": "center",
+                                                "flex-wrap": "wrap",
+                                                "justify-content": "center",
+                                            }
+                                        ),
+                                        style={
+                                            "display": "flex",
+                                            "justify-content": "center",
+                                            "align-items": "center",
+                                            "flex-wrap": "wrap"
+                                        }
                                     ),
                                     width="auto",
                                 ),
@@ -1416,8 +1424,11 @@ def get_base_layout(**kwargs):
                                 className="my-2 theme_buttons",
                                 justify="center",
                                 align="center",
-                                style={"verticalAlign": "center", "display": "flex"}
-                            ),
+                                style={
+                                    "verticalAlign": "center",
+                                    "display": "flex"
+                                }
+                            )
                         ],
                         id = 'crm_framework_view_div',
                         style={"margin-bottom": "15px"}
@@ -1590,7 +1601,7 @@ def get_base_layout(**kwargs):
                                                             "type": "area_types",
                                                             "index": "AIO_AREA",
                                                         },
-                                                        className="custom-control-input-crg force-inline-control align-middle",
+                                                        className="custom-control-input-crg no-inline-control align-middle",
                                                         inline=True,
                                                     ),
                                                 ]),                                                
@@ -1811,7 +1822,7 @@ def get_base_layout(**kwargs):
                                                                 },
                                                                 ),  
                                                         ],
-                                                        width=12, md=4
+                                                        width=12, md=3
                                                         ),
                                                         dbc.Col([
                                                                 html.Div(
@@ -1957,7 +1968,7 @@ def get_base_layout(**kwargs):
                                                                 ),                                                                                                                                                                                                                        
                                                             ],
                                                         style={"display":"flex", "justifyContent":"center"},
-                                                        width=12, md=3
+                                                        width=12, md=4
                                                         ),
                                                         dbc.Col(
                                                             [
@@ -2101,10 +2112,10 @@ def make_card(
             [
                 html.Span(
                     indicator_header,
-                    className="fs-1 w-bold",
                     style={
                         "textAlign": "center",
                         "color": domain_colour,
+                        "font-size": "30px",
                     },
                 ),
                 html.H4(suffix, className="card-title"),

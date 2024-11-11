@@ -40,6 +40,13 @@
     /* Space between rows when wrapped */
 }
 
+.no-inline-control .form-check {
+    margin-right: 10px;
+    /* Adjust spacing between radio items */
+    margin-bottom: 5px;
+    /* Space between rows when wrapped */
+}
+
 /* Smaller screens */
 @media screen and (max-width: 768px) {
     .force-inline-control {
@@ -336,10 +343,6 @@ div.dt-table-container__row.dt-table-container__row-1 {
         overflow-x: scroll;
         /* Ensures horizontal scrolling */
     }
-}
-
-.crc-accordion .collapse.show {
-    display: block;
 }
 
 .has-bootstrap .tm-link {
