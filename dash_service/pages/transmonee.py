@@ -603,7 +603,7 @@ domain_classes = {
 }
 
 # Read the CRC Excel file and skip the first row (header is in the second row)
-crc_file_path = f"{pathlib.Path(__file__).parent.parent.absolute()}/static/Full CRC database_28_08_24.xlsx"
+crc_file_path = f"{pathlib.Path(__file__).parent.parent.absolute()}/static/Full CRC database_17_11_2024.xlsx"
 CRC_df = pd.read_excel(
     crc_file_path,
     sheet_name="Full CRC database ECA",
