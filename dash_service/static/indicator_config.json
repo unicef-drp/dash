@@ -6895,6 +6895,26 @@
                 "_T"
             ]
         },
+        "AGE": {
+            "AGE": [
+                "Y0T24",
+                "Y25T34",
+                "Y25T39",
+                "Y35T49",
+                "Y40T59",
+                "Y_GE50",
+                "Y_GE60"
+            ],
+            "RESIDENCE": [
+                "_T"
+            ],
+            "SEX": [
+                "_T"
+            ],
+            "WEALTH_QUINTILE": [
+                "_T"
+            ]
+        },
         "TOTAL": {
             "AGE": [
                 "_T"
@@ -6907,6 +6927,39 @@
             ],
             "WEALTH_QUINTILE": [
                 "_T"
+            ]
+        },
+        "RESIDENCE": {
+            "AGE": [
+                "_T"
+            ],
+            "RESIDENCE": [
+                "R",
+                "U"
+            ],
+            "SEX": [
+                "_T"
+            ],
+            "WEALTH_QUINTILE": [
+                "_T"
+            ]
+        },
+        "WEALTH_QUINTILE": {
+            "AGE": [
+                "_T"
+            ],
+            "RESIDENCE": [
+                "_T"
+            ],
+            "SEX": [
+                "_T"
+            ],
+            "WEALTH_QUINTILE": [
+                "Q1",
+                "Q2",
+                "Q3",
+                "Q4",
+                "Q5"
             ]
         }
     },
@@ -6981,7 +7034,8 @@
     "PT_CHLD_5-17_LBR_ECON": {
         "SEX": {
             "AGE": [
-                "_T"
+                "Y5T14",
+                "Y5T17"
             ],
             "SEX": [
                 "F",
@@ -6990,7 +7044,8 @@
         },
         "TOTAL": {
             "AGE": [
-                "_T"
+                "Y5T14",
+                "Y5T17"
             ],
             "SEX": [
                 "_T"
@@ -8140,15 +8195,67 @@
         }
     },
     "PT_F_15-19_MRD": {
-        "TOTAL": {
+        "AGE": {
             "AGE": [
-                "_T"
+                "Y15T17",
+                "Y18T19",
+                "Y15T19"
             ],
             "RESIDENCE": [
                 "_T"
             ],
+            "SEX": [
+                "_T"
+            ],
             "WEALTH_QUINTILE": [
                 "_T"
+            ]
+        },
+        "RESIDENCE": {
+            "AGE": [
+                "Y15T19"
+            ],
+            "RESIDENCE": [
+                "R",
+                "U"
+            ],
+            "SEX": [
+                "_T"
+            ],
+            "WEALTH_QUINTILE": [
+                "_T"
+            ]
+        },
+        "TOTAL": {
+            "AGE": [
+                "Y15T19"
+            ],
+            "RESIDENCE": [
+                "_T"
+            ],
+            "SEX": [
+                "_T"
+            ],
+            "WEALTH_QUINTILE": [
+                "_T"
+            ]
+        },
+        "WEALTH_QUINTILE": {
+            "AGE": [
+                "Y15T19"
+            ],
+            "RESIDENCE": [
+                "_T"
+            ],
+            "SEX": [
+                "_T"
+            ],
+            "WEALTH_QUINTILE": [
+                "Q1",
+                "Q2",
+                "Q3",
+                "Q4",
+                "Q5"
             ]
         }
     },
@@ -8253,10 +8360,50 @@
             ]
         }
     },
-    "PT_F_GE15_PS-SX-EM_V_PTNR_12MNTH": {
+    "PT_F_PS-SX_V_PTNR_12MNTH": {
         "TOTAL": {
             "AGE": [
+                "Y15T49"
+            ],
+            "RESIDENCE": [
                 "_T"
+            ],
+            "WEALTH_QUINTILE": [
+                "_T"
+            ]
+        },
+        "RESIDENCE": {
+            "AGE": [
+                "Y15T49"
+            ],
+            "RESIDENCE": [
+                "R",
+                "U"
+            ],
+            "WEALTH_QUINTILE": [
+                "_T"
+            ]
+        },
+        "WEALTH_QUINTILE": {
+            "AGE": [
+                "Y15T49"
+            ],
+            "RESIDENCE": [
+                "_T"
+            ],
+            "WEALTH_QUINTILE": [
+                "Q1",
+                "Q2",
+                "Q3",
+                "Q4",
+                "Q5"
+            ]
+        },
+        "AGE": {
+            "AGE": [
+                "Y15T19",
+                "Y15T24",
+                "Y15T49"
             ],
             "RESIDENCE": [
                 "_T"
@@ -8267,12 +8414,51 @@
         }
     },
     "PT_M_15-19_MRD": {
-        "TOTAL": {
+        "RESIDENCE": {
+            "AGE": [
+                "Y15T19"
+            ],
             "RESIDENCE": [
+                "R",
+                "U"
+            ],
+            "SEX": [
                 "_T"
             ],
             "WEALTH_QUINTILE": [
                 "_T"
+            ]
+        },
+        "TOTAL": {
+            "AGE": [
+                "Y15T19"
+            ],
+            "RESIDENCE": [
+                "_T"
+            ],
+            "SEX": [
+                "_T"
+            ],
+            "WEALTH_QUINTILE": [
+                "_T"
+            ]
+        },
+        "WEALTH_QUINTILE": {
+            "AGE": [
+                "Y15T19"
+            ],
+            "RESIDENCE": [
+                "_T"
+            ],
+            "SEX": [
+                "_T"
+            ],
+            "WEALTH_QUINTILE": [
+                "Q1",
+                "Q2",
+                "Q3",
+                "Q4",
+                "Q5"
             ]
         }
     },
