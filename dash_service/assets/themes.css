@@ -467,6 +467,13 @@
     color: white !important;
 }
 
+.crc-accordion .collapse {
+    display: none;
+}
+.crc-accordion .collapse.show {
+    display: block;
+}
+
 /* Blue header style for enabling environment accordion item  */
 .crc-accordion.accordion-item:nth-child(1) .accordion-button {
     color: #4e79a7;
