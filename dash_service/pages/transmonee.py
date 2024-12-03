@@ -3400,7 +3400,7 @@ def aio_area_figure(
         status_mapping = {0: "No status", 1: "Status B", 2: "Status A"}
         # Map the OBS_VALUE to the corresponding status
         data['Status'] = data['OBS_VALUE'].map(status_mapping)
-        graph_info = "Status A: compliant with Paris Principles, Status B: parially compliant with Paris Principles."
+        graph_info = "Status A: compliant with Paris Principles, Status B: partially compliant with Paris Principles."
 
     # rename figure_type 'map': 'choropleth' (plotly express)
     if fig_type == "map":
