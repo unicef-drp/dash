@@ -525,7 +525,7 @@ data_sources = {
     "UIS": "UNESCO Institute for Statistics",
     "BDDS_UIS": "UNESCO Institute for Statistics",
     "NEW_UIS": "UNESCO Institute for Statistics",
-    "BDDS_UIS": "UNESCO Institute for Statistics",
+    "HIV_EXCEL": "UNAIDS 2024 estimates",
     "UNDP": "United Nations Development Programme",
     "TMEE": "Transformative Monitoring for Enhanced Equity (TransMonEE)",
 }
@@ -1289,7 +1289,7 @@ def get_base_layout(**kwargs):
                                             "display": "inline-block",
                                             "textAlign": "center",
                                             "position": "relative",
-                                            "color":"#ffc685",
+                                            "color":"white",
                                             "font-size": "16px",
                                             "font-weight": "bold",
                                             "text-decoration":"underline",
@@ -2118,7 +2118,14 @@ def make_card(
                         "font-size": "30px",
                     },
                 ),
-                html.H4(suffix, className="card-title"),
+                html.P(
+                    suffix,
+                    style={
+                        "font-size": "20px",
+                        "marginTop": "0px",
+                        "marginBottom": "0px"
+                    },
+                ),
             ],
             style={
                 "textAlign": "center",
@@ -3364,7 +3371,7 @@ def aio_area_figure(
                                 target="_blank",
                                 className= "indicator-link")    
 
-    if base_indicator in ['HVA_EPI_LHIV_0-19','HVA_EPI_INF_RT_0-14','HVA_EPI_DTH_ANN_0-19','HVA_PMTCT_MTCT','HVA_PMTCT_STAT_CVG','HVA_PED_ART_CVG']:
+    if base_indicator in ['HVA_EPI_LHIV_0-19','HVA_EPI_INF_RT_0-14','HVA_EPI_INF_RT','HVA_EPI_DTH_ANN_0-19','HVA_PMTCT_MTCT','HVA_PMTCT_STAT_CVG','HVA_PED_ART_CVG', 'HVA_EPI_DTH_RT_0-14', 'HVA_EPI_DTH_RT_15-19']:
         indicator_link =  html.A(
                                 "Click here to explore more UNICEF HIV estimates for children.",
                                 href="https://data.unicef.org/resources/hiv-estimates-for-children-dashboard/",

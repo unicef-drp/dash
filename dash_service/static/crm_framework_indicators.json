@@ -214,8 +214,8 @@
             "code": "DTA",
             "indicators": [
                 {
-                    "Indicator Name": "Statistical capacity score",
-                    "Code": "CR_IQ_SCI_OVRL"
+                    "Indicator Name": "Statistical Performance Indicators (SPI): Overall Score",
+                    "Code": "CR_IQ_SPI_OVRL"
                 },
                 {
                     "Indicator Name": "Countries that have conducted at least one population and housing census in the last 10 years - SDG 17.19.2",
