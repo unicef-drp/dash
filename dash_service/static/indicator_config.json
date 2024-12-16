@@ -4740,6 +4740,69 @@
             ]
         }
     },
+    "HVA_EPI_INF_RT": {
+        "DTYPE": "str",
+        "NOMINAL": false,
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ],
+            "AGE": [
+                "Y15T19"
+            ]
+        },
+        "TOTAL": {
+            "SEX": [
+                "_T"
+            ],
+            "AGE": [
+                "Y15T19"
+            ]
+        }
+    },
+    "HVA_EPI_DTH_RT_0-14": {
+        "DTYPE": "str",
+        "NOMINAL": false,
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ],
+            "AGE": [
+                "Y0T14"
+            ]
+        },
+        "TOTAL": {
+            "SEX": [
+                "_T"
+            ],
+            "AGE": [
+                "Y0T14"
+            ]
+        }
+    },
+    "HVA_EPI_DTH_RT_15-19": {
+        "DTYPE": "str",
+        "NOMINAL": false,
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ],
+            "AGE": [
+                "Y15T19"
+            ]
+        },
+        "TOTAL": {
+            "SEX": [
+                "_T"
+            ],
+            "AGE": [
+                "Y15T19"
+            ]
+        }
+    },
     "HVA_PMTCT_STAT_CVG": {
         "DTYPE": "str",
         "NOMINAL": false
