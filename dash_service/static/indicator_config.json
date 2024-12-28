@@ -7895,18 +7895,6 @@
         }
     },
     "PT_CHLD_INRESIDENTIAL": {
-        "AGE": {
-            "AGE": [
-                "_T",
-                "Y0T2",
-                "Y3T6",
-                "Y7T17",
-                "Y_GE18"
-            ],
-            "SEX": [
-                "_T"
-            ]
-        },
         "SEX": {
             "AGE": [
                 "_T"
