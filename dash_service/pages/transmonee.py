@@ -530,57 +530,8 @@ data_sources = {
     "TMEE": "Transformative Monitoring for Enhanced Equity (TransMonEE)",
 }
 
-'''
-dict_topics_subtopics = {
-    "Child Rights Landscape and Governance": [
-        "Demographics",
-        "Political economy",
-        "Migration and displacement",
-        "Access to Justice",
-        "Data on children",
-        "Public spending on children",
-        "Child rights governance",
-    ],
-    "Health and Nutrition": [
-        "Health system",
-        "Maternal, newborn and child health",
-        "Immunization",
-        "Nutrition",
-        "Adolescent physical, mental, and reproductive health",
-        "HIV/AIDS",
-        "Water, sanitation and hygiene",
-    ],
-    "Education, Leisure and Culture": [
-        "Education access and participation",
-        "Learning quality and skills",
-        "Education system",
-    ],
-    "Family Environment and Protection": [
-        "Violence against children and women",
-        "Children without parental care",
-        "Justice for children",
-        "Child marriage and other harmful practices",
-        "Child labour and other forms of exploitation",
-    ],
-    "Participation and Civil Rights": [
-        "Birth registration and identity",
-        "Information, internet and protection of privacy",
-        "Leisure and culture",
-    ],
-    "Poverty and Adequate Standard of Living": [
-        "Child poverty and material deprivation",
-        "Social protection system",
-    ],
-    "Cross-Cutting": [
-        "Gender",
-        "Disability",
-        "Early childhood development",
-        "Adolescents",
-        "Environment and climate change",
-        "Disaster, conflict and displacement",
-    ],
-}
-''' 
+rfr_indicators = ['PV_AROPRT','PV_SDG_SI_POV_NAHC','IM_DTP3', 'NT_BF_EIBF', 'EDU_NER_L02', 'EDU_SDG_STU_L2_GLAST_REA', 'EDU_SDG_STU_L2_GLAST_MAT', 'EDU_SDG_YOUTH_NEET', 'PT_CHLD_INRESIDENTIAL',
+                  'PT_CHLD_ALLFAMILY_PROP','ECD_CHLD_24-59M_ADLT_SRC']
 
 domain_pages = {
     "Child Rights Landscape and Governance": "child-rights",

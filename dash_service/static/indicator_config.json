@@ -1902,6 +1902,19 @@
             ]
         }
     },
+    "EDU_NER_L02": {
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ]
+        },
+        "TOTAL": {
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
     "EDUNF_NERA_L1_UNDER1": {
         "SEX": {
             "SEX": [

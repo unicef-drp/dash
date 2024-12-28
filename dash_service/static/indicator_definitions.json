@@ -348,6 +348,7 @@
     "EDUNF_NARA_L1_UNDER1": "Percentage of children aged one year before the official primary entry age, who participate in one or more organized learning programme, including programmes which offer a combination of education and care. Participants in early childhood education and in primary education are both included. The target age varies by country depending on the official age for entry to primary education.",
     "EDUNF_NERA_L1": "Adjusted net enrolment rate: primary education (%)",
     "EDUNF_NERA_L2": "Adjusted net enrolment rate: lower secondary (%)",
+    "EDU_NER_L02": "Enrolment in pre-primary education of the official age group for pre-primary education expressed as a percentage of the population of the official age for pre-primary education.",
     "ED_ANAR_L1": "Percentage of students of the official primary school age group who attended primary education or higher at any time during the reference academic year",
     "ED_ANAR_L2": "Percentage of children of lower secondary school age attending lower secondary school or higher",
     "ED_ANAR_L3": "Percentage of children of upper secondary school age attending upper secondary school or higher",
