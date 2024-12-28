@@ -81,10 +81,11 @@ def toggle_collapse(n, is_open):
     Output("indicator-dropdown", "options"),
     Output("indicator-dropdown", "value"),
     Input("crm-dropdown", "value"),
-    Input("sdg-toggle", "on")
+    Input("sdg-toggle", "on"),
+    Input("rfr-toggle", "on")
 )
-def apply_update_indicator_dropdown(indicator_filter, sdg_toggle):
-    return update_indicator_dropdown(indicator_filter, sdg_toggle)
+def apply_update_indicator_dropdown(indicator_filter, sdg_toggle, rfr_toggle):
+    return update_indicator_dropdown(indicator_filter, sdg_toggle, rfr_toggle)
 
 
 @callback(
@@ -214,33 +215,37 @@ def show_average_option(compare, selected_type):
 
 @callback(
     [
-        Output('search_by_indicator_div', 'style'),
+        Output('select_indicator_div', 'style'),
+        Output('filter_indicator_div', 'style'),
         Output('crm_framework_view_div', 'style'),
         Output('indicator_buttons_div', 'style')
     ],
     [Input({'type': "nav_buttons", 'index': "crm_view"}, 'active')],
     [
-        State('search_by_indicator_div', 'style'),
+        State('select_indicator_div', 'style'),
+        State('filter_indicator_div', 'style'),
         State('crm_framework_view_div', 'style'),
         State('indicator_buttons_div', 'style')
     ]
 )
-def toggle_divs_visibility(crm_view_active, style_search_by_indicator, style_crm_framework_view, style_indicator_buttons):
+def toggle_divs_visibility(crm_view_active, style_select_indicator, style_filter_indicator,  style_crm_framework_view, style_indicator_buttons):
     # Function to return default style or empty dict if None
     default_style = lambda style: {k: v for k, v in (style or {}).items() if k != 'display'}
 
     if crm_view_active:
-        # Hide 'search_by_indicator_div', show other two divs
-        style_search_by_indicator_updated = {**default_style(style_search_by_indicator), 'display': 'none'}
+        # Hide 'indicator_div's, show other two divs
+        style_select_indicator_updated = {**default_style(style_select_indicator), 'display': 'none'}
+        style_filter_indicator_updated = {**default_style(style_filter_indicator), 'display': 'none'}
         style_crm_framework_view_updated = default_style(style_crm_framework_view)
         style_indicator_buttons_updated = default_style(style_indicator_buttons)
     else:
-        # Show 'search_by_indicator_div', hide other two divs
-        style_search_by_indicator_updated = default_style(style_search_by_indicator)
+        # Show 'indicator_div's, hide other two divs
+        style_select_indicator_updated = default_style(style_select_indicator)
+        style_filter_indicator_updated = default_style(style_filter_indicator)
         style_crm_framework_view_updated = {**default_style(style_crm_framework_view), 'display': 'none'}
         style_indicator_buttons_updated = {**default_style(style_indicator_buttons), 'display': 'none'}
 
-    return style_search_by_indicator_updated, style_crm_framework_view_updated, style_indicator_buttons_updated
+    return style_select_indicator_updated, style_filter_indicator_updated, style_crm_framework_view_updated, style_indicator_buttons_updated
 
     
 @callback(

@@ -1902,6 +1902,19 @@
             ]
         }
     },
+    "EDU_NER_L02": {
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ]
+        },
+        "TOTAL": {
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
     "EDUNF_NERA_L1_UNDER1": {
         "SEX": {
             "SEX": [
@@ -7882,18 +7895,6 @@
         }
     },
     "PT_CHLD_INRESIDENTIAL": {
-        "AGE": {
-            "AGE": [
-                "_T",
-                "Y0T2",
-                "Y3T6",
-                "Y7T17",
-                "Y_GE18"
-            ],
-            "SEX": [
-                "_T"
-            ]
-        },
         "SEX": {
             "AGE": [
                 "_T"
