@@ -78,7 +78,7 @@ help_text = html.Div([
             html.Strong("'Explore using the ECA Child Rights Monitoring Framework'"),
             " allows you to select a domain and view indicators within each of its sub-domains, providing a structured approach aligned with child rights priorities. Alternatively, ",
             html.Strong("'Search by Indicator'"),
-            " lets you select specific indicators from a dropdown menu and filter by SDG indicators and/or by specific domains or sub-domains."
+            " lets you select specific indicators from a dropdown menu and filter by SDG indicators, by UNICEF ECA Regional Flagship Results indicators, or by specific domains or sub-domains of the ECA CRM Framework."
         ]),
         html.P([
             html.Strong("CRC Recommendations: ", style={'color': '#1CABE2'}),
@@ -1392,128 +1392,6 @@ def get_base_layout(**kwargs):
                         style={"margin-bottom": "15px"}
                     ),
                     html.Br(),
-                    # dbc.Row(
-                    #     [
-                    #         # Show only ECA Regional Flagship Indicators Toggle
-                    #         dbc.Col(
-                    #             [
-                    #                 html.Div(
-                    #                     [
-                    #                         daq.BooleanSwitch(
-                    #                             on=False,
-                    #                             id="eca-flagship-toggle",
-                    #                             label="Show only ECA RFR Indicators",
-                    #                             labelPosition="right",
-                    #                             className="boolean-switch",
-                    #                         ),
-                    #                         dbc.Popover(
-                    #                             [
-                    #                                 dbc.PopoverBody(
-                    #                                     "Filter list to show only ECA Regional Flagship indicators.",
-                    #                                     id="eca-flagship-popover",
-                    #                                 )
-                    #                             ],
-                    #                             target="eca-flagship-toggle",
-                    #                             trigger="hover",
-                    #                             placement="top",
-                    #                             style={
-                    #                                 "overflowY": "auto",
-                    #                                 "whiteSpace": "pre-wrap",
-                    #                                 "opacity": 1,
-                    #                                 "minWidth": "200px"
-                    #                             },
-                    #                             delay={
-                    #                                 "hide": 0,
-                    #                                 "show": 0,
-                    #                             },
-                    #                         ),
-                    #                     ],
-                    #                     style={"display": "flex", "align-items": "center", "justify-content": "right"}  # Flexbox layout
-                    #                 )
-                    #             ],
-                    #             width=12, sm=12, md=2,
-                    #         ),
-                    #         dbc.Col(
-                    #             [
-                    #                 # Container for Toggle and Image
-                    #                 html.Div(
-                    #                     [
-                    #                         daq.BooleanSwitch(
-                    #                             on=False,
-                    #                             id="sdg-toggle",
-                    #                             labelPosition="right",
-                    #                             className="boolean-switch",
-                    #                         ),
-                    #                         html.Img(
-                    #                             id="sdg-icon",
-                    #                             src=sdg_icon_path,
-                    #                             style={"align-self": "center", "margin-top":"2.5em", "height":"50px"}  # Added for vertical alignment
-                    #                         ),
-                    #                         dbc.Popover(
-                    #                             [
-                    #                                 dbc.PopoverBody(
-                    #                                     "Filter list to show only SDG indicators.",
-                    #                                     id="sdg-popover",
-                    #                                 )
-                    #                             ],
-                    #                             target="sdg-icon",
-                    #                             trigger="hover",
-                    #                             placement="top",
-                    #                             style={
-                    #                                 "overflowY": "auto",
-                    #                                 "whiteSpace": "pre-wrap",
-                    #                                 "opacity": 1,
-                    #                                 "minWidth":"200px"
-                    #                             },
-                    #                             delay={
-                    #                                 "hide": 0,
-                    #                                 "show": 0,
-                    #                             },
-                    #                         ),
-                    #                     ],
-                    #                     style={"display": "flex", "align-items": "center", "justify-content": "right"}  # Flexbox layout
-                    #                 )
-                    #             ],
-                    #             width=12, sm=12, md=2,
-                    #         ),
-                    #         dbc.Col(
-                    #             [
-                    #                 html.P("Filter indicators by ECA CRM Framework (optional)", style={"margin-bottom": "10px"}),
-                    #                 dcc.Dropdown(
-                    #                     id="crm-dropdown",
-                    #                     options=all_crm_dropdown_options,
-                    #                     value="all",  # Default value
-                    #                     placeholder="Select a domain or sub-domain"
-                    #                 ),
-                    #             ],
-                    #             width=12, sm=12, md=4, 
-                    #         ),
-                    #         dbc.Col(
-                    #             [
-                    #                 html.P("Select indicator", style={"margin-bottom": "10px"}),
-                    #                 dcc.Dropdown(
-                    #                     id="indicator-dropdown",
-                    #                     options=[
-                    #                         {
-                    #                             "label": indicator["Indicator Name"],
-                    #                             "value": indicator["Code"],
-                    #                         }
-                    #                         for sublist in [sd["indicators"] for sd in data_dict["subdomains"].values()]
-                    #                         for indicator in sublist
-                    #                     ],
-                    #                     value=None,  # No default value, showing all options
-                    #                     placeholder="Select an indicator",
-                    #                     optionHeight=55,
-                    #                     clearable=True,
-                    #                     className="crm_dropdown",
-                    #                 ),
-                    #             ],
-                    #             width=12, sm=12, md=6,
-                    #         ),
-                    #     ],
-                    #     id = "search_by_indicator_div",
-                    #     style={"margin-bottom": "15px"}
-                    # ),
                     # Row for optional filters
                     dbc.Row(
                         [
@@ -1570,6 +1448,7 @@ def get_base_layout(**kwargs):
                                     [            
                                         html.Label(
                                             "ECA Regional Flagship Indicators",
+                                            id="eca-flagship-toggle",
                                             htmlFor="eca-flagship-toggle",
                                             style={"white-space": "nowrap", "color": "#374da2"},
                                         ),
@@ -1581,7 +1460,7 @@ def get_base_layout(**kwargs):
                                         dbc.Popover(
                                             [
                                                 dbc.PopoverBody(
-                                                    "Filter list to show only ECA Regional Flagship Results indicators.",
+                                                    "Filter list to show only UNICEF's Regional Flagship Results indicators for Europe and Central Asia.",
                                                     id="eca-flagship-popover",
                                                 )
                                             ],
