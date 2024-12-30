@@ -2803,6 +2803,34 @@ graphs_dict = {
         ),
         "layout_options": dict(margin={"r": 0, "t": 80, "l": 2, "b": 5}),
     },
+    "scatter": {
+        "options": dict(
+            x="OBS_VALUE_xaxis",  # Values for secondary indicator
+            y="OBS_VALUE",  # values for main indicator
+            color="OBS_VALUE",  # Color points by values of y-axis
+            hover_name="Country_name",  # Information shown when hovering over a point
+            height=500,
+        ),
+        "trace_options": dict(
+            mode="markers", 
+            marker=dict(
+                size=12,  
+                opacity=0.7,  # Set the opacity of the markers
+                line=dict(
+                    width=2,  
+                    color='grey', 
+                ),
+            ),
+        ),
+        "layout_options": dict(
+            xaxis_title="x-axis indicator",  # Replace with the actual title for indicator_1
+            yaxis_title="y-axis indicator",  # Replace with the actual title for indicator_2
+            margin_t=40,
+            margin_b=40,
+            margin_l=40,
+            margin_r=40,
+        ),
+    },
 }
 
 def get_base_indicator(indicator):
@@ -2992,7 +3020,7 @@ def breakdown_options(indicator, fig_type):
     # extract indicator code if it has a cross-cutting suffix
     indicator = get_base_indicator(indicator)
 
-    options = [{"label": "Total", "value": "TOTAL"}]
+    options = []
     # lbassil: change the disaggregation to use the names of the dimensions instead of the codes
     all_breakdowns = [
         {"label": "Sex", "value": "SEX"},
@@ -3003,6 +3031,7 @@ def breakdown_options(indicator, fig_type):
     dimensions = indicators_config.get(indicator, {}).keys()
     # disaggregate only bar charts
     if dimensions and fig_type == "bar":
+        options = [{"label": "Total", "value": "TOTAL"}]
         for breakdown in all_breakdowns:
             if breakdown["value"] in dimensions:
                 options.append(breakdown)
@@ -3034,6 +3063,10 @@ def fig_options(indicator):
             {"label": "Trend data", "value": "line"},
             {"label": "Map of data", "value": "map"},
         ]
+        # adding the additional option of scatter plot
+        if indicator == 'PV_AROPE':
+            area_types.append({"label": "Scatter plot", "value": "scatter"})
+
         if indicator == 'DM_POP_NETM':
             default_graph = "map"
         else:
@@ -3221,6 +3254,28 @@ def aio_area_figure(
             latest_data=False if fig_type == "line" else True,
         )
 
+        # Additional data request if the fig_type is scatter (for the y-axis indicator)
+        if fig_type == "scatter":
+            data_xaxis = get_data(
+                ['DM_CHLD_POP_PT'],
+                filters["years"],
+                filters["countries"],
+                compare,
+                latest_data=True,
+            )
+
+            # Add suffix to differentiate columns from x-axis data
+            data_xaxis = data_xaxis.add_suffix('_xaxis')
+
+            # Merge the two DataFrames on common columns (e.g., Country_name and TIME_PERIOD)
+            data = pd.merge(
+                data,
+                data_xaxis,
+                left_on=["Country_name"],
+                right_on=["Country_name_xaxis"],
+                how="inner"
+            )
+
         # check if the dataframe is empty meaning no data to display as per the user's selection
         if data.empty:
             return (
@@ -3337,8 +3392,16 @@ def aio_area_figure(
         None
     )
 
-    # Retrieve the y-axis title 
+    # Retrieve the y-axis and x_axis titles 
     y_axis_title = card_config.get('yaxis', '') 
+
+    ''' if fig_type == "scatter":
+        # Retrieve the card configuration for the current indicator
+        #card_config_xaxis = next(
+            (card for card in merged_page_config[domain]['SUBDOMAINS'][subdomain]['CARDS'] if card['indicator'] == 'DM_CHLD_POP_PT'),
+            None
+        )
+        x_axis_title = card_config_xaxis.get('yaxis', '') '''
 
     # Create the indicator card if configuration is available
     ind_card = (
@@ -3747,8 +3810,38 @@ def aio_area_figure(
                     )
         else:
             fig.update_layout(showlegend=True)
+            fig.add_annotation(
+                x=last_time_period + 0.2,
+                y=last_value + (last_value * 0.01),
+                text=highlighted_country,
+                showarrow=False,
+                font=dict(size=12, color="#1CABE2"),
+                xanchor="left",
+                yanchor="middle",
+                align="left"
+            )
 
     fig.update_traces(hovertemplate=hovertext)
+
+    if fig_type == "scatter":
+        # Explicitly update trace options for markers
+        fig.update_traces(
+            mode='markers',
+            marker=dict(
+                size=12,  # Increase the size of the markers
+                opacity=0.7,  # Set the opacity of the markers
+                line=dict(
+                    width=2,  # Set the width of the marker borders
+                    color='grey'  # Set the color of the marker borders to grey
+                ),
+            )
+        )
+        # Update the layout to make the plot a square, bigger, and with axes starting at zero
+        fig.update_layout(
+            plot_bgcolor='white',
+            xaxis=dict(range=[0, data['OBS_VALUE_xaxis'].max() * 1.1], showgrid=False),
+            yaxis=dict(range=[0, data['OBS_VALUE'].max() * 1.1], showgrid=False)
+            )
 
     if fig_type == "bar" and "YES_NO" in fig_data.UNIT_MEASURE.values:
         dfs = fig_data.groupby("Status").count()
