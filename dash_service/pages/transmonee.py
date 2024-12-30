@@ -78,7 +78,7 @@ help_text = html.Div([
             html.Strong("'Explore using the ECA Child Rights Monitoring Framework'"),
             " allows you to select a domain and view indicators within each of its sub-domains, providing a structured approach aligned with child rights priorities. Alternatively, ",
             html.Strong("'Search by Indicator'"),
-            " lets you select specific indicators from a dropdown menu and filter by SDG indicators and/or by specific domains or sub-domains."
+            " lets you select specific indicators from a dropdown menu and filter by SDG indicators, by UNICEF ECA Regional Flagship Results indicators, or by specific domains or sub-domains of the ECA CRM Framework."
         ]),
         html.P([
             html.Strong("CRC Recommendations: ", style={'color': '#1CABE2'}),
@@ -1406,27 +1406,6 @@ def get_base_layout(**kwargs):
                     #                             labelPosition="right",
                     #                             className="boolean-switch",
                     #                         ),
-                    #                         dbc.Popover(
-                    #                             [
-                    #                                 dbc.PopoverBody(
-                    #                                     "Filter list to show only ECA Regional Flagship indicators.",
-                    #                                     id="eca-flagship-popover",
-                    #                                 )
-                    #                             ],
-                    #                             target="eca-flagship-toggle",
-                    #                             trigger="hover",
-                    #                             placement="top",
-                    #                             style={
-                    #                                 "overflowY": "auto",
-                    #                                 "whiteSpace": "pre-wrap",
-                    #                                 "opacity": 1,
-                    #                                 "minWidth": "200px"
-                    #                             },
-                    #                             delay={
-                    #                                 "hide": 0,
-                    #                                 "show": 0,
-                    #                             },
-                    #                         ),
                     #                     ],
                     #                     style={"display": "flex", "align-items": "center", "justify-content": "right"}  # Flexbox layout
                     #                 )
@@ -1570,6 +1549,7 @@ def get_base_layout(**kwargs):
                                     [            
                                         html.Label(
                                             "ECA Regional Flagship Indicators",
+                                            id="eca-flagship-toggle",
                                             htmlFor="eca-flagship-toggle",
                                             style={"white-space": "nowrap", "color": "#374da2"},
                                         ),
@@ -1581,7 +1561,7 @@ def get_base_layout(**kwargs):
                                         dbc.Popover(
                                             [
                                                 dbc.PopoverBody(
-                                                    "Filter list to show only ECA Regional Flagship Results indicators.",
+                                                    "Filter list to show only UNICEF's Regional Flagship Results indicators for Europe and Central Asia.",
                                                     id="eca-flagship-popover",
                                                 )
                                             ],
