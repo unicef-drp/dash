@@ -1648,7 +1648,7 @@ def get_base_layout(**kwargs):
                                             ),
                                             dbc.Col(
                                                 html.Div([
-                                                    html.P("Chart type:", style={"margin-bottom": "10px", "margin-top": "5px"}),
+                                                    html.P("Chart type:", style={"margin-bottom": "10px"}),
                                                     dbc.RadioItems(
                                                         id={
                                                             "type": "area_types",
@@ -1658,7 +1658,7 @@ def get_base_layout(**kwargs):
                                                         style={"display":"inline-flex"}
                                                     ),
                                                 ],
-                                                style={"display":"inline-flex"}),                                                
+                                                style={"display":"inline-flex", "margin-top": "10px"}),                                                
                                                 width="auto",
                                                 align="start"
                                             ),
