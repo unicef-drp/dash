@@ -1649,7 +1649,7 @@ def get_base_layout(**kwargs):
                                             ),
                                             dbc.Col(
                                                 html.Div([
-                                                    html.P("Chart type:", style={"margin-bottom": "10px"}),
+                                                    html.P("Chart type:", style={"margin": "0px", "padding-bottom": "5px"}),
                                                     dbc.RadioItems(
                                                         id={
                                                             "type": "area_types",
@@ -1902,6 +1902,17 @@ def get_base_layout(**kwargs):
                                                                     "width": "95%",
                                                                     "marginTop": "15px",
                                                                 },
+                                                                ),
+                                                                dbc.Popover(
+                                                                    dbc.PopoverBody(
+                                                                        "Values are based on available data for each country, and min/max values do not take into account disaggregated data."
+                                                                    ),
+                                                                    id="indicator-popover",
+                                                                    target="indicator_card",
+                                                                    trigger="hover",
+                                                                    placement="top",
+                                                                    className="custom-popover",
+                                                                    delay={"hide": 0, "show": 0},   
                                                                 ),  
                                                         ],
                                                         width=12, md=3
@@ -2061,13 +2072,14 @@ def get_base_layout(**kwargs):
                                                                             className="download_btn custom-download-button",
                                                                         ),
                                                                         dcc.Download(id="download-csv-info"),
-                                                                        dbc.Tooltip(
-                                                                            "Click to download the data displayed in graph as a CSV file.",
+                                                                        dbc.Popover(
+                                                                            dbc.PopoverBody("Click to download the data displayed in graph as a CSV file."),
+                                                                            id="download-popover",
                                                                             target="download_btn",
                                                                             trigger="hover",
                                                                             placement="bottom",
-                                                                            className="custom-tooltip",
-                                                                            delay={"hide": 0, "show": 0},
+                                                                            className="custom-popover",
+                                                                            delay={"hide": 0, "show": 0}, 
                                                                         ),
                                                                     ],
                                                                     align="center",

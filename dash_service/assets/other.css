@@ -342,12 +342,14 @@ div.dt-table-container__row.dt-table-container__row-1 {
     white-space: pre-wrap;
 }
 
-.custom-tooltip {
-    background-color: white !important; /* Set background to white */
-    color: black !important; /* Set text color for contrast */
-    border: 1px solid #ddd; /* Optional: Add a border */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
-    padding: 10px; /* Adjust padding for better spacing */
+.custom-popover {
+    background-color: white !important;
+    color: black !important;
+    border: 1px solid #ddd;
+    /* Optional: Add a border */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    /* Optional: Add a shadow */
+    padding: 5%px;
 }
 
 /* Responsive styles for smaller screens */
