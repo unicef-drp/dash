@@ -88,7 +88,7 @@ help_text = html.Div([
         ]),
         html.P([
             html.Strong("Chart types: ", style={'color': '#1CABE2'}),
-            "Visualize data with bar charts and regional maps displaying the latest data for each country, or use line graphs to track historical trends."
+            "Visualize data with column charts and regional maps displaying the latest data for each country, use line graphs to track historical trends, or visualize relationships between two indicators with the scatter plot."
         ]),
         html.P([
             html.Strong("Filters and disaggregations: ", style={'color': '#1CABE2'}),
@@ -584,6 +584,16 @@ framework_file_path = f"{pathlib.Path(__file__).parent.parent.absolute()}/static
 # Load the crm framework data
 with open(framework_file_path, "r") as infile:
     data_dict = json.load(infile)
+
+# Show all indicators in xaxis options except those that are nominal
+xaxis_options = []
+for domain_details in merged_page_config.values():
+    for subdomain_info in domain_details['SUBDOMAINS'].values():
+        xaxis_options.extend([
+            {"label": card["name"], "value": card["indicator"]}
+            for card in subdomain_info['CARDS']
+            if 'countries' not in card.get('suffix', '').lower()  # Exclude if 'countries' is in 'suffix'
+        ])
 
 
 def get_card_popover_body(sources):
@@ -1644,8 +1654,8 @@ def get_base_layout(**kwargs):
                                                             "type": "area_types",
                                                             "index": "AIO_AREA",
                                                         },
-                                                        className="custom-control-input-crg no-inline-control align-middle",
-                                                        inline=True,
+                                                        className="area-types",
+                                                        style={"display":"inline-flex"}
                                                     ),
                                                 ]),                                                
                                                 width="auto",
@@ -1700,6 +1710,28 @@ def get_base_layout(**kwargs):
                                                     html.Div(
                                                         [
                                                             html.Div(
+                                                                dcc.Graph(
+                                                                    id={
+                                                                        "type": "area",
+                                                                        "index": "AIO_AREA",
+                                                                    },
+                                                                    config={
+                                                                        "modeBarButtonsToRemove": ["select2d", "lasso2d", "autoScale"],
+                                                                        "displaylogo": False,
+                                                                        "autosizable": True,
+                                                                        "showTips": True,
+                                                                    },
+                                                                    responsive=True,
+                                                                ),
+                                                                style={
+                                                                    'overflowX': 'auto',  
+                                                                    'minWidth': '700px', 
+                                                                    'width': '100%',  
+                                                                    'minHeight':'500px',  
+                                                                },
+                                                                className="graph-scroll" 
+                                                            ),
+                                                            html.Div(
                                                                 [
                                                                     dbc.Row(
                                                                         [
@@ -1753,7 +1785,7 @@ def get_base_layout(**kwargs):
                                                                                 id='average_option',
                                                                                 xs=12,  # Full width on small screens
                                                                                 sm='auto',  # Auto width on larger screens
-                                                                                style={'display': 'flex', 'align-items': 'center'},
+                                                                                style={'display': 'none'},
                                                                             ),
                                                                             # Radio Items
                                                                             dbc.Col(
@@ -1791,42 +1823,47 @@ def get_base_layout(**kwargs):
                                                                                 id="highlight_option",
                                                                                 xs=12,  # Full width on small screens
                                                                                 sm='auto',  # Auto width on larger screens
+                                                                                style={"padding":"0px"},
+                                                                            ),                                                                        # Dropdown and label
+                                                                            # Dropdown and label for "Select indicator for x-axis"
+                                                                            dbc.Col(
+                                                                                html.Div(
+                                                                                    [
+                                                                                        html.Div(
+                                                                                            [
+                                                                                                html.P(
+                                                                                                    "Select indicator for x-axis:",
+                                                                                                    style={
+                                                                                                        "margin-right": "10px",
+                                                                                                    },
+                                                                                                ),
+                                                                                                dcc.Dropdown(
+                                                                                                    id="xaxis-indicator-dropdown",
+                                                                                                    options= xaxis_options,       
+                                                                                                    value=xaxis_options[0]["value"],
+                                                                                                    placeholder="Select an indicator",
+                                                                                                    clearable=False,
+                                                                                                    className="xaxis-dropdown",
+                                                                                                ),
+                                                                                            ],
+                                                                                            className="xaxis-option",
+                                                                                        ),
+                                                                                    ]
+                                                                                ),
+                                                                                id="scatterplot_indicator_option",
                                                                             ),
                                                                         ],
                                                                         style={
                                                                             "display": "flex",
                                                                             "align-items": "center",
-                                                                            "flex-wrap": "wrap",  # Enable wrapping of elements when screen is small
                                                                         },
                                                                     )
                                                                 ],
                                                                 style={
                                                                     "paddingBottom": 10,
                                                                     "display": "flex",
-                                                                    "justifyContent": "flex-end",
+                                                                    "justifyContent": "flex-start",
                                                                 },
-                                                            ),
-                                                            html.Div(
-                                                                dcc.Graph(
-                                                                    id={
-                                                                        "type": "area",
-                                                                        "index": "AIO_AREA",
-                                                                    },
-                                                                    config={
-                                                                        "modeBarButtonsToRemove": ["select2d", "lasso2d", "autoScale"],
-                                                                        "displaylogo": False,
-                                                                        "autosizable": True,
-                                                                        "showTips": True,
-                                                                    },
-                                                                    responsive=True,
-                                                                ),
-                                                                style={
-                                                                    'overflowX': 'auto',  
-                                                                    'minWidth': '700px', 
-                                                                    'width': '100%',  
-                                                                    'minHeight':'500px',  
-                                                                },
-                                                                className="graph-scroll" 
                                                             ),
                                                             html.Div([
                                                                 html.Div(
@@ -1946,16 +1983,14 @@ def get_base_layout(**kwargs):
                                                                                 [
                                                                                     dbc.PopoverHeader(
                                                                                         html.P(
-                                                                                            "Countries with data for selected years"
-                                                                                        )
+                                                                                            "Countries with data for selected years: ",
+                                                                                             style={"margin": 0},
+                                                                                            ),
+                                                                                            className="custom-popover-header"
                                                                                     ),
                                                                                     dbc.PopoverBody(
                                                                                         id="data-hover-body",
-                                                                                        style={
-                                                                                            "height": "200px",
-                                                                                            "overflowY": "auto",
-                                                                                            "whiteSpace": "pre-wrap",
-                                                                                        },
+                                                                                        className="custom-popover-body",
                                                                                     ),
                                                                                 ],
                                                                                 id="data-hover",
@@ -1988,16 +2023,14 @@ def get_base_layout(**kwargs):
                                                                                 [
                                                                                     dbc.PopoverHeader(
                                                                                         html.P(
-                                                                                            "Countries without data for selected years"
-                                                                                        )
+                                                                                            "Countries without data for selected years: ",
+                                                                                             style={"margin": 0},
+                                                                                            ),
+                                                                                            className="custom-popover-header"
                                                                                     ),
                                                                                     dbc.PopoverBody(
                                                                                         id="no-data-hover-body",
-                                                                                        style={
-                                                                                            "height": "200px",
-                                                                                            "overflowY": "auto",
-                                                                                            "whiteSpace": "pre-wrap",
-                                                                                        },
+                                                                                        className="custom-popover-body",
                                                                                     ),
                                                                                 ],
                                                                                 id="no-data-hover",
@@ -2029,7 +2062,10 @@ def get_base_layout(**kwargs):
                                                                         dbc.Tooltip(
                                                                             "Click to download the data displayed in graph as a CSV file.",
                                                                             target="download_btn",
+                                                                            trigger="hover",
                                                                             placement="bottom",
+                                                                            className="custom-tooltip",
+                                                                            delay={"hide": 0, "show": 0},
                                                                         ),
                                                                     ],
                                                                     align="center",
@@ -2682,6 +2718,39 @@ graphs_dict = {
         ),
         "layout_options": dict(margin={"r": 0, "t": 80, "l": 2, "b": 5}),
     },
+    "scatter": {
+        "options": dict(
+            x="OBS_VALUE_xaxis",  # Values for secondary indicator
+            y="OBS_VALUE",  # values for main indicator
+            color="OBS_VALUE",  # Color points by values of y-axis
+            hover_name="Country_name",  # Information shown when hovering over a point
+            custom_data=[
+                "Country_name",
+                "OBS_VALUE",
+                "TIME_PERIOD",
+                "OBS_VALUE_xaxis",
+                "TIME_PERIOD_xaxis", 
+            ],
+            height=500,
+        ),
+        "trace_options": dict(
+            mode="markers", 
+            marker=dict(
+                size=12,  
+                opacity=0.7,  # Set the opacity of the markers
+                line=dict(
+                    width=2,  
+                    color='grey', 
+                ),
+            ),
+        ),
+        "layout_options": dict(
+            margin_t=40,
+            margin_b=40,
+            margin_l=40,
+            margin_r=40,
+        ),
+    },
 }
 
 def get_base_indicator(indicator):
@@ -2871,7 +2940,7 @@ def breakdown_options(indicator, fig_type):
     # extract indicator code if it has a cross-cutting suffix
     indicator = get_base_indicator(indicator)
 
-    options = [{"label": "Total", "value": "TOTAL"}]
+    options = []
     # lbassil: change the disaggregation to use the names of the dimensions instead of the codes
     all_breakdowns = [
         {"label": "Sex", "value": "SEX"},
@@ -2882,6 +2951,7 @@ def breakdown_options(indicator, fig_type):
     dimensions = indicators_config.get(indicator, {}).keys()
     # disaggregate only bar charts
     if dimensions and fig_type == "bar":
+        options = [{"label": "Total", "value": "TOTAL"}]
         for breakdown in all_breakdowns:
             if breakdown["value"] in dimensions:
                 options.append(breakdown)
@@ -2903,16 +2973,18 @@ def fig_options(indicator):
     # Check if the indicator has is string type and give only bar and map as options
     if indicator_config and nominal_data(indicator_config):
         area_types = [
-            {"label": "Latest data", "value": "count_bar"},
-            {"label": "Map of data", "value": "map"},
+            {"label": html.Span([html.I(className="fas fa-chart-simple"), " Column"]), "value": "count_bar"},
+            {"label": html.Span([html.I(className="fas fa-earth-europe"), " Map"]), "value": "map"},
         ]
         default_graph = "map"
     else:
         area_types = [
-            {"label": "Latest data", "value": "bar"},
-            {"label": "Trend data", "value": "line"},
-            {"label": "Map of data", "value": "map"},
+            {"label": html.Span([html.I(className="fas fa-chart-simple"), " Column"]), "value": "bar"},
+            {"label": html.Span([html.I(className="fas fa-chart-line"), " Line"]), "value": "line"},
+            {"label": html.Span([html.I(className="fas fa-earth-europe"), " Map"]), "value": "map"},
+            {"label": html.Span([html.I(className="fas fa-solid fa-arrow-up-right-dots"), " Scatter"]), "value": "scatter"},
         ]
+
         if indicator == 'DM_POP_NETM':
             default_graph = "map"
         else:
@@ -2946,6 +3018,15 @@ def average_option(compare, selected_type):
         return { 
                 "display": "flex", 
                 "align-items": "center"
+            }
+    else:
+        return {
+                "display": "none"
+            }
+
+def xaxis_option(selected_type):
+    if selected_type == "scatter":
+        return { 
             }
     else:
         return {
@@ -3002,6 +3083,7 @@ def highlight_option(fig_type, indicator, years_slider, countries, country_group
                             id="highlighted_countries"
                                 ),
                             ], style={"display": "none"})
+    
 
 def aio_area_figure(
     indicator,
@@ -3011,6 +3093,7 @@ def aio_area_figure(
     country_group,
     average_line,
     highlighted_countries,
+    scatterplot_indicator,
     selected_type,
 ):
     
@@ -3074,8 +3157,8 @@ def aio_area_figure(
         domain_colour = merged_page_config[domain]['domain_colour']
         map_colour = merged_page_config[domain]['map_colour']
         default_graph = merged_page_config[domain]['SUBDOMAINS'][subdomain][area].get("default_graph", "line")
-
-        fig_type = selected_type if selected_type else default_graph
+        print(selected_type)
+        fig_type = selected_type # if selected_type else default_graph
         fig_config = graphs_dict[fig_type]
         options = fig_config.get("options")
         traces = fig_config.get("trace_options")
@@ -3099,6 +3182,30 @@ def aio_area_figure(
             compare,
             latest_data=False if fig_type == "line" else True,
         )
+
+        # Additional data request if the fig_type is scatter (for the y-axis indicator)
+        if fig_type == "scatter":
+            base_scatterplot_indicator = get_base_indicator(scatterplot_indicator)
+            scatterplot_indicator_name = str(indicator_names.get(base_scatterplot_indicator, ""))
+            data_xaxis = get_data(
+                [base_scatterplot_indicator],
+                filters["years"],
+                filters["countries"],
+                compare,
+                latest_data=True,
+            )
+
+            # Add suffix to differentiate columns from x-axis data
+            data_xaxis = data_xaxis.add_suffix('_xaxis')
+
+            # Perform a left join to keep all of the data for the main indicator
+            data = pd.merge(
+                data,
+                data_xaxis,
+                left_on=["Country_name"],
+                right_on=["Country_name_xaxis"],
+                how="left"
+            )
 
         # check if the dataframe is empty meaning no data to display as per the user's selection
         if data.empty:
@@ -3216,8 +3323,23 @@ def aio_area_figure(
         None
     )
 
-    # Retrieve the y-axis title 
+    # Retrieve the y-axis and x_axis titles 
     y_axis_title = card_config.get('yaxis', '') 
+
+    if fig_type == "scatter": 
+        # Retrieve the card configuration for the current indicator across all domains and subdomains
+        card_config_xaxis = next(
+            (
+                card
+                for domain_details in merged_page_config.values()  # Iterate over all domains
+                for subdomain_details in domain_details['SUBDOMAINS'].values()  # Iterate over all subdomains
+                for card in subdomain_details['CARDS']  # Iterate over all cards in each subdomain
+                if card['indicator'] == base_scatterplot_indicator
+            ),
+            None
+        )    
+        x_axis_title = card_config_xaxis.get('button_name', '')
+        x_axis_unit = card_config_xaxis.get('yaxis', '')
 
     # Create the indicator card if configuration is available
     ind_card = (
@@ -3626,8 +3748,58 @@ def aio_area_figure(
                     )
         else:
             fig.update_layout(showlegend=True)
+            fig.add_annotation(
+                x=last_time_period + 0.2,
+                y=last_value + (last_value * 0.01),
+                text=highlighted_country,
+                showarrow=False,
+                font=dict(size=12, color="#1CABE2"),
+                xanchor="left",
+                yanchor="middle",
+                align="left"
+            )
 
     fig.update_traces(hovertemplate=hovertext)
+
+    if fig_type == "scatter":
+        # Explicitly update trace options for markers
+        fig.update_traces(
+            mode='markers',
+            marker=dict(
+                size=12,  # Increase the size of the markers
+                opacity=0.7,  # Set the opacity of the markers
+                line=dict(
+                    width=2,  # Set the width of the marker borders
+                    color='grey'  # Set the color of the marker borders to grey
+                ),
+            )
+        )
+
+        # Update the layout to make the plot a square, bigger, and with axes starting at zero
+        fig.update_layout(
+            plot_bgcolor='white',
+            xaxis=dict(range=[0, data['OBS_VALUE_xaxis'].max() * 1.1], 
+                    showgrid=False,
+                    tickmode='auto',
+                    tickangle= 0,
+                    dtick= 'auto',
+                    ), 
+            yaxis=dict(range=[0, data['OBS_VALUE'].max() * 1.1], showgrid=False)
+            )
+        fig.update_layout(xaxis_title=x_axis_title)
+
+        hovertext = (
+        "Country: %{customdata[0]}  </br><br>"
+        + f"{indicator_name}  </br>"
+        + "Value: %{customdata[1]}  "
+        + f"({y_axis_title}) </br>"
+        + "Year: %{customdata[2]}  </br><br>"
+        + f"{scatterplot_indicator_name}  </br>"
+        + "Value: %{customdata[3]}  "
+        + f"({x_axis_unit}) </br>"
+        + "Year: %{customdata[4]}  </br><br>"
+         )
+        fig.update_traces(hovertemplate=hovertext)
 
     if fig_type == "bar" and "YES_NO" in fig_data.UNIT_MEASURE.values:
         dfs = fig_data.groupby("Status").count()

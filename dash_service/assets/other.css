@@ -276,6 +276,22 @@ div.dt-table-container__row.dt-table-container__row-1 {
     /* Adjust this to prevent growing and only allow shrinking */
 }
 
+.area-types {
+    display: inline-flex;
+}
+
+.area-types .form-check {
+    display: block
+}
+
+.area-types .form-check label {
+    margin-top: 2px;
+}
+
+.area-types .form-check .form-check-input {
+    margin-left: 0px;
+}
+
 /* Media query for smaller screens (e.g., mobile devices) */
 @media screen and (max-width: 768px) {
     .responsive-container {
@@ -291,6 +307,48 @@ div.dt-table-container__row.dt-table-container__row-1 {
     }
 }
 
+.xaxis-option {
+    display: inline-flex;
+    align-items: center;
+}
+
+.xaxis-dropdown {
+    min-width: 700px;
+}
+
+
+/* Custom style for Popover Header */
+.custom-popover-header {
+    background-color: transparent !important;
+    /* Remove grey background */
+    color: #00acef;
+    /* UNICEF blue */
+    font-size: 16px;
+    /* Adjust font size */
+    font-weight: bold;
+    /* Optional: Make text bold */
+    padding: 10px;
+    /* Adjust padding for better alignment */
+    border-bottom: none !important;
+    /* Remove the separator line */
+}
+
+/* Optional: Adjust the body padding to align nicely */
+.custom-popover-body {
+    padding-top: 0px;
+    /* Reduce padding at the top if needed */
+    height: 200px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+}
+
+.custom-tooltip {
+    background-color: white !important; /* Set background to white */
+    color: black !important; /* Set text color for contrast */
+    border: 1px solid #ddd; /* Optional: Add a border */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+    padding: 10px; /* Adjust padding for better spacing */
+}
 
 /* Responsive styles for smaller screens */
 @media screen and (max-width: 768px) {
@@ -339,6 +397,15 @@ div.dt-table-container__row.dt-table-container__row-1 {
     .graph-scroll {
         overflow-x: scroll;
         /* Ensures horizontal scrolling */
+    }
+
+    .xaxis-dropdown {
+        min-width: auto;
+        margin-bottom: 10px;
+    }
+
+    .xaxis-option {
+        display: block;
     }
 }
 
