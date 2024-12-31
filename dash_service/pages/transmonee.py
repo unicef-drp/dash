@@ -1641,7 +1641,7 @@ def get_base_layout(**kwargs):
                                                         placeholder="Select country",
                                                         multi=True,
                                                         clearable=False,
-                                                        style={"width": "300px"},
+                                                        style={"width": "250px"},
                                                     ),
                                                 ]),
                                                 width="auto",
@@ -1649,14 +1649,14 @@ def get_base_layout(**kwargs):
                                             ),
                                             dbc.Col(
                                                 html.Div([
-                                                    html.P("Chart type:", style={"margin": "0px", "padding-bottom": "5px"}),
+                                                    html.P("Chart type:", style={"margin": "0px", "padding-bottom": "2px"}),
                                                     dbc.RadioItems(
                                                         id={
                                                             "type": "area_types",
                                                             "index": "AIO_AREA",
                                                         },
                                                         className="area-types",
-                                                        style={"display":"inline-flex"}
+                                                        style={"display":"block"}
                                                     ),
                                                 ],
                                                 style={"display":"inline-flex", "margin-top": "10px"}),                                                
@@ -1664,7 +1664,7 @@ def get_base_layout(**kwargs):
                                                 align="start"
                                             ),
                                         ],
-                                        justify="start"
+                                        justify="center"
                                     ),
                                 ],
                                 style={"display":"flex", "justify-content":"center"},
@@ -1672,13 +1672,12 @@ def get_base_layout(**kwargs):
                             ),
                             dbc.Col(width=1),
                         ],
-                        style={"border": "1px solid #ddd", "margin": "auto", "padding": "15px 0px"},
+                        style={"margin": "auto"},
                         align="center",
-                        className="bg-light",
                         justify="center"
                     ),
                 ],
-                style={"padding": "0px 15px"},
+                style={"padding": "15px 15px", "border": "2px solid #04abef", "border-radius": "10px"},
             ),
             html.Br(),
             dbc.Row(
