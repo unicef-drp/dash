@@ -1602,7 +1602,8 @@ def get_base_layout(**kwargs):
                                                             ),
                                                         ],
                                                     ),
-                                                ]),
+                                                ],
+                                                style={"marginBottom": "10px"}),
                                                 width="auto",
                                                 align="start"
                                             ),
@@ -1647,7 +1648,7 @@ def get_base_layout(**kwargs):
                                             ),
                                             dbc.Col(
                                                 html.Div([
-                                                    html.P("Choose chart type:", style={"margin-bottom": "10px", "margin-top": "5px"}),
+                                                    html.P("Chart type:", style={"margin-bottom": "10px", "margin-top": "5px"}),
                                                     dbc.RadioItems(
                                                         id={
                                                             "type": "area_types",
@@ -1656,7 +1657,8 @@ def get_base_layout(**kwargs):
                                                         className="area-types",
                                                         style={"display":"inline-flex"}
                                                     ),
-                                                ]),                                                
+                                                ],
+                                                style={"display":"inline-flex"}),                                                
                                                 width="auto",
                                                 align="start"
                                             ),
