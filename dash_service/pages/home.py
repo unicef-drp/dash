@@ -37,6 +37,7 @@ from dash_service.pages.transmonee import (
     update_domain_with_url,
     highlight_option,
     average_option,
+    xaxis_option,
     manage_highlighted_countries,
 )
 
@@ -92,10 +93,21 @@ def apply_update_indicator_dropdown(indicator_filter, sdg_toggle, rfr_toggle):
     Output({"type": "area_types", "index": "AIO_AREA"}, "options"),
     Output({"type": "area_types", "index": "AIO_AREA"}, "value"),
     [Input('current-indicator-store', 'data')],
+    [State({"type": "area_types", "index": "AIO_AREA"}, "value")],
     prevent_initial_call=True,
 )
-def set_fig_options(indicator):
-    return fig_options(indicator)
+def set_fig_options(indicator, selected_type):
+    area_types, default_graph = fig_options(indicator)
+
+    # Determine the updated value
+    if selected_type and any(option["value"] == selected_type for option in area_types):
+        # Keep the current value if it's valid for the new indicator
+        updated_value = selected_type
+    else:
+        # Otherwise, fall back to the default graph type
+        updated_value = default_graph
+
+    return area_types, updated_value
 
 
 @callback(
@@ -203,6 +215,7 @@ def update_current_indicator(dropdown_value, active_indicator_buttons, crm_view_
             return indicator_button_ids[active_index]['index']
     return dropdown_value  # Otherwise, return the dropdown value
 
+
 @callback(
         Output('average_option', 'style'),
     [
@@ -212,6 +225,15 @@ def update_current_indicator(dropdown_value, active_indicator_buttons, crm_view_
 )
 def show_average_option(compare, selected_type):
     return average_option(compare, selected_type)
+
+@callback(
+        Output('scatterplot_indicator_option', 'style'),
+    [
+    Input({"type": "area_types", "index": "AIO_AREA"}, "value"),
+    ]
+)
+def show_xaxis_option(selected_type):
+    return xaxis_option(selected_type)
 
 @callback(
     [
@@ -403,6 +425,7 @@ def update_highlighted_countries(selected_countries):
         Input("country-group", "value"),
         Input("show-average-checkbox", "value"),
         Input("highlighted_countries", "value"),
+        Input("xaxis-indicator-dropdown", "value"),
 
     ],
         State({"type": "area_types", "index": "AIO_AREA"}, "value"),
@@ -416,6 +439,7 @@ def apply_aio_area_figure(
     country_group,
     average_line,
     highlighted_countries,
+    scatterplot_indicator,
     selected_type,
 ):
     return aio_area_figure(
@@ -426,5 +450,6 @@ def apply_aio_area_figure(
         country_group,
         average_line,
         highlighted_countries,
+        scatterplot_indicator,
         selected_type,
     )
