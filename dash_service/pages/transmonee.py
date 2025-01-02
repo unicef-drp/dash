@@ -1858,7 +1858,7 @@ def get_base_layout(**kwargs):
                                                                     'overflowX': 'auto',  
                                                                     'minWidth': '700px', 
                                                                     'width': '100%',  
-                                                                    'minHeight':'500px',  
+                                                                    'minHeight':'430px',  
                                                                 },
                                                                 className="graph-scroll" 
                                                             ),
@@ -1899,7 +1899,7 @@ def get_base_layout(**kwargs):
                                                                 },
                                                                 ),
                                                                 dbc.Popover(
-                                                                    dbc.PopoverBody(
+                                                                    dbc.PopoverBody(["Values are based on available data for each country. Min/max values do not take into account disaggregated data."],
                                                                         id="card-popover"
                                                                     ),
                                                                     target="indicator_card",
@@ -2068,7 +2068,8 @@ def get_base_layout(**kwargs):
                                                                         ),
                                                                         dcc.Download(id="download-csv-info"),
                                                                         dbc.Popover(
-                                                                            dbc.PopoverBody(id="download-popover"),
+                                                                            dbc.PopoverBody(["Click to download the data displayed in graph as a CSV file."],
+                                                                                            id="download-popover"),
                                                                             target="download_btn",
                                                                             trigger="hover",
                                                                             placement="bottom",
@@ -3157,8 +3158,6 @@ def aio_area_figure(
             [],
             [],
             "",
-            "",
-            "",
         )
 
     try:
@@ -3319,8 +3318,6 @@ def aio_area_figure(
             [],
             [],
             [],
-            "",
-            "",
             "",
         )
 
@@ -3922,6 +3919,4 @@ def aio_area_figure(
         graph_info,
         json_data,
         indicator_description,
-        "Values are based on available data for each country. Min/max values do not take into account disaggregated data.",
-        "Click to download the data displayed in graph as a CSV file."
     )
