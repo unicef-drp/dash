@@ -417,6 +417,8 @@ def update_highlighted_countries(selected_countries):
         Output("aio_area_graph_info", "children"),
         Output("data-store", "data"),
         Output("definition-popover", "children"),
+        Output("card-popover", "children"),
+        Output("download-popover", "children"),
     ],
     [
         Input('current-indicator-store', 'data'),

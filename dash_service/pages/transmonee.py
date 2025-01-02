@@ -1324,12 +1324,8 @@ def get_base_layout(**kwargs):
                                             # "Select ECA CRM Domain" text and Dropdown
                                             html.Div(
                                                 [
-                                                    #html.P(
-                                                        #"Select ECA CRM Domain:", 
-                                                        #style={"margin-bottom": "10px", "display": "inline-block", "margin-right": "10px"}
-                                                    #),
                                                     html.Label('Select ECA CRM Domain:', htmlFor='domain-dropdown', 
-                                                               style={"display": "inline-block", "margin-right": "10px"}),
+                                                               style={"display": "inline-block", "margin-right": "10px", "color": "#374ca2"}),
                                                     dcc.Dropdown(
                                                         id="domain-dropdown",
                                                         options=domain_dropdown_options,
@@ -1904,9 +1900,8 @@ def get_base_layout(**kwargs):
                                                                 ),
                                                                 dbc.Popover(
                                                                     dbc.PopoverBody(
-                                                                        "Values are based on available data for each country, and min/max values do not take into account disaggregated data."
+                                                                        id="card-popover"
                                                                     ),
-                                                                    id="indicator-popover",
                                                                     target="indicator_card",
                                                                     trigger="hover",
                                                                     placement="top",
@@ -2072,8 +2067,7 @@ def get_base_layout(**kwargs):
                                                                         ),
                                                                         dcc.Download(id="download-csv-info"),
                                                                         dbc.Popover(
-                                                                            dbc.PopoverBody("Click to download the data displayed in graph as a CSV file."),
-                                                                            id="download-popover",
+                                                                            dbc.PopoverBody(id="download-popover"),
                                                                             target="download_btn",
                                                                             trigger="hover",
                                                                             placement="bottom",
@@ -3162,6 +3156,8 @@ def aio_area_figure(
             [],
             [],
             "",
+            "",
+            "",
         )
 
     try:
@@ -3322,6 +3318,8 @@ def aio_area_figure(
             [],
             [],
             [],
+            "",
+            "",
             "",
         )
 
@@ -3919,4 +3917,6 @@ def aio_area_figure(
         graph_info,
         json_data,
         indicator_description,
+        "Values are based on available data for each country. Min/max values do not take into account disaggregated data.",
+        "Click to download the data displayed in graph as a CSV file."
     )
