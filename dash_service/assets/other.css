@@ -352,6 +352,7 @@ div.dt-table-container__row.dt-table-container__row-1 {
     padding: 5%px;
 }
 
+
 /* Responsive styles for smaller screens */
 @media screen and (max-width: 768px) {
     .crm_dropdown.domain_dropdown {

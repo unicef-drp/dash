@@ -1707,28 +1707,6 @@ def get_base_layout(**kwargs):
                                                     html.Div(
                                                         [
                                                             html.Div(
-                                                                dcc.Graph(
-                                                                    id={
-                                                                        "type": "area",
-                                                                        "index": "AIO_AREA",
-                                                                    },
-                                                                    config={
-                                                                        "modeBarButtonsToRemove": ["select2d", "lasso2d", "autoScale"],
-                                                                        "displaylogo": False,
-                                                                        "autosizable": True,
-                                                                        "showTips": True,
-                                                                    },
-                                                                    responsive=True,
-                                                                ),
-                                                                style={
-                                                                    'overflowX': 'auto',  
-                                                                    'minWidth': '700px', 
-                                                                    'width': '100%',  
-                                                                    'minHeight':'500px',  
-                                                                },
-                                                                className="graph-scroll" 
-                                                            ),
-                                                            html.Div(
                                                                 [
                                                                     dbc.Row(
                                                                         [
@@ -1862,6 +1840,28 @@ def get_base_layout(**kwargs):
                                                                     "justifyContent": "flex-start",
                                                                 },
                                                             ),
+                                                            html.Div(
+                                                                dcc.Graph(
+                                                                    id={
+                                                                        "type": "area",
+                                                                        "index": "AIO_AREA",
+                                                                    },
+                                                                    config={
+                                                                        "modeBarButtonsToRemove": ["select2d", "lasso2d", "autoScale"],
+                                                                        "displaylogo": False,
+                                                                        "autosizable": True,
+                                                                        "showTips": True,
+                                                                    },
+                                                                    responsive=True,
+                                                                ),
+                                                                style={
+                                                                    'overflowX': 'auto',  
+                                                                    'minWidth': '700px', 
+                                                                    'width': '100%',  
+                                                                    'minHeight':'500px',  
+                                                                },
+                                                                className="graph-scroll" 
+                                                            ),
                                                             html.Div([
                                                                 html.Div(
                                                                 id="aio_area_indicator_link",
@@ -1906,7 +1906,8 @@ def get_base_layout(**kwargs):
                                                                     trigger="hover",
                                                                     placement="top",
                                                                     className="custom-popover",
-                                                                    delay={"hide": 0, "show": 0},   
+                                                                    delay={"hide": 0, "show": 0},
+                                                                    style={"opacity": 1},   
                                                                 ),  
                                                         ],
                                                         width=12, md=3
@@ -2072,7 +2073,8 @@ def get_base_layout(**kwargs):
                                                                             trigger="hover",
                                                                             placement="bottom",
                                                                             className="custom-popover",
-                                                                            delay={"hide": 0, "show": 0}, 
+                                                                            delay={"hide": 0, "show": 0},
+                                                                            style={"opacity": 1}, 
                                                                         ),
                                                                     ],
                                                                     align="center",
@@ -2738,7 +2740,6 @@ graphs_dict = {
                 "OBS_VALUE_xaxis",
                 "TIME_PERIOD_xaxis", 
             ],
-            height=500,
         ),
         "trace_options": dict(
             mode="markers", 
@@ -3597,6 +3598,10 @@ def aio_area_figure(
             options["color"] = "OBS_VALUE"
             options["color_continuous_scale"] = map_colour
             options["range_color"] = [data.OBS_VALUE.min(), data.OBS_VALUE.max()]
+    
+    if fig_type == "scatter":
+        options["color_continuous_scale"] = map_colour
+
 
     if fig_type == "bar":
         # turn off number formatting of data labels under 100
