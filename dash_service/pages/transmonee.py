@@ -1310,7 +1310,7 @@ def get_base_layout(**kwargs):
                 ],
                 justify="between",
                 align="center",
-                style={"background-color": '#00acef', "minHeight": 200},
+                style={"background-color": '#374da2', "minHeight": 200},
             ),
             html.Br(),
             dbc.Row(
@@ -1677,7 +1677,7 @@ def get_base_layout(**kwargs):
                         justify="center"
                     ),
                 ],
-                style={"padding": "15px 15px", "border": "2px solid #04abef", "border-radius": "10px"},
+                style={"padding": "15px", "border": "2px solid #c2c7d9", "border-radius": "5px", "margin": "0px", "background-color": "white"},
             ),
             html.Br(),
             dbc.Row(
