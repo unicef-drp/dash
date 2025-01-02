@@ -51,7 +51,7 @@ def layout(page_slug=None, **query_parmas):
     return html.Div(
         [
             dcc.Location(id='url', refresh=False),
-            html.Br(),
+            #html.Br(),
             dcc.Store(id="store"),
             dcc.Store(id="data-store"),
             dcc.Store(id='current-indicator-store', storage_type='memory'),
@@ -66,6 +66,7 @@ def layout(page_slug=None, **query_parmas):
             html.Br(),
         ],
         id="mainContainer",
+        style={"border":"2px solid #374CA1", "background-color":"#3b359e1c", "border-radius":"5px"}
     )
 
 @callback(

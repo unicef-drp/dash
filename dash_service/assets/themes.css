@@ -470,6 +470,7 @@
 .crc-accordion .collapse {
     display: none;
 }
+
 .crc-accordion .collapse.show {
     display: block;
 }
@@ -518,7 +519,7 @@
 .nav-btn {
     color: #374EA2 !important;
     background-color: white !important;
-    border-color: #374EA2 !important;
+    border-color: #00acef !important;
     border-width: 2px !important;
     display: block;
     width: 250px;
@@ -528,14 +529,14 @@
 .nav-btn:focus,
 .nav-btn:hover {
     color: white !important;
-    background-color: #374EA2 !important;
-    border-color: #374EA2 !important;
+    background-color: #00acef !important;
+    border-color: #00acef !important;
 }
 
 .nav-btn:not(:disabled):not(.disabled).active,
 .nav-btn:not(:disabled):not(.disabled):active,
 .show>.nav-btn.dropdown-toggle {
     color: white !important;
-    background-color: #374EA2 !important;
-    border-color: #374EA2 !important;
+    background-color: #00acef !important;
+    border-color: #00acef !important;
 }
