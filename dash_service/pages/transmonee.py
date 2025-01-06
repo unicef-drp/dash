@@ -1858,7 +1858,7 @@ def get_base_layout(**kwargs):
                                                                     'overflowX': 'auto',  
                                                                     'minWidth': '700px', 
                                                                     'width': '100%',  
-                                                                    'minHeight':'430px',  
+                                                                    'minHeight':'450px',  
                                                                 },
                                                                 className="graph-scroll" 
                                                             ),
@@ -3332,8 +3332,8 @@ def aio_area_figure(
         None
     )
 
-    # Retrieve the y-axis and x_axis titles 
-    y_axis_title = card_config.get('yaxis', '') 
+    # Retrieve the y-axis unit
+    y_axis_unit = card_config.get('yaxis', '') 
 
     if fig_type == "scatter": 
         # Retrieve the card configuration for the current indicator across all domains and subdomains
@@ -3346,8 +3346,12 @@ def aio_area_figure(
                 if card['indicator'] == base_scatterplot_indicator
             ),
             None
-        )    
-        x_axis_title = card_config_xaxis.get('button_name', '')
+        )
+        # Retrieve the y-axis and x_axis short names 
+        y_axis_short_name = card_config.get('button_name', '')     
+        x_axis_short_name = card_config_xaxis.get('button_name', '')
+
+        # Retrieve the x-axis unit
         x_axis_unit = card_config_xaxis.get('yaxis', '')
 
     # Create the indicator card if configuration is available
@@ -3636,7 +3640,7 @@ def aio_area_figure(
     fig = getattr(px, fig_type)(fig_data, **options)
     fig.update_layout(layout)
     # Update layout with title for the Y-axis
-    fig.update_layout(yaxis_title=y_axis_title)
+    fig.update_layout(yaxis_title=y_axis_unit)
     # remove x-axis title but keep space below
     fig.update_layout(xaxis_title="")
     if fig_type == "bar" and not dimension and "YES_NO" not in fig_data.UNIT_MEASURE.values and base_indicator != 'PP_SG_NHR_STATUS':
@@ -3799,15 +3803,15 @@ def aio_area_figure(
                     ), 
             yaxis=dict(range=[0, data['OBS_VALUE'].max() * 1.1], showgrid=False)
             )
-        fig.update_layout(xaxis_title=x_axis_title)
+        fig.update_layout(xaxis_title=x_axis_short_name)
 
         hovertext = (
         "Country: %{customdata[0]}  </br><br>"
-        + f"{indicator_name}  </br>"
+        + f"{y_axis_short_name}  </br>"
         + "Value: %{customdata[1]}  "
-        + f"({y_axis_title}) </br>"
+        + f"({y_axis_unit}) </br>"
         + "Year: %{customdata[2]}  </br><br>"
-        + f"{scatterplot_indicator_name}  </br>"
+        + f"{x_axis_short_name}  </br>"
         + "Value: %{customdata[3]}  "
         + f"({x_axis_unit}) </br>"
         + "Year: %{customdata[4]}  </br><br>"
