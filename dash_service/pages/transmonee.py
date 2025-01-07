@@ -552,7 +552,7 @@ domain_classes = {
 }
 
 # Read the CRC Excel file and skip the first row (header is in the second row)
-crc_file_path = f"{pathlib.Path(__file__).parent.parent.absolute()}/static/Full CRC database_28_08_24.xlsx"
+crc_file_path = f"{pathlib.Path(__file__).parent.parent.absolute()}/static/Full CRC database.xlsx"
 CRC_df = pd.read_excel(
     crc_file_path,
     sheet_name="Full CRC database ECA",
@@ -1234,7 +1234,7 @@ def get_base_layout(**kwargs):
                             html.H2("TransMonEE Dashboard", style={'color': 'white', 'marginTop': '0.75em', 'marginBottom': '0.2em','fontWeight': 'bold'}),
                             html.H5("Monitoring child rights data in Europe and Central Asia", style={'color': 'white', 'marginTop': '0.2em'})
                         ]),
-                        lg=6, md=8, sm=12,
+                        lg=7, md=8, sm=12,
                     ),
                     dbc.Col(
                         html.Div([
@@ -1305,7 +1305,7 @@ def get_base_layout(**kwargs):
                                 },
                             ),                             
                         ], style={"display": "flex", "flexDirection": "column", "alignItems": "center"}),
-                        lg=4, md=12, align="center",
+                        lg=3, md=12, align="center",
                     ),
                 ],
                 justify="between",
