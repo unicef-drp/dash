@@ -1402,6 +1402,45 @@
         "DTYPE": "str",
         "NOMINAL": true
     },
+    "EDUNF_CR_L1_EST": {
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ]
+        },
+        "TOTAL": {
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
+    "EDUNF_CR_L2_EST": {
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ]
+        },
+        "TOTAL": {
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
+    "EDUNF_CR_L3_EST": {
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ]
+        },
+        "TOTAL": {
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
     "EDUNF_CR_L1": {
         "RESIDENCE": {
             "RESIDENCE": [
@@ -2059,6 +2098,45 @@
         }
     },
     "EDUNF_ROFST_L1": {
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ]
+        },
+        "TOTAL": {
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
+    "EDUNF_ROFST_L1_EST": {
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ]
+        },
+        "TOTAL": {
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
+    "EDUNF_ROFST_L2_EST": {
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ]
+        },
+        "TOTAL": {
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
+    "EDUNF_ROFST_L3_EST": {
         "SEX": {
             "SEX": [
                 "F",
