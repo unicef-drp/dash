@@ -528,6 +528,8 @@ data_sources = {
     "HIV_EXCEL": "UNAIDS 2024 estimates",
     "UNDP": "United Nations Development Programme",
     "TMEE": "Transformative Monitoring for Enhanced Equity (TransMonEE)",
+    "UIS_ESTIMATES": "UNESCO Institute for Statistics (UIS) and the Global Education Monitoring Report",
+    "CP_EXCEL": "UNICEF Division of Data, Analytics, Planning and Monitoring"
 }
 
 
@@ -3565,7 +3567,7 @@ def aio_area_figure(
                                 target="_blank",
                                 className= "indicator-link")
 
-    if indicator in ['EDUNF_CR_L1','EDUNF_CR_L2','EDUNF_CR_L3','EDUNF_ROFST_L1_UNDER1','EDUNF_ROFST_L1','EDUNF_ROFST_L2','EDUNF_ROFST_L3','EDUNF_NERA_L1_UNDER1','ECD_EARLY_EDU']:
+    if indicator in ['EDUNF_CR_L1','EDUNF_CR_L2','EDUNF_CR_L3','EDUNF_CR_L1_EST','EDUNF_CR_L2_EST','EDUNF_CR_L3_EST','EDUNF_ROFST_L1_UNDER1','EDUNF_ROFST_L1','EDUNF_ROFST_L2','EDUNF_ROFST_L3','EDUNF_ROFST_L1_EST','EDUNF_ROFST_L2_EST','EDUNF_ROFST_L3_EST','EDUNF_NERA_L1_UNDER1','ECD_EARLY_EDU']:
         indicator_link =  html.A(
                                 "Click here to explore UNICEF's education pathway analysis.",
                                 href="https://data.unicef.org/resources/how-are-children-progressing-through-school/",
@@ -3866,7 +3868,8 @@ def aio_area_figure(
                         className="tm-link",
                         style={"color": domain_colour,
                                "textDecoration": "underline",
-                               "display":"inline-flex"},
+                               "display":"inline-flex",
+                               "margin-left": "5px"},
                     ),
                 ],
                 style={"lineHeight": "0.3"}
