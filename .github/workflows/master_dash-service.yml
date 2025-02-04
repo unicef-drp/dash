@@ -12,7 +12,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04 #temporarily setting to version 22.04 instead of latest version
 
     steps:
       - uses: actions/checkout@v2
@@ -41,7 +41,7 @@ jobs:
             !venv/
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04 #temporarily setting to version 22.04 instead of latest version
     needs: build
     environment:
       name: 'Production'
