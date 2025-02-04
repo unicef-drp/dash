@@ -40,6 +40,7 @@ px.defaults.color_continuous_scale = px.colors.sequential.BuGn
 px.defaults.color_discrete_sequence = px.colors.qualitative.Dark24
 
 
+
 DEFAULT_LABELS = {
     "Country_name": "Country",
     "TIME_PERIOD": "Year",
