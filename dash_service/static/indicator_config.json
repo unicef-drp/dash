@@ -7612,6 +7612,19 @@
             ]
         }
     },
+    "FD_FUNC_DIFFICULTY": {
+        "AGE": {
+            "AGE": [
+                "Y2T4",
+                "Y5T17"
+            ]
+        },
+        "TOTAL": {
+            "AGE": [
+                "Y2T17"
+            ]
+        }
+    },
     "PT_CHLD_DISAB_INRESIDENTIAL": {
         "SEX": {
             "AGE": [
