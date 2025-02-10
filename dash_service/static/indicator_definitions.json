@@ -801,6 +801,7 @@
     "HT_NEW_REG_CHLD_DISAB_PROP": "Percentage of children newly registered as having disabilities (during the year)",
     "SP_CHLD_DISAB_CASH": "Number of children (0-17 years) receiving disability cash benefits (at the end of the year). ",
     "SP_PS_DISAB_CASH": "Number of persons with disabilities receiving disability cash benefits (at the end of the year)",
+    "FD_FUNC_DIFFICULTY": "Percentage of children (2-17 years) with functional difficulties.",
     "CR_VC_VOV_GDSD_PD": "Percentage of persons with disability  reporting having personally felt discriminated against or harassed in the previous 12 months on the basis of a ground of discrimination prohibited under international human rights law",
     "ECD_CHLD_24-59M_ADLT_SRC": "Percentage of children (24-59 months) with whom any adult household member has engaged in 4 or more activities to provide early stimulation and responsive care in the last 3 days",
     "ECD_CHLD_24-59M_FHR-SPT-LNG": "Percentage of children (24-59 months) whose father has engaged in 4 or more activities to provide early stimulation and responsive care in the last 3 days",
