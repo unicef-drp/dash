@@ -199,7 +199,7 @@ dimension_names = {
 years = list(range(2000, 2025))
 
 # some indexes have been listed as ratios in SDG database so we need to specify not to round these indicators
-codes_3_decimals = ['HVA_EPI_INF_RT_0-14', 'EDU_SE_TOT_GPI_L2_MAT', 'EDU_SE_TOT_GPI_L2_REA', 'EDU_SE_AGP_CPRA_L3']
+codes_3_decimals = ['HVA_EPI_INF_RT_0-14', 'EDU_SE_TOT_GPI_L2_MAT', 'EDU_SE_TOT_GPI_L2_REA', 'EDU_SE_AGP_CPRA_L3', 'DM_SP_POP_BRTH_MF']
 codes_1_decimal = ['DM_FRATE_COMP', 'PV_GINI_COEF']
 
 # a key:value dictionary of countries where the 'key' is the country name as displayed in the selection
@@ -447,6 +447,19 @@ eu_countries = [
     "Sweden",
 ]
 
+eu_enlargement_countries = [
+    "Albania",
+    "Bosnia and Herzegovina",
+    "Georgia",
+    "Kosovo (UNSCR 1244)",
+    "Montenegro",
+    "North Macedonia",
+    "Republic of Moldova",
+    "Serbia",
+    "Türkiye",
+    "Ukraine",
+]
+
 efta_countries = ["Iceland", "Liechtenstein", "Norway", "Switzerland"]
 
 
@@ -691,6 +704,18 @@ def update_country_dropdown(country_group):
         options = [
             {"label": country, "value": country}
             for country in eu_countries + efta_countries
+        ]
+    elif country_group == "eu_enlargement":
+        options = [{"label": country, "value": country} for country in eu_enlargement_countries]
+    elif country_group == "eu + enlargement":
+        options = [
+            {"label": country, "value": country}
+            for country in eu_countries + eu_enlargement_countries
+        ]
+    elif country_group == "eu + enlargement + efta":
+        options = [
+            {"label": country, "value": country}
+            for country in eu_countries + eu_enlargement_countries + efta_countries
         ]
     elif country_group == "central_asia":
         options = [{"label": country, "value": country} for country in central_asia]
@@ -1234,7 +1259,7 @@ def get_base_layout(**kwargs):
                     ),
                     dbc.Col(
                         html.Div([
-                            html.H2("TransMonEE Dashboard", style={'color': 'white', 'marginTop': '0.75em', 'marginBottom': '0.2em','fontWeight': 'bold'}),
+                            html.H2("TransMonEE Regional Dashboard on Children", style={'color': 'white', 'marginTop': '0.75em', 'marginBottom': '0.2em','fontWeight': 'bold'}),
                             html.H5("Monitoring child rights data in Europe and Central Asia", style={'color': 'white', 'marginTop': '0.2em'})
                         ]),
                         lg=7, md=8, sm=12,
@@ -1616,8 +1641,11 @@ def get_base_layout(**kwargs):
                                                             {"label": "All countries", "value": "all"},
                                                             {"label": "UNICEF programme countries", "value": "unicef"},
                                                             {"label": "EU countries", "value": "eu"},
+                                                            {"label": "EU enlargement countries", "value": "eu_enlargement"},
+                                                            {"label": "EU + EU enlargement countries", "value": "eu + enlargement"},
                                                             {"label": "EFTA countries", "value": "efta"},
                                                             {"label": "EU + EFTA countries", "value": "eu + efta"},
+                                                            {"label": "EU + EU enlargement + EFTA countries", "value": "eu + enlargement + efta"},
                                                             {"label": "Central Asian countries", "value": "central_asia"},
                                                             {"label": "Eastern European countries", "value": "eastern_europe"},
                                                             {"label": "Western European countries", "value": "western_europe"},
@@ -2791,10 +2819,16 @@ def get_filters(years_slider, countries, country_group):
             countries = unicef_country_prog
         elif country_group == "eu":
             countries = eu_countries
+        elif country_group == "eu_enlargement":
+            countries = eu_enlargement_countries
+        elif country_group == "eu + enlargement":
+            countries = eu_countries + eu_enlargement_countries
         elif country_group == "efta":
             countries = efta_countries
         elif country_group == "eu + efta":
             countries = eu_countries + efta_countries
+        elif country_group == "eu + enlargement + efta":
+            countries = eu_countries + eu_enlargement_countries + efta_countries
         elif country_group == "central_asia":
             countries = central_asia
         elif country_group == "eastern_europe":
