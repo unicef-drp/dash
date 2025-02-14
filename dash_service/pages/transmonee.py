@@ -3894,7 +3894,7 @@ def aio_area_figure(
                     ),
                     html.A(
                         f" {source}",
-                        href=source_link,
+                        #href=source_link,
                         target="_blank",
                         id={
                             "type": "area_sources",
