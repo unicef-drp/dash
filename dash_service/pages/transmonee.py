@@ -3892,10 +3892,10 @@ def aio_area_figure(
                             "display": "inline-block",
                         },
                     ),
-                    html.A(
+                    html.P(
                         f" {source}",
                         #href=source_link,
-                        target="_blank",
+                        #target="_blank",
                         id={
                             "type": "area_sources",
                             "index": "AIO_AREA",
