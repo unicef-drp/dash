@@ -3894,7 +3894,7 @@ def aio_area_figure(
                             "display": "inline-block",
                         },
                     ),
-                    html.P(
+                    html.A(
                         f" {source}",
                         href=source_link,
                         target="_blank",
