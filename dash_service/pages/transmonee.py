@@ -152,16 +152,13 @@ custom_names = {
     "DM_CHLD_POP": "Child population aged 0-17 years",
     "DM_ADOL_POP": "Adolescent population aged 10-19 years",
     "DM_TOT_POP_PROSP": "Population prospects",
-    "DM_ADOL_YOUTH_POP": "Adolescent, young and youth population aged 10-24 years",
+    "DM_ADOL_YOUTH_POP": "Adolescent and youth population by age group",
     "DM_ADULT_YOUTH_POP": "Adult youth population aged 20-29 years",
     "DM_REPD_AGE_POP": "Population of reproductive age 15-49 years",
     "DM_CHLD_YOUNG_COMP_POP": "Child population aged 0-17 years",
     "ICT_SECURITY_CONCERN": "Percentage of 16-24 year olds who limited their personal internet activities in the last 12 months due to security concerns",
     "ICT_PERSONAL_DATA": "Percentage of 16-24 year olds who used the internet in the last 3 months and managed access to their personal data",
     "MT_SDG_SUICIDE": "Suicide mortality rate for 15-19 year olds (deaths per 100,000 population) - SDG 3.4.2",
-    # custom plots
-    "packed_CRG": "National Human Rights Institutions in compliance with the Paris Principles",
-    "packed_EXP": "Expenditure on education levels as a percentage of government expenditure on education",
 }
 indicator_names.update(custom_names)
 # lbassil: get the age groups code list as it is not in the DSD
@@ -196,7 +193,14 @@ dimension_names = {
     "WEALTH_QUINTILE": "Wealth_name",
 }
 
-years = list(range(2000, 2025))
+# Dropdown options for the age group filter
+filter_age_groups = ['Y10T13', 'Y10T19', 'Y15T17', 'Y15T19', 'Y15T24', 'Y17T19', 'Y18T24']
+age_group_dropdown_options = [
+    {"label": age_groups_names[value], "value": value}
+    for value in filter_age_groups if value in age_groups_names
+]
+
+years = list(range(2000, 2026))
 
 # some indexes have been listed as ratios in SDG database so we need to specify not to round these indicators
 codes_3_decimals = ['HVA_EPI_INF_RT_0-14', 'EDU_SE_TOT_GPI_L2_MAT', 'EDU_SE_TOT_GPI_L2_REA', 'EDU_SE_AGP_CPRA_L3', 'DM_SP_POP_BRTH_MF']
@@ -523,19 +527,18 @@ all_countries = [
 
 
 data_sources = {
-    "CDDEM": "CountDown 2030",
-    "CCRI": "Children's Climate Risk Index",
-    "UN Treaties": "UN Treaties",
+    "CDDEM": "UNICEF Data Warehouse",
+    "CCRI": "UNICEF Data Warehouse",
+    "UN Treaties": "UN Treaties website",
     "ESTAT": "Eurostat",
     "Helix": "UNICEF Data Warehouse",
     "ILO": "International Labour Organization",
     "WHO": "World Health Organization",
-    "Immunization Monitoring (WHO)": "Immunization Monitoring (WHO)",
     "WB": "World Bank",
     "OECD": "Organisation for Economic Co-operation and Development",
     "OECD CWD": "OECD Child Wellbeing Dashboard",
     "INFORM": "Inform Risk Index",
-    "SDG": "Sustainable Development Goals",
+    "SDG": "UN Sustainable Development Goals Database",
     "UIS": "UNESCO Institute for Statistics",
     "BDDS_UIS": "UNESCO Institute for Statistics",
     "NEW_UIS": "UNESCO Institute for Statistics",
@@ -543,7 +546,8 @@ data_sources = {
     "UNDP": "United Nations Development Programme",
     "TMEE": "Transformative Monitoring for Enhanced Equity (TransMonEE)",
     "UIS_ESTIMATES": "UNESCO Institute for Statistics (UIS) and the Global Education Monitoring Report",
-    "CP_EXCEL": "UNICEF Division of Data, Analytics, Planning and Monitoring"
+    "CP_EXCEL": "UNICEF Division of Data, Analytics, Planning and Monitoring",
+    "ENOC": "European Network of Ombudspersons for Children (ENOC) website",
 }
 
 
@@ -612,27 +616,21 @@ for domain_details in merged_page_config.values():
         ])
 
 
-def get_card_popover_body(sources):
+def get_card_popover_body(country_data, gender=False):
     """
     This function is used to generate the list of countries that are part of the card's
     displayed result; it displays the countries as a list, each on a separate line
-
-    Args:
-        sources (_type_): _description_
-
-    Returns:
-        _type_: _description_
     """
     country_list = []
     # lbassil: added this condition to stop the exception when sources is empty
-    if len(sources) > 0:
-        numeric = sources.OBS_VALUE.dtype.kind in "iufc"
+    if len(country_data) > 0:
+        numeric = country_data.OBS_VALUE.dtype.kind in "iufc"
         # sort by values if numeric else by country
-        sort_col = "OBS_VALUE" if numeric else "Country_name"
-        sources_sorted = sources.sort_values(by=sort_col)
-        for i in range(len(sources_sorted)):
-            source_info = sources_sorted.iloc[i]
-            value = source_info.iloc[0]
+        sort_col = "OBS_VALUE" if numeric and not gender else "Country_name"
+        data_sorted = country_data.sort_values(by=sort_col)
+        for i in range(len(data_sorted)):
+            data_info = data_sorted.iloc[i]
+            value = data_info.iloc[0]
 
             # Check if the value is an integer
             if isinstance(value, float) and value.is_integer():
@@ -641,8 +639,10 @@ def get_card_popover_body(sources):
             else:
                 # Otherwise, convert the value directly to a string
                 formatted_value = str(value)
-
-            country_list.append(f"- {source_info.name[0]}: {formatted_value} ({source_info.name[1]})")
+            if gender:
+                country_list.append(f"- {data_info.name[0]}: {formatted_value} {data_info.name[2]} ({data_info.name[1]})")
+            else:
+                country_list.append(f"- {data_info.name[0]}: {formatted_value} ({data_info.name[1]})")
         card_countries = "\n".join(country_list)
         return card_countries
     else:
@@ -1049,6 +1049,9 @@ def get_data(
     breakdown: str = "TOTAL",  # send default breakdown as Total
     dimensions: dict = {},
     latest_data: bool = True,
+    age_group_filter: bool = False,
+    selected_age_group: str = "_T",
+
 ):
     """
     Get data based on the given parameters.
@@ -1086,13 +1089,17 @@ def get_data(
         card_keys.update(dimensions)
         keys.update(card_keys)
 
+    # Update "AGE" after initialization if age_group_filter is True
+    if age_group_filter:
+        keys["AGE"] = [selected_age_group]
+
     # Build data query string
     data_query = "".join(
         ["+".join(keys[param]) + "." if keys[param] else "." for param in keys]
     )
 
     start_period = years[0] if years else 2010
-    end_period = years[-1] if years else 2024
+    end_period = years[-1] if years else 2025
 
     # Get data using the API access
     data = api_access.get_data(
@@ -1607,7 +1614,7 @@ def get_base_layout(**kwargs):
                                                 html.Div([
                                                     html.P("Years:", style={"margin-bottom": "10px", "margin-top": "5px"}),
                                                     dbc.DropdownMenu(
-                                                        label="2000 - 2024",
+                                                        label="2000 - 2025",
                                                         id="collapse-years-button",
                                                         className="m-2",
                                                         color="secondary",
@@ -1616,10 +1623,10 @@ def get_base_layout(**kwargs):
                                                                 dcc.RangeSlider(
                                                                     id="year_slider",
                                                                     min=2000,
-                                                                    max=2024,
+                                                                    max=2025,
                                                                     step=1,
-                                                                    marks={year: str(year) for year in range(2000, 2025) if year % 2 == 0},
-                                                                    value=[2010, 2024],
+                                                                    marks={year: str(year) for year in range(2000, 2026) if year % 2 == 0},
+                                                                    value=[2010, 2025],
                                                                 ),
                                                                 style={"maxHeight": "250px", "minWidth": "500px"},
                                                                 className="overflow-auto",
@@ -1740,7 +1747,33 @@ def get_base_layout(**kwargs):
                                                             html.Div(
                                                                 [
                                                                     dbc.Row(
-                                                                        [
+                                                                        [   
+                                                                            # filter by age group                                                                           # Dropdown and label
+                                                                            dbc.Col(
+                                                                                html.Div([
+                                                                                    html.P(
+                                                                                        "Select age group:",
+                                                                                        style={
+                                                                                            "margin-bottom": "10px",
+                                                                                            "margin-top": "5px",
+                                                                                            "margin-right": "5px",
+                                                                                            'white-space': 'nowrap',  # Prevent label wrapping
+                                                                                        }
+                                                                                    ),
+                                                                                    dcc.Dropdown(
+                                                                                        id="age_groups",
+                                                                                        placeholder="Select an age group",
+                                                                                        options= age_group_dropdown_options,
+                                                                                        value="Y10T13",
+                                                                                        style={"min-width": "250px"},
+                                                                                    ),
+                                                                                ], 
+                                                                                id="age_group_option",
+                                                                                style={"display": "none"}),
+                                                                                xs=12,  # Full width on small screens
+                                                                                sm='auto',  # Auto width on larger screens
+                                                                                style={"padding-left":"20px"},
+                                                                            ), 
                                                                             # Checkbox and Label
                                                                             dbc.Col(
                                                                                 [
@@ -2228,34 +2261,79 @@ def make_card(
     indicator_header,
     numerator_pairs,
     domain_colour,
+    gender = False
 ):
-    card = [
-        dbc.CardBody(
-            [
-                html.Span(
-                    indicator_header,
-                    style={
-                        "textAlign": "center",
-                        "color": domain_colour,
-                        "font-size": "30px",
-                    },
-                ),
-                html.P(
-                    suffix,
-                    style={
-                        "font-size": "20px",
-                        "marginTop": "0px",
-                        "marginBottom": "0px"
-                    },
-                ),
-            ],
-            style={
-                "textAlign": "center",
-            },
-        ),
-    ]
+    if gender:
+        card = [
+            dbc.CardBody(
+                [
+                    html.Span(
+                        indicator_header[0],
+                        style={
+                            "textAlign": "center",
+                            "color": domain_colour,
+                            "font-size": "25px",
+                        },
+                    ),
+                    html.P(
+                        "females",
+                        style={
+                            "font-size": "20px",
+                            "marginTop": "0px",
+                            "marginBottom": "0px"
+                        },
+                    ),
+                    html.Br(),
+                    html.Span(
+                        indicator_header[1],
+                        style={
+                            "textAlign": "center",
+                            "color": domain_colour,
+                            "font-size": "25px",
+                        },
+                    ),
+                    html.P(
+                        "males",
+                        style={
+                            "font-size": "20px",
+                            "marginTop": "0px",
+                            "marginBottom": "0px"
+                        },
+                    ),
+                ],
+                style={
+                    "textAlign": "center",
+                },
+            ),
+        ]
+    else:
+        card = [
+            dbc.CardBody(
+                [
+                    html.Span(
+                        indicator_header,
+                        style={
+                            "textAlign": "center",
+                            "color": domain_colour,
+                            "font-size": "30px",
+                        },
+                    ),
+                    html.P(
+                        suffix,
+                        style={
+                            "font-size": "20px",
+                            "marginTop": "0px",
+                            "marginBottom": "0px"
+                        },
+                    ),
+                ],
+                style={
+                    "textAlign": "center",
+                },
+            ),
+        ]
 
-    return card, get_card_popover_body(numerator_pairs)
+    return card, get_card_popover_body(numerator_pairs, gender)
 
 def available_crc_years(country, indicator):
     if indicator is None:
@@ -2424,39 +2502,29 @@ def indicator_card(
     filters,
     indicator,
     suffix,
-    absolute=False,
-    average=False,
     min_max=False,
-    sex_code=None,
-    age_group=None,
     domain_colour="#1cabe2",
+    selected_age_group = '_T',
+    compare = "TOTAL"
 ):
     try:    
         # extract indicator code if it has a cross-cutting suffix
         base_indicator = get_base_indicator(indicator)
         indicators = [base_indicator] # adapting code as now only one indicator is used
 
-        # TODO: Change to use albertos config
-        # lbassil: had to change this to cater for 2 dimensions set to the indicator card like age and sex
-        breakdown = "TOTAL"
         # define the empty dimensions dict to be filled based on the card data filters
         dimensions = {}
-        if age_group is not None:
-            dimensions["AGE"] = [age_group]
-        if sex_code is not None:
-            dimensions["SEX"] = [sex_code]
 
         filtered_data = get_data(
             indicators,
             filters["years"],
             filters["countries"],
-            breakdown,
+            compare,
             dimensions,
             latest_data=True,
+            age_group_filter= True if base_indicator == 'DM_ADOL_YOUTH_POP' else False,
+            selected_age_group= selected_age_group
         )
-
-        df_indicator_sources = df_sources[df_sources["Code"].isin(indicators)]
-        unique_indicator_sources = df_indicator_sources["Source_Full"].unique()
 
         # lbassil: add this check because we are getting an exception where there is no data; i.e. no totals for all dimensions mostly age for the selected indicator
         if filtered_data.empty:
@@ -2480,68 +2548,59 @@ def indicator_card(
             numerator_pairs,
             domain_colour,
         )[0]
-
-    # select last value for each country
-    indicator_values = (
-        filtered_data.groupby(
-            [
-                "Country_name",
-                "TIME_PERIOD",
-            ]
-        ).agg({"OBS_VALUE": "sum", "CODE": "count"})
-    ).reset_index()
-
-    numerator_pairs = (
-        indicator_values[indicator_values.CODE == len(indicators)]
-        .groupby("Country_name", as_index=False)
-        .last()
-        .set_index(["Country_name", "TIME_PERIOD"])
-    )
-
-    if "countries" in suffix.lower():
-        # this is a hack to accomodate small cases (to discuss with James)
-        if "FREE" in indicator or "COMP" in indicator:
-            # trick to filter number of years of free education
-            indicator_sum = (numerator_pairs.OBS_VALUE >= 1).to_numpy().sum()
-            sources = numerator_pairs.index.tolist()
-            numerator_pairs = numerator_pairs[numerator_pairs.OBS_VALUE >= 1]
-
-        elif base_indicator == 'PP_SG_NHR_STATUS':
-            indicator_sum = ((numerator_pairs.OBS_VALUE == 1).to_numpy().sum())
-            sources = numerator_pairs.index.tolist()
-            if average and len(sources) > 1:
-                indicator_sum = indicator_sum / len(sources)    
-
-        elif absolute:
-            # trick cards data availability among group of indicators and latest time_period
-            # doesn't require filtering by count == len(numors)
-            numerator_pairs = indicator_values.groupby(
-                "Country_name", as_index=False
-            ).last()
-            max_time_filter = (
-                numerator_pairs.TIME_PERIOD < numerator_pairs.TIME_PERIOD.max()
-            )
-            numerator_pairs.drop(numerator_pairs[max_time_filter].index, inplace=True)
-            numerator_pairs.set_index(["Country_name", "TIME_PERIOD"], inplace=True)
-            sources = numerator_pairs.index.tolist()
-            indicator_sum = len(sources)
-
-        else:
-            # trick to accomodate cards for admin exams (AND for boolean indicators)
-            # filter exams according to number of indicators
-            indicator_sum = (
-                (numerator_pairs.OBS_VALUE == len(indicators)).to_numpy().sum()
-            )
-            sources = numerator_pairs.index.tolist()
+    if indicator == "DM_ADOL_YOUTH_POP" and compare == "SEX":
+        gender = True
+        # Map to gender to labels
+        filtered_data["SEX"] = filtered_data["SEX"].replace({"M": "males", "F": "females"})
+        # Keep only OBS_VALUE and the required index columns
+        numerator_pairs = filtered_data[["Country_name", "TIME_PERIOD", "SEX", "OBS_VALUE"]].set_index(["Country_name", "TIME_PERIOD", "SEX"])
 
     else:
+        gender = False    
+        # Select last value for each country
+        numerator_pairs = (
+            filtered_data.groupby(["Country_name", "TIME_PERIOD"], as_index=False)
+            .agg({"OBS_VALUE": "sum"})
+            .groupby("Country_name", as_index=False)
+            .last()
+            .set_index(["Country_name", "TIME_PERIOD"])
+        )
+
+    if "countries" in suffix.lower():
+        if base_indicator == 'PP_SG_NHR_STATUS':
+            # calculate how countries have are compliant with the Paris Principles
+            indicator_sum = ((numerator_pairs.OBS_VALUE == 2).to_numpy().sum())
+            
+            # Map the OBS_VALUE to the corresponding status
+            status_mapping = {0: "No status", 1: "B status", 2: "A status"}
+            numerator_pairs["OBS_VALUE"] = numerator_pairs["OBS_VALUE"].map(status_mapping)
+
+
+        else:
+            # calculate how many countries have 'Yes' value for binary indicators
+            indicator_sum = (
+                (numerator_pairs.OBS_VALUE >= 1).to_numpy().sum()
+            )
+            if base_indicator not in ['EDU_SDG_FREE_EDU_L02', 'EDU_SDG_COMP_EDU_L02']:
+                # Map the OBS_VALUE to the corresponding status
+                status_mapping = {1: "Yes", 0: "No"}
+                numerator_pairs["OBS_VALUE"] = numerator_pairs["OBS_VALUE"].map(status_mapping)
+        
+    else:
         indicator_sum = numerator_pairs["OBS_VALUE"].to_numpy().sum()
-        sources = numerator_pairs.index.tolist()
-        if average and len(sources) > 1:
-            indicator_sum = indicator_sum / len(sources)
+
+    # Compute indicator sum for each gender
+    if gender:
+        female_indicator_sum = filtered_data.loc[filtered_data["SEX"] == "females", "OBS_VALUE"].sum()
+        male_indicator_sum = filtered_data.loc[filtered_data["SEX"] == "males", "OBS_VALUE"].sum()
+
+        # Format numbers with thousands separators
+        formatted_female_sum = "{:,}".format(int(female_indicator_sum))
+        formatted_male_sum = "{:,}".format(int(male_indicator_sum)) 
+        indicator_header= [formatted_female_sum, formatted_male_sum]
 
     # define indicator header text: the resultant number except for the min-max range
-    if min_max and len(sources) > 1:
+    elif min_max:
         min_val = numerator_pairs["OBS_VALUE"].min()
         max_val = numerator_pairs["OBS_VALUE"].max()
         # string format for cards: thousands separator and number of decimals
@@ -2603,23 +2662,12 @@ def indicator_card(
         # add less than sign for HIV indicators
         indicator_header = f"<{indicator_header}"
 
-    if base_indicator == 'PP_SG_NHR_STATUS':
-        status_mapping = {0: "No status", 1: "B status", 2: "A status"}
-        # Map the OBS_VALUE to the corresponding status
-        numerator_pairs["OBS_VALUE"] = numerator_pairs["OBS_VALUE"].map(status_mapping)
-    
-    if base_indicator in ['CR_UN_CHLD_SALE','CR_UN_CHLD_ARMED','CR_UN_CHLD_COMM', 'CR_SG_STT_FPOS',
-                          'CR_SG_STT_NSDSFND', 'CR_SG_STT_NSDSIMPL', 'CR_SG_STT_NSDSFDGVT', 'CR_SG_STT_NSDSFDDNR',
-                           'CR_SG_STT_NSDSFDOTHR', 'CR_SG_REG_CENSUSN', 'PP_SG_REG_BRTH90N', 'PP_SG_REG_DETH75N']:
-        status_mapping = {1: "Yes", 0: "No"}
-        # Map the OBS_VALUE to the corresponding status
-        numerator_pairs["OBS_VALUE"] = numerator_pairs["OBS_VALUE"].map(status_mapping)
-
     return make_card(
         suffix,
         indicator_header,
         numerator_pairs,
         domain_colour,
+        gender,
     )
 
 
@@ -3018,13 +3066,21 @@ def fig_options(indicator):
     indicator_config = indicators_config.get(indicator, {})
 
 
-    # Check if the indicator has is string type and give only bar and map as options
+    # Check if the indicator is string type and give only bar and map as options
     if indicator_config and nominal_data(indicator_config):
         area_types = [
             {"label": html.Span([html.I(className="fas fa-chart-simple"), " Column"]), "value": "count_bar"},
             {"label": html.Span([html.I(className="fas fa-earth-europe"), " Map"]), "value": "map"},
         ]
         default_graph = "map"
+    elif indicator == 'DM_ADOL_YOUTH_POP':
+            area_types = [
+            {"label": html.Span([html.I(className="fas fa-chart-simple"), " Column"]), "value": "bar"},
+            {"label": html.Span([html.I(className="fas fa-chart-line"), " Line"]), "value": "line"},
+            {"label": html.Span([html.I(className="fas fa-earth-europe"), " Map"]), "value": "map"},
+        ]
+            default_graph = "bar"
+
     else:
         area_types = [
             {"label": html.Span([html.I(className="fas fa-chart-simple"), " Column"]), "value": "bar"},
@@ -3061,8 +3117,23 @@ def default_compare(compare_options, selected_type, indicator):
         return compare_options[0]["value"]
 
 
-def average_option(compare, selected_type):
-    if selected_type == "bar" and compare == 'TOTAL':
+def average_option(indicator, compare, selected_type):
+
+    base_indicator = get_base_indicator(indicator)
+
+    if selected_type == "bar" and compare == 'TOTAL' and base_indicator not in ['DM_ADOL_YOUTH_POP', 'DM_CHLD_POP']:
+        return { 
+                "display": "flex", 
+                "align-items": "center"
+            }
+    else:
+        return {
+                "display": "none"
+            }
+    
+def age_group_option(indicator):
+
+    if indicator == 'DM_ADOL_YOUTH_POP':
         return { 
                 "display": "flex", 
                 "align-items": "center"
@@ -3082,7 +3153,7 @@ def xaxis_option(selected_type):
             }
     
         
-def highlight_option(fig_type, indicator, years_slider, countries, country_group, compare):
+def highlight_option(fig_type, indicator, years_slider, countries, country_group, compare, selected_age_group):
     if fig_type == "line" and indicator:
         filters, country_selector, selected_years, country_text = get_filters(
                 years_slider,
@@ -3100,6 +3171,8 @@ def highlight_option(fig_type, indicator, years_slider, countries, country_group
             "TOTAL",
             {},
             latest_data=False,
+            age_group_filter= True if base_indicator == 'DM_ADOL_YOUTH_POP' else False,
+            selected_age_group=selected_age_group
         )
 
         # Extract unique country names from the dataframe
@@ -3142,6 +3215,7 @@ def aio_area_figure(
     average_line,
     highlighted_countries,
     scatterplot_indicator,
+    selected_age_group,
     selected_type,
 ):
     
@@ -3229,6 +3303,8 @@ def aio_area_figure(
             filters["countries"],
             compare,
             latest_data=False if fig_type == "line" else True,
+            age_group_filter= True if base_indicator == 'DM_ADOL_YOUTH_POP' else False,
+            selected_age_group= selected_age_group
         )
 
         # Additional data request if the fig_type is scatter (for the y-axis indicator)
@@ -3401,12 +3477,10 @@ def aio_area_figure(
             filters,
             card_config["indicator"],
             card_config["suffix"],
-            card_config.get("absolute"),
-            card_config.get("average"),
             card_config.get("min_max"),
-            card_config.get("sex"),
-            card_config.get("age"),
             domain_colour,
+            selected_age_group,
+            compare
         )
     )
 
@@ -3423,26 +3497,19 @@ def aio_area_figure(
     df_indicator_sources = df_sources[df_sources["Code"] == base_indicator]
     unique_indicator_sources = df_indicator_sources["Source_Full"].unique()
 
-    if data["CODE"].isin(["DM_CHLD_POP", "DM_CHLD_POP_PT", "DM_FRATE_COMP","DM_ADOL_POP", "DM_UFIVE_POP", "DM_BRTS_COMP"]).any():
+    if data["CODE"].isin(["DM_CHLD_POP", "DM_CHLD_POP_PT", "DM_FRATE_COMP","DM_ADOL_POP", "DM_UFIVE_POP", "DM_BRTS_COMP", "DM_ADOL_YOUTH_POP"]).any():
         source = "Multiple Sources"
-    elif len(unique_indicator_sources) > 0:
-        source = "; ".join(list(unique_indicator_sources))
+        source_link = "https://ec.europa.eu/eurostat/cache/metadata/en/demo_pop_esms.htm"
     else:
-        source = ""
-
-    source_link = (
-        df_indicator_sources["Source_Link"].unique()[0]
-        if len(unique_indicator_sources) > 0
-        and not data["CODE"].isin(["DM_CHLD_POP", "DM_CHLD_POP_PT", "DM_FRATE_COMP", "DM_ADOL_POP", "DM_UFIVE_POP", "DM_BRTS_COMP"]).any()
-        else "https://ec.europa.eu/eurostat/cache/metadata/en/demo_pop_esms.htm"
-    )
+        source = unique_indicator_sources[0]
+        source_link = df_indicator_sources["Source_Link"].unique()[0]
 
     options["labels"] = DEFAULT_LABELS.copy()
     options["labels"]["OBS_VALUE"] = name
 
     # set the chart title, wrap the text when the indicator name is too long
     chart_title = textwrap.wrap(
-        indicator_name,
+        indicator_name + f" ({age_groups_names[selected_age_group]})" if indicator == "DM_ADOL_YOUTH_POP" else indicator_name,
         width=74,
     )
     chart_title = "<br>".join(chart_title)
@@ -3611,8 +3678,9 @@ def aio_area_figure(
                                 style={"color": '#374EA2'},
                                 target="_blank",
                                 className= "indicator-link")
+    if indicator == 'DM_ADOL_YOUTH_POP':
+        graph_info = "Tip: click the 'Download data' button below to download the data shown in the graph as a CSV file."
         
-
     if base_indicator == 'ECD_CHLD_36-59M_LMPSL' and 'UZB' in data['REF_AREA'].values:
         graph_info = "This indicator has been calculated for Uzbekistan using data for children aged 24-59 months. "
     
