@@ -39,6 +39,7 @@ from dash_service.pages.transmonee import (
     average_option,
     xaxis_option,
     manage_highlighted_countries,
+    age_group_option,
 )
 
 from dash_service.static.page_config import (
@@ -132,11 +133,12 @@ def set_breakdown_options(indicator, fig_type):
         Input("country-filter", "value"),
         Input("country-group", "value"),
         Input({"type": "area_breakdowns", "index": "AIO_AREA"}, "value"),
+        Input("age_groups", "value"),
     ],
     prevent_initial_call=True,
 )
-def set_highlight_options(fig_type, indicator, years_slider, countries, country_group, compare):
-    return highlight_option(fig_type, indicator, years_slider, countries, country_group, compare)
+def set_highlight_options(fig_type, indicator, years_slider, countries, country_group, compare, selected_age_group):
+    return highlight_option(fig_type, indicator, years_slider, countries, country_group, compare, selected_age_group)
 
 @callback(
     Output({"type": "area_breakdowns", "index": "AIO_AREA"}, "value"),
@@ -220,12 +222,22 @@ def update_current_indicator(dropdown_value, active_indicator_buttons, crm_view_
 @callback(
         Output('average_option', 'style'),
     [
+    Input('current-indicator-store', 'data'),
     Input({"type": "area_breakdowns", "index": "AIO_AREA"}, "value"),
     Input({"type": "area_types", "index": "AIO_AREA"}, "value"),
     ]
 )
-def show_average_option(compare, selected_type):
-    return average_option(compare, selected_type)
+def show_average_option(indicator,compare, selected_type):
+    return average_option(indicator, compare, selected_type)
+
+@callback(
+        Output('age_group_option', 'style'),
+    [
+    Input('current-indicator-store', 'data'),
+    ]
+)
+def show_age_group_option(indicator):
+    return age_group_option(indicator)
 
 @callback(
         Output('scatterplot_indicator_option', 'style'),
@@ -427,7 +439,7 @@ def update_highlighted_countries(selected_countries):
         Input("show-average-checkbox", "value"),
         Input("highlighted_countries", "value"),
         Input("xaxis-indicator-dropdown", "value"),
-
+        Input("age_groups", "value"),
     ],
         State({"type": "area_types", "index": "AIO_AREA"}, "value"),
     prevent_initial_call=True,
@@ -441,6 +453,7 @@ def apply_aio_area_figure(
     average_line,
     highlighted_countries,
     scatterplot_indicator,
+    selected_age_group,
     selected_type,
 ):
     return aio_area_figure(
@@ -452,5 +465,6 @@ def apply_aio_area_figure(
         average_line,
         highlighted_countries,
         scatterplot_indicator,
+        selected_age_group,
         selected_type,
     )

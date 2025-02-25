@@ -21,7 +21,7 @@
     "DM_ADOL_POP": "Population of adolescents aged 10-19 years, compiled from multiple sources according to the country's preference. Data comes from Eurostat, UN DESA or in some cases it has been directly submitted by the NSO (for Belarus, Georgia and Tajikistan).",
     "DM_UFIVE_POP": "Population of children under five years old, compiled from multiple sources according to the country's preference. Data comes from Eurostat, UN DESA or in some cases it has been directly submitted by the NSO (for Belarus, Georgia and Tajikistan).",
     "DM_TOT_POP_PROSP": "Total population prospects (in thousands)",
-    "DM_ADOL_YOUTH_POP": "Total adolescent, young and youth population aged 10-24 years",
+    "DM_ADOL_YOUTH_POP": "Adolescent and youth population by age group",
     "DM_ADULT_YOUTH_POP": "Total adult youth population aged 20-29 years",
     "DM_REPD_AGE_POP": "Total population of reproductive age 15-49 years",
     "MG_INTNL_MG_CNTRY_DEST_PS": NaN,
