@@ -274,6 +274,25 @@
             ]
         }
     },
+    "DM_AGE_GROUPS": {
+        "SEX": {
+            "AGE": [
+                "_T"
+            ],
+            "SEX": [
+                "F",
+                "M"
+            ]
+        },
+        "TOTAL": {
+            "AGE": [
+                "_T"
+            ],
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
     "DM_ADOL_YOUTH_POP": {
         "SEX": {
             "AGE": [

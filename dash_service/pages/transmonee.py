@@ -152,7 +152,7 @@ custom_names = {
     "DM_CHLD_POP": "Child population aged 0-17 years",
     "DM_ADOL_POP": "Adolescent population aged 10-19 years",
     "DM_TOT_POP_PROSP": "Population prospects",
-    "DM_ADOL_YOUTH_POP": "Adolescent and youth population by age group",
+    "DM_AGE_GROUPS": "Population by age group",
     "DM_ADULT_YOUTH_POP": "Adult youth population aged 20-29 years",
     "DM_REPD_AGE_POP": "Population of reproductive age 15-49 years",
     "DM_CHLD_YOUNG_COMP_POP": "Child population aged 0-17 years",
@@ -194,10 +194,18 @@ dimension_names = {
 }
 
 # Dropdown options for the age group filter
-filter_age_groups = ['Y10T13', 'Y10T19', 'Y15T17', 'Y15T19', 'Y15T24', 'Y17T19', 'Y18T24']
+filter_age_groups = ['_T', 'Y0T17', 'Y0', 'Y0T2', 'Y0T4','Y5T9', 'Y10T14', 'Y10T17','Y10T19', 'Y15T17', 'Y15T24']
+# Create a copy of age_groups_names to avoid modifying the original dictionary
+custom_age_groups_names = age_groups_names.copy()
+
+# Override specific labels
+custom_age_groups_names["_T"] = "Total population"
+custom_age_groups_names["Y0T17"] = "Child population (0 to 17 years old)"
+
+# Generate dropdown options using the modified copy
 age_group_dropdown_options = [
-    {"label": age_groups_names[value], "value": value}
-    for value in filter_age_groups if value in age_groups_names
+    {"label": custom_age_groups_names[value], "value": value}
+    for value in filter_age_groups if value in custom_age_groups_names
 ]
 
 years = list(range(2000, 2026))
@@ -1764,7 +1772,7 @@ def get_base_layout(**kwargs):
                                                                                         id="age_groups",
                                                                                         placeholder="Select an age group",
                                                                                         options= age_group_dropdown_options,
-                                                                                        value="Y10T13",
+                                                                                        value="_T",
                                                                                         style={"min-width": "250px"},
                                                                                     ),
                                                                                 ], 
@@ -2522,7 +2530,7 @@ def indicator_card(
             compare,
             dimensions,
             latest_data=True,
-            age_group_filter= True if base_indicator == 'DM_ADOL_YOUTH_POP' else False,
+            age_group_filter= True if base_indicator == 'DM_AGE_GROUPS' else False,
             selected_age_group= selected_age_group
         )
 
@@ -2548,7 +2556,7 @@ def indicator_card(
             numerator_pairs,
             domain_colour,
         )[0]
-    if indicator == "DM_ADOL_YOUTH_POP" and compare == "SEX":
+    if indicator == "DM_AGE_GROUPS" and compare == "SEX":
         gender = True
         # Map to gender to labels
         filtered_data["SEX"] = filtered_data["SEX"].replace({"M": "males", "F": "females"})
@@ -3073,7 +3081,7 @@ def fig_options(indicator):
             {"label": html.Span([html.I(className="fas fa-earth-europe"), " Map"]), "value": "map"},
         ]
         default_graph = "map"
-    elif indicator == 'DM_ADOL_YOUTH_POP':
+    elif indicator == 'DM_AGE_GROUPS':
             area_types = [
             {"label": html.Span([html.I(className="fas fa-chart-simple"), " Column"]), "value": "bar"},
             {"label": html.Span([html.I(className="fas fa-chart-line"), " Line"]), "value": "line"},
@@ -3121,7 +3129,7 @@ def average_option(indicator, compare, selected_type):
 
     base_indicator = get_base_indicator(indicator)
 
-    if selected_type == "bar" and compare == 'TOTAL' and base_indicator not in ['DM_ADOL_YOUTH_POP', 'DM_CHLD_POP']:
+    if selected_type == "bar" and compare == 'TOTAL' and base_indicator not in ['DM_AGE_GROUPS', 'DM_CHLD_POP']:
         return { 
                 "display": "flex", 
                 "align-items": "center"
@@ -3133,7 +3141,7 @@ def average_option(indicator, compare, selected_type):
     
 def age_group_option(indicator):
 
-    if indicator == 'DM_ADOL_YOUTH_POP':
+    if indicator == 'DM_AGE_GROUPS':
         return { 
                 "display": "flex", 
                 "align-items": "center"
@@ -3171,7 +3179,7 @@ def highlight_option(fig_type, indicator, years_slider, countries, country_group
             "TOTAL",
             {},
             latest_data=False,
-            age_group_filter= True if base_indicator == 'DM_ADOL_YOUTH_POP' else False,
+            age_group_filter= True if base_indicator == 'DM_AGE_GROUPS' else False,
             selected_age_group=selected_age_group
         )
 
@@ -3303,7 +3311,7 @@ def aio_area_figure(
             filters["countries"],
             compare,
             latest_data=False if fig_type == "line" else True,
-            age_group_filter= True if base_indicator == 'DM_ADOL_YOUTH_POP' else False,
+            age_group_filter= True if base_indicator == 'DM_AGE_GROUPS' else False,
             selected_age_group= selected_age_group
         )
 
@@ -3497,7 +3505,7 @@ def aio_area_figure(
     df_indicator_sources = df_sources[df_sources["Code"] == base_indicator]
     unique_indicator_sources = df_indicator_sources["Source_Full"].unique()
 
-    if data["CODE"].isin(["DM_CHLD_POP", "DM_CHLD_POP_PT", "DM_FRATE_COMP","DM_ADOL_POP", "DM_UFIVE_POP", "DM_BRTS_COMP", "DM_ADOL_YOUTH_POP"]).any():
+    if data["CODE"].isin(["DM_CHLD_POP", "DM_CHLD_POP_PT", "DM_FRATE_COMP","DM_ADOL_POP", "DM_UFIVE_POP", "DM_BRTS_COMP", "DM_AGE_GROUPS"]).any():
         source = "Multiple Sources"
         source_link = "https://ec.europa.eu/eurostat/cache/metadata/en/demo_pop_esms.htm"
     else:
@@ -3509,7 +3517,7 @@ def aio_area_figure(
 
     # set the chart title, wrap the text when the indicator name is too long
     chart_title = textwrap.wrap(
-        indicator_name + f" ({age_groups_names[selected_age_group]})" if indicator == "DM_ADOL_YOUTH_POP" else indicator_name,
+        indicator_name + f" ({age_groups_names[selected_age_group]})" if indicator == "DM_AGE_GROUPS" else indicator_name,
         width=74,
     )
     chart_title = "<br>".join(chart_title)
@@ -3678,7 +3686,7 @@ def aio_area_figure(
                                 style={"color": '#374EA2'},
                                 target="_blank",
                                 className= "indicator-link")
-    if indicator == 'DM_ADOL_YOUTH_POP':
+    if indicator == 'DM_AGE_GROUPS':
         graph_info = "Tip: click the 'Download data' button below to download the data shown in the graph as a CSV file."
         
     if base_indicator == 'ECD_CHLD_36-59M_LMPSL' and 'UZB' in data['REF_AREA'].values:
