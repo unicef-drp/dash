@@ -194,7 +194,7 @@ dimension_names = {
 }
 
 # Dropdown options for the age group filter
-filter_age_groups = ['_T', 'Y0T17', 'Y0', 'Y0T2', 'Y0T4','Y5T9', 'Y10T14', 'Y10T17','Y10T19', 'Y15T17', 'Y15T24']
+filter_age_groups = ['_T', 'Y0T17', 'Y0', 'Y0T2', 'Y0T4','Y0T14','Y5T9', 'Y10T14', 'Y10T17','Y10T19', 'Y15T17', 'Y15T24']
 # Create a copy of age_groups_names to avoid modifying the original dictionary
 custom_age_groups_names = age_groups_names.copy()
 
