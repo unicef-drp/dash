@@ -330,8 +330,8 @@
                     "Code": "ECD_CHLD_24-59M_FHR-SPT-LNG"
                 },
                 {
-                    "Indicator Name": "Percentage of children (36-59 months) developmentally on track in at least 3 of the 4 following domains: literacy-numeracy, physical, social-emotional and learning - SDG 4.2.1",
-                    "Code": "ECD_CHLD_36-59M_LMPSL"
+                    "Indicator Name": "Percentage of children (24-59 months) developmentally on track in at least 3 of the 4 following domains: literacy-numeracy, physical, social-emotional and learning - SDG 4.2.1",
+                    "Code": "ECD_CHLD_LMPSL"
                 },
                 {
                     "Indicator Name": "Pupils from age 3 to the starting age of compulsory education at primary level",
