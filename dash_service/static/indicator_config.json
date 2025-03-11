@@ -836,7 +836,7 @@
             ]
         }
     },
-    "ECD_CHLD_36-59M_LMPSL": {
+    "ECD_CHLD_LMPSL": {
         "RESIDENCE": {
             "RESIDENCE": [
                 "R",
@@ -864,6 +864,22 @@
             "AGE": [
                 "M24T59",
                 "M36T59"
+            ],
+            "WEALTH_QUINTILE": [
+                "_T"
+            ]
+        },
+        "AGE": {
+            "RESIDENCE": [
+                "_T"
+            ],
+            "SEX": [
+                "_T"
+            ],
+            "AGE": [
+                "Y02",
+                "Y03",
+                "Y04"
             ],
             "WEALTH_QUINTILE": [
                 "_T"
@@ -7005,30 +7021,8 @@
         }
     },
     "EC_GDI": {
-        "TOTAL": {
-            "SEX": [
-                "_T"
-            ]
-        },
-        "SEX": {
-            "SEX": [
-                "M",
-                "F"
-            ]
-        }
     },
     "EC_GII": {
-        "TOTAL": {
-            "SEX": [
-                "_T"
-            ]
-        },
-        "SEX": {
-            "SEX": [
-                "M",
-                "F"
-            ]
-        }
     },
     "PP_SG_NHR_STATUS": {
         "DTYPE": "str",

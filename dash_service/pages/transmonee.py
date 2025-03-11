@@ -3671,7 +3671,7 @@ def aio_area_figure(
                                 target="_blank",
                                 className= "indicator-link")         
         
-    if indicator in ['ECD_CHLD_36-59M_LMPSL','CME_MRM0-ECD','NT_BF_EXBF-ECD','ECD_CHLD_24-59M_ADLT_SRC','EDUNF_NERA_L1_UNDER1-ECD','ECD_IN_CHILDCARE','ECD_EARLY_EDU-ECD']:
+    if indicator in ['ECD_CHLD_LMPSL','CME_MRM0-ECD','NT_BF_EXBF-ECD','ECD_CHLD_24-59M_ADLT_SRC','EDUNF_NERA_L1_UNDER1-ECD','ECD_IN_CHILDCARE','ECD_EARLY_EDU-ECD']:
         indicator_link =  html.A(
                                 "Click here to explore UNICEF's country profiles for early childhood development.",
                                 href="https://nurturing-care.org/resources/country-profiles/",
@@ -3689,8 +3689,8 @@ def aio_area_figure(
     if indicator == 'DM_AGE_GROUPS':
         graph_info = "Tip: click the 'Download data' button below to download the data shown in the graph as a CSV file."
         
-    if base_indicator == 'ECD_CHLD_36-59M_LMPSL' and 'UZB' in data['REF_AREA'].values:
-        graph_info = "This indicator has been calculated for Uzbekistan using data for children aged 24-59 months. "
+    if base_indicator == 'ECD_CHLD_LMPSL' and 'UZB' in data['REF_AREA'].values:
+        graph_info = "The graph shows data for 36-59 months, with the exception of Uzbekistan which uses 24-59 months (the new method for calculating ECDI).  "
     
     if base_indicator in ['HVA_EPI_LHIV_0-19', 'HVA_EPI_DTH_ANN_0-19']:
         graph_info = "Many countries only report data for this indicator for the 15-19 years age group; this data can be viewed in the age-disaggregated bar chart. "
