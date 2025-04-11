@@ -1395,7 +1395,10 @@ def get_base_layout(**kwargs):
                                                     ),
                                                 ],
                                                 className="learn-more-container",
-                                                style={"display": "none", "align-items": "center", "color": '#374EA2'}
+                                                style={
+                                                    #"display": "none", 
+                                                    "align-items": "center", 
+                                                    "color": '#374EA2'}
                                             ),
                                         ],
                                         style={"text-align": "center", "display": "flex", "justify-content": "center", "align-items": "center", "flex-wrap": "wrap"}
@@ -1937,7 +1940,7 @@ def get_base_layout(**kwargs):
                                                             html.Div([
                                                                 html.Div(
                                                                 id="aio_area_indicator_link",
-                                                                style={"display":"none"},
+                                                                #style={"display":"none"},
                                                                 ),
                                                             html.P(
                                                                 id="aio_area_graph_info",
@@ -2250,7 +2253,7 @@ def get_base_layout(**kwargs):
                                         ),
                                     ],
                                     className="crc-link",
-                                    style={"display":"none"}
+                                    #style={"display":"none"}
                                 ),
                             ],
                         ),
@@ -3970,10 +3973,10 @@ def aio_area_figure(
                             "display": "inline-block",
                         },
                     ),
-                    html.P(
+                    html.A(
                         f" {source}",
-                        #href=source_link,
-                        #target="_blank",
+                        href=source_link,
+                        target="_blank",
                         id={
                             "type": "area_sources",
                             "index": "AIO_AREA",
