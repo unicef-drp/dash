@@ -1,88 +1,70 @@
-# TransMonee-Dashboard
 
-A Plotly Dash-based dashboard.
+# TransMonEE Dashboard
 
+The **TransMonEE Dashboard** is an interactive visualization tool for monitoring child rights across Europe and Central Asia. It provides access to a wide range of disaggregated data and CRC recommendations aligned with the ECA Child Rights Monitoring (CRM) Framework.
 
-## Installation
-
-After cloning/downloading the repository, simply install TransMonee-Dashboard as a package into your target virtual environment:
-
-    $ pip install PATH_TO_transmonee_dashboard
-
-During development you will likely want to perform an editable install so that
-changes to the source code take immediate effect on the installed package.
-
-    $ pip install -e PATH_TO_transmonee_dashboard
+🌍 **Live Dashboard:**  
+[https://www.transmonee.org/europe-central-asia-child-rights-data-dashboard](https://www.transmonee.org/europe-central-asia-child-rights-data-dashboard)
 
 
-## Running Your App
+---
 
-This project comes with two convenience scripts for running your project in
-development and production environments, or you can use your own WSGI server to
-run the app.
+## Features
 
+- Explore indicators by domain and sub-domain, aligned with the ECA CRM Framework
+- View interactive charts, maps, and trends over time
+- Filter by country, region, disaggregations (sex, age, residence, wealth), and year
+- Access and filter CRC recommendations linked to child rights bottlenecks
+- Download charts and datasets directly from the dashboard
 
-### Run Dev App 
+---
 
-Installing this package into your virtualenv will result into the development
-executable being installed into your path when the virtualenv is activated. This
-command invokes your Dash app's `run_server` method, which in turn uses the
-Flask development server to run your app. The command is invoked as follows,
-with `proj_slug` being replaced by the value provided for this cookiecutter
-parameter.
+## Technology Stack
 
-    $ run-project_slug-dev
+- **Dash** and **Flask** for the web framework
+- **Plotly** for interactive data visualizations
+- **pandasdmx** for accessing SDMX API data from UNICEF
+- **Docker** and **VS Code Dev Containers** for streamlined development
+- **GitHub Actions** for automated deployment
 
-The script takes a couple of arguments optional parameters, which you can
-discover with the `--help` flag. You may need to set the port using the `--port`
-parameter. If you need to expose your app outside your local machine, you will
-want to set `--host 0.0.0.0`.
+---
 
+## Getting Started (VS Code Dev Container)
 
-### Run Prod App
+1. **Install prerequisites:**
+   - [Docker](https://www.docker.com/products/docker-desktop)
+   - [Visual Studio Code](https://code.visualstudio.com/)
+   - VS Code extension: _Dev Containers_
 
-While convenient, the development webserver should *not* be used in
-production. Installing this package will also result in a production executable
-being installed in your virtualenv. This is a wrapper around the
-`mod_wsgi-express` command, which streamlines use of the [mod_wsgi Apache
-module](https://pypi.org/project/mod_wsgi/) to run your your app. In addition to
-installing the `mod_wsgi` Python package, you will need to have installed
-Apache. See installation instructions in the [mod_wsgi
-documentation](https://pypi.org/project/mod_wsgi/). This script also takes a
-range of command line arguments, which can be discovered with the `--help` flag.
+2. **Clone the repository:**
 
-    $ run-project_slug-prod
-    
-This script will also apply settings found in the module `transmonee_dashboard.prod_settings` (or a custom Python file supplied
-with the `--settings` flag) and which takes precedence over the same settings
-found in `transmonee_dashboard.settings`.
+   ```bash
+   git clone https://github.com/unicef-drp/dash.git
+   cd dash
+   ```
 
-A notable advantage of using `mod_wsgi` over other WSGI servers is that we do
-not need to configure and run a web server separate to the WSGI server. When
-using other WSGI servers (such as Gunicorn or uWSGI), you do not want to expose
-them directly to web requests from the outside world for two reasons: 1)
-incoming requests will not be buffered, exposing you to potential denial of
-service attacks, and 2) you will be serving your static assets via Dash's Flask
-instance, which is slow. The production script uses `mod_wsgi-express` to spin
-up an Apache process (separate to any process already running and listening on
-port 80) that will buffer requests, passing them off to the worker processes
-running your app, and will also set up the Apache instance to serve your static
-assets much faster than would be the case through the Python worker processes.
+3. **Open the folder in VS Code** and choose **“Reopen in Container”**.  
+   This will automatically build the environment and install dependencies.
 
-_Note:_ You will need to reinstall this package in order for changes to the
-`run-transmonee_dashboard-prod` script to take effect even if you
-installed its an editable install with (ie `pip install -e`).
+4. **Run the app locally:**
 
+   Open [http://localhost:8000/?prj=tm](http://localhost:8000/?prj=tm) in your browser once the container is running.
 
-### Running with a different WSGI Server
+> Ensure Docker is running before opening VS Code.
 
-You can easily run your app using a WSGI server of your choice (such as Gunicorn
-for example) with the `transmonee_dashboard.wsgi` entry point
-(defined in `wsgi.py`) like so:
+---
 
-    $ gunicorn transmonee_dashboard.wsgi
+## Continuous Deployment
 
-_Note:_ if you want to enable Dash's debug mode while running with a WSGI server,
-you'll need to export the `DASH_DEBUG` environment variable to `true`. See the
-[Dev Tools](https://dash.plot.ly/devtools) section of the Dash Docs for more
-details.
+Changes pushed to the `main` branch automatically trigger a GitHub Actions workflow that redeploys the live dashboard at:
+
+👉 [https://www.transmonee.org/europe-central-asia-child-rights-data-dashboard](https://www.transmonee.org/europe-central-asia-child-rights-data-dashboard)
+
+No manual deployment steps are required.
+
+---
+
+## Maintainers
+
+This dashboard is maintained by the UNICEF Europe and Central Asia Regional Office and UNICEF Division of Data, Analytics, Planning and Monitoring. For any feedback or issues, please contact us at transmonee@unicef.org.
+
