@@ -7208,6 +7208,15 @@
                 "Q4",
                 "Q5"
             ]
+        },
+        "FUNCTIONAL_DIFFICULTIES": {
+            "AGE": [
+                "_T"
+            ],
+            "FUNCTIONAL_DIFFICULTIES": [
+                "HFD",
+                "NFD"
+            ]
         }
     },
     "CID_PT_CHLD_PS-PSY-V_CGVR": {

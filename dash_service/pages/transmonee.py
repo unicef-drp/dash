@@ -137,7 +137,8 @@ unicef = sdmx.Request("UNICEF", timeout=20)
 
 metadata = unicef.dataflow("TRANSMONEE", provider="ECARO", version="1.0")
 dsd = metadata.structure["DSD_ECARO_TRANSMONEE"]
-ecacid_dsd = metadata.structure["DSD_ECACID"]
+ecacid_metadata = unicef.dataflow("ECACID", provider="ECARO", version="1.0")
+ecacid_dsd = ecacid_metadata.structure["DSD_ECACID"]
 
 indicator_names = {
     code.id: code.name.en
@@ -177,15 +178,18 @@ age_groups = sdmx.to_pandas(cl_age)
 dict_age_groups = age_groups["codelist"]["CL_AGE"].reset_index()
 age_groups_names = {age.iloc[0]: age.iloc[1] for _, age in dict_age_groups.iterrows()}
 
+units_names = {
+    unit.id: str(unit.name)
+    for unit in dsd.attributes.get("UNIT_MEASURE").local_representation.enumerated
+}
 
-def get_dimension_names(dsd, dimension_key):
+def get_dimension_names(data_structure, dimension_key):
     return {
         item.id: str(item.name)
-        for item in dsd.dimensions.get(dimension_key).local_representation.enumerated
+        for item in data_structure.dimensions.get(dimension_key).local_representation.enumerated
     }
 
 # get codes from TM database
-units_names = get_dimension_names(dsd, "UNIT_MEASURE")
 residence_names = get_dimension_names(dsd, "RESIDENCE")
 wealth_names = get_dimension_names(dsd, "WEALTH_QUINTILE")
 
@@ -1334,7 +1338,7 @@ def get_data_new(
     data["OBS_VALUE"] = pd.to_numeric(data.OBS_VALUE, errors="coerce")
     data.dropna(subset=["OBS_VALUE"], inplace=True)
 
-    if "3" in data.UNIT_MULTIPLIER.values and "DM_CHLD_POP" not in data["CODE"].values:
+    if tm_database and "3" in data.UNIT_MULTIPLIER.values and "DM_CHLD_POP" not in data["CODE"].values:
         data["OBS_VALUE"] *= 10 ** pd.to_numeric(data.UNIT_MULTIPLIER, errors="coerce")
 
     data.replace(np.nan, "N/A", inplace=True)
@@ -2938,6 +2942,7 @@ graphs_dict = {
                 "Age_name",
                 "Wealth_name",
                 "Residence_name",
+                "Disability_name"
             ],
             height=500,
             text_auto=".3s",
@@ -3252,7 +3257,9 @@ def breakdown_options(indicator, fig_type):
         {"label": "Age", "value": "AGE"},
         {"label": "Residence", "value": "RESIDENCE"},
         {"label": "Wealth Quintile", "value": "WEALTH_QUINTILE"},
+        {"label": "Disability", "value": "FUNCTIONAL_DIFFICULTIES"},
     ]
+    
     dimensions = indicators_config.get(indicator, {}).keys()
     # disaggregate only bar charts
     if dimensions and fig_type == "bar":
@@ -3505,29 +3512,35 @@ def aio_area_figure(
         indicator_name = str(indicator_names.get(base_indicator, ""))
         indicator_description = indicator_definitions.get(base_indicator, "")
 
-        # make API request to retrieve data
-        data = get_data(
-            [base_indicator],
-            filters["years"],
-            filters["countries"],
-            compare,
-            latest_data=False if fig_type == "line" else True,
-            age_group_filter= True if base_indicator == 'DM_AGE_GROUPS' else False,
-            selected_age_group= selected_age_group
-        )
+        if base_indicator == 'PT_CHLD_1-14_PS-PSY-V_CGVR' and compare == "FUNCTIONAL_DIFFICULTIES":
 
-        # make API request to retrieve data from ECACID
-        ecacid_data = get_data_new(
-            ['CID_PT_CHLD_PS-PSY-V_CGVR'],
-            filters["years"],
-            filters["countries"],
-            "FUNCTIONAL_DIFFICULTIES",
-            latest_data=True,
-            age_group_filter= False,
-            selected_age_group= selected_age_group,
-            tm_database = False
-        )
-        print(ecacid_data)
+            # make API request to retrieve data from ECACID
+            data = get_data_new(
+                ['CID_PT_CHLD_PS-PSY-V_CGVR'],
+                filters["years"],
+                filters["countries"],
+                "FUNCTIONAL_DIFFICULTIES",
+                latest_data=True,
+                age_group_filter= False,
+                selected_age_group= selected_age_group,
+                tm_database = False
+            )
+
+            data['UNIT_MEASURE'] = 'PCNT'
+            print(data)
+        
+        else:
+            # make API request to retrieve data from TM database
+            data = get_data(
+                [base_indicator],
+                filters["years"],
+                filters["countries"],
+                compare,
+                latest_data=False if fig_type == "line" else True,
+                age_group_filter= True if base_indicator == 'DM_AGE_GROUPS' else False,
+                selected_age_group= selected_age_group
+            )
+            data['Disability_name'] = 'N/A'
 
         # Additional data request if the fig_type is scatter (for the y-axis indicator)
         if fig_type == "scatter":
@@ -3702,7 +3715,7 @@ def aio_area_figure(
             card_config.get("min_max"),
             domain_colour,
             selected_age_group,
-            compare
+            compare if base_indicator != 'PT_CHLD_1-14_PS-PSY-V_CGVR' else 'TOTAL'
         )
     )
 
@@ -3795,6 +3808,11 @@ def aio_area_figure(
 
         elif dimension_name == "Wealth_name":
             hovertext = "%{customdata[7]}  </br><br>" + hovertext
+        
+        elif dimension_name == "Disability_name":
+            options["color_discrete_map"] = {"Has at least one functional difficulty": "#3383ff", "No functional difficulties": "#ffa233"}
+            hovertext = "%{customdata[9]}  </br><br>" + hovertext
+            source = "ECA Child Inequity Database"
 
         else:
             options["color_discrete_map"] = {"Rural": "#5dd763", "Urban": "#d9b300"}
