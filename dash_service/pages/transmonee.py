@@ -199,7 +199,7 @@ ethnic_names = get_dimension_names(ecacid_dsd, "ETHNIC_GROUP")
 language_names = get_dimension_names(ecacid_dsd, "LANGUAGE")
 idp_names = get_dimension_names(ecacid_dsd, "IDP_STATUS")
 migrant_names = get_dimension_names(ecacid_dsd, "MIGRANT_STATUS")
-disability_names = get_dimension_names(ecacid_dsd, "FUNCTIONAL_DIFFICULTIES")
+disability_names = {"HFD": "Has functional difficulty", "NFD": "No functional difficulty", "_T": "Total"}
 mothers_disability_names = get_dimension_names(ecacid_dsd, "MOTHERS_FUNCTIONAL_DIFFICULTIES")
 household_names = get_dimension_names(ecacid_dsd, "HOUSEHOLD_TYPE")
 survey_names = get_dimension_names(ecacid_dsd, "SURVEY_TYPE")
@@ -3812,7 +3812,7 @@ def aio_area_figure(
             hovertext = "%{customdata[7]}  </br><br>" + hovertext
         
         elif dimension_name == "Disability_name":
-            options["color_discrete_map"] = {"Has at least one functional difficulty": "#3383ff", "No functional difficulties": "#ffa233"}
+            options["color_discrete_map"] = {"Has functional difficulty": "#3383ff", "No functional difficulty": "#ffa233"}
             hovertext = "%{customdata[9]}  </br><br>" + hovertext
             source = "ECA Child Inequity Database"
 
