@@ -7020,10 +7020,8 @@
             ]
         }
     },
-    "EC_GDI": {
-    },
-    "EC_GII": {
-    },
+    "EC_GDI": {},
+    "EC_GII": {},
     "PP_SG_NHR_STATUS": {
         "DTYPE": "str",
         "NOMINAL": true
@@ -7209,6 +7207,17 @@
                 "Q3",
                 "Q4",
                 "Q5"
+            ]
+        }
+    },
+    "CID_PT_CHLD_PS-PSY-V_CGVR": {
+        "FUNCTIONAL_DIFFICULTIES": {
+            "AGE": [
+                "_T"
+            ],
+            "FUNCTIONAL_DIFFICULTIES": [
+                "HFD",
+                "NFD"
             ]
         }
     },

@@ -48,6 +48,15 @@ DEFAULT_LABELS = {
     "Residence_name": "Residence",
     "Age_name": "Age",
     "Wealth_name": "Wealth Quintile",
+    "Subnational_name": "Subnational Area",
+    "Ethnic_name": "Ethnic Group",
+    "Language_name": "Language",
+    "IDP_name": "Internally Displaced Status",
+    "Migrant_name": "Migrant Status",
+    "Disability_name": "Child Functional Difficulties",
+    "Mothers_disability_name": "Mother's Functional Difficulties",
+    "Household_type_name": "Household Type",
+    "Survey_type_name": "Survey Type",
     "OBS_FOOTNOTE": "Footnote",
     "DATA_SOURCE": "Primary Source",
 }
@@ -128,6 +137,7 @@ unicef = sdmx.Request("UNICEF", timeout=20)
 
 metadata = unicef.dataflow("TRANSMONEE", provider="ECARO", version="1.0")
 dsd = metadata.structure["DSD_ECARO_TRANSMONEE"]
+ecacid_dsd = metadata.structure["DSD_ECACID"]
 
 indicator_names = {
     code.id: code.name.en
@@ -167,22 +177,28 @@ age_groups = sdmx.to_pandas(cl_age)
 dict_age_groups = age_groups["codelist"]["CL_AGE"].reset_index()
 age_groups_names = {age.iloc[0]: age.iloc[1] for _, age in dict_age_groups.iterrows()}
 
-units_names = {
-    unit.id: str(unit.name)
-    for unit in dsd.attributes.get("UNIT_MEASURE").local_representation.enumerated
-}
 
-# lbassil: get the names of the residence dimensions
-residence_names = {
-    residence.id: str(residence.name)
-    for residence in dsd.dimensions.get("RESIDENCE").local_representation.enumerated
-}
+def get_dimension_names(dsd, dimension_key):
+    return {
+        item.id: str(item.name)
+        for item in dsd.dimensions.get(dimension_key).local_representation.enumerated
+    }
 
-# lbassil: get the names of the wealth quintiles dimensions
-wealth_names = {
-    wealth.id: str(wealth.name)
-    for wealth in dsd.dimensions.get("WEALTH_QUINTILE").local_representation.enumerated
-}
+# get codes from TM database
+units_names = get_dimension_names(dsd, "UNIT_MEASURE")
+residence_names = get_dimension_names(dsd, "RESIDENCE")
+wealth_names = get_dimension_names(dsd, "WEALTH_QUINTILE")
+
+# get additional codes from ECACID database
+subnational_names = get_dimension_names(ecacid_dsd, "SUBNATIONAL_AREA")
+ethnic_names = get_dimension_names(ecacid_dsd, "ETHNIC_GROUP")
+language_names = get_dimension_names(ecacid_dsd, "LANGUAGE")
+idp_names = get_dimension_names(ecacid_dsd, "IDP_STATUS")
+migrant_names = get_dimension_names(ecacid_dsd, "MIGRANT_STATUS")
+disability_names = get_dimension_names(ecacid_dsd, "FUNCTIONAL_DIFFICULTIES")
+mothers_disability_names = get_dimension_names(ecacid_dsd, "MOTHERS_FUNCTIONAL_DIFFICULTIES")
+household_names = get_dimension_names(ecacid_dsd, "HOUSEHOLD_TYPE")
+survey_names = get_dimension_names(ecacid_dsd, "SURVEY_TYPE")
 
 gender_names = {"F": "Female", "M": "Male", "_T": "Total"}
 
@@ -191,6 +207,15 @@ dimension_names = {
     "AGE": "Age_name",
     "RESIDENCE": "Residence_name",
     "WEALTH_QUINTILE": "Wealth_name",
+    "SUBNATIONAL_AREA": "Subnational_name",
+    "ETHNIC_GROUP": "Ethnic_name",
+    "LANGUAGE": "Language_name",
+    "IDP_STATUS": "IDP_name",
+    "MIGRANT_STATUS": "Migrant_name",
+    "FUNCTIONAL_DIFFICULTIES": "Disability_name",
+    "MOTHERS_FUNCTIONAL_DIFFICULTIES": "Mothers_disability_name",
+    "HOUSEHOLD_TYPE": "Household_type_name",
+    "SURVEY_TYPE": "Survey_type_name",
 }
 
 # Dropdown options for the age group filter
@@ -1176,6 +1201,179 @@ def get_data(
         row["Residence_name"] = str(residence_names.get(str(row["RESIDENCE"]), ""))
         row["Wealth_name"] = str(wealth_names.get(str(row["WEALTH_QUINTILE"]), ""))
         row["Age_name"] = str(age_groups_names.get(str(row["AGE"]), ""))
+        return row
+
+    data = data.apply(create_labels, axis="columns")
+
+    if indicators[0] == 'IM_MCV2':
+        data['OBS_FOOTNOTE'] = data['Age_name']
+        data['Age_name'] = 'Total'
+        data['AGE'] = '_T'
+
+        if latest_data:
+            # Group by 'REF_AREA', find the max 'TIME_PERIOD' for each group
+            recent_obs = data.groupby('REF_AREA')['TIME_PERIOD'].max().reset_index()
+
+            # Merge the recent observations with the original DataFrame to filter the most recent for each 'REF_AREA'
+            data = pd.merge(data, recent_obs, on=['REF_AREA', 'TIME_PERIOD'])
+
+    return data
+
+def get_data_new(
+    indicators: list,
+    years: list,
+    selected_countries: list,
+    breakdown: str = "TOTAL",  # send default breakdown as Total
+    dimensions: dict = {},
+    latest_data: bool = True,
+    age_group_filter: bool = False,
+    selected_age_group: str = "_T",
+    tm_database: bool = True,
+
+):
+    """
+    Get data based on the given parameters.
+
+    Args:
+        indicators (list): A list of indicators.
+        years (list): A list of years.
+        selected_countries (list): A list of selected countries.
+        breakdown (str, optional): The breakdown parameter. Defaults to "TOTAL".
+        dimensions (dict, optional): Additional dimensions for the data query. Defaults to an empty dictionary.
+        latest_data (bool, optional): Flag to determine whether to retrieve the latest data. Defaults to True.
+
+    Returns:
+        pandas.DataFrame: The retrieved data.
+
+    """
+    data_endpoint_id = "ECARO"
+    data_endpoint_url = "https://sdmx.data.unicef.org/ws/public/sdmxapi/rest/"
+    api_access = data_access_sdmx.DataAccess_SDMX(data_endpoint_id, data_endpoint_url)
+
+    keys = {
+        "REF_AREA": selected_countries,
+        "INDICATOR": indicators,
+        "SEX": [],
+        "AGE": [],
+        "RESIDENCE": [],
+        "WEALTH_QUINTILE": [],
+    }
+
+    # Add ECACID-specific dimensions if using the ECACID database
+    if not tm_database:
+        keys.update({
+            "SUBNATIONAL_AREA": [],
+            "ETHNIC_GROUP": [],
+            "LANGUAGE": [],
+            "IDP_STATUS": [],
+            "MIGRANT_STATUS": [],
+            "FUNCTIONAL_DIFFICULTIES": ['HFD', 'NFD'],
+            "HOUSEHOLD_TYPE": [],
+            "SURVEY_TYPE": [],
+            "MOTHERS_FUNCTIONAL_DIFFICULTIES": [],
+        })
+
+    # Add any extra dimensions passed to the function
+    keys.update(dimensions)
+
+    indicator_config = indicators_config.get(indicators[0], {})
+
+    if indicator_config and not only_dtype(indicator_config):
+        card_keys = indicator_config.get(breakdown, {})
+        card_keys.update(dimensions)
+        keys.update(card_keys)
+
+    # Update "AGE" after initialization if age_group_filter is True
+    if age_group_filter:
+        keys["AGE"] = [selected_age_group]
+
+    # Build data query string
+    data_query = "".join(
+        ["+".join(keys[param]) + "." if keys[param] else "." for param in keys]
+    )
+
+    start_period = years[0] if years else 2010
+    end_period = years[-1] if years else 2025
+
+    # Get data using the API access
+    database = "TRANSMONEE" if tm_database else "ECACID"
+    data = api_access.get_data(
+        agency="ECARO",
+        id=database,
+        ver="1.0",
+        dq=data_query,
+        lastnobs=latest_data,
+        startperiod=start_period,
+        endperiod=end_period,
+        labels="id",
+        print_stats=True,
+    )
+
+    # Convert data types and perform data transformations
+    dtype = (
+        eval(indicator_config.get("DTYPE"))
+        if indicator_config and "DTYPE" in indicator_config
+        else np.float64
+    )
+    data = data.astype({"OBS_VALUE": dtype, "TIME_PERIOD": "int32"})
+    data = data.sort_values(by=["TIME_PERIOD"]).reset_index(drop=True)
+
+    data = data.rename(columns={"INDICATOR": "CODE"})
+
+    footnote_mask = data.OBS_VALUE.astype(str).str.contains("[<>]")
+    data.loc[footnote_mask, "OBS_FOOTNOTE"] += (
+        "<br>Note: The estimated value is "
+        + data.loc[footnote_mask, "OBS_VALUE"].astype(str)
+        + "<br>"
+    )
+
+    data.OBS_VALUE.replace(
+        {"(?i)Yes": "1", "(?i)No": "0", "<": "", ">": ""}, inplace=True, regex=True
+    )
+
+    data["OBS_VALUE"] = pd.to_numeric(data.OBS_VALUE, errors="coerce")
+    data.dropna(subset=["OBS_VALUE"], inplace=True)
+
+    if "3" in data.UNIT_MULTIPLIER.values and "DM_CHLD_POP" not in data["CODE"].values:
+        data["OBS_VALUE"] *= 10 ** pd.to_numeric(data.UNIT_MULTIPLIER, errors="coerce")
+
+    data.replace(np.nan, "N/A", inplace=True)
+
+    data["OBS_FOOTNOTE"] = data.OBS_FOOTNOTE.str.wrap(70).str.replace("\n", "<br>")
+    data["DATA_SOURCE"] = data.DATA_SOURCE.str.wrap(70).str.replace("\n", "<br>")
+
+    if "IDX" in data.UNIT_MEASURE.values or any(code in data.CODE.values for code in codes_3_decimals):
+        data.OBS_VALUE = data.OBS_VALUE.round(3)
+    elif any(code in data.CODE.values for code in codes_1_decimal):
+        data.OBS_VALUE = data.OBS_VALUE.round(1)
+    else:
+        data.OBS_VALUE = data.OBS_VALUE.round(1)
+        data.loc[data.OBS_VALUE > 1, "OBS_VALUE"] = data[
+            data.OBS_VALUE > 1
+        ].OBS_VALUE.round()
+
+    if "YES_NO" in data.UNIT_MEASURE.values:
+        data["Status"] = data["OBS_VALUE"].map({1: "Yes", 0: "No"})
+
+    data["Country_name"] = data["REF_AREA"].map(reversed_countries_iso3_dict)
+
+    def create_labels(row):
+        row["Unit_name"] = str(units_names.get(str(row["UNIT_MEASURE"]), ""))
+        row["Sex_name"] = str(gender_names.get(str(row["SEX"]), ""))
+        row["Residence_name"] = str(residence_names.get(str(row["RESIDENCE"]), ""))
+        row["Wealth_name"] = str(wealth_names.get(str(row["WEALTH_QUINTILE"]), ""))
+        row["Age_name"] = str(age_groups_names.get(str(row["AGE"]), ""))
+        if not tm_database:
+            row["Subnational_name"] = str(subnational_names.get(str(row.get("SUBNATIONAL_AREA", "")), ""))
+            row["Ethnic_name"] = str(ethnic_names.get(str(row.get("ETHNIC_GROUP", "")), ""))
+            row["Language_name"] = str(language_names.get(str(row.get("LANGUAGE", "")), ""))
+            row["IDP_name"] = str(idp_names.get(str(row.get("IDP_STATUS", "")), ""))
+            row["Migrant_name"] = str(migrant_names.get(str(row.get("MIGRANT_STATUS", "")), ""))
+            row["Disability_name"] = str(disability_names.get(str(row.get("FUNCTIONAL_DIFFICULTIES", "")), ""))
+            row["Mothers_disability_name"] = str(mothers_disability_names.get(str(row.get("MOTHERS_FUNCTIONAL_DIFFICULTIES", "")), ""))
+            row["Household_type_name"] = str(household_names.get(str(row.get("HOUSEHOLD_TYPE", "")), ""))
+            row["Survey_type_name"] = str(survey_names.get(str(row.get("SURVEY_TYPE", "")), ""))
+
         return row
 
     data = data.apply(create_labels, axis="columns")
@@ -3317,6 +3515,19 @@ def aio_area_figure(
             age_group_filter= True if base_indicator == 'DM_AGE_GROUPS' else False,
             selected_age_group= selected_age_group
         )
+
+        # make API request to retrieve data from ECACID
+        ecacid_data = get_data_new(
+            ['CID_PT_CHLD_PS-PSY-V_CGVR'],
+            filters["years"],
+            filters["countries"],
+            "FUNCTIONAL_DIFFICULTIES",
+            latest_data=True,
+            age_group_filter= False,
+            selected_age_group= selected_age_group,
+            tm_database = False
+        )
+        print(ecacid_data)
 
         # Additional data request if the fig_type is scatter (for the y-axis indicator)
         if fig_type == "scatter":
