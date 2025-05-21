@@ -3514,6 +3514,8 @@ def aio_area_figure(
 
         if base_indicator == 'PT_CHLD_1-14_PS-PSY-V_CGVR' and compare == "FUNCTIONAL_DIFFICULTIES":
 
+            indicator_name = 'Percentage of children (2-14 years) who experienced any physical punishment and/or psychological aggression by caregivers - SDG 16.2.1'
+
             # make API request to retrieve data from ECACID
             data = get_data_new(
                 ['CID_PT_CHLD_PS-PSY-V_CGVR'],
@@ -3527,7 +3529,7 @@ def aio_area_figure(
             )
 
             data['UNIT_MEASURE'] = 'PCNT'
-            print(data)
+            data['OBS_FOOTNOTE'] = 'Children age 1 year are excluded, as functional difficulties are only collected for age 2-14 years.'
         
         else:
             # make API request to retrieve data from TM database
