@@ -918,6 +918,15 @@
                 "Q4",
                 "Q5"
             ]
+        },
+        "FUNCTIONAL_DIFFICULTIES": {
+            "FUNCTIONAL_DIFFICULTIES": [
+                "HFD",
+                "NFD"
+            ],
+            "AGE": [
+                "M24T59"
+            ]
         }
     },
     "ECD_CHLD_U5_BKS-HM": {
@@ -1516,6 +1525,12 @@
                 "Q4",
                 "Q5"
             ]
+        },
+        "FUNCTIONAL_DIFFICULTIES": {
+            "FUNCTIONAL_DIFFICULTIES": [
+                "HFD",
+                "NFD"
+            ]
         }
     },
     "EDUNF_CR_L2": {
@@ -1568,6 +1583,12 @@
                 "Q4",
                 "Q5"
             ]
+        },
+        "FUNCTIONAL_DIFFICULTIES": {
+            "FUNCTIONAL_DIFFICULTIES": [
+                "HFD",
+                "NFD"
+            ]
         }
     },
     "EDUNF_CR_L3": {
@@ -1619,6 +1640,12 @@
                 "Q3",
                 "Q4",
                 "Q5"
+            ]
+        },
+        "FUNCTIONAL_DIFFICULTIES": {
+            "FUNCTIONAL_DIFFICULTIES": [
+                "HFD",
+                "NFD"
             ]
         }
     },
@@ -6297,6 +6324,12 @@
                 "Q4",
                 "Q5"
             ]
+        },
+        "FUNCTIONAL_DIFFICULTIES": {
+            "FUNCTIONAL_DIFFICULTIES": [
+                "HFD",
+                "NFD"
+            ]
         }
     },
     "NT_ANT_WHZ_NE2": {
@@ -6456,6 +6489,12 @@
                 "Q3",
                 "Q4",
                 "Q5"
+            ]
+        },
+        "FUNCTIONAL_DIFFICULTIES": {
+            "FUNCTIONAL_DIFFICULTIES": [
+                "HFD",
+                "NFD"
             ]
         }
     },

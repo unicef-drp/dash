@@ -3512,24 +3512,55 @@ def aio_area_figure(
         indicator_name = str(indicator_names.get(base_indicator, ""))
         indicator_description = indicator_definitions.get(base_indicator, "")
 
-        if base_indicator == 'PT_CHLD_1-14_PS-PSY-V_CGVR' and compare == "FUNCTIONAL_DIFFICULTIES":
+        ecacid_code = ''
 
-            indicator_name = 'Percentage of children (2-14 years) who experienced any physical punishment and/or psychological aggression by caregivers - SDG 16.2.1'
+        if compare == "FUNCTIONAL_DIFFICULTIES":
+
+            if base_indicator == 'PT_CHLD_1-14_PS-PSY-V_CGVR':
+                indicator_name = 'Percentage of children (2-14 years) who experienced any physical punishment and/or psychological aggression by caregivers - SDG 16.2.1'
+                ecacid_code = 'CID_PT_CHLD_PS-PSY-V_CGVR'
+            
+            if base_indicator == 'NT_ANT_HAZ_NE2':
+                indicator_name = 'Stunting prevalence (height-for-age <-2 standard deviations from the median of the WHO Child Growth Standards) among children 2-4 years of age - SDG 2.2.1'
+                ecacid_code = 'CID_NT_ANT_HAZ_NE2'
+
+            if base_indicator == 'NT_ANT_WHZ_PO2':
+                indicator_name = 'Overweight prevalence (weight-for-height >+2 standard deviations from the median of the WHO Child Growth Standards) among children 2-4 years of age - SDG 2.2.2'
+                ecacid_code = 'CID_NT_ANT_WHZ_PO2'
+
+            if base_indicator == 'EDUNF_CR_L1':
+                ecacid_code = 'CID_CR_L1'
+
+            if base_indicator == 'EDUNF_CR_L2':
+                ecacid_code = 'CID_CR_L2'
+
+            if base_indicator == 'EDUNF_CR_L3':
+                ecacid_code = 'CID_CR_L3'
+
+            if base_indicator == 'ECD_CHLD_LMPSL':
+                ecacid_code = 'CID_ECD_CHLD_LMPSL'
+                selected_age_group = "M24T59"
+
 
             # make API request to retrieve data from ECACID
             data = get_data_new(
-                ['CID_PT_CHLD_PS-PSY-V_CGVR'],
+                [ecacid_code],
                 filters["years"],
                 filters["countries"],
                 "FUNCTIONAL_DIFFICULTIES",
                 latest_data=True,
-                age_group_filter= False,
+                age_group_filter= True if ecacid_code == 'CID_ECD_CHLD_LMPSL' else False,
                 selected_age_group= selected_age_group,
                 tm_database = False
             )
 
             data['UNIT_MEASURE'] = 'PCNT'
-            data['OBS_FOOTNOTE'] = 'Children age 1 year are excluded, as functional difficulties are only collected for age 2-14 years.'
+
+            if ecacid_code in ['CID_NT_ANT_HAZ_NE2', 'NT_ANT_WHZ_PO2']: 
+                data['OBS_FOOTNOTE'] = 'Children age 1 year are excluded, as functional difficulties are only collected for age 2-4 years.'
+
+            if ecacid_code == 'CID_PT_CHLD_PS-PSY-V_CGVR': 
+                data['OBS_FOOTNOTE'] = 'Children age 1 year are excluded, as functional difficulties are only collected for age 2-14 years.'
         
         else:
             # make API request to retrieve data from TM database
@@ -3717,7 +3748,7 @@ def aio_area_figure(
             card_config.get("min_max"),
             domain_colour,
             selected_age_group,
-            compare if base_indicator != 'PT_CHLD_1-14_PS-PSY-V_CGVR' else 'TOTAL'
+            'TOTAL'
         )
     )
 
@@ -3814,7 +3845,7 @@ def aio_area_figure(
         elif dimension_name == "Disability_name":
             options["color_discrete_map"] = {"Has functional difficulty": "#3383ff", "No functional difficulty": "#ffa233"}
             hovertext = "%{customdata[9]}  </br><br>" + hovertext
-            source = "ECA Child Inequity Database"
+            source = "ECA Child Inequity Database (calculations based on MICS data)"
 
         else:
             options["color_discrete_map"] = {"Rural": "#5dd763", "Urban": "#d9b300"}
@@ -3925,6 +3956,9 @@ def aio_area_figure(
         
     if base_indicator == 'ECD_CHLD_LMPSL' and 'UZB' in data['REF_AREA'].values:
         graph_info = "The graph shows data for 36-59 months, with the exception of Uzbekistan which uses 24-59 months (the new method for calculating ECDI).  "
+    
+    if ecacid_code == 'CID_ECD_CHLD_LMPSL':
+        graph_info = "The graph shows data for children aged 24-59 months. "
     
     if base_indicator in ['HVA_EPI_LHIV_0-19', 'HVA_EPI_DTH_ANN_0-19']:
         graph_info = "Many countries only report data for this indicator for the 15-19 years age group; this data can be viewed in the age-disaggregated bar chart. "
