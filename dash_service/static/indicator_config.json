@@ -6742,7 +6742,7 @@
     "NT_CF_ISSSF_FL": {
         "RESIDENCE": {
             "AGE": [
-                "M6T23"
+                "M6T8"
             ],
             "RESIDENCE": [
                 "R",
@@ -6757,7 +6757,7 @@
         },
         "SEX": {
             "AGE": [
-                "M6T23"
+                "M6T8"
             ],
             "RESIDENCE": [
                 "_T"
@@ -6772,7 +6772,7 @@
         },
         "TOTAL": {
             "AGE": [
-                "M6T23"
+                "M6T8"
             ],
             "RESIDENCE": [
                 "_T"
@@ -6786,7 +6786,7 @@
         },
         "WEALTH_QUINTILE": {
             "AGE": [
-                "M6T23"
+                "M6T8"
             ],
             "RESIDENCE": [
                 "_T"
