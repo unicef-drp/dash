@@ -4883,7 +4883,7 @@
             ]
         }
     },
-    "HVA_EPI_INF_RT": {
+    "HVA_EPI_INF_RT_15-19": {
         "DTYPE": "str",
         "NOMINAL": false,
         "SEX": {
@@ -4965,46 +4965,9 @@
             ]
         }
     },
-    "HVA_EPI_DTH_ANN_0-19": {
+    "HVA_EPI_DTH_ANN": {
         "AGE": {
             "AGE": [
-                "_T",
-                "Y04",
-                "Y0T4",
-                "Y5T9",
-                "Y0T9",
-                "Y0T14",
-                "Y15T19",
-                "Y10T19"
-            ],
-            "SEX": [
-                "_T"
-            ]
-        },
-        "DTYPE": "str",
-        "NOMINAL": false,
-        "SEX": {
-            "AGE": [
-                "_T"
-            ],
-            "SEX": [
-                "F",
-                "M"
-            ]
-        },
-        "TOTAL": {
-            "AGE": [
-                "_T"
-            ],
-            "SEX": [
-                "_T"
-            ]
-        }
-    },
-    "HVA_EPI_LHIV_0-19": {
-        "AGE": {
-            "AGE": [
-                "_T",
                 "Y0T14",
                 "Y15T19"
             ],
@@ -5016,7 +4979,7 @@
         "NOMINAL": false,
         "SEX": {
             "AGE": [
-                "_T"
+                "Y0T19"
             ],
             "SEX": [
                 "F",
@@ -5025,7 +4988,38 @@
         },
         "TOTAL": {
             "AGE": [
+                "Y0T19"
+            ],
+            "SEX": [
                 "_T"
+            ]
+        }
+    },
+    "HVA_EPI_LHIV": {
+        "AGE": {
+            "AGE": [
+                "Y0T19",
+                "Y0T14",
+                "Y15T19"
+            ],
+            "SEX": [
+                "_T"
+            ]
+        },
+        "DTYPE": "str",
+        "NOMINAL": false,
+        "SEX": {
+            "AGE": [
+                "Y0T19"
+            ],
+            "SEX": [
+                "F",
+                "M"
+            ]
+        },
+        "TOTAL": {
+            "AGE": [
+                "Y0T19"
             ],
             "SEX": [
                 "_T"
@@ -5065,7 +5059,15 @@
     },
     "HVA_PED_ART_CVG": {
         "DTYPE": "str",
-        "NOMINAL": false
+        "NOMINAL": false,
+        "TOTAL": {
+            "AGE": [
+                "Y0T14"
+            ],
+            "SEX": [
+                "_T"
+            ]
+        }
     },
     "HVA_PMTCT_ARV_CVG": {
         "DTYPE": "str",

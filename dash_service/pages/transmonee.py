@@ -240,7 +240,7 @@ age_group_dropdown_options = [
 years = list(range(2000, 2026))
 
 # some indexes have been listed as ratios in SDG database so we need to specify not to round these indicators
-codes_3_decimals = ['HVA_EPI_INF_RT_0-14', 'EDU_SE_TOT_GPI_L2_MAT', 'EDU_SE_TOT_GPI_L2_REA', 'EDU_SE_AGP_CPRA_L3', 'DM_SP_POP_BRTH_MF']
+codes_3_decimals = ['HVA_EPI_INF_RT', 'HVA_EPI_DTH_RT','EDU_SE_TOT_GPI_L2_MAT', 'EDU_SE_TOT_GPI_L2_REA', 'EDU_SE_AGP_CPRA_L3', 'DM_SP_POP_BRTH_MF']
 codes_1_decimal = ['DM_FRATE_COMP', 'PV_GINI_COEF']
 
 # a key:value dictionary of countries where the 'key' is the country name as displayed in the selection
@@ -1109,9 +1109,16 @@ def get_data(
     data_endpoint_url = "https://sdmx.data.unicef.org/ws/public/sdmxapi/rest/"
     api_access = data_access_sdmx.DataAccess_SDMX(data_endpoint_id, data_endpoint_url)
 
+    if 'HVA_EPI_INF_RT_0-14' in indicators or 'HVA_EPI_INF_RT_15-19' in indicators:
+        data_indicators = ['HVA_EPI_INF_RT']
+    elif 'HVA_EPI_DTH_RT_0-14' in indicators or 'HVA_EPI_DTH_RT_15-19' in indicators:
+        data_indicators = ['HVA_EPI_DTH_RT']
+    else:
+        data_indicators = indicators
+
     keys = {
         "REF_AREA": selected_countries,
-        "INDICATOR": indicators,
+        "INDICATOR": data_indicators,
         "SEX": [],
         "AGE": [],
         "RESIDENCE": [],
@@ -1437,9 +1444,6 @@ df_sources.loc[tmee_source_link, "Source_Link"] = df_sources[
 ].Code.apply(lambda x: unicef_rdm_url.format(helix_code=x))
 df_sources_groups = df_sources.groupby("Source")
 df_sources_summary_groups = df_sources.groupby("Source_Full")
-
-
-### All code above this line should be refactored to use common SDMX access libs and config at some point
 
 
 def get_base_layout(**kwargs):
@@ -2871,7 +2875,7 @@ def indicator_card(
         )
         indicator_header = sum_format.format(indicator_sum)
 
-    if base_indicator in ['HVA_EPI_LHIV_0-19', 'HVA_EPI_INF_RT_0-14', 'HVA_PED_ART_CVG', 'HVA_PMTCT_STAT_CVG', 'HVA_EPI_DTH_ANN_0-19']:
+    if base_indicator in ['HVA_EPI_LHIV', 'HVA_EPI_INF_RT_0-14', 'HVA_EPI_INF_RT_15-19', 'HVA_PMTCT_STAT_CVG', 'HVA_EPI_DTH_ANN']:
         # add less than sign for HIV indicators
         indicator_header = f"<{indicator_header}"
 
@@ -3762,7 +3766,15 @@ def aio_area_figure(
         if len(data[data["CODE"] == card_key]["Unit_name"].astype(str).unique()) > 0
         else ""
     )
-    df_indicator_sources = df_sources[df_sources["Code"] == base_indicator]
+    # making exception for HIV indicator age groups
+    if base_indicator in ['HVA_EPI_INF_RT_0-14','HVA_EPI_INF_RT_15-19']:
+        source_indicator = 'HVA_EPI_INF_RT'
+    elif base_indicator in ['HVA_EPI_DTH_RT_0-14','HVA_EPI_DTH_RT_15-19']:
+        source_indicator = 'HVA_EPI_DTH_RT'
+    else:
+        source_indicator = base_indicator
+
+    df_indicator_sources = df_sources[df_sources["Code"] == source_indicator]
     unique_indicator_sources = df_indicator_sources["Source_Full"].unique()
 
     if data["CODE"].isin(["DM_CHLD_POP", "DM_CHLD_POP_PT", "DM_FRATE_COMP","DM_ADOL_POP", "DM_UFIVE_POP", "DM_BRTS_COMP", "DM_AGE_GROUPS"]).any():
@@ -3928,7 +3940,7 @@ def aio_area_figure(
                                 target="_blank",
                                 className= "indicator-link")    
 
-    if base_indicator in ['HVA_EPI_LHIV_0-19','HVA_EPI_INF_RT_0-14','HVA_EPI_INF_RT','HVA_EPI_DTH_ANN_0-19','HVA_PMTCT_MTCT','HVA_PMTCT_STAT_CVG','HVA_PED_ART_CVG', 'HVA_EPI_DTH_RT_0-14', 'HVA_EPI_DTH_RT_15-19']:
+    if base_indicator in ['HVA_EPI_LHIV','HVA_EPI_INF_RT_0-14','HVA_EPI_INF_RT_15-19','HVA_EPI_DTH_ANN','HVA_PMTCT_MTCT','HVA_PMTCT_STAT_CVG','HVA_PED_ART_CVG', 'HVA_EPI_DTH_RT_0-14', 'HVA_EPI_DTH_RT_15-19']:
         indicator_link =  html.A(
                                 "Click here to explore more UNICEF HIV estimates for children.",
                                 href="https://data.unicef.org/resources/hiv-estimates-for-children-dashboard/",
@@ -3960,7 +3972,7 @@ def aio_area_figure(
     if ecacid_code == 'CID_ECD_CHLD_LMPSL':
         graph_info = "The graph shows data for children aged 24-59 months. "
     
-    if base_indicator in ['HVA_EPI_LHIV_0-19', 'HVA_EPI_DTH_ANN_0-19']:
+    if base_indicator in ['HVA_EPI_LHIV', 'HVA_EPI_DTH_ANN']:
         graph_info = "Many countries only report data for this indicator for the 15-19 years age group; this data can be viewed in the age-disaggregated bar chart. "
 
     if base_indicator == 'PP_SG_NHR_STATUS':
