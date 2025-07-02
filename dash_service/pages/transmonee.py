@@ -3129,7 +3129,8 @@ def create_subdomain_buttons(domain_dropdown_value, initial_load, url_search):
         domain_info = merged_page_config.get(domain_page_path)
 
         # Extract and strip the subdomain code from the URL
-        url_subdomain_code = url_search.strip('?prj=tm&page=') if url_search else ''
+        match = re.search(r'page=([A-Z]{3})', url_search)
+        url_subdomain_code = match.group(1) if match else '' 
 
         if domain_info:
             page_prefix = domain_info.get('page_prefix')
