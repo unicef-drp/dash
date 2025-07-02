@@ -18,6 +18,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import textwrap
 import json 
+import re
 
 from dash_service.pages.transmonee import (
     get_base_layout,
@@ -364,9 +365,8 @@ def update_domain_dropdown_on_initial_load(search, load_data):
     if load_data['is_first_load']:
         print("First load")
         print(search)
-        subdomain_code = search.strip('?prj=tm&page=')
-        if not subdomain_code:
-            subdomain_code = 'DEM'  # Set 'DEM' by default if subdomain_code is empty
+        match = re.search(r'page=([A-Z]{3})', search)
+        subdomain_code = match.group(1) if match else 'DEM' # Set 'DEM' by default if subdomain_code is empty
         domain_value = update_domain_with_url(subdomain_code)  # Map subdomain to domain
         return domain_value
     raise dash.exceptions.PreventUpdate     
