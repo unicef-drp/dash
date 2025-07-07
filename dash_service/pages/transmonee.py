@@ -4054,8 +4054,8 @@ def aio_area_figure(
             )
     if fig_type == "line":
         fig.update_traces(**traces)
-        # Adding invisible line at zero to ensure the y-axis starts at zero
-        fig.add_hline(y=-0.3, line_color="rgba(0,0,0,0)")
+        # Ensure the y-axis starts at zero
+        fig.update_yaxes(range=[0, None])
 
         if isinstance(highlighted_countries, str):
             highlighted_countries = [highlighted_countries]
