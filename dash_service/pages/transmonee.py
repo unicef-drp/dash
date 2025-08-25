@@ -594,7 +594,7 @@ domain_pages = {
     "Education, Leisure and Culture": "child-education",
     "Family Environment and Protection": "child-protection",
     "Participation and Civil Rights": "child-participation",
-    "Poverty and Adequate Standard of Living": "child-poverty",
+    "Adequate Standard of Living": "child-poverty",
     "Cross-Cutting": "child-cross-cutting",
 }
 

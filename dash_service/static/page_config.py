@@ -1323,7 +1323,7 @@ merged_page_config = {'child-rights': {'domain_name': 'Child Rights Landscape an
                         'ICT_SECURITY_CONCERN'],
                         'default_graph': 'bar',
                         'default': 'PP_IT_USE_ii99'}}}},
-                    'child-poverty': {'domain_name': 'Poverty and Adequate Standard of Living',
+                    'child-poverty': {'domain_name': 'Adequate Standard of Living',
                     'page_prefix': 'pov',
                     'domain_colour': '#4c8cbb',
                     'light_domain_colour': '#c0d7e7',
