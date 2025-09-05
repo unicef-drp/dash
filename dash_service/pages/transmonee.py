@@ -372,7 +372,6 @@ country_codes = list(reversed_countries_iso3_dict.keys())
 unicef_country_prog = [
     "Albania",
     "Armenia",
-    "Azerbaijan",
     "Belarus",
     "Bosnia and Herzegovina",
     "Bulgaria",
