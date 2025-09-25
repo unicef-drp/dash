@@ -278,7 +278,7 @@ page_config = {
         },
     },
     "ADO": {
-        "NAME": "Adolescent physical, mental and reproductive health",
+        "NAME": "Adolescent health and well-being",
         "CARDS": [
             {
                 "name": "",

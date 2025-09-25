@@ -3870,7 +3870,7 @@ def aio_area_figure(
     indicator_link = []
 
     if base_indicator in ['JJ_CHLD_DISAB_COMPLAINT_HHRR', 'PV_SI_COV_DISAB', 'HT_REG_CHLD_DISAB_PROP', 'HT_NEW_REG_CHLD_DISAB_PROP', 
-            'PT_CHLD_DISAB_INRESIDENTIAL_PROP', 'PT_CHLD_DISAB_INFAMILY_PROP', 'PV_SI_COV_DISAB']:
+            'PT_CHLD_DISAB_INRESIDENTIAL_PROP', 'PT_CHLD_DISAB_INFAMILY_PROP', 'PV_SI_COV_DISAB', 'SP_CHLD_DISAB_CASH']:
         graph_info = "Note: the definition of disability may differ across countries and indicators."
     
     if base_indicator == 'IM_MCV2':

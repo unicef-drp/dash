@@ -28,7 +28,7 @@
                     "icon": "fas fa-hand-holding-usd"
                 },
                 {
-                    "title": "Data on children",
+                    "title": "Child data systems",
                     "link": "?prj=tm&page=child-rights#dta",
                     "icon": "fas fa-binoculars"
                 },
@@ -110,7 +110,7 @@
             "color": "yellow",
             "links": [
                 {
-                    "title": "Violence against children and women",
+                    "title": "Violence against children",
                     "link": "?prj=tm&page=child-protection#vio",
                     "icon": "fas fa-hand-fist"
                 },
@@ -120,7 +120,7 @@
                     "icon": "fas fa-hands-holding-child"
                 },
                 {
-                    "title": "Justice for children",
+                    "title": "Child-centred justice",
                     "link": "?prj=tm&page=child-protection#jus",
                     "icon": "fas fa-scale-balanced"
                 },

@@ -5,7 +5,7 @@
             "Political economy",
             "Child rights governance",
             "Public spending on children",
-            "Data on children",
+            "Child data systems",
             "Right to remedy"
         ],
         "Cross-Cutting": [
@@ -22,9 +22,9 @@
             "Leisure and culture"
         ],
         "Family Environment and Protection": [
-            "Violence against children and women",
+            "Violence against children",
             "Children in alternative care",
-            "Justice for children",
+            "Child-centred justice",
             "Child marriage and other harmful practices",
             "Child exploitation"
         ],
@@ -33,12 +33,12 @@
             "Maternal, newborn and child health",
             "Immunization",
             "Nutrition",
-            "Adolescent physical, mental, and reproductive health",
+            "Adolescent health and well-being",
             "HIV and AIDS"
         ],
         "Participation and Civil Rights": [
             "Birth registration and identity",
-            "Information, internet and protection of privacy"
+            "Digital environment, information and privacy"
         ],
         "Adequate Standard of Living": [
             "Social protection system",
@@ -48,7 +48,7 @@
     },
     "subdomains": {
         "Adolescent physical, mental, and reproductive health": {
-            "name": "Adolescent physical, mental, and reproductive health",
+            "name": "Adolescent health and well-being",
             "code": "ADO",
             "indicators": [
                 {
@@ -209,8 +209,8 @@
                 }
             ]
         },
-        "Data on children": {
-            "name": "Data on children",
+        "Child data systems": {
+            "name": "Child data systems",
             "code": "DTA",
             "indicators": [
                 {
@@ -284,6 +284,10 @@
                 {
                     "Indicator Name": "Percentage of children (0-17 years) newly registered as having disabilities during the year",
                     "Code": "HT_NEW_REG_CHLD_DISAB_PROP"
+                },
+                {
+                    "Indicator Name": "Number of children with disabilities (0-17 years) receiving disability cash benefits at the end of the year",
+                    "Code": "SP_CHLD_DISAB_CASH"
                 }
             ]
         },
@@ -585,8 +589,8 @@
                 }
             ]
         },
-        "Information, internet and protection of privacy": {
-            "name": "Information, internet and protection of privacy",
+        "Digital environment, information and privacy": {
+            "name": "Digital environment, information and privacy",
             "code": "ICT",
             "indicators": [
                 {
@@ -615,8 +619,8 @@
                 }
             ]
         },
-        "Justice for children": {
-            "name": "Justice for children",
+        "Child-centred justice": {
+            "name": "Child-centred justice",
             "code": "JUS",
             "indicators": [
                 {
@@ -893,8 +897,8 @@
                 }
             ]
         },
-        "Violence against children and women": {
-            "name": "Violence against children and women",
+        "Violence against children": {
+            "name": "Violence against children",
             "code": "VIO",
             "indicators": [
                 {
