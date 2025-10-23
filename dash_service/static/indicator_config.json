@@ -4663,6 +4663,64 @@
             ]
         }
     },
+    "HT_ADOL_HIGH_SATS": {
+        "WEALTH_QUINTILE": {
+            "WEALTH_QUINTILE": [
+                "Q1",
+                "Q3",
+                "Q5"
+            ],
+            "SEX": [
+                "_T"
+            ]
+        },
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ],
+            "WEALTH_QUINTILE": [
+                "_T"
+            ]
+        },
+        "TOTAL": {
+            "WEALTH_QUINTILE": [
+                "_T"
+            ],
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
+    "HT_CHLD_HEALTH_COMP": {
+        "WEALTH_QUINTILE": {
+            "WEALTH_QUINTILE": [
+                "Q1",
+                "Q3",
+                "Q5"
+            ],
+            "SEX": [
+                "_T"
+            ]
+        },
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ],
+            "WEALTH_QUINTILE": [
+                "_T"
+            ]
+        },
+        "TOTAL": {
+            "WEALTH_QUINTILE": [
+                "_T"
+            ],
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
     "HT_CDRT_SELF_HARM": {
         "AGE": {
             "AGE": [
