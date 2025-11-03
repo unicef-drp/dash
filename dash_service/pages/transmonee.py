@@ -170,7 +170,9 @@ custom_names = {
     "ICT_SECURITY_CONCERN": "Percentage of 16-24 year olds who limited their personal internet activities in the last 12 months due to security concerns",
     "ICT_PERSONAL_DATA": "Percentage of 16-24 year olds who used the internet in the last 3 months and managed access to their personal data",
     "MT_SDG_SUICIDE": "Suicide mortality rate for 15-19 year olds (deaths per 100,000 population) - SDG 3.4.2",
+    "ADOL_HLTH_COMP": "Percentage of 11-, 13- and 15-year-old school children who report multiple health complaints more than once a week"
 }
+
 indicator_names.update(custom_names)
 # lbassil: get the age groups code list as it is not in the DSD
 cl_age = unicef.codelist("CL_AGE", version="1.0")
@@ -3255,12 +3257,20 @@ def breakdown_options(indicator, fig_type):
     indicator = get_base_indicator(indicator)
 
     options = []
-    # lbassil: change the disaggregation to use the names of the dimensions instead of the codes
+
+    # Determine the label based on indicator (HBSC indicators don't have wealth quintiles)
+    wealth_label = (
+        "Income Group"
+        if indicator in ["ADOL_HLTH_COMP", "ADOL_FEEL_LONELY", "ADOL_FIND_SOLU"]
+        else "Wealth Quintile"
+    )
+
+    # Build the list directly
     all_breakdowns = [
         {"label": "Sex", "value": "SEX"},
         {"label": "Age", "value": "AGE"},
         {"label": "Residence", "value": "RESIDENCE"},
-        {"label": "Wealth Quintile", "value": "WEALTH_QUINTILE"},
+        {"label": wealth_label, "value": "WEALTH_QUINTILE"},
         {"label": "Disability", "value": "FUNCTIONAL_DIFFICULTIES"},
     ]
     
@@ -4038,6 +4048,11 @@ def aio_area_figure(
     fig.update_layout(yaxis_title=y_axis_unit)
     # remove x-axis title but keep space below
     fig.update_layout(xaxis_title="")
+
+    # update name of legend for HBSC indicators
+    if indicator in ["ADOL_HLTH_COMP", "ADOL_FEEL_LONELY", "ADOL_FIND_SOLU"] and dimension == 'WEALTH_QUINTILE':
+        fig.update_layout(legend_title_text='Income Group')
+
     if fig_type == "bar" and not dimension and "YES_NO" not in fig_data.UNIT_MEASURE.values and base_indicator != 'PP_SG_NHR_STATUS':
         fig.update_traces(marker_color=domain_colour)
         fig.update_layout(showlegend=False)
