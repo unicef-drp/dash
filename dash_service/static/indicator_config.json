@@ -4692,7 +4692,7 @@
             ]
         }
     },
-    "HT_CHLD_HEALTH_COMP": {
+    "ADOL_POOR_MENTAL": {
         "WEALTH_QUINTILE": {
             "WEALTH_QUINTILE": [
                 "Q1",
@@ -4717,6 +4717,188 @@
                 "_T"
             ],
             "SEX": [
+                "_T"
+            ]
+        }
+    },
+    "ADOL_GROWTH_MINDSET": {
+        "WEALTH_QUINTILE": {
+            "WEALTH_QUINTILE": [
+                "Q1",
+                "Q3",
+                "Q5"
+            ],
+            "SEX": [
+                "_T"
+            ]
+        },
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ],
+            "WEALTH_QUINTILE": [
+                "_T"
+            ]
+        },
+        "TOTAL": {
+            "WEALTH_QUINTILE": [
+                "_T"
+            ],
+            "SEX": [
+                "_T"
+            ]
+        }
+    },
+    "ADOL_HLTH_COMP": {
+        "WEALTH_QUINTILE": {
+            "WEALTH_QUINTILE": [
+                "B20",
+                "M60",
+                "R20"
+            ],
+            "SEX": [
+                "_T"
+            ],
+            "AGE": [
+                "_T"
+            ]
+        },
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ],
+            "WEALTH_QUINTILE": [
+                "_T"
+            ],
+            "AGE": [
+                "_T"
+            ]
+        },
+        "AGE": {
+            "AGE": [
+                "Y11",
+                "Y13",
+                "Y15"
+            ],
+            "WEALTH_QUINTILE": [
+                "_T"
+            ],
+            "SEX": [
+                "_T"
+            ]
+        },
+        "TOTAL": {
+            "WEALTH_QUINTILE": [
+                "_T"
+            ],
+            "SEX": [
+                "_T"
+            ],
+            "AGE": [
+                "_T"
+            ]
+        }
+    },
+    "ADOL_FIND_SOLU": {
+        "WEALTH_QUINTILE": {
+            "WEALTH_QUINTILE": [
+                "B20",
+                "M60",
+                "R20"
+            ],
+            "SEX": [
+                "_T"
+            ],
+            "AGE": [
+                "_T"
+            ]
+        },
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ],
+            "WEALTH_QUINTILE": [
+                "_T"
+            ],
+            "AGE": [
+                "_T"
+            ]
+        },
+        "AGE": {
+            "AGE": [
+                "Y11",
+                "Y13",
+                "Y15"
+            ],
+            "WEALTH_QUINTILE": [
+                "_T"
+            ],
+            "SEX": [
+                "_T"
+            ]
+        },
+        "TOTAL": {
+            "WEALTH_QUINTILE": [
+                "_T"
+            ],
+            "SEX": [
+                "_T"
+            ],
+            "AGE": [
+                "_T"
+            ]
+        }
+    },
+    "ADOL_FEEL_LONELY": {
+        "WEALTH_QUINTILE": {
+            "WEALTH_QUINTILE": [
+                "B20",
+                "M60",
+                "R20"
+            ],
+            "SEX": [
+                "_T"
+            ],
+            "AGE": [
+                "_T"
+            ]
+        },
+        "SEX": {
+            "SEX": [
+                "F",
+                "M"
+            ],
+            "WEALTH_QUINTILE": [
+                "_T"
+            ],
+            "AGE": [
+                "_T"
+            ]
+        },
+        "AGE": {
+            "AGE": [
+                "Y11",
+                "Y13",
+                "Y15"
+            ],
+            "WEALTH_QUINTILE": [
+                "_T"
+            ],
+            "SEX": [
+                "_T"
+            ]
+        },
+        "TOTAL": {
+            "WEALTH_QUINTILE": [
+                "_T"
+            ],
+            "SEX": [
+                "_T"
+            ],
+            "AGE": [
                 "_T"
             ]
         }
