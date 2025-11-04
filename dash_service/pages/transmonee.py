@@ -574,7 +574,7 @@ data_sources = {
     "WHO": "World Health Organization",
     "WB": "World Bank",
     "OECD": "Organisation for Economic Co-operation and Development",
-    "OECD CWD": "OECD Child Wellbeing Dashboard",
+    "OECD CWD": "OECD Child Well-being Dashboard",
     "INFORM": "Inform Risk Index",
     "SDG": "UN Sustainable Development Goals Database",
     "UIS": "UNESCO Institute for Statistics",
@@ -586,6 +586,7 @@ data_sources = {
     "UIS_ESTIMATES": "UNESCO Institute for Statistics (UIS) and the Global Education Monitoring Report",
     "CP_EXCEL": "UNICEF Division of Data, Analytics, Planning and Monitoring",
     "ENOC": "European Network of Ombudspersons for Children (ENOC) website",
+    "HBSC": "Health Behaviour in School-aged Children (HBSC) Survey",
 }
 
 
@@ -3263,7 +3264,7 @@ def breakdown_options(indicator, fig_type):
         {"label": "Sex", "value": "SEX"},
         {"label": "Age", "value": "AGE"},
         {"label": "Residence", "value": "RESIDENCE"},
-        {"label": wealth_label, "value": "WEALTH_QUINTILE"},
+        {"label": "Wealth Quintile", "value": "WEALTH_QUINTILE"},
         {"label": "Disability", "value": "FUNCTIONAL_DIFFICULTIES"},
     ]
     
