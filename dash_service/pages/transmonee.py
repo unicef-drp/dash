@@ -3258,13 +3258,6 @@ def breakdown_options(indicator, fig_type):
 
     options = []
 
-    # Determine the label based on indicator (HBSC indicators don't have wealth quintiles)
-    wealth_label = (
-        "Income Group"
-        if indicator in ["ADOL_HLTH_COMP", "ADOL_FEEL_LONELY", "ADOL_FIND_SOLU"]
-        else "Wealth Quintile"
-    )
-
     # Build the list directly
     all_breakdowns = [
         {"label": "Sex", "value": "SEX"},
@@ -4049,9 +4042,6 @@ def aio_area_figure(
     # remove x-axis title but keep space below
     fig.update_layout(xaxis_title="")
 
-    # update name of legend for HBSC indicators
-    if indicator in ["ADOL_HLTH_COMP", "ADOL_FEEL_LONELY", "ADOL_FIND_SOLU"] and dimension == 'WEALTH_QUINTILE':
-        fig.update_layout(legend_title_text='Income Group')
 
     if fig_type == "bar" and not dimension and "YES_NO" not in fig_data.UNIT_MEASURE.values and base_indicator != 'PP_SG_NHR_STATUS':
         fig.update_traces(marker_color=domain_colour)
