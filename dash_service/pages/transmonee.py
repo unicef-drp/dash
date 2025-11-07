@@ -580,7 +580,7 @@ data_sources = {
     "UIS": "UNESCO Institute for Statistics",
     "BDDS_UIS": "UNESCO Institute for Statistics",
     "NEW_UIS": "UNESCO Institute for Statistics",
-    "HIV_EXCEL": "UNAIDS 2024 estimates",
+    "HIV_EXCEL": "UNAIDS 2024 Estimates",
     "UNDP": "United Nations Development Programme",
     "TMEE": "Transformative Monitoring for Enhanced Equity (TransMonEE)",
     "UIS_ESTIMATES": "UNESCO Institute for Statistics (UIS) and the Global Education Monitoring Report",
