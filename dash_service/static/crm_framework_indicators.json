@@ -558,10 +558,6 @@
                     "Code": "HT_SH_XPD_GHED_CH_ZS"
                 },
                 {
-                    "Indicator Name": "Domestic general government health expenditure per capita, PPP (current international $)",
-                    "Code": "HT_SH_XPD_GHED_PP_CD"
-                },
-                {
                     "Indicator Name": "Total population covered by public and primary private health insurance",
                     "Code": "HT_INS_COV"
                 }
