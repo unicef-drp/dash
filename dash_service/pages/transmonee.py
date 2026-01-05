@@ -4060,7 +4060,7 @@ def aio_area_figure(
     if fig_type == "line":
         fig.update_traces(**traces)
         # Ensure the y-axis starts at zero
-        fig.update_yaxes(range=[0, None])
+        fig.update_yaxes(rangemode="tozero")
 
         if isinstance(highlighted_countries, str):
             highlighted_countries = [highlighted_countries]
