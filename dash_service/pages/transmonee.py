@@ -85,10 +85,10 @@ help_text = html.Div([
         html.P([
             html.Strong("Views: ", style={'color': '#1CABE2'}),
             "Choose between two primary views for data exploration. ",
-            html.Strong("'Explore using the ECA Child Rights Monitoring Framework'"),
+            html.Strong("'Explore using the Child Rights Monitoring Framework'"),
             " allows you to select a domain and view indicators within each of its sub-domains, providing a structured approach aligned with child rights priorities. Alternatively, ",
             html.Strong("'Search by Indicator'"),
-            " lets you select specific indicators from a dropdown menu and filter by SDG indicators, by UNICEF ECA Regional Flagship Results indicators, or by specific domains or sub-domains of the ECA CRM Framework."
+            " lets you select specific indicators from a dropdown menu and filter by SDG indicators, by UNICEF ECA Regional Flagship Results indicators, or by specific domains or sub-domains of the Regional CRM Framework."
         ]),
         html.P([
             html.Strong("CRC Recommendations: ", style={'color': '#1CABE2'}),
@@ -1145,7 +1145,7 @@ def get_data(
     )
 
     start_period = years[0] if years else 2010
-    end_period = years[-1] if years else 2025
+    end_period = years[-1] if years else 2026
 
     # Get data using the API access
     data = api_access.get_data(
@@ -1306,7 +1306,7 @@ def get_data_new(
     )
 
     start_period = years[0] if years else 2010
-    end_period = years[-1] if years else 2025
+    end_period = years[-1] if years else 2026
 
     # Get data using the API access
     database = "TRANSMONEE" if tm_database else "ECACID"
@@ -1490,7 +1490,7 @@ def get_base_layout(**kwargs):
                     dbc.Col(
                         html.Div([
                             dbc.Button(
-                                "Explore using the ECA Child Rights Monitoring Framework",
+                                "Explore using the Child Rights Monitoring Framework",
                                 id={"type": "nav_buttons", "index": "crm_view"},  
                                 className="nav-btn mb-2",
                                 active=True,
@@ -1575,7 +1575,7 @@ def get_base_layout(**kwargs):
                                             # "Select ECA CRM Domain" text and Dropdown
                                             html.Div(
                                                 [
-                                                    html.Label('Select ECA CRM Domain:', htmlFor='domain-dropdown', 
+                                                    html.Label('Select CRM Domain:', htmlFor='domain-dropdown', 
                                                                style={"display": "inline-block", "margin-right": "10px", "color": "#374ca2"}),
                                                     dcc.Dropdown(
                                                         id="domain-dropdown",
@@ -1595,7 +1595,7 @@ def get_base_layout(**kwargs):
                                             html.Div(
                                                 [
                                                     html.Img(id="wheel-icon",src=wheel_icon_path, style={"margin-right": "5px", "margin-left": "15px", "height":"45px"}),
-                                                    html.A("Learn about ECA CRM Framework",
+                                                    html.A("Learn about CRM Framework",
                                                         href="https://www.transmonee.org/child-rights-monitoring-framework",
                                                         target="_blank",
                                                         className= "tm-link",
@@ -1749,7 +1749,7 @@ def get_base_layout(**kwargs):
                                             # Label for larger screens
                                             dbc.Col(
                                                 html.Label(
-                                                    "ECA CRM Framework",
+                                                    "CRM Framework",
                                                     style={"margin-right": "10px", "white-space": "nowrap", "color": "#374da2"},
                                                 ),
                                                 width="auto",  # Inline on larger screens
@@ -1758,7 +1758,7 @@ def get_base_layout(**kwargs):
                                             # Label for smaller screens
                                             dbc.Col(
                                                 html.Label(
-                                                    "ECA CRM Framework",
+                                                    "CRM Framework",
                                                     style={"margin-bottom": "5px", "white-space": "nowrap"},
                                                 ),
                                                 width=12,  # Full width on smaller screens
@@ -1833,7 +1833,7 @@ def get_base_layout(**kwargs):
                                                 html.Div([
                                                     html.P("Years:", style={"margin-bottom": "10px", "margin-top": "5px"}),
                                                     dbc.DropdownMenu(
-                                                        label="2000 - 2025",
+                                                        label="2000 - 2026",
                                                         id="collapse-years-button",
                                                         className="m-2",
                                                         color="secondary",
@@ -1842,10 +1842,10 @@ def get_base_layout(**kwargs):
                                                                 dcc.RangeSlider(
                                                                     id="year_slider",
                                                                     min=2000,
-                                                                    max=2025,
+                                                                    max=2026,
                                                                     step=1,
-                                                                    marks={year: str(year) for year in range(2000, 2026) if year % 2 == 0},
-                                                                    value=[2010, 2025],
+                                                                    marks={year: str(year) for year in range(2000, 2027) if year % 2 == 0},
+                                                                    value=[2010, 2026],
                                                                 ),
                                                                 style={"maxHeight": "250px", "minWidth": "500px"},
                                                                 className="overflow-auto",
@@ -2241,7 +2241,7 @@ def get_base_layout(**kwargs):
                                                                         "marginTop":"10px",
                                                                     },
                                                                 ),    
-                                                                html.P("ECA CRM Framework location: ", style={"marginBottom": "5px", "marginTop": "0px"}),
+                                                                html.P("CRM Framework location: ", style={"marginBottom": "5px", "marginTop": "0px"}),
                                                                 html.Div(
                                                                 id="domain-text",
                                                                 ),                                                                 

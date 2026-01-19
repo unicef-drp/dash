@@ -8892,56 +8892,13 @@
             ]
         }
     },
-    "PT_F_PS-SX_V_PTNR_12MNTH": {
+    "PT_F_PS-SX_V_PTNR": {
         "TOTAL": {
             "AGE": [
-                "Y15T49"
+                "Y_GE15"
             ],
-            "RESIDENCE": [
-                "_T"
-            ],
-            "WEALTH_QUINTILE": [
-                "_T"
-            ]
-        },
-        "RESIDENCE": {
-            "AGE": [
-                "Y15T49"
-            ],
-            "RESIDENCE": [
-                "R",
-                "U"
-            ],
-            "WEALTH_QUINTILE": [
-                "_T"
-            ]
-        },
-        "WEALTH_QUINTILE": {
-            "AGE": [
-                "Y15T49"
-            ],
-            "RESIDENCE": [
-                "_T"
-            ],
-            "WEALTH_QUINTILE": [
-                "Q1",
-                "Q2",
-                "Q3",
-                "Q4",
-                "Q5"
-            ]
-        },
-        "AGE": {
-            "AGE": [
-                "Y15T19",
-                "Y15T24",
-                "Y15T49"
-            ],
-            "RESIDENCE": [
-                "_T"
-            ],
-            "WEALTH_QUINTILE": [
-                "_T"
+            "SEX": [
+                "F"
             ]
         }
     },

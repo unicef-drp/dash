@@ -1,7 +1,7 @@
 
 # TransMonEE Dashboard
 
-The **TransMonEE Dashboard** is an interactive visualization tool for monitoring child rights across Europe and Central Asia. It provides access to a wide range of disaggregated data and CRC recommendations aligned with the ECA Child Rights Monitoring (CRM) Framework.
+The **TransMonEE Dashboard** is an interactive visualization tool for monitoring child rights across Europe and Central Asia. It provides access to a wide range of disaggregated data and CRC recommendations aligned with the Regional Child Rights Monitoring (CRM) Framework.
 
 🌍 **Live Dashboard:**  
 [https://www.transmonee.org/europe-central-asia-child-rights-data-dashboard](https://www.transmonee.org/europe-central-asia-child-rights-data-dashboard)
@@ -11,7 +11,7 @@ The **TransMonEE Dashboard** is an interactive visualization tool for monitoring
 
 ## Features
 
-- Explore indicators by domain and sub-domain, aligned with the ECA CRM Framework
+- Explore indicators by domain and sub-domain, aligned with the CRM Framework
 - View interactive charts, maps, and trends over time
 - Filter by country, region, disaggregations (sex, age, residence, wealth), and year
 - Access and filter CRC recommendations linked to child rights bottlenecks
