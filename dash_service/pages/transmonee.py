@@ -1145,7 +1145,7 @@ def get_data(
     )
 
     start_period = years[0] if years else 2010
-    end_period = years[-1] if years else 2025
+    end_period = years[-1] if years else 2026
 
     # Get data using the API access
     data = api_access.get_data(
@@ -1306,7 +1306,7 @@ def get_data_new(
     )
 
     start_period = years[0] if years else 2010
-    end_period = years[-1] if years else 2025
+    end_period = years[-1] if years else 2026
 
     # Get data using the API access
     database = "TRANSMONEE" if tm_database else "ECACID"
@@ -1833,7 +1833,7 @@ def get_base_layout(**kwargs):
                                                 html.Div([
                                                     html.P("Years:", style={"margin-bottom": "10px", "margin-top": "5px"}),
                                                     dbc.DropdownMenu(
-                                                        label="2000 - 2025",
+                                                        label="2000 - 2026",
                                                         id="collapse-years-button",
                                                         className="m-2",
                                                         color="secondary",
@@ -1842,10 +1842,10 @@ def get_base_layout(**kwargs):
                                                                 dcc.RangeSlider(
                                                                     id="year_slider",
                                                                     min=2000,
-                                                                    max=2025,
+                                                                    max=2026,
                                                                     step=1,
-                                                                    marks={year: str(year) for year in range(2000, 2026) if year % 2 == 0},
-                                                                    value=[2010, 2025],
+                                                                    marks={year: str(year) for year in range(2000, 2027) if year % 2 == 0},
+                                                                    value=[2010, 2026],
                                                                 ),
                                                                 style={"maxHeight": "250px", "minWidth": "500px"},
                                                                 className="overflow-auto",

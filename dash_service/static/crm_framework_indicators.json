@@ -898,8 +898,8 @@
             "code": "VIO",
             "indicators": [
                 {
-                    "Indicator Name": "Percentage of ever-partnered women and girls (15-49 years) subjected to physical and/or sexual violence by a current or former intimate partner in the previous 12 months - SDG 5.2.1",
-                    "Code": "PT_F_PS-SX_V_PTNR_12MNTH"
+                    "Indicator Name": "Percentage of ever-partnered women and girls (aged 15 years and older) subjected to physical or sexual violence by a current or former intimate partner in the previous 12 months - SDG 5.2.1",
+                    "Code": "PT_F_PS-SX_V_PTNR"
                 },
                 {
                     "Indicator Name": "Percentage of students (13-15 years) who reported being bullied on 1 or more days in the past 30 days",
