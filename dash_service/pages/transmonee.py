@@ -85,10 +85,10 @@ help_text = html.Div([
         html.P([
             html.Strong("Views: ", style={'color': '#1CABE2'}),
             "Choose between two primary views for data exploration. ",
-            html.Strong("'Explore using the ECA Child Rights Monitoring Framework'"),
+            html.Strong("'Explore using the Child Rights Monitoring Framework'"),
             " allows you to select a domain and view indicators within each of its sub-domains, providing a structured approach aligned with child rights priorities. Alternatively, ",
             html.Strong("'Search by Indicator'"),
-            " lets you select specific indicators from a dropdown menu and filter by SDG indicators, by UNICEF ECA Regional Flagship Results indicators, or by specific domains or sub-domains of the ECA CRM Framework."
+            " lets you select specific indicators from a dropdown menu and filter by SDG indicators, by UNICEF ECA Regional Flagship Results indicators, or by specific domains or sub-domains of the Regional CRM Framework."
         ]),
         html.P([
             html.Strong("CRC Recommendations: ", style={'color': '#1CABE2'}),
@@ -1490,7 +1490,7 @@ def get_base_layout(**kwargs):
                     dbc.Col(
                         html.Div([
                             dbc.Button(
-                                "Explore using the ECA Child Rights Monitoring Framework",
+                                "Explore using the Child Rights Monitoring Framework",
                                 id={"type": "nav_buttons", "index": "crm_view"},  
                                 className="nav-btn mb-2",
                                 active=True,
@@ -1575,7 +1575,7 @@ def get_base_layout(**kwargs):
                                             # "Select ECA CRM Domain" text and Dropdown
                                             html.Div(
                                                 [
-                                                    html.Label('Select ECA CRM Domain:', htmlFor='domain-dropdown', 
+                                                    html.Label('Select CRM Domain:', htmlFor='domain-dropdown', 
                                                                style={"display": "inline-block", "margin-right": "10px", "color": "#374ca2"}),
                                                     dcc.Dropdown(
                                                         id="domain-dropdown",
@@ -1595,7 +1595,7 @@ def get_base_layout(**kwargs):
                                             html.Div(
                                                 [
                                                     html.Img(id="wheel-icon",src=wheel_icon_path, style={"margin-right": "5px", "margin-left": "15px", "height":"45px"}),
-                                                    html.A("Learn about ECA CRM Framework",
+                                                    html.A("Learn about CRM Framework",
                                                         href="https://www.transmonee.org/child-rights-monitoring-framework",
                                                         target="_blank",
                                                         className= "tm-link",
@@ -1749,7 +1749,7 @@ def get_base_layout(**kwargs):
                                             # Label for larger screens
                                             dbc.Col(
                                                 html.Label(
-                                                    "ECA CRM Framework",
+                                                    "CRM Framework",
                                                     style={"margin-right": "10px", "white-space": "nowrap", "color": "#374da2"},
                                                 ),
                                                 width="auto",  # Inline on larger screens
@@ -1758,7 +1758,7 @@ def get_base_layout(**kwargs):
                                             # Label for smaller screens
                                             dbc.Col(
                                                 html.Label(
-                                                    "ECA CRM Framework",
+                                                    "CRM Framework",
                                                     style={"margin-bottom": "5px", "white-space": "nowrap"},
                                                 ),
                                                 width=12,  # Full width on smaller screens
@@ -2241,7 +2241,7 @@ def get_base_layout(**kwargs):
                                                                         "marginTop":"10px",
                                                                     },
                                                                 ),    
-                                                                html.P("ECA CRM Framework location: ", style={"marginBottom": "5px", "marginTop": "0px"}),
+                                                                html.P("CRM Framework location: ", style={"marginBottom": "5px", "marginTop": "0px"}),
                                                                 html.Div(
                                                                 id="domain-text",
                                                                 ),                                                                 
