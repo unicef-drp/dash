@@ -261,6 +261,7 @@ countries_iso3_dict = {
     "Cyprus": "CYP",
     "Czech Republic": "CZE",
     "Denmark": "DNK",
+    "Egypt": "EGY",
     "Estonia": "EST",
     "Finland": "FIN",
     "France": "FRA",
@@ -320,6 +321,7 @@ reversed_countries_iso3_dict = {
     "CYP": "Cyprus",
     "CZE": "Czech Republic",
     "DNK": "Denmark",
+    "EGY": "Egypt",
     "EST": "Estonia",
     "FIN": "Finland",
     "FRA": "France",
@@ -487,6 +489,10 @@ eu_countries = [
     "Slovenia",
     "Spain",
     "Sweden",
+]
+
+mena_countries = [
+    "Egypt"
 ]
 
 eu_enlargement_countries = [
@@ -761,7 +767,9 @@ def update_country_dropdown(country_group):
     elif country_group == "eastern_europe":
         options = [{"label": country, "value": country} for country in eastern_europe]
     elif country_group == "western_europe":
-        options = [{"label": country, "value": country} for country in western_europe]
+        options = [{"label": country, "value": country} for country in western_europe]    
+    elif country_group == "mena":
+        options = [{"label": country, "value": country} for country in mena_countries]
     else:
         options = [{"label": country, "value": country} for country in all_countries]
 
@@ -1875,6 +1883,7 @@ def get_base_layout(**kwargs):
                                                             {"label": "Central Asian countries", "value": "central_asia"},
                                                             {"label": "Eastern European countries", "value": "eastern_europe"},
                                                             {"label": "Western European countries", "value": "western_europe"},
+                                                            {"label": "MENA countries (beta)", "value": "mena"},
                                                         ],
                                                         value="all",
                                                         placeholder="Select country group",
@@ -3105,6 +3114,8 @@ def get_filters(years_slider, countries, country_group):
             countries = eastern_europe
         elif country_group == "western_europe":
             countries = western_europe
+        elif country_group == "mena":
+            countries = mena_countries
         else:
             countries = all_countries
 
