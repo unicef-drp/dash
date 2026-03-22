@@ -261,7 +261,6 @@ countries_iso3_dict = {
     "Cyprus": "CYP",
     "Czech Republic": "CZE",
     "Denmark": "DNK",
-    "Egypt": "EGY",
     "Estonia": "EST",
     "Finland": "FIN",
     "France": "FRA",
@@ -274,7 +273,7 @@ countries_iso3_dict = {
     "Ireland": "IRL",
     "Italy": "ITA",
     "Kazakhstan": "KAZ",
-    "Kosovo (UNSCR 1244)": "XKX",  # UNDP defines it as KOS
+    "Kosovo (UNSCR 1244)": "XKX",
     "Kyrgyzstan": "KGZ",
     "Latvia": "LVA",
     "Liechtenstein": "LIE",
@@ -304,6 +303,28 @@ countries_iso3_dict = {
     "Ukraine": "UKR",
     "United Kingdom": "GBR",
     "Uzbekistan": "UZB",
+
+    # --- MENA ---
+    "Algeria": "DZA",
+    "Bahrain": "BHR",
+    "Djibouti": "DJI",
+    "Egypt": "EGY",
+    "Iran (Islamic Republic of)": "IRN",
+    "Iraq": "IRQ",
+    "Jordan": "JOR",
+    "Kuwait": "KWT",
+    "Lebanon": "LBN",
+    "Libya": "LBY",
+    "Morocco": "MAR",
+    "Oman": "OMN",
+    "State of Palestine": "PSE",
+    "Qatar": "QAT",
+    "Saudi Arabia": "SAU",
+    "Sudan": "SDN",
+    "Syrian Arab Republic": "SYR",
+    "Tunisia": "TUN",
+    "United Arab Emirates": "ARE",
+    "Yemen": "YEM",
 }
 
 #
@@ -321,7 +342,6 @@ reversed_countries_iso3_dict = {
     "CYP": "Cyprus",
     "CZE": "Czech Republic",
     "DNK": "Denmark",
-    "EGY": "Egypt",
     "EST": "Estonia",
     "FIN": "Finland",
     "FRA": "France",
@@ -364,6 +384,28 @@ reversed_countries_iso3_dict = {
     "UKR": "Ukraine",
     "GBR": "United Kingdom",
     "UZB": "Uzbekistan",
+
+    # --- MENA ---
+    "DZA": "Algeria",
+    "BHR": "Bahrain",
+    "DJI": "Djibouti",
+    "EGY": "Egypt",
+    "IRN": "Iran (Islamic Republic of)",
+    "IRQ": "Iraq",
+    "JOR": "Jordan",
+    "KWT": "Kuwait",
+    "LBN": "Lebanon",
+    "LBY": "Libya",
+    "MAR": "Morocco",
+    "OMN": "Oman",
+    "PSE": "State of Palestine",
+    "QAT": "Qatar",
+    "SAU": "Saudi Arabia",
+    "SDN": "Sudan",
+    "SYR": "Syrian Arab Republic",
+    "TUN": "Tunisia",
+    "ARE": "United Arab Emirates",
+    "YEM": "Yemen",
 }
 
 # create a list of country names in the same order as the countries_iso3_dict
@@ -492,7 +534,26 @@ eu_countries = [
 ]
 
 mena_countries = [
-    "Egypt"
+    "Algeria",
+    "Bahrain",
+    "Djibouti",
+    "Egypt",
+    "Iran (Islamic Republic of)",
+    "Iraq",
+    "Jordan",
+    "Kuwait",
+    "Lebanon",
+    "Libya",
+    "Morocco",
+    "Oman",
+    "Qatar",
+    "Saudi Arabia",
+    "State of Palestine",
+    "Sudan",
+    "Syrian Arab Republic",
+    "Tunisia",
+    "United Arab Emirates",
+    "Yemen",
 ]
 
 eu_enlargement_countries = [
@@ -1883,7 +1944,7 @@ def get_base_layout(**kwargs):
                                                             {"label": "Central Asian countries", "value": "central_asia"},
                                                             {"label": "Eastern European countries", "value": "eastern_europe"},
                                                             {"label": "Western European countries", "value": "western_europe"},
-                                                            {"label": "MENA countries (beta)", "value": "mena"},
+                                                            {"label": "MENA countries", "value": "mena"},
                                                         ],
                                                         value="all",
                                                         placeholder="Select country group",
