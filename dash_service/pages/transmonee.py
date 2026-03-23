@@ -307,7 +307,6 @@ countries_iso3_dict = {
     # --- MENA ---
     "Algeria": "DZA",
     "Bahrain": "BHR",
-    "Djibouti": "DJI",
     "Egypt": "EGY",
     "Iran (Islamic Republic of)": "IRN",
     "Iraq": "IRQ",
@@ -320,7 +319,6 @@ countries_iso3_dict = {
     "State of Palestine": "PSE",
     "Qatar": "QAT",
     "Saudi Arabia": "SAU",
-    "Sudan": "SDN",
     "Syrian Arab Republic": "SYR",
     "Tunisia": "TUN",
     "United Arab Emirates": "ARE",
@@ -388,7 +386,6 @@ reversed_countries_iso3_dict = {
     # --- MENA ---
     "DZA": "Algeria",
     "BHR": "Bahrain",
-    "DJI": "Djibouti",
     "EGY": "Egypt",
     "IRN": "Iran (Islamic Republic of)",
     "IRQ": "Iraq",
@@ -401,7 +398,6 @@ reversed_countries_iso3_dict = {
     "PSE": "State of Palestine",
     "QAT": "Qatar",
     "SAU": "Saudi Arabia",
-    "SDN": "Sudan",
     "SYR": "Syrian Arab Republic",
     "TUN": "Tunisia",
     "ARE": "United Arab Emirates",
@@ -536,7 +532,6 @@ eu_countries = [
 mena_countries = [
     "Algeria",
     "Bahrain",
-    "Djibouti",
     "Egypt",
     "Iran (Islamic Republic of)",
     "Iraq",
@@ -549,12 +544,13 @@ mena_countries = [
     "Qatar",
     "Saudi Arabia",
     "State of Palestine",
-    "Sudan",
     "Syrian Arab Republic",
     "Tunisia",
     "United Arab Emirates",
     "Yemen",
 ]
+
+all_programme_countries = unicef_country_prog + mena_countries
 
 eu_enlargement_countries = [
     "Albania",
@@ -831,6 +827,8 @@ def update_country_dropdown(country_group):
         options = [{"label": country, "value": country} for country in western_europe]    
     elif country_group == "mena":
         options = [{"label": country, "value": country} for country in mena_countries]
+    elif country_group == "all_cpd":
+        options = [{"label": country, "value": country} for country in all_programme_countries]
     else:
         options = [{"label": country, "value": country} for country in all_countries]
 
@@ -1933,8 +1931,8 @@ def get_base_layout(**kwargs):
                                                     dcc.Dropdown(
                                                         id="country-group",
                                                         options=[
-                                                            {"label": "All countries", "value": "all"},
-                                                            {"label": "UNICEF programme countries", "value": "unicef"},
+                                                            {"label": "All ECA countries", "value": "all"},
+                                                            {"label": "UNICEF ECA programme countries", "value": "unicef"},
                                                             {"label": "EU countries", "value": "eu"},
                                                             {"label": "EU enlargement countries", "value": "eu_enlargement"},
                                                             {"label": "EU + EU enlargement countries", "value": "eu + enlargement"},
@@ -1945,6 +1943,7 @@ def get_base_layout(**kwargs):
                                                             {"label": "Eastern European countries", "value": "eastern_europe"},
                                                             {"label": "Western European countries", "value": "western_europe"},
                                                             {"label": "MENA countries", "value": "mena"},
+                                                            {"label": "UNICEF ECAMENA programme countries", "value": "all_cpd"}
                                                         ],
                                                         value="all",
                                                         placeholder="Select country group",
@@ -3177,6 +3176,8 @@ def get_filters(years_slider, countries, country_group):
             countries = western_europe
         elif country_group == "mena":
             countries = mena_countries
+        elif country_group == "all_cpd":
+            countries = all_programme_countries
         else:
             countries = all_countries
 
