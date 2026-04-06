@@ -1900,7 +1900,7 @@ def get_base_layout(**kwargs):
                                                 html.Div([
                                                     html.P("Years:", style={"margin-bottom": "10px", "margin-top": "5px"}),
                                                     dbc.DropdownMenu(
-                                                        label="2000 - 2026",
+                                                        label="2010 - 2026",
                                                         id="collapse-years-button",
                                                         className="m-2",
                                                         color="secondary",
@@ -1908,10 +1908,10 @@ def get_base_layout(**kwargs):
                                                             dbc.Card(
                                                                 dcc.RangeSlider(
                                                                     id="year_slider",
-                                                                    min=2000,
+                                                                    min=2010,
                                                                     max=2026,
                                                                     step=1,
-                                                                    marks={year: str(year) for year in range(2000, 2027) if year % 2 == 0},
+                                                                    marks={year: str(year) for year in range(2010, 2027) if year % 2 == 0},
                                                                     value=[2010, 2026],
                                                                 ),
                                                                 style={"maxHeight": "250px", "minWidth": "500px"},
