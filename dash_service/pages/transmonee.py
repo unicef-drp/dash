@@ -4239,16 +4239,6 @@ def aio_area_figure(
                     )
         else:
             fig.update_layout(showlegend=True)
-            fig.add_annotation(
-                x=last_time_period + 0.2,
-                y=last_value + (last_value * 0.01),
-                text=highlighted_country,
-                showarrow=False,
-                font=dict(size=12, color="#1CABE2"),
-                xanchor="left",
-                yanchor="middle",
-                align="left"
-            )
 
     fig.update_traces(hovertemplate=hovertext)
 
