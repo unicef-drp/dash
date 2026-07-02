@@ -1,20 +1,19 @@
 
 orjson
 dash_treeview_antd
-dash==2.15.0
+dash==2.11.1
 dash-bootstrap-components==1.4.0
 dash-daq==0.5.0
 plotly==5.24.1
 
-Flask==2.3.3
-flask-cors==6.0.0
+flask-cors==3.0.10
 Flask-Admin==1.6.0
 flask-sqlalchemy==2.5.1
 Flask-Migrate==3.1.0
 sqlalchemy-mixins==1.5.3
 sqlalchemy==1.4.45
 slugify
-pydantic==1.10.26
+
 
 pandasdmx
 pandasdmx[cache]
