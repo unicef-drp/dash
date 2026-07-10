@@ -2,6 +2,7 @@ import sentry_sdk
 from dash import Dash
 from flask import Flask, render_template, request, redirect,send_from_directory
 from sentry_sdk.integrations.flask import FlaskIntegration
+from urllib.parse import urlencode
 
 from . import admin, default_settings, register_extensions
 from .extensions import admin, db, login_manager
@@ -116,7 +117,8 @@ def reroute_transmonee_root():
 
 @server.route("/transmonee/<path:page>")
 def reroute_transmonee(page):
-    return redirect(f"/?prj=tm&page={page}")
+    query = urlencode({"prj": "tm", "page": page})
+    return redirect(f"/?{query}")
 
 
 app = Dash(
