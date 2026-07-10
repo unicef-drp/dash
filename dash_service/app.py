@@ -110,7 +110,8 @@ def reroute_brazil(page):
 
 @server.route("/rosa/<path:page>")
 def reroute_rosa(page):
-    return redirect(f"/?prj=rosa&page={page}")
+    query = urlencode({"prj": "rosa", "page": page})
+    return redirect(f"/?{query}")
 
 @server.route("/transmonee")
 def reroute_transmonee_root():
