@@ -2,6 +2,7 @@ import sentry_sdk
 from dash import Dash
 from flask import Flask, render_template, request, redirect,send_from_directory
 from sentry_sdk.integrations.flask import FlaskIntegration
+from urllib.parse import urlencode
 
 from . import admin, default_settings, register_extensions
 from .extensions import admin, db, login_manager
@@ -108,7 +109,8 @@ def reroute_brazil(page):
 
 @server.route("/rosa/<path:page>")
 def reroute_rosa(page):
-    return redirect(f"/?prj=rosa&page={page}")
+    query = urlencode({"prj": "rosa", "page": page})
+    return redirect(f"/?{query}")
 
 @server.route("/transmonee")
 def reroute_transmonee_root():
