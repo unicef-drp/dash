@@ -117,6 +117,13 @@ def reroute_transmonee_root():
 
 @server.route("/transmonee/<path:page>")
 def reroute_transmonee(page):
+    if (
+        not page
+        or page.startswith(("/", "\\"))
+        or any(ch in page for ch in ("\r", "\n", "\t", "\x00"))
+    ):
+        return redirect("/?prj=tm")
+
     query = urlencode({"prj": "tm", "page": page})
     return redirect(f"/?{query}")
 
