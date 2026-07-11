@@ -3,6 +3,7 @@ from dash import Dash
 from flask import Flask, render_template, request, redirect,send_from_directory
 from sentry_sdk.integrations.flask import FlaskIntegration
 from urllib.parse import urlencode
+import re
 
 from . import admin, default_settings, register_extensions
 from .extensions import admin, db, login_manager
@@ -102,14 +103,29 @@ def do_logout():
     return redirect("/login")
 
 
+def _sanitize_page_or_default(page: str) -> str:
+    if not page:
+        return ""
+    candidate = page.replace("\\", "")
+    if candidate.startswith("/") or candidate.startswith("//") or "://" in candidate:
+        return ""
+    if not re.fullmatch(r"[A-Za-z0-9._/-]+", candidate):
+        return ""
+    return candidate
+
+
 @server.route("/brazil/<path:page>")
 def reroute_brazil(page):
-    return redirect(f"/?prj=brazil&page={page}")
+    safe_page = _sanitize_page_or_default(page)
+    query = urlencode({"prj": "brazil", "page": safe_page})
+    return redirect(f"/?{query}")
 
 
 @server.route("/rosa/<path:page>")
 def reroute_rosa(page):
-    return redirect(f"/?prj=rosa&page={page}")
+    safe_page = _sanitize_page_or_default(page)
+    query = urlencode({"prj": "rosa", "page": safe_page})
+    return redirect(f"/?{query}")
 
 @server.route("/transmonee")
 def reroute_transmonee_root():
@@ -117,14 +133,8 @@ def reroute_transmonee_root():
 
 @server.route("/transmonee/<path:page>")
 def reroute_transmonee(page):
-    if (
-        not page
-        or page.startswith(("/", "\\"))
-        or any(ch in page for ch in ("\r", "\n", "\t", "\x00"))
-    ):
-        return redirect("/?prj=tm")
-
-    query = urlencode({"prj": "tm", "page": page})
+    safe_page = _sanitize_page_or_default(page)
+    query = urlencode({"prj": "tm", "page": safe_page})
     return redirect(f"/?{query}")
 
 
