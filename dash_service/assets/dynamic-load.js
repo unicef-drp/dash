@@ -218,6 +218,12 @@ if (browserOk) {
                         if (script.id == '_dash-config') {
                             config = JSON.parse(script.innerHTML);
                             config["url_base_pathname"] = baseUrl;
+                            config["serve_locally"] = false;
+                            config["plotlyjs_url"] = new URL(
+                                "/_dash-component-suites/plotly/package_data/plotly.min.js",
+                                baseUrl
+                            ).href;
+
                             delete config["requests_pathname_prefix"];
                             script.innerHTML = JSON.stringify(config);
                         }
