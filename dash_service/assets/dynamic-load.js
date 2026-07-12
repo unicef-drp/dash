@@ -217,8 +217,8 @@ if (browserOk) {
                         }
                         if (script.id == '_dash-config') {
                             config = JSON.parse(script.innerHTML);
-                            config["url_base_pathname"] = baseUrl;
-                            delete config["requests_pathname_prefix"];
+                            config["url_base_pathname"] = baseUrl.href;
+                            config["requests_pathname_prefix"] = baseUrl.pathname;
                             script.innerHTML = JSON.stringify(config);
                         }
                         scriptElement.innerHTML = script.innerHTML;
