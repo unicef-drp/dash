@@ -102,6 +102,23 @@ def do_logout():
 
     return redirect("/login")
 
+# Valid page identifiers for the legacy Brazil and ROSA redirect routes.
+_ALLOWED_REDIRECT_PAGES = {
+    "",
+    "wash",
+    "health",
+    "child-education",
+    "elect_part",
+    "protection",
+    "sol-pol",
+    "rosa_education",
+    "rosa_health",
+    "rosa_protection",
+    "rosa_nutrition",
+    "rosa_demo_econ",
+    "rosa_wash",
+}
+
 
 def _sanitize_page_or_default(page: str) -> str:
     if not page:
@@ -113,28 +130,30 @@ def _sanitize_page_or_default(page: str) -> str:
         return ""
     return candidate
 
+def _allowlisted_page_or_default(page: str) -> str:
+    safe_page = _sanitize_page_or_default(page)
+    if safe_page in _ALLOWED_REDIRECT_PAGES:
+        return safe_page
+    return ""
+
 
 @server.route("/brazil/<path:page>")
 def reroute_brazil(page):
-    safe_page = _sanitize_page_or_default(page)
-    query = urlencode({"prj": "brazil", "page": safe_page})
+    safe_page = _allowlisted_page_or_default(page)
+    params = {"prj": "brazil"}
+    if safe_page:
+        params["page"] = safe_page
+    query = urlencode(params)
     return redirect(f"/?{query}")
 
 
 @server.route("/rosa/<path:page>")
 def reroute_rosa(page):
-    safe_page = _sanitize_page_or_default(page)
-    query = urlencode({"prj": "rosa", "page": safe_page})
-    return redirect(f"/?{query}")
-
-@server.route("/transmonee")
-def reroute_transmonee_root():
-    return redirect(f"/?prj=tm")
-
-@server.route("/transmonee/<path:page>")
-def reroute_transmonee(page):
-    safe_page = _sanitize_page_or_default(page)
-    query = urlencode({"prj": "tm", "page": safe_page})
+    safe_page = _allowlisted_page_or_default(page)    
+    params = {"prj": "rosa"}
+    if safe_page:
+        params["page"] = safe_page
+    query = urlencode(params)
     return redirect(f"/?{query}")
 
 
