@@ -906,8 +906,7 @@
                 "_T"
             ],
             "AGE": [
-                "M24T59",
-                "M36T59"
+                "M24T59"
             ],
             "WEALTH_QUINTILE": [
                 "_T"
@@ -922,8 +921,7 @@
                 "M"
             ],
             "AGE": [
-                "M24T59",
-                "M36T59"
+                "M24T59"
             ],
             "WEALTH_QUINTILE": [
                 "_T"
@@ -937,9 +935,9 @@
                 "_T"
             ],
             "AGE": [
-                "Y02",
-                "Y03",
-                "Y04"
+                "M48T59",
+                "M24T35",
+                "M36T47"
             ],
             "WEALTH_QUINTILE": [
                 "_T"
@@ -953,8 +951,7 @@
                 "_T"
             ],
             "AGE": [
-                "M24T59",
-                "M36T59"
+                "M24T59"
             ],
             "WEALTH_QUINTILE": [
                 "_T"
@@ -968,8 +965,7 @@
                 "_T"
             ],
             "AGE": [
-                "M24T59",
-                "M36T59"
+                "M24T59"
             ],
             "WEALTH_QUINTILE": [
                 "Q1",
@@ -1146,21 +1142,9 @@
         }
     },
     "EC_EAP_RT": {
-        "AGE": {
-            "AGE": [
-                "_T",
-                "Y15T24",
-                "Y25T54",
-                "Y55T64",
-                "Y_GE65"
-            ],
-            "SEX": [
-                "_T"
-            ]
-        },
         "SEX": {
             "AGE": [
-                "_T"
+                "Y15T24"
             ],
             "SEX": [
                 "F",
@@ -1169,7 +1153,7 @@
         },
         "TOTAL": {
             "AGE": [
-                "_T"
+                "Y15T24"
             ],
             "SEX": [
                 "_T"
@@ -5362,7 +5346,7 @@
         "NOMINAL": false,
         "TOTAL": {
             "AGE": [
-                "Y0T14"
+                "_T"
             ],
             "SEX": [
                 "_T"
@@ -6551,7 +6535,7 @@
     "NT_ANT_HAZ_NE2": {
         "AGE": {
             "AGE": [
-                "Y0T4",
+                "_T",
                 "M0T23",
                 "M24T59"
             ],
@@ -6567,7 +6551,7 @@
         },
         "RESIDENCE": {
             "AGE": [
-                "Y0T4"
+                "_T"
             ],
             "RESIDENCE": [
                 "R",
@@ -6582,7 +6566,7 @@
         },
         "SEX": {
             "AGE": [
-                "Y0T4"
+                "_T"
             ],
             "RESIDENCE": [
                 "_T"
@@ -6597,7 +6581,7 @@
         },
         "TOTAL": {
             "AGE": [
-                "Y0T4"
+                "_T"
             ],
             "RESIDENCE": [
                 "_T"
@@ -6611,7 +6595,7 @@
         },
         "WEALTH_QUINTILE": {
             "AGE": [
-                "Y0T4"
+                "_T"
             ],
             "RESIDENCE": [
                 "_T"
@@ -6637,7 +6621,7 @@
     "NT_ANT_WHZ_NE2": {
         "AGE": {
             "AGE": [
-                "Y0T4",
+                "_T",
                 "M0T23",
                 "M24T59"
             ],
@@ -6653,7 +6637,7 @@
         },
         "RESIDENCE": {
             "AGE": [
-                "Y0T4"
+                "_T"
             ],
             "RESIDENCE": [
                 "R",
@@ -6668,7 +6652,7 @@
         },
         "SEX": {
             "AGE": [
-                "Y0T4"
+                "_T"
             ],
             "RESIDENCE": [
                 "_T"
@@ -6683,7 +6667,7 @@
         },
         "TOTAL": {
             "AGE": [
-                "Y0T4"
+                "_T"
             ],
             "RESIDENCE": [
                 "_T"
@@ -6697,7 +6681,7 @@
         },
         "WEALTH_QUINTILE": {
             "AGE": [
-                "Y0T4"
+                "_T"
             ],
             "RESIDENCE": [
                 "_T"
@@ -6717,7 +6701,7 @@
     "NT_ANT_WHZ_PO2": {
         "AGE": {
             "AGE": [
-                "Y0T4",
+                "_T",
                 "M0T23",
                 "M24T59"
             ],
@@ -6733,7 +6717,7 @@
         },
         "RESIDENCE": {
             "AGE": [
-                "Y0T4"
+                "_T"
             ],
             "RESIDENCE": [
                 "R",
@@ -6748,7 +6732,7 @@
         },
         "SEX": {
             "AGE": [
-                "Y0T4"
+                "_T"
             ],
             "RESIDENCE": [
                 "_T"
@@ -6763,7 +6747,7 @@
         },
         "TOTAL": {
             "AGE": [
-                "Y0T4"
+                "_T"
             ],
             "RESIDENCE": [
                 "_T"
@@ -6777,7 +6761,7 @@
         },
         "WEALTH_QUINTILE": {
             "AGE": [
-                "Y0T4"
+                "_T"
             ],
             "RESIDENCE": [
                 "_T"
@@ -6883,7 +6867,7 @@
     "NT_BF_EXBF": {
         "AGE": {
             "AGE": [
-                "M0T5",
+                "_T",
                 "M0T1",
                 "M2T3",
                 "M4T5"
@@ -6900,7 +6884,7 @@
         },
         "RESIDENCE": {
             "AGE": [
-                "M0T5"
+                "_T"
             ],
             "RESIDENCE": [
                 "R",
@@ -6915,7 +6899,7 @@
         },
         "SEX": {
             "AGE": [
-                "M0T5"
+                "_T"
             ],
             "RESIDENCE": [
                 "_T"
@@ -6930,7 +6914,7 @@
         },
         "TOTAL": {
             "AGE": [
-                "M0T5"
+                "_T"
             ],
             "RESIDENCE": [
                 "_T"
@@ -6944,7 +6928,7 @@
         },
         "WEALTH_QUINTILE": {
             "AGE": [
-                "M0T5"
+                "_T"
             ],
             "RESIDENCE": [
                 "_T"
@@ -6964,7 +6948,7 @@
     "NT_CF_MDD": {
         "AGE": {
             "AGE": [
-                "M6T23",
+                "_T",
                 "M6T11",
                 "M12T23"
             ],
@@ -6980,7 +6964,7 @@
         },
         "RESIDENCE": {
             "AGE": [
-                "M6T23"
+                "_T"
             ],
             "RESIDENCE": [
                 "R",
@@ -6995,7 +6979,7 @@
         },
         "SEX": {
             "AGE": [
-                "M6T23"
+                "_T"
             ],
             "RESIDENCE": [
                 "_T"
@@ -7010,7 +6994,7 @@
         },
         "TOTAL": {
             "AGE": [
-                "M6T23"
+                "_T"
             ],
             "RESIDENCE": [
                 "_T"
@@ -7024,7 +7008,7 @@
         },
         "WEALTH_QUINTILE": {
             "AGE": [
-                "M6T23"
+                "_T"
             ],
             "RESIDENCE": [
                 "_T"
@@ -7044,7 +7028,7 @@
     "NT_CF_ISSSF_FL": {
         "RESIDENCE": {
             "AGE": [
-                "M6T8"
+                "_T"
             ],
             "RESIDENCE": [
                 "R",
@@ -7059,7 +7043,7 @@
         },
         "SEX": {
             "AGE": [
-                "M6T8"
+                "_T"
             ],
             "RESIDENCE": [
                 "_T"
@@ -7074,7 +7058,7 @@
         },
         "TOTAL": {
             "AGE": [
-                "M6T8"
+                "_T"
             ],
             "RESIDENCE": [
                 "_T"
@@ -7088,7 +7072,7 @@
         },
         "WEALTH_QUINTILE": {
             "AGE": [
-                "M6T8"
+                "_T"
             ],
             "RESIDENCE": [
                 "_T"

@@ -170,7 +170,8 @@ custom_names = {
     "ICT_SECURITY_CONCERN": "Percentage of 16-24 year olds who limited their personal internet activities in the last 12 months due to security concerns",
     "ICT_PERSONAL_DATA": "Percentage of 16-24 year olds who used the internet in the last 3 months and managed access to their personal data",
     "MT_SDG_SUICIDE": "Suicide mortality rate for 15-19 year olds (deaths per 100,000 population) - SDG 3.4.2",
-    "ADOL_HLTH_COMP": "Percentage of 11-, 13- and 15-year-old school children who report multiple health complaints more than once a week"
+    "ADOL_HLTH_COMP": "Percentage of 11-, 13- and 15-year-old school children who report multiple health complaints more than once a week",
+    "EC_EAP_RT": "Labour force participation rate for persons aged 15–24 years"
 }
 
 indicator_names.update(custom_names)
@@ -650,6 +651,7 @@ data_sources = {
     "CP_EXCEL": "UNICEF Division of Data, Analytics, Planning and Monitoring",
     "ENOC": "European Network of Ombudspersons for Children (ENOC) website",
     "HBSC": "Health Behaviour in School-aged Children (HBSC) Survey",
+    "COSI": "Childhood Obesity Surveillance Initiative (COSI) by WHO"
 }
 
 
@@ -1269,6 +1271,9 @@ def get_data(
         data.loc[data.OBS_VALUE > 1, "OBS_VALUE"] = data[
             data.OBS_VALUE > 1
         ].OBS_VALUE.round()
+
+    if indicators[0] in ['CR_SG_STT_NSDSFND', 'CR_SG_STT_NSDSIMPL', 'CR_SG_STT_NSDSFDGVT', 'CR_SG_STT_NSDSFDDNR', 'CR_SG_STT_NSDSFDOTHR', 'CR_SG_STT_FPOS', 'CR_SG_REG_CENSUSN', 'PP_SG_REG_BRTH90N', 'PP_SG_REG_DETH75N']:
+            data['UNIT_MEASURE'] = 'YES_NO'
 
     if "YES_NO" in data.UNIT_MEASURE.values:
         data["Status"] = data["OBS_VALUE"].map({1: "Yes", 0: "No"})
@@ -3081,7 +3086,7 @@ graphs_dict = {
             locations="REF_AREA",
             featureidkey="id",
             color="OBS_VALUE",
-            mapbox_style="carto-positron",
+            mapbox_style="open-street-map",
             geojson=geo_json_countries,
             zoom=2.2,
             center={"lat": 51.5194, "lon": 35.0},
@@ -4042,12 +4047,6 @@ def aio_area_figure(
                                 className= "indicator-link")
     if indicator == 'DM_AGE_GROUPS':
         graph_info = "Tip: click the 'Download data' button below to download the data shown in the graph as a CSV file."
-        
-    if base_indicator == 'ECD_CHLD_LMPSL' and 'UZB' in data['REF_AREA'].values:
-        graph_info = "The graph shows data for 36-59 months, with the exception of Uzbekistan which uses 24-59 months (the new method for calculating ECDI).  "
-    
-    if ecacid_code == 'CID_ECD_CHLD_LMPSL':
-        graph_info = "The graph shows data for children aged 24-59 months. "
     
     if base_indicator in ['HVA_EPI_LHIV', 'HVA_EPI_DTH_ANN']:
         graph_info = "Many countries only report data for this indicator for the 15-19 years age group; this data can be viewed in the age-disaggregated bar chart. "
