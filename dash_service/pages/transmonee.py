@@ -4264,9 +4264,11 @@ def aio_area_figure(
                     tickangle= 0,
                     dtick= 'auto',
                     ), 
-            yaxis=dict(range=[0, data['OBS_VALUE'].max() * 1.1], showgrid=False)
+            yaxis=dict(range=[0, data['OBS_VALUE'].max() * 1.1], showgrid=False),
+            title=None,
+            xaxis_title=x_axis_short_name,
+            yaxis_title=y_axis_short_name
             )
-        fig.update_layout(xaxis_title=x_axis_short_name)
 
         hovertext = (
         "Country: %{customdata[0]}  </br><br>"
