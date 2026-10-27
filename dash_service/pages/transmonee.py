@@ -553,6 +553,15 @@ mena_countries = [
 
 all_programme_countries = unicef_country_prog + mena_countries
 
+gcc_countries = [
+    "Bahrain",
+    "Kuwait",
+    "Oman",
+    "Qatar",
+    "Saudi Arabia",
+    "United Arab Emirates"
+]
+
 eu_enlargement_countries = [
     "Albania",
     "Bosnia and Herzegovina",
@@ -831,9 +840,10 @@ def update_country_dropdown(country_group):
         options = [{"label": country, "value": country} for country in mena_countries]
     elif country_group == "all_cpd":
         options = [{"label": country, "value": country} for country in all_programme_countries]
+    elif country_group == "gcc":
+        options = [{"label": country, "value": country} for country in gcc_countries]
     else:
         options = [{"label": country, "value": country} for country in all_countries]
-
     options_with_all = [
         {
             "label": "Select all",
@@ -1948,7 +1958,8 @@ def get_base_layout(**kwargs):
                                                             {"label": "Eastern European countries", "value": "eastern_europe"},
                                                             {"label": "Western European countries", "value": "western_europe"},
                                                             {"label": "MENA countries", "value": "mena"},
-                                                            {"label": "UNICEF ECAMENA programme countries", "value": "all_cpd"}
+                                                            {"label": "UNICEF ECAMENA programme countries", "value": "all_cpd"},
+                                                            {"label": "Gulf Cooperation Council countries", "value": "gcc"}
                                                         ],
                                                         value="all",
                                                         placeholder="Select country group",
@@ -3183,6 +3194,8 @@ def get_filters(years_slider, countries, country_group):
             countries = mena_countries
         elif country_group == "all_cpd":
             countries = all_programme_countries
+        elif country_group == "gcc":
+            countries = gcc_countries
         else:
             countries = all_countries
 
