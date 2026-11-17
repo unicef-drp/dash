@@ -688,8 +688,8 @@ domain_classes = {
 crc_file_path = f"{pathlib.Path(__file__).parent.parent.absolute()}/static/Full CRC database.xlsx"
 CRC_df = pd.read_excel(
     crc_file_path,
-    sheet_name="Full CRC database ECA",
-    header=1,  # Use the second row as column headers
+    sheet_name="Revised domains - update",
+    header=0,  # Use the second row as column headers
 )
 
 # Renaming columns for easier access
